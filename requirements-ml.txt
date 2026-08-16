@@ -1,0 +1,8 @@
+# Optional machine-learning extras for the debris stack.
+#   pip install -r requirements.txt -r requirements-ml.txt
+#
+# Enables the learned detector (debris.detection.CenterNetDetector) and the three
+# torch-dependent contributions (debris.apsgtt, debris.continual, debris.federated).
+# Everything in the physics core, and the whole dashboard, works without these.
+-r requirements.txt
+torch>=2.0

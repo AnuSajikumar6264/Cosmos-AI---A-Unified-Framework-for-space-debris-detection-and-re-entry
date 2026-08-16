@@ -1,6 +1,21 @@
-streamlit>=1.28.0
-numpy
-pandas
+# ---- dashboard + debris physics core (all that is needed to run the app) -------------
+streamlit>=1.49   # width= replaces the removed use_container_width
+numpy>=1.24
+pandas>=1.5
 matplotlib
-plotly
+plotly>=5.15
 graphviz
+
+# ---- optional: the machine-learning contributions -----------------------------------
+# The debris physics core is numpy-only and the dashboard runs without torch. Installing it
+# additionally enables:
+#   * debris.detection.CenterNetDetector - the learned detector (F1 0.70 vs the classical
+#     detector's 0.32 on synthetic frame pairs)
+#   * debris.apsgtt   - Adaptive Prognostic State-space Graph Trajectory Transformer + LoRA
+#   * debris.continual - continual learning without catastrophic forgetting
+#   * debris.federated - federated training across operators
+# Deliberately left commented out: torch is ~800 MB and Streamlit Community Cloud's free tier
+# is slow to build and may exceed its resource limits with it. Every torch-dependent module
+# has a working numpy fallback, so the deployed dashboard degrades rather than breaking.
+# Uncomment for a local install, or use: pip install -r requirements-ml.txt
+# torch>=2.0

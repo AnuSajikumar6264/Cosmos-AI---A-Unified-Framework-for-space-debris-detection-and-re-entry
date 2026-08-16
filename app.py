@@ -101,10 +101,43 @@ def draw_satellite_health(subsystem_health):
         ax.annotate("", xy=(x, y), xytext=(x+dx*2.2, y+dy*2.2), arrowprops=dict(arrowstyle="-", color=col, lw=1.0, alpha=0.6))
     return fig
 
+# ---------------------------------------------------------------- debris subsystem
+# The debris stack lives in its own package; the dashboard pages are in debris_ui.py so this
+# file stays readable. Imported defensively: a missing optional dependency should disable the
+# debris pages with a clear message rather than take the whole dashboard down.
+DEBRIS_PAGES = [
+    "☄️ Debris Detection",
+    "🌍 Debris Fall Prediction",
+    "🚀 Launch Drop Zones",
+    "🔗 Anomaly → Debris Fusion",
+    "📐 Conformal Zones",
+    "🛸 Kessler Cascade Risk",
+    "♻️ Circular Economy",
+    "🧠 APSGTT-LoRA & Learning",
+]
+try:
+    import debris_ui
+    DEBRIS_ERROR = None
+except Exception as exc:  # pragma: no cover - depends on the deployment environment
+    debris_ui = None
+    DEBRIS_ERROR = f"{type(exc).__name__}: {exc}"
+
+ANALYTICS_PAGES = ["🏗️ Model Architecture", "📉 Loss Functions", "⚖️ Training Stability",
+                   "🌌 Latent Space", "✨ Output Quality", "📈 Training Dynamics",
+                   "💻 Code Clarity", "🛰️ Live Anomaly Viz", "🎛️ Interactive Ops"]
+
 with st.sidebar:
     st.markdown("### 🛰️ Digital Satellite Twin")
     selected_model = st.selectbox("🧠 Active Architecture", ["Autoencoder & GAN", "CNN", "RNN", "LSTM", "GRU"])
-    page = st.radio("Navigate Analytics View", ["🏗️ Model Architecture", "📉 Loss Functions", "⚖️ Training Stability", "🌌 Latent Space", "✨ Output Quality", "📈 Training Dynamics", "💻 Code Clarity", "🛰️ Live Anomaly Viz", "🎛️ Interactive Ops"], label_visibility="collapsed")
+    st.caption("MODEL ANALYTICS")
+    page = st.radio("Navigate Analytics View", ANALYTICS_PAGES, label_visibility="collapsed")
+    st.caption("DEBRIS & GROUND RISK")
+    debris_page = st.radio("Navigate Debris View", ["— none —"] + DEBRIS_PAGES,
+                           label_visibility="collapsed", key="debris_nav")
+    if debris_page != "— none —":
+        page = debris_page
+    if DEBRIS_ERROR:
+        st.error(f"Debris pages unavailable — {DEBRIS_ERROR}")
 
 if page == "🏗️ Model Architecture":
     st.markdown(f'<div class="section-header">🏗️ {selected_model} Architecture</div>', unsafe_allow_html=True)
@@ -180,7 +213,7 @@ elif page == "🌌 Latent Space":
         n_samples = st.slider("Samples", 100, 1000, 800)
         np.random.seed(n_samples); norm = np.random.randn(n_samples, 2) * [1.2, 0.8]; anom = np.random.randn(max(1, n_samples//4), 2) * [0.6, 0.6] + [3, 2]
         st.markdown("**Live Capture Array**")
-        st.image(np.random.rand(100, 100, 3) * 0.5 + 0.1, caption="Simulated Feature Vector Source", use_container_width=True)
+        st.image(np.random.rand(100, 100, 3) * 0.5 + 0.1, caption="Simulated Feature Vector Source", width="stretch")
     with c_viz:
         fig, axes = plt.subplots(1, 2, figsize=(12, 5), facecolor="#0a0e1a")
         for ax, title in zip(axes, ["PCA", "t-SNE"]):
@@ -290,6 +323,9 @@ elif page == "🛰️ Live Anomaly Viz":
         show_anomaly = st.checkbox("Inject anomaly", value=False)
         time_step = st.slider("Time Step (Trajectory)", 0, 100, 50)
     subsystem_health = get_subsystem_health(seed_val + (100 if show_anomaly else 0), force_anomaly=show_anomaly)
+    # Publish the live health state so the debris fusion page can drive breakup physics from
+    # the same numbers this page displays, rather than from a second, independent guess.
+    st.session_state["subsystem_health"] = subsystem_health
 
     with col_main:
         overall = np.mean([1 - v for v, _, _ in subsystem_health.values()])
@@ -301,7 +337,7 @@ elif page == "🛰️ Live Anomaly Viz":
         st.markdown(f'''<div style="background:rgba(17, 24, 39, 0.85); border:1px solid #1e3050; border-radius:10px; padding:1rem; text-align:center; margin-bottom:1rem; backdrop-filter: blur(10px);"><span style="font-size:3rem; font-weight:900; color:{gcol}">{overall*100:.0f}%</span><span style="font-size:1.5rem; color:{gcol}; margin-left:1rem">● {glbl}</span><br><span style="color:#2ECC71; margin:0.5rem">{n_nom} Nominal</span> | <span style="color:#F39C12; margin:0.5rem">{n_warn} Warning</span> | <span style="color:#E74C3C; margin:0.5rem">{n_crit} Critical</span></div>''', unsafe_allow_html=True)
 
     col1, col2 = st.columns([1.5, 1])
-    with col1: st.pyplot(draw_satellite_health(subsystem_health), use_container_width=True, transparent=True)
+    with col1: st.pyplot(draw_satellite_health(subsystem_health), width="stretch", transparent=True)
     with col2:
         u, v = np.linspace(0, 2*np.pi, 50), np.linspace(0, np.pi, 50)
         x, y, z = 10*np.outer(np.cos(u), np.sin(v)), 10*np.outer(np.sin(u), np.sin(v)), 10*np.outer(np.ones(np.size(u)), np.cos(v))
@@ -317,7 +353,7 @@ elif page == "🛰️ Live Anomaly Viz":
         fig_3d.add_scatter3d(x=[(orb_r*np.cos(t_o))[idx]], y=[(orb_r*np.sin(t_o))[idx]], z=[orb_z[idx]], mode='markers', marker=dict(size=14, color='#E74C3C' if show_anomaly else '#2ECC71', symbol='x' if show_anomaly else 'diamond'))
         fig_3d.add_scatter3d(x=[-25, 25], y=[-25, 25], z=[-25, 25], mode='markers', marker=dict(size=0.1, color='rgba(0,0,0,0)'), showlegend=False, hoverinfo='skip')
         fig_3d.update_layout(scene=dict(xaxis=dict(visible=False, range=[-25,25]), yaxis=dict(visible=False, range=[-25,25]), zaxis=dict(visible=False, range=[-25,25]), bgcolor='rgba(0,0,0,0)', camera=dict(eye=dict(x=1.5 if is_imaging else 1.0, y=1.5 if is_imaging else 1.0, z=0.5))), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', margin=dict(l=0, r=0, b=0, t=0), height=400)
-        st.plotly_chart(fig_3d, use_container_width=True)
+        st.plotly_chart(fig_3d, width="stretch")
 
     st.divider(); np.random.seed(seed_val); t = np.linspace(0, 2*np.pi, 100)
     fig2, axes = plt.subplots(1, 3, figsize=(15, 3), facecolor="none")
@@ -326,7 +362,7 @@ elif page == "🛰️ Live Anomaly Viz":
         sig = np.sin(t + np.random.rand()) * 0.3 + 0.5 + np.random.randn(100)*noise_level*0.05
         if show_anomaly: sig[60:80] += np.random.randn(20)*0.4
         ax.plot(t, sig, color=col); ax.set_ylabel(ch, fontsize=9, color='#607090')
-    st.pyplot(fig2, use_container_width=True, transparent=True)
+    st.pyplot(fig2, width="stretch", transparent=True)
 
 elif page == "🎛️ Interactive Ops":
     st.markdown('<div class="section-header">🎛️ Interactive Detection</div>', unsafe_allow_html=True)
@@ -339,7 +375,7 @@ elif page == "🎛️ Interactive Ops":
     with col2:
         if upload_choice == "Upload Custom" and uploaded_file is not None:
             if uploaded_file.name.endswith(('png', 'jpg', 'jpeg')):
-                st.image(uploaded_file, caption="Analyzed Satellite View", use_container_width=True)
+                st.image(uploaded_file, caption="Analyzed Satellite View", width="stretch")
             else: st.success("Log Archive loaded internally.")
         elif upload_choice == "SPEED+ Dataset":
             np.random.seed(sum(ord(c) for c in str(uploaded_file)))
@@ -353,7 +389,7 @@ elif page == "🎛️ Interactive Ops":
                 sp_img[85:115, 30:50] += [0.5, 0.0, 0.0]
                 sp_img = np.clip(sp_img, 0, 1)
                 
-            st.image(sp_img, caption=f"SPEED+ Dataset Feed: {str(uploaded_file)}", use_container_width=True, clamp=True)
+            st.image(sp_img, caption=f"SPEED+ Dataset Feed: {str(uploaded_file)}", width="stretch", clamp=True)
             
         if analysis_btn:
             with st.spinner(f"Running `{selected_model}`..."):
@@ -363,3 +399,29 @@ elif page == "🎛️ Interactive Ops":
                 if score > 0.45:
                     st.error(f"⚠️ **CRITICAL ANOMALY** (Score: {score:.3f})\n\n**Action Plan:** Switch to Battery B2.\nRealign Attitude yaw.\nLog through `{selected_model}` pipeline.")
                 else: st.success(f"✅ **NOMINAL** (Score: {score:.3f})")
+                st.session_state["anomaly_score"] = float(score)
+                st.caption("Open **🔗 Anomaly → Debris Fusion** to propagate this score into a "
+                           "breakup prediction, impact footprint and ground-risk estimate.")
+
+# ===================================================================== debris pages
+elif page in DEBRIS_PAGES:
+    if debris_ui is None:
+        st.error(f"The debris pages could not be loaded: {DEBRIS_ERROR}")
+        st.info("The debris stack needs `numpy`, `pandas` and `plotly`. "
+                "Install them with `pip install -r requirements.txt`.")
+    elif page == "☄️ Debris Detection":
+        debris_ui.page_detection()
+    elif page == "🌍 Debris Fall Prediction":
+        debris_ui.page_fall_prediction()
+    elif page == "🚀 Launch Drop Zones":
+        debris_ui.page_launch()
+    elif page == "🔗 Anomaly → Debris Fusion":
+        debris_ui.page_fusion(st.session_state.get("subsystem_health"))
+    elif page == "📐 Conformal Zones":
+        debris_ui.page_conformal()
+    elif page == "🛸 Kessler Cascade Risk":
+        debris_ui.page_kessler()
+    elif page == "♻️ Circular Economy":
+        debris_ui.page_circular_economy()
+    elif page == "🧠 APSGTT-LoRA & Learning":
+        debris_ui.page_learning()
