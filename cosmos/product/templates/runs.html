@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ runs | length }} run(s){% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  Each run is a self-contained, versioned directory. Artifacts from different runs or
+  different snapshots are <strong>never combined</strong>, and a historical run is never
+  recomputed or modified.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Pipeline runs</h2>
+  {% if runs %}
+  <table class="data">
+    <thead><tr>
+      <th>Run</th><th>Started (UTC)</th><th>As of</th><th>Result</th>
+      <th>Modules</th><th>Tables</th><th>Commit</th>
+    </tr></thead>
+    <tbody>
+    {% for run in runs %}
+      <tr>
+        <td><a href="/runs/{{ run.run_id }}">{{ run.run_id }}</a></td>
+        <td class="mono">{{ (run.started_at or '—')[:19] }}</td>
+        <td>{{ run.as_of or '—' }}</td>
+        <td>
+          {% if not run.complete %}<span class="status status-partial">INCOMPLETE</span>
+          {% elif run.successful %}<span class="status status-pass">PASS</span>
+          {% else %}<span class="status status-fail">FAIL</span>{% endif %}
+          {% if run.complete and not run.snapshot_consistent %}
+            <span class="status status-fail">MIXED SNAPSHOTS</span>{% endif %}
+        </td>
+        <td class="chip-row">
+          {% for status, count in run.module_counts.items() %}
+            <span class="chip">{{ count }} {{ status }}</span>
+          {% endfor %}
+        </td>
+        <td class="num">{{ run.tables | length }}</td>
+        <td class="mono">{{ (run.git_commit or '—')[:10] }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">
+    No pipeline run exists yet. <a href="/scenario">Run a scenario</a> to create one.
+  </div>
+  {% endif %}
+</div>
+
+{% if runs | length >= 2 %}
+<div class="panel">
+  <h2>Compare two runs</h2>
+  <form class="controls" method="get" action="/compare">
+    <select name="a">
+      {% for run in runs %}<option value="{{ run.run_id }}">{{ run.run_id }}</option>{% endfor %}
+    </select>
+    <select name="b">
+      {% for run in runs %}
+        <option value="{{ run.run_id }}" {{ 'selected' if loop.index == 2 }}>{{ run.run_id }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn" type="submit">Compare</button>
+  </form>
+  <p class="panel-note">Comparison reports provenance, configuration differences, module status and a table-by-table
+    value comparison joined on the key column (byte-identical tables are reported without parsing). Runs with different
+    snapshot dates are flagged as not directly comparable and their values are not compared.</p>
+</div>
+{% endif %}
+
+<div class="panel">
+  <h2>Operating modes</h2>
+  <table class="data">
+    <thead><tr><th>Mode</th><th>State</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Historical Run</td>
+        <td><span class="status status-pass">AVAILABLE</span></td>
+        <td>{{ MODES['historical'] }}</td>
+      </tr>
+      <tr>
+        <td><a href="/scenario">Scenario Analysis</a></td>
+        <td><span class="status status-pass">AVAILABLE</span></td>
+        <td>{{ MODES['scenario'] }}</td>
+      </tr>
+      <tr>
+        <td><a href="/prospective">Prospective Evaluation</a></td>
+        <td><span class="status status-blocked">{{ prospective.overall_status }}</span></td>
+        <td>{{ MODES['prospective'] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{
+  "experiment": "G5d",
+  "origin": "2006",
+  "origin_split": [
+    "1999-01-01",
+    "2001-01-01",
+    "2006-01-01",
+    "2011-01-01"
+  ],
+  "population": "uncontrolled",
+  "confirmatory": true,
+  "confirmatory_basis": "the test fold t0 in [2006-01-01, 2011-01-01) had never been constructed or scored in this repository before this run",
+  "preregistration": "research_design/G5D_PREREGISTRATION.md",
+  "preregistration_sha256": "9ea4bf4171cad1b8a07522c28ccc68185644e990763ee7442fa455556e8cc43a",
+  "split_sizes_expected": {
+    "train": 18960,
+    "tuneA": 211,
+    "tuneB": 544,
+    "test": 7281
+  },
+  "split_sizes_realised": {
+    "train": 18960,
+    "tuneA": 211,
+    "tuneB": 544,
+    "test": 7281
+  },
+  "deviations": {},
+  "n_samples": 32,
+  "learners_requested": [
+    "xgboost",
+    "mlp"
+  ],
+  "learners_available": [
+    "xgboost",
+    "mlp"
+  ],
+  "learners_missing_backends": [
+    "lightgbm",
+    "catboost",
+    "tabm",
+    "tabicl",
+    "kumo"
+  ],
+  "preregistered_learner_set": [
+    "xgboost",
+    "lightgbm",
+    "catboost",
+    "mlp",
+    "tabm",
+    "tabicl",
+    "kumo"
+  ],
+  "deviation_logged": "research_design/G5D_DEVIATIONS.md",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "elapsed_seconds": 1236.4,
+  "finished_at": "2026-11-04T10:48:49.700229+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "output_dir": "outputs/g5d_origin2006/lifetime",
+  "run_py_edited": false,
+  "note": "origin injected into LR.ORIGINS at runtime; cosmos/ai/lifetime/run.py is unmodified"
+}

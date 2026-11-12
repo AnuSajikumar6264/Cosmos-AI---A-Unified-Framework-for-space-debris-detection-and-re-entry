@@ -1,0 +1,47 @@
+/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pytest_asyncio/plugin.py:300: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+...............sss...................................................... [ 15%]
+........................................................................ [ 30%]
+.....................F.................................................. [ 45%]
+........................................................................ [ 60%]
+........................................................................ [ 75%]
+........................................................................ [ 90%]
+................................................                         [100%]
+=================================== FAILURES ===================================
+________________ test_manifest_git_state_is_consistent_with_git ________________
+
+    def test_manifest_git_state_is_consistent_with_git():
+        """The manifest's git snapshot must still describe the tree in the ways that matter for the
+        figure release: the files it recorded as modified are still modified (none reverted or
+        committed behind its back), nothing is staged, and no commit was added. Exact equality of the
+        modified-file count was the wrong invariant — it failed on 2026-11-06 the moment unrelated,
+        legitimate edits (.gitignore, opssat.py) landed, which says nothing about the figures. Figure,
+        source-data and upstream-artifact drift are caught by their hashes in the test above."""
+        import subprocess
+        man = json.loads((FIG / "RELEASE_MANIFEST.json").read_text())
+        out = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
+                             capture_output=True, text=True, timeout=60).stdout
+        lines = [l for l in out.split("\n") if l]
+        modified_now = {l[3:] for l in lines if l.startswith(" M")}
+        recorded = set(man["git"]["tracked_files_modified_list"])
+>       assert recorded <= modified_now, (
+            f"files the manifest recorded as modified are no longer modified: {sorted(recorded - modified_now)}")
+E       AssertionError: files the manifest recorded as modified are no longer modified: ['.gitignore', 'cosmos/ai/data/download.py', 'cosmos/ai/data/validate.py', 'cosmos/ai/telemetry/opssat.py', 'cosmos/ai/twin/engine.py', 'cosmos/ai/twin/state.py', 'data/DATASET_REPORT.json', 'data/DATASET_REPORT.md', 'data/feature1_health/esa_adb/MANIFEST.json', 'data/feature2_debris/spotgeo/MANIFEST.json', 'outputs/experiments/index.jsonl', 'requirements-ai.txt', 'scripts/extract_lfs_archives.py', 'scripts/run_test_datasets_per_test.py', 'tests/test_ai.py', 'tests/test_datasets.py']
+E       assert {'.gitignore'...gine.py', ...} <= {'README.md',...re.html', ...}
+E         
+E         Extra items in the left set:
+E         'requirements-ai.txt'
+E         'tests/test_datasets.py'
+E         'cosmos/ai/twin/state.py'
+E         'data/DATASET_REPORT.md'
+E         '.gitignore'...
+E         
+E         ...Full output truncated, use '-vv' to show
+
+tests/test_figures.py:438: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_figures.py::test_manifest_git_state_is_consistent_with_git
+1 failed, 476 passed, 3 skipped in 116.17s (0:01:56)
+exit 1

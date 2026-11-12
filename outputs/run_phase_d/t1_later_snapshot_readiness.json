@@ -1,0 +1,118 @@
+{
+  "checked_at": "2026-11-04T05:37:11.599479+00:00",
+  "forecast_as_of": "2026-10-27",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "digest_verification": {
+    "state": "verified",
+    "files": {
+      "twins.jsonl": {
+        "state": "verified",
+        "recorded_sha256": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+        "actual_sha256": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5"
+      }
+    }
+  },
+  "forecast_population": {
+    "objects": 31396,
+    "unique_norad": 31396,
+    "norad_is_unique": true,
+    "by_regime": {
+      "operator_controlled": 16386,
+      "natural_decay": 13787,
+      "unknown": 1223
+    },
+    "by_class": {
+      "P": 18158,
+      "D": 10654,
+      "R": 1470,
+      "C": 1114
+    },
+    "objects_with_p30d": 31396
+  },
+  "available_snapshots": [
+    {
+      "label": "catalogue root",
+      "path": "data/feature2_debris/celestrak/satcat.csv",
+      "rows": 70288,
+      "decayed_rows": 35470,
+      "max_decay_date": "2026-08-16"
+    },
+    {
+      "label": "2026-10-24",
+      "path": "data/feature2_debris/celestrak/snapshots/2026-10-24/satcat.csv",
+      "rows": 71132,
+      "decayed_rows": 35738,
+      "max_decay_date": "2026-10-23"
+    },
+    {
+      "label": "2026-10-27",
+      "path": "data/feature2_debris/celestrak/snapshots/2026-10-27/satcat.csv",
+      "rows": 71149,
+      "decayed_rows": 35749,
+      "max_decay_date": "2026-10-26"
+    }
+  ],
+  "latest_outcome_coverage": "2026-10-26",
+  "outcome_days_available_after_forecast": -1,
+  "horizons": {
+    "30d": {
+      "horizon_days": 30.0,
+      "outcome_window": [
+        "2026-10-27",
+        "2026-11-26"
+      ],
+      "required_snapshot_data_date_at_or_after": "2026-11-26",
+      "qualifying_snapshots": [],
+      "ready": false,
+      "status": "BLOCKED"
+    },
+    "90d": {
+      "horizon_days": 90.0,
+      "outcome_window": [
+        "2026-10-27",
+        "2027-01-25"
+      ],
+      "required_snapshot_data_date_at_or_after": "2027-01-25",
+      "qualifying_snapshots": [],
+      "ready": false,
+      "status": "BLOCKED"
+    },
+    "1yr": {
+      "horizon_days": 365.25,
+      "outcome_window": [
+        "2026-10-27",
+        "2027-10-27"
+      ],
+      "required_snapshot_data_date_at_or_after": "2027-10-27",
+      "qualifying_snapshots": [],
+      "ready": false,
+      "status": "BLOCKED"
+    }
+  },
+  "overall_status": "BLOCKED",
+  "required_to_unblock": {
+    "artifact": "CelesTrak SATCAT snapshot (satcat.csv) placed in data/feature2_debris/celestrak/snapshots/<YYYY-MM-DD>/",
+    "earliest_useful_data_date": "2026-11-26",
+    "fields": [
+      "NORAD_CAT_ID",
+      "DECAY_DATE"
+    ],
+    "note": "acquisition is a network action and requires explicit authorisation; this script does not download anything"
+  },
+  "protocol_requirements": [
+    "score the hashed forecast exactly as written; re-verify the digest before scoring",
+    "censor objects with no decay by the snapshot data date at that date, not at the horizon, when the snapshot is younger than the horizon",
+    "match objects by NORAD_CAT_ID only; do not re-derive the population from the later snapshot, which would admit objects launched after the forecast",
+    "treat a decay date at or before the forecast as-of date as a late report and exclude it, as T1 and C3 already do",
+    "fix the metric set and the censoring rule before inspecting any outcome",
+    "operator-controlled payloads carry a base-rate forecast, not a drag forecast; report them separately from uncontrolled objects"
+  ],
+  "not_established": [
+    "this check does not score anything and is not evidence of forecast accuracy",
+    "the existing T1 study (as-of 2026-08-16) is not blind and is a separate study"
+  ]
+}

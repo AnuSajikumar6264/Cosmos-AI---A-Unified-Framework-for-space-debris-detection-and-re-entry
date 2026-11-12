@@ -1,0 +1,54 @@
+{
+ "evaluated_at": "2026-11-08T12:00:18+00:00",
+ "label": "p3b_after",
+ "checks": {
+  "esa_adb_freeze_681cc7ddec86": {
+   "n": 28,
+   "bad": []
+  },
+  "esa_adb_freeze_original": {
+   "freeze_id": "09a98f5e160e",
+   "n": 28,
+   "bad": [
+    "research_design/preregistration/PREREG_TELEMETRY_V1.md"
+   ],
+   "expected_bad": [
+    "research_design/preregistration/PREREG_TELEMETRY_V1.md"
+   ]
+  },
+  "confirmatory_sha256": "fc2223d6ffe238819ce76dc46875708ac9703308422c11a94ffead2492280bda",
+  "g5d_prereg": {
+   "ok": true
+  },
+  "figure_release_manifest": {
+   "n": 107,
+   "bad": []
+  },
+  "opssat_archive": {
+   "n": 10,
+   "bad": []
+  },
+  "twin": {
+   "twins_ok": true,
+   "forecast_table_ok": true
+  },
+  "accepted_gate_record": {
+   "outputs/audit/phase8_acceptance_gate.json": "83b1150215020e0e189f6bcc7537cdcbc9dc679334739bd786de0a6c40e86473",
+   "docs/research/PHASE8_TECHNICAL_ACCEPTANCE_GATE.md": "86ae2e8c828e3e183cca447805dc0af92285d89d7b26c57881d21bc305defaf9"
+  },
+  "posthoc_p1_records": {
+   "m1_lightweight_conformal_bh.json": "794a6050919ac0032301ed324594718f60661ee42246ea0e57c804be470c66b6",
+   "m1_target_conformal_bh.json": "1f7adfcaf8bc8faf3bed6332c0d72541da6ef697f8cf5b6bdfef525d457a684d",
+   "m1_target_threshold.json": "1fd03082a919f3fc27502b1a32306a4ccc90681e812291f8d27405589123445f",
+   "m2_lightweight_conformal_bh.json": "c321cde2ac340daa0ea3af48b7e8039ecd42bac0a0bdaca98d9e4a7b862d25e5",
+   "m2_target_conformal_bh.json": "96a7c4f956247dd7de5c0c08f47b6ff1bfa6b8d227d9fa428a6416fcfa8f1179",
+   "m2_target_threshold.json": "35f7a781fad6452d8c23ee2347949533884fcfbb43a738da5105e54e41476f13"
+  }
+ },
+ "git": {
+  "head": "78ee33962007203bcfc829fc743a663b350373e1",
+  "head_ok": true,
+  "staged": []
+ },
+ "all_protected_ok": true
+}

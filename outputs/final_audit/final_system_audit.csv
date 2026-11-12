@@ -1,0 +1,29 @@
+check,severity,status,detail,measured,expected
+pre-registration freeze,critical,PASS,frozen telemetry-analysis files unchanged,0,0
+G5d pre-registration,critical,PASS,protocol unchanged since it was hashed before fitting,9ea4bf4171cad1b8,9ea4bf4171cad1b8
+dated forecast digest,critical,PASS,hashed 2026-10-27 forecast matches its recorded digest,,
+"temporal ordering, origin 2006",critical,PASS,train < tune_end <= tune < origin <= test < test_end,,
+"tune-A/tune-B family disjointness, origin 2006",critical,PASS,launch families do not straddle the calibration split,0,0
+"temporal ordering, origin 2011",critical,PASS,train < tune_end <= tune < origin <= test < test_end,,
+"tune-A/tune-B family disjointness, origin 2011",critical,PASS,launch families do not straddle the calibration split,0,0
+"temporal ordering, origin 2016",critical,PASS,train < tune_end <= tune < origin <= test < test_end,,
+"tune-A/tune-B family disjointness, origin 2016",critical,PASS,launch families do not straddle the calibration split,0,0
+test folds disjoint: 2006 vs 2011,critical,PASS,no object appears in two test folds,0,0
+test folds disjoint: 2006 vs 2016,critical,PASS,no object appears in two test folds,0,0
+test folds disjoint: 2011 vs 2016,critical,PASS,no object appears in two test folds,0,0
+published pinball recomputable,critical,PASS,every published pinball value recomputed from archived predictions,0.000e+00,0.000e+00
+physics_only rank at origin 2011,major,PASS,rank among all published arms on the forward test fold,1/19,first
+physics_only rank at origin 2016,major,PASS,rank among all published arms on the forward test fold,19/19,not first
+"Spearman(tune-A, test) origin 2011",major,PASS,selection ranking carries no information about test ranking,0.0,0.0
+"Spearman(tune-A, test) origin 2016",major,PASS,selection ranking carries no information about test ranking,0.0,0.0
+inverted slice-pair fraction,major,PASS,fraction of evaluation-slice pairs with negative rank correlation,0.2364,0.2364
+below-cap loss concentration,major,PASS,per-object loss ratio below-cap vs at-cap,"{'2011': 4.13, '2016': 6.6}",4.1-6.6x
+G5d outcome,critical,PASS,pre-registered classification,INCONCLUSIVE,INCONCLUSIVE
+G5d H2,major,PASS,ranking instability on a never-scored fold,SUPPORTED,SUPPORTED
+G5d H3 not upgraded,critical,PASS,mechanism must not be promoted to a confirmation,UNDERPOWERED,not CONFIRMED
+physics_only 1st/4th/1st across origins,major,PASS,rank pattern across the three origins,"{'2011': 1, '2016': 4, '2006': 1}","{'2011': 1, '2016': 4, '2006': 1}"
+learner training-reproducibility,major,FAIL,learners refittable in this environment,"2/7 (mlp, xgboost)",7/7
+prediction-level reproducibility,critical,PASS,archived per-object predictions present for every published origin,2/2,2/2
+tracker test count current,minor,PASS,the living tracker should state the current suite size,341,341
+mean-elicited endpoint excluded,major,PASS,rmse is not locally elicitable under fixed-horizon right-censoring,none,none
+historical artifacts unmodified,critical,PASS,"published columns retained; exclusion is by non-use, not by editing",,

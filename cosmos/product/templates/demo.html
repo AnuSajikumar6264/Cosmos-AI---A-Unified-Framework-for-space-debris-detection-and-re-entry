@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block topmeta %}13 stages · real stored outputs · nothing live{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  <strong>What COSMOS-AI is.</strong> An <em>evidence-aware, read-only satellite digital twin</em>: it reads a dated
+  catalogue snapshot and archived evaluations of orbital lifetime, re-entry, telemetry anomaly detection, conjunction risk
+  and debris imagery, keeps every value tied to its artifact digest and run, states uncertainty and abstention explicitly,
+  and ranks objects for attention with a rule it can explain. <strong>What it addresses:</strong> turning heterogeneous
+  space-situational evidence into traceable mission-level assessments without pretending that unlinked evidence is linked.
+  <strong>What it is not:</strong> no live telemetry, no on-demand model inference, no operational control, no spacecraft
+  health verdict. Each stage below links to the real screen and states what you will see, what it means and its limits.
+</div>
+{% endblock %}
+
+{% block content %}
+{% macro badge(status) %}{% set cls = {'implemented':'pass','archived_only':'info','benchmark_only':'partial','blocked':'blocked','unavailable':'unavailable'} %}<span class="status status-{{ cls.get(status, 'unavailable') }}">{{ (status or 'unavailable') | replace('_', ' ') | upper }}</span>{% endmacro %}
+
+<div class="panel" data-test="demo-capabilities">
+  <h2>Capability map <span class="count">— how the evidence flows and what the evaluator can demonstrate</span></h2>
+  <table class="data">
+    <thead><tr><th>Capability</th><th>Status</th><th>Evidence root</th><th>Stage</th></tr></thead>
+    <tbody>
+      <tr><td>Catalogue identity and mean elements</td><td>{{ badge('implemented') }}</td><td>dated CelesTrak / GCAT snapshot (NORAD-keyed)</td><td>3–4</td></tr>
+      <tr><td>Orbital lifetime with intervals and horizon cues</td><td>{{ badge('implemented') }}</td><td>archived lifetime expert outputs in the forecast table</td><td>4</td></tr>
+      <tr><td>Re-entry probabilities and quantiles, abstention</td><td>{{ badge('implemented') }}</td><td>archived dated forecast (physics prior, history posterior, fusion)</td><td>5</td></tr>
+      <tr><td>Decision priority with a recorded rule</td><td>{{ badge('implemented') }}</td><td>computed at run time from p₃₀ and GCAT mass; rule in the run manifest</td><td>9</td></tr>
+      <tr><td>Versioned twin state with provenance and equivalence</td><td>{{ badge('implemented') }}</td><td>re-emitted archive (`twin_state/1.1`) read as an additional root</td><td>10</td></tr>
+      <tr><td>Telemetry anomaly detection</td><td>{{ badge('benchmark_only') }}</td><td>ESA-ADB anonymised missions — no NORAD link</td><td>6</td></tr>
+      <tr><td>Conjunction / collision probability</td><td>{{ badge('benchmark_only') }}</td><td>Kelvins CAC anonymised events — no NORAD link</td><td>7</td></tr>
+      <tr><td>Debris detection in optical frames</td><td>{{ badge('benchmark_only') }}</td><td>SpotGEO frames — no identity, no time</td><td>8</td></tr>
+      <tr><td>Spacecraft subsystem health, impact footprint, live feeds</td><td>{{ badge('unavailable') }}</td><td>no linkable evidence; nothing is synthesised</td><td>6, 13</td></tr>
+      <tr><td>Prospective (outcome) validation of the forecast</td><td>{{ badge('blocked') }}</td><td>needs a catalogue snapshot dated ≥ 2026-11-26</td><td>13</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel" id="stage-1" data-test="demo-stage">
+  <h2>Stage 1 — Launch</h2>
+  <p><strong>Do:</strong> <code>python scripts/check_console_prerequisites.py &amp;&amp; python scripts/serve_console.py</code>, then open <code>http://127.0.0.1:8070/</code>.
+    <strong>You see:</strong> this page is served, readiness is {% if readiness.ready %}<span class="status status-pass">READY</span>{% else %}<span class="status status-fail">NOT READY</span>{% endif %} (<a href="/api/ready">/api/ready</a>).
+    <strong>Means:</strong> the artifacts the console needs are present and their digests verify. <strong>Limit:</strong> readiness concerns files, not any spacecraft.</p>
+</div>
+
+<div class="panel" id="stage-2" data-test="demo-stage">
+  <h2>Stage 2 — System overview</h2>
+  <p><strong>Do:</strong> open <a href="/">Mission Overview</a>. <strong>You see:</strong> the System readiness panel, latest run
+    {% if run_id %}<a href="/runs/{{ run_id }}"><code>{{ run_id }}</code></a>{% else %}<span class="status status-unavailable">none</span>{% endif %},
+    {{ modules | length }} module statuses ({{ modules.values() | select('equalto', 'success') | list | length }} success), the STALE finding
+    (snapshot {{ overview.snapshot_age.as_of }}, {{ overview.snapshot_age.age_days }} days old on {{ overview.snapshot_age.evaluated_on_utc }}),
+    abstention notices and the datasets strip. <strong>Means:</strong> every number refers to the snapshot date; the twin ingests nothing later.</p>
+</div>
+
+<div class="panel" id="stage-3" data-test="demo-stage">
+  <h2>Stage 3 — Satellite selection</h2>
+  <p><strong>Do:</strong> open <a href="/objects">Orbital Intelligence</a> and search a NORAD id or a name. The four established demonstration objects, verified against the current outputs:</p>
+  <table class="data">
+    <thead><tr><th>NORAD</th><th>Name</th><th>Class · regime</th><th>Why this object</th><th>p(30 d)</th><th>Rank</th><th>Lifetime</th><th>Re-entry</th><th>Twin equivalence</th></tr></thead>
+    <tbody>
+    {% for o in objects %}
+      <tr>
+        <td><a href="/objects/{{ o.norad }}">{{ o.norad }}</a></td>
+        {% if o.available %}
+        <td>{{ o.name }}</td><td>{{ o.object_class }} · {{ o.regime | replace('_', ' ') }}</td><td>{{ o.why }}</td>
+        <td class="num">{{ o.p30 | fmt(4) }}</td><td class="num">{% if o.rank %}{{ o.rank }} / {{ o.ranked_objects }}{% else %}—{% endif %}</td>
+        <td>{% if o.lifetime_coherence == 'incoherent' %}<span class="status status-abstain">ABSTAIN (L17)</span> values present but not a coherent CDF; not substituted
+            {% elif o.lifetime_available %}median {{ o.lifetime_median | fmt(1) }} d · {{ (o.lifetime_relation or '') | replace('_', ' ') }}
+            {% else %}<span class="status status-unavailable">NOT AVAILABLE</span> {{ 'operator-controlled: no drag lifetime' if o.regime == 'operator_controlled' else 'expert produced no value' }}{% endif %}</td>
+        <td>{{ (o.reentry_relation or 'unavailable') | replace('_', ' ') }}</td>
+        <td>{{ (o.twin_equivalence or 'unavailable') | upper }}{% if o.twin_not_comparable %} · not compared: {{ o.twin_not_comparable | join(', ') }}{% endif %}</td>
+        {% else %}<td colspan="8"><span class="status status-unavailable">NOT IN THIS CHECKOUT</span> {{ o.why }}</td>{% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="panel-note"><strong>Means:</strong> each row is read from the forecast table and the latest run; the rank is the run's decision ranking. <strong>Limit:</strong> objects outside the perigee &lt; 2000 km selection are not in the snapshot.</p>
+</div>
+
+<div class="panel" id="stage-4" data-test="demo-stage">
+  <h2>Stage 4 — Orbital intelligence</h2>
+  <p><strong>Do:</strong> open <a href="/objects/37607">NORAD 37607</a>; read the identity panel, the orbital elements and the "Orbital lifetime assessment".
+    <strong>You see:</strong> mean elements (perigee, apogee, inclination; no state vector), the 5–95 % lifetime interval, its relation to the 30-day horizon,
+    the per-horizon probabilities, the coherence check, and the subgroup-coverage cue for design-derived area-to-mass objects (origin 2016, 80 % nominal, 0.5625 observed).
+    <strong>Means:</strong> the interval is a Mondrian conformal interval from the archived lifetime expert; the horizon cue is display only.
+    <strong>Limit:</strong> 123 records are excluded as non-coherent (L17); quantiles at the cap mean "at least this long"; coverage under later space weather is not guaranteed.</p>
+</div>
+
+<div class="panel" id="stage-5" data-test="demo-stage">
+  <h2>Stage 5 — Re-entry prediction</h2>
+  <p><strong>Do:</strong> same page, "Re-entry assessment"; then open <a href="/objects/25544">NORAD 25544</a> and <a href="/objects/12">NORAD 12</a>.
+    <strong>You see:</strong> p(30 d / 90 d / 1 yr), the Monte-Carlo time quantiles and their horizon relation; for the ISS an explicit operator-controlled
+    abstention with the base rate and no interval; for VANGUARD R/B quantiles censored at the 1826.25-day cap; the variant table shows the physics-prior,
+    history-posterior and lifetime-comparison variants side by side. <strong>Means:</strong> the reported forecast is one variant; disagreement between
+    variants (up to 10.6× in the archived decomposition, X7) is shown, not hidden. <strong>Limit:</strong> the dated forecast was evaluated on the non-blind
+    T1 window only; prospective validation is blocked until a later snapshot exists.</p>
+</div>
+
+<div class="panel" id="stage-6" data-test="demo-stage">
+  <h2>Stage 6 — Satellite health and telemetry</h2>
+  <p><strong>Do:</strong> open <a href="/telemetry">Telemetry Benchmarks</a>, then a channel.
+    <strong>You see:</strong> {{ missions | length }} prepared anonymised ESA-ADB missions, labelled intervals, {% if health_arms is not none %}{{ health_arms }} benchmark arms{% else %}no benchmark-arm table{% endif %}
+    with event-wise F0.5, precision, recall and false alarms, and the methodology block (pre-registered alarm-layer study, K6).
+    <strong>Means:</strong> alarm-layer selection dominated scorer capacity; the AR(8) arm beat PatchTST, TCN and Chronos on the official metric.
+    <strong>Limit:</strong> no mission can be matched to a NORAD id, so no catalogued object has telemetry and no spacecraft health is inferred — the object page says
+    "Spacecraft health — not determinable".</p>
+</div>
+
+<div class="panel" id="stage-7" data-test="demo-stage">
+  <h2>Stage 7 — Collision and conjunction analysis</h2>
+  <p><strong>Do:</strong> open <a href="/risk">Risk Intelligence</a>.
+    <strong>You see:</strong> {% if collision %}{{ collision.events_total | fmt }} held-out Kelvins CAC events, the distribution of predicted log10 collision probability, the 1e-6
+    screening threshold, 5–95 % quantiles{% else %}<span class="status status-unavailable">collision benchmark unavailable in this checkout</span>{% endif %}, the methodology block and the C4 abstention panel.
+    <strong>Means:</strong> a benchmark quantile-regression result; the reliability gate's weight is near zero (a negative, externally anchored result).
+    <strong>Limit:</strong> events are anonymised; nothing is an operational warning; priority is never derived from a physical probability.</p>
+</div>
+
+<div class="panel" id="stage-8" data-test="demo-stage">
+  <h2>Stage 8 — Debris and optical imagery</h2>
+  <p><strong>Do:</strong> open <a href="/debris">Debris Intelligence</a>, then a sequence and a frame.
+    <strong>You see:</strong> {% if debris.available %}SpotGEO test sequences with the classical front end's hard detections overlaid on the real frame{% else %}<span class="status status-unavailable">SpotGEO detections unavailable in this checkout</span>{% endif %};
+    the detector benchmark table{% if vision %} (best archived F1 {{ (vision[0].f1_mean) | fmt(3) }} for {{ vision[0].model }}; served detector F1 0.084){% endif %}; the front-end ablation finding.
+    <strong>Means:</strong> learned detectors score about 0.75 official F1; the classical front end whose detections are shown scores 0.084.
+    <strong>Limit:</strong> pixel positions without astrometric calibration, confidence or time cannot be associated with any catalogued object.</p>
+</div>
+
+<div class="panel" id="stage-9" data-test="demo-stage">
+  <h2>Stage 9 — Decision support</h2>
+  <p><strong>Do:</strong> on <a href="/objects/37607">NORAD 37607</a> read "Decision priority"; then open the run's <a href="{% if run_id %}/runs/{{ run_id }}{% else %}/runs{% endif %}">ranking</a>.
+    <strong>You see:</strong> rank {% for o in objects if o.norad == 37607 and o.available %}{{ o.rank }} of {{ o.ranked_objects }}, score {{ o.priority_score | fmt(3) }}{% endfor %}, the recorded inputs (p₃₀, mass, high-consequence flag),
+    the formula exactly as the manifest recorded it, the C4 health-escalation abstention, and the interval-versus-horizon cue.
+    <strong>Means:</strong> the score is <code>p_reentry_30d × (2 if mass ≥ 500 kg else 1)</code>: an operational ordering, not a probability and not a risk estimate.
+    <strong>Limit:</strong> the rule uses the point probability, not the interval; its effectiveness against outcomes is not established (no outcome window has been scored yet).</p>
+</div>
+
+<div class="panel" id="stage-10" data-test="demo-stage">
+  <h2>Stage 10 — Digital twin and provenance</h2>
+  <p><strong>Do:</strong> open <a href="/twin-state">Twin State</a>, switch the policy to <a href="/twin-state?policy=archived_only">archived_only</a>, and use the policy links on an object page.
+    <strong>You see:</strong> {% if twin %}{{ twin.overall.label }}; {{ twin.equivalence.records_compared | fmt }} records compared, {{ twin.equivalence.records_equal | fmt }} equal,
+    {{ twin.equivalence.records_different }} different; {{ twin.integrity.records_valid | fmt }} valid records, {{ twin.integrity.duplicate_identities }} duplicates;
+    not-compared fields listed by reason{% else %}<span class="status status-unavailable">twin-state source unavailable in this checkout</span>{% endif %}; recorded and computed SHA-256, transformation digest, schema version, model version UNAVAILABLE.
+    <strong>Means:</strong> the re-emitted record is value-equivalent to the archive and to the catalogue chain; representation differences (operator-controlled abstention) are named, not forced equal.
+    <strong>Limit:</strong> re-emission regenerated nothing; no fitted model is persisted; the archived record carries no per-output provenance.</p>
+</div>
+
+<div class="panel" id="stage-11" data-test="demo-stage">
+  <h2>Stage 11 — Scenario analysis</h2>
+  <p><strong>Do:</strong> open <a href="/scenario">Scenario Analysis</a>, choose the "Fast decision subset" preset and press Run pipeline.
+    <strong>You see:</strong> the execution state, then the new run id, module statuses, the configuration digest and the list of assumptions that changed.
+    <strong>Means:</strong> the real pipeline ran over saved artifacts into a new directory; the result is reproducible from its configuration digest.
+    <strong>Limit:</strong> no scenario retrains, rescores or alters a scientific assumption; historical runs are never modified.</p>
+</div>
+
+<div class="panel" id="stage-12" data-test="demo-stage">
+  <h2>Stage 12 — Pipeline and research evidence</h2>
+  <p><strong>Do:</strong> open <a href="/runs">Run Explorer</a> ({{ runs_total }} runs), the latest run page and a comparison of two runs.
+    <strong>You see:</strong> module statuses with lineage (code, configuration, data artifacts, model version), {{ tables | length }} output tables with downloads,
+    the raw manifest, and the value-level comparison (identical tables by digest, differences by key).
+    <strong>Means:</strong> every displayed number is traceable to an artifact digest, a run id and a code revision. <strong>Limit:</strong> model version is unavailable throughout because no fitted model is persisted.</p>
+</div>
+
+<div class="panel" id="stage-13" data-test="demo-stage">
+  <h2>Stage 13 — Final mission summary</h2>
+  <p><strong>Established.</strong> A pre-registered telemetry study (K6) showing that alarm-layer selection dominates scorer capacity, with a negative
+    deep-learning finding; a catalogue-scale, censoring-aware lifetime benchmark (K7) measuring that model selection does not transfer across temporal
+    origins; an evidence-contracted twin whose integration premise (K1) was tested and not supported, and whose OPS-SAT fusion claim (K8) was withdrawn;
+    a versioned twin state verified equivalent to its archive and to the runtime chain.</p>
+  <p><strong>Outside the validated scope.</strong> Live data, on-demand inference, spacecraft health states, collision warnings for named objects,
+    debris-to-object association, prospective forecast validation (pending a snapshot dated ≥ 2026-11-26), cross-satellite generalisation, and the
+    effectiveness of the priority ranking against outcomes. Prospective evaluation is currently <span class="status status-blocked">{{ prospective }}</span>.</p>
+</div>
+{% endblock %}

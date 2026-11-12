@@ -1,0 +1,25 @@
+start 2026-11-06T05:15:02Z
+
+origin 2011: n=2667 families=435 train_known5=20777
+  constant_at_cap            0.172892 [0.120899, 0.259601]  (documented 0.172892)
+  train_marginal_quantiles   0.230966 [0.225564, 0.239880]  (documented 0.231209)
+  test_marginal_quantiles    0.133180 [0.103155, 0.183376]  (documented 0.133180)
+  best  physics_only   0.052676   worst mlp            0.114661
+  every published arm beats the oracle: True  (worst margin 13.9 %, best 60.4 %)
+
+origin 2016: n=2978 families=621 train_known5=25334
+  constant_at_cap            0.232879 [0.159805, 0.325690]  (documented 0.232879)
+  train_marginal_quantiles   0.200531 [0.195168, 0.207692]  (documented 0.200591)
+  test_marginal_quantiles    0.146946 [0.119205, 0.184221]  (documented 0.146946)
+  best  tabicl         0.049944   worst physics_only   0.089249
+  every published arm beats the oracle: True  (worst margin 39.3 %, best 66.0 %)
+
+origin 2006: n=7277 families=440 train_known5=18935
+  constant_at_cap            0.186720 [0.083528, 0.497669]
+  train_marginal_quantiles   0.233021 [0.225547, 0.240807]
+  test_marginal_quantiles    0.132151 [0.083390, 0.281564]
+  best  physics_only   0.056824   worst mlp_plus_rcs_2026 0.120037
+  every published arm beats the oracle: True  (worst margin 9.2 %, best 57.0 %)
+
+written outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv (55 rows), reference_predictor_results.json
+exit=0 end 2026-11-06T05:15:05Z

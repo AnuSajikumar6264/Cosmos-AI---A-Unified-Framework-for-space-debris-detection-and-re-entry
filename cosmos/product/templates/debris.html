@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ sequences | length }} sequence(s) listed{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>Saved detections of the served front end; no confidence, no absolute time</b> — full scope and limitations</summary>
+  <div class="scope-body">
+  SpotGEO test-split sequences with the saved detections of the <strong>{{ served_detector }}</strong>.
+  This front end emits <strong>hard detections with no confidence score</strong>, and SpotGEO frames carry a frame
+  index rather than an absolute UTC time. Both absences are shown as absences. The learned detectors evaluated in the
+  benchmark (heat-map U-Net variants, official F1 about 0.75) have archived <em>scores</em> but no archived per-detection
+  submission, so their detections are not shown here.
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Sequences listed</div>
+    <div class="k-value">{{ sequences | length }}</div>
+    <div class="k-foot">SpotGEO test split</div></div>
+  <div class="kpi"><div class="k-label">Detections drawn</div>
+    <div class="k-value">{{ sequences | sum(attribute='detections') | fmt(0) }}</div>
+    <div class="k-foot">saved output of the served front end</div></div>
+  <div class="kpi"><div class="k-label">Frames</div>
+    <div class="k-value">{{ sequences | sum(attribute='frames') | fmt(0) }}</div>
+    <div class="k-foot">real images, served as PNG</div></div>
+  <div class="kpi warn"><div class="k-label">Detection confidence</div>
+    <div class="k-value absent">not reported</div>
+    <div class="k-foot">this front end emits hard detections</div></div>
+  <div class="kpi neutral"><div class="k-label">Absolute time</div>
+    <div class="k-value absent">not available</div>
+    <div class="k-foot">frame index only, so no object association</div></div>
+</div>
+<details class="evidence" data-test="methodology">
+  <summary>Methodology, dataset provenance and limitations</summary>
+  <div class="body">
+    <p><strong>Dataset.</strong> SpotGEO v2 (ESA / University of Vienna challenge): sequences of five 640×480 grayscale frames
+      with annotated GEO object positions; the test split of 5,120 sequences is used (manifest
+      <code>data/feature2_debris/spotgeo/MANIFEST.json</code>). Frames carry a frame index, not a UTC time, and no catalogue identity.</p>
+    <p><strong>Methods evaluated.</strong> Classical COSMOS front end (frame differencing + difference-of-Gaussians, hard
+      detections) and heat-map U-Net detectors trained from scratch or with an ImageNet ResNet-18 encoder on difference and
+      high-pass channels; scored with the challenge's official F1 / MSE scorer
+      (<code>outputs/benchmarks/vision_spotgeo/</code>). X14 re-scored the archived per-sequence submissions by difficulty
+      stratum (<code>outputs/spotgeo_difficulty/</code>).</p>
+    <p><strong>Findings.</strong> U-Net F1 0.746 ± 0.005 (3 seeds), ResNet-18 encoder 0.765 ± 0.034 (2 seeds), classical
+      front end 0.084; the front-end ablation (raw high-pass only, 0.751) is negative for the registration front end.</p>
+    <p><strong>Limitations.</strong> Pixel positions without astrometric calibration cannot be converted to sky coordinates or
+      associated with any catalogued object; no confidence or timestamp exists for the served detector; benchmark scores are not
+      operational validation.</p>
+  </div>
+</details>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Observed frame with the served detections <span class="count">real SpotGEO image, real detection positions</span></h2>
+    {%- if featured_overlay %}
+    {{ featured_overlay | safe }}
+    <p class="chart-caption">Sequence {{ featured.sequence_id }}, frame {{ featured.frame }} ·
+      {{ featured.detections }} detection(s) drawn as rings by the {{ featured.detector }}.
+      Rings are fixed size because this detector reports no confidence; no visual channel may imply one.
+      <a href="/debris/{{ featured.sequence_id }}">inspect every frame</a></p>
+    {%- else %}
+    <div class="unavailable-state"><strong>No frame is available.</strong>
+      the SpotGEO test images are not present in this checkout, so none is shown and nothing is substituted</div>
+    {%- endif %}
+  </div>
+  <div class="panel">
+    <h2>Detector comparison <span class="count">official SpotGEO F1</span></h2>
+    {%- if arm_chart %}<div class="chart-frame">{{ arm_chart | safe }}
+      <div class="chart-note">archived benchmark scores; only the served front end's detections are drawn on the frames</div></div>
+    {%- else %}<div class="unavailable-state"><strong>Not available.</strong> the vision benchmark summary is absent</div>{% endif %}
+    </div>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Detections per sequence <span class="count">saved output of the served front end</span></h2>
+    {%- if detections_chart %}<div class="chart-frame">{{ detections_chart | safe }}
+      <div class="chart-note">counts from the saved submission; no confidence is published with them</div></div>
+    {%- else %}<div class="unavailable-state">no sequence is available</div>{% endif %}
+  </div>
+</div>
+<div class="panel">
+  <h2>Observation sequences</h2>
+  {% if sequences %}
+  <div class="scroll">
+    <table class="data">
+      <thead><tr>
+        <th>Sequence</th><th>Frames</th><th>Detections</th><th>Imagery</th><th></th>
+      </tr></thead>
+      <tbody>
+      {% for sequence in sequences %}
+        <tr>
+          <td>{{ sequence.sequence_id }}</td>
+          <td class="num">{{ sequence.frames }}</td>
+          <td class="num">{{ sequence.detections }}</td>
+          <td>{% if sequence.images_present %}<span class="status status-pass">PRESENT</span>
+            {% else %}<span class="status status-unavailable">MISSING</span>{% endif %}</td>
+          <td><a href="/debris/{{ sequence.sequence_id }}">inspect</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="unavailable-state">
+    <strong>UNAVAILABLE</strong> — no saved SpotGEO detections are present in this workspace.
+  </div>
+  {% endif %}
+</div>
+
+
+<div class="panel" data-test="vision-benchmark">
+  <h2>Detector benchmark scores <span class="count">— archived SpotGEO test-split results; not the detections shown above unless marked</span></h2>
+  {% if vision_arms %}
+  <table class="data">
+    <thead><tr><th>Detector</th><th>Inputs</th><th>Train fraction</th><th>Official F1</th><th>Precision</th><th>Recall</th><th>Detections served here</th></tr></thead>
+    <tbody>
+    {% for arm in vision_arms %}
+      <tr>
+        <td>{{ arm.model }}</td><td class="mono">{{ arm.inputs }}</td><td class="num">{{ arm.train_frac | fmt(2) }}</td>
+        <td class="num">{{ arm.f1_mean | fmt(4) }}{% if arm.f1_std is not none %} ± {{ arm.f1_std | fmt(4) }}{% endif %}</td>
+        <td class="num">{{ arm.precision_mean | fmt(3) }}</td><td class="num">{{ arm.recall_mean | fmt(3) }}</td>
+        <td>{% if arm.served_here %}<span class="status status-info">YES</span>{% else %}<span class="status status-unavailable">scores only</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="panel-note">Means and standard deviations over seeds where more than one seed exists; single-seed rows show no spread.</p>
+  {% else %}
+  <div class="unavailable-state"><strong>UNAVAILABLE</strong> — the SpotGEO benchmark summary is not present.</div>
+  {% endif %}
+</div>
+{% endblock %}

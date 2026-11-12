@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ ts.overall.label }}{% endblock %}
+{% block content %}
+{% set tone = {'ok': 'status-info', 'warn': 'status-partial', 'bad': 'status-unavailable'}[ts.overall.tone] %}
+<div class="panel" data-test="twin-overall">
+  <h2>Twin state — evidence root <span class="status {{ tone }}">{{ ts.overall.label }}</span></h2>
+  <p class="panel-note">{{ ts.note }}. Verdict: {{ ts.overall.reason }}.
+    Policy <code>{{ ts.policy }}</code>
+    {% for p in policies %}{% if p != ts.policy %} · <a href="/twin-state?policy={{ p }}">{{ p }}</a>{% endif %}{% endfor %}.
+    Computed in {{ ts.computed_in_s }} s{% if ts.computed_at %} at {{ ts.computed_at }}{% endif %} (cached until an archive or run table changes).</p>
+</div>
+
+<div class="panel" data-test="twin-selection">
+  <h2>Source selection <span class="status {{ 'status-info' if ts.selection.status == 'primary' else ('status-unavailable' if ts.selection.status == 'unavailable' else 'status-partial') }}">{{ ts.selection.status | upper }}</span></h2>
+  <p class="panel-note">{{ ts.selection.reason }}. Fallback permitted by this policy: {{ 'yes' if ts.selection.fallback_permitted else 'no' }}; fallback used: {{ 'yes' if ts.selection.fallback_used else 'no' }}.</p>
+  <table class="data">
+    <thead><tr><th>Candidate</th><th>Verdict</th><th>Artifact</th><th>Schema</th><th>Digest</th><th>Records</th><th>Provenance</th><th>Reasons / warnings</th></tr></thead>
+    <tbody>
+    {% for name, c in ts.selection.candidates.items() %}
+      <tr>
+        <td><strong>{{ name }}</strong>{% if name == ts.selection.selected %} <span class="status status-info">SELECTED</span>{% endif %}</td>
+        <td>{{ c.status | upper }}</td>
+        <td class="mono">{{ c.artifact or '—' }}{% if c.size_bytes %} ({{ (c.size_bytes / 1048576) | round(1) }} MB){% endif %}</td>
+        <td>{{ c.schema_version or '—' }}{% if c.schema_supported is false %} <span class="status status-unavailable">UNSUPPORTED</span>{% endif %}</td>
+        <td>{{ c.digest_state or '—' }}{% if c.recorded_sha256 %}<br><span class="mono">{{ c.recorded_sha256[:16] }}…</span>{% endif %}</td>
+        <td>{{ c.record_count if c.record_count is not none else '—' }}{% if c.recorded_record_count is not none %} / {{ c.recorded_record_count }} recorded ({{ c.record_count_state }}){% endif %}</td>
+        <td>{% if c.provenance_complete %}complete{% elif c.artifact_provenance_complete %}artifact only — no output provenance{% elif c.present %}incomplete{% else %}—{% endif %}</td>
+        <td>{% for r in c.reasons or [] %}<div>✗ {{ r }}</div>{% endfor %}{% for w in c.warnings or [] %}<div>⚠ {{ w }}</div>{% endfor %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if ts.provenance %}
+<div class="panel" data-test="twin-provenance">
+  <h2>Provenance of the selected source</h2>
+  <table class="data">
+    <tbody>
+      <tr><th>Data</th><td>{{ 'original archived data (twin_state/1.0)' if ts.provenance.original_or_reemitted == 'original_archive' else 're-emitted from the archived forecast table (twin_state/1.1); no prediction regenerated, no model executed' }}</td></tr>
+      <tr><th>Schema version</th><td>{{ ts.provenance.schema_version }} (expected {{ ts.provenance.expected_schema }})</td></tr>
+      <tr><th>Artifact</th><td class="mono">{{ ts.provenance.artifact }}</td></tr>
+      <tr><th>SHA-256</th><td class="mono">computed {{ ts.provenance.computed_sha256 }}<br>recorded {{ ts.provenance.recorded_sha256 or 'none' }} — <strong>{{ ts.provenance.digest_state }}</strong></td></tr>
+      <tr><th>Transformation digest</th><td class="mono">{{ ts.provenance.transformation_digest_sha256 or 'not applicable / unavailable' }}</td></tr>
+      <tr><th>Method · code revision</th><td>{{ ts.provenance.method or '—' }} · <span class="mono">{{ ts.provenance.code_revision or '—' }}</span></td></tr>
+      <tr><th>Records</th><td>{{ ts.provenance.record_count }}{% if ts.provenance.recorded_record_count is not none %} ({{ ts.provenance.recorded_record_count }} recorded — {{ ts.provenance.record_count_state }}){% endif %}</td></tr>
+      <tr><th>Provenance on outputs</th><td>{{ 'yes (every output carries as_of, input hashes, code and configuration digests)' if ts.provenance.provenance_on_outputs else 'NO — archived records predate per-output provenance' }}</td></tr>
+      <tr><th>Model version</th><td>{% if ts.model_version.status == 'recorded' %}<span class="status status-info">RECORDED</span> {{ ts.model_version.digest }}{% else %}<span class="status status-unavailable">UNAVAILABLE</span> {{ ts.model_version.reason }}{% endif %}</td></tr>
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<div class="panel" data-test="twin-integrity">
+  {% set ig = ts.integrity %}
+  <h2>Record integrity <span class="status {{ 'status-info' if ig.status == 'ok' else 'status-unavailable' }}">{{ ig.status | upper }}</span></h2>
+  {% if ig.status == 'unavailable' %}<p class="panel-note">{{ ig.reason }}</p>
+  {% else %}
+  <table class="data"><tbody>
+    <tr><th>Records (lines)</th><td>{{ ig.records_total }}</td><th>Valid</th><td>{{ ig.records_valid }}</td></tr>
+    <tr><th>Malformed JSON</th><td>{{ ig.records_malformed_json }}</td><th>Schema-invalid</th><td>{{ ig.records_schema_invalid }}</td></tr>
+    <tr><th>Duplicate identities</th><td>{{ ig.duplicate_identities }}</td><th>Unique identities</th><td>{{ ig.unique_identities }}</td></tr>
+    <tr><th>Records with invalid/unavailable values</th><td>{{ ig.records_with_value_problems }}</td><th>Schema versions seen</th><td>{% for v, n in ig.schema_versions.items() %}{{ v }}: {{ n }}{% if not loop.last %}; {% endif %}{% endfor %}</td></tr>
+  </tbody></table>
+  {% if ig.status != 'ok' %}<p class="panel-note">Examples: {{ ig.examples | tojson }}</p>{% endif %}
+  {% endif %}
+</div>
+
+<div class="panel" data-test="twin-equivalence">
+  {% set eq = ts.equivalence %}
+  <h2>Equivalence with the catalogue chain
+    {% if eq.status == 'computed' %}<span class="status {{ 'status-info' if eq.equivalent else 'status-alert' }}">{{ 'EQUIVALENT' if eq.equivalent else 'DIFFERENCES' }}</span>{% else %}<span class="status status-unavailable">UNAVAILABLE</span>{% endif %}</h2>
+  {% if eq.status != 'computed' %}<p class="panel-note">{{ eq.reason }}</p>
+  {% else %}
+  <p class="panel-note">Run <code>{{ eq.run_id }}</code>, chain tables {{ eq.chain_tables | join(', ') }}. {{ eq.note }}.</p>
+  <table class="data"><tbody>
+    <tr><th>Twin records read</th><td>{{ eq.twin_records }}</td><th>Records compared</th><td>{{ eq.records_compared }}</td></tr>
+    <tr><th>Records equal</th><td>{{ eq.records_equal }}</td><th>Records different</th><td>{{ eq.records_different }}</td></tr>
+    <tr><th>Not comparable (no shared field)</th><td>{{ eq.records_not_comparable }}</td><th>Missing in chain / in twin</th><td>{{ eq.records_missing_in_chain }} / {{ eq.records_missing_in_twin }}</td></tr>
+    <tr><th>Fields compared / equal / different</th><td colspan="3">{{ eq.fields_compared }} / {{ eq.fields_equal }} / {{ eq.fields_different }}</td></tr>
+  </tbody></table>
+  {% if eq.not_comparable_reasons %}
+  <h3>Fields not compared, by reason</h3>
+  <table class="data"><thead><tr><th>Field: reason</th><th>Records</th></tr></thead><tbody>
+    {% for k, n in eq.not_comparable_reasons.items() %}<tr><td>{{ k }}</td><td>{{ n }}</td></tr>{% endfor %}
+  </tbody></table>{% endif %}
+  {% if eq.different_fields %}
+  <h3>Differing fields</h3>
+  <table class="data"><thead><tr><th>Field</th><th>Records</th></tr></thead><tbody>
+    {% for k, n in eq.different_fields.items() %}<tr><td>{{ k }}</td><td>{{ n }}</td></tr>{% endfor %}
+  </tbody></table>
+  <p class="panel-note">Examples: {{ eq.examples.different | tojson }}</p>{% endif %}
+  {% endif %}
+</div>
+{% endblock %}

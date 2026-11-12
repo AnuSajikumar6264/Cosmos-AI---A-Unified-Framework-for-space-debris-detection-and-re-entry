@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block topmeta %}snapshot {{ provenance.as_of }} · {{ provenance.objects }} objects · archived geometry{% endblock %}
+
+{% block scope %}
+<details class="scope" data-test="globe-basis">
+  <summary><b>Schematic orientation</b> — orbit size, shape and tilt are archived; node, perigee argument and phase are a screen layout, not a measurement. What this view is</summary>
+  <div class="scope-body">
+  <strong>What this view is.</strong> Each ellipse is one catalogued object's real orbit <em>size, shape and
+  tilt</em>, computed from the archived perigee altitude, apogee altitude and inclination of the
+  {{ provenance.as_of }} snapshot. The snapshot publishes <strong>no</strong> ascending node, argument of perigee,
+  epoch or anomaly, so the orientation of each orbit about the pole and the position of each marker on its
+  ellipse are a <strong>deterministic screen layout, not a measurement</strong>. Nothing is propagated, no position at
+  any time is shown, and no ground track is drawn, because the archive cannot support one (limitation P5).
+  Only the camera moves; no object is animated along its orbit.
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+<div class="kpis compact">
+  <div class="kpi"><div class="k-label">Catalogue</div>
+    <div class="k-value">{{ overview.objects | fmt(0) }}<small>objects</small></div>
+    <div class="k-foot">snapshot {{ overview.as_of }}</div></div>
+  <div class="kpi"><div class="k-label">Orbits drawn</div>
+    <div class="k-value"><span id="globe-drawn">…</span><small>of {{ limit }} requested</small></div>
+    <div class="k-foot">highest 30-day re-entry probability first</div></div>
+  <div class="kpi violet"><div class="k-label">Earth texture</div>
+    <div class="k-value">0.25°<small>land mask</small></div>
+    <div class="k-foot">archived population grid, real coastlines</div></div>
+  <div class="kpi warn"><div class="k-label">Position at a time</div>
+    <div class="k-value absent">not available</div>
+    <div class="k-foot">no state vector in the catalogue</div></div>
+  <div class="kpi neutral"><div class="k-label">Renderer</div>
+    <div class="k-value" style="font-size:13px" id="globe-renderer">starting…</div>
+    <div class="k-foot">WebGL, no external library</div></div>
+</div>
+
+<div class="globe-layout explorer-layout">
+  <div class="explorer-aside">
+    <div class="globe-side">
+      <h2>Selection</h2>
+      <div class="globe-filters">
+        <div>
+          <label for="globe-search">filter the list</label>
+          <input type="text" id="globe-search" placeholder="NORAD id or name" autocomplete="off">
+        </div>
+        <div>
+          <label for="globe-regime">regime</label>
+          <select id="globe-regime">
+            <option value="">all regimes</option>
+            {%- for name in regimes %}<option value="{{ name }}">{{ name.replace('_', ' ') }}</option>{% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="globe-class">object class</label>
+          <select id="globe-class">
+            <option value="">all classes</option>
+            {%- for code, label in classes.items() %}<option value="{{ code }}">{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="globe-limit">orbits drawn</label>
+          <select id="globe-limit">
+            {%- for n in [40, 80, 120, 200, 300] %}<option value="{{ n }}" {{ 'selected' if n == limit }}>{{ n }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="globe-list" id="globe-list"></div>
+      <div class="globe-count" id="globe-list-count">reading…</div>
+    </div>
+    <div class="globe-side">
+      <h2>Selected object</h2>
+      <div class="side-body">
+        <div id="twin-record"><p class="panel-note">select a marker on the globe or an object in the list.</p></div>
+        <div class="twin-group">
+          <h4>Drawn geometry</h4>
+          <dl class="kv" id="twin-geometry"></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="stage fill">
+      <canvas id="globe-canvas" aria-label="Interactive globe with schematic orbits"></canvas>
+      <div class="stage-hud">
+        <div class="hud-title">Earth &amp; orbit explorer</div>
+        <div class="hud-line">snapshot <b>{{ provenance.as_of }}</b> · <b>archived</b>, not live</div>
+        <div class="hud-line" id="globe-status">reading archived geometry…</div>
+        <div class="hud-line">drag to rotate · wheel to zoom · click a marker</div>
+        <div class="hud-line">orbit orientation about the pole = <b>screen layout</b>, not a measurement</div>
+      </div>
+      <div class="stage-legend">
+        <span class="key"><span class="swatch" style="background:#4fc7f0"></span>payload</span>
+        <span class="key"><span class="swatch" style="background:#a67de8"></span>rocket body</span>
+        <span class="key"><span class="swatch" style="background:#8ca6c7"></span>component</span>
+        <span class="key"><span class="swatch" style="background:#e6ad54"></span>fragment</span>
+      </div>
+      <div class="stage-controls">
+        <button type="button" class="btn secondary" id="globe-zoom-in">zoom in</button>
+        <button type="button" class="btn secondary" id="globe-zoom-out">zoom out</button>
+        <button type="button" class="btn secondary" id="globe-spin" aria-pressed="true">pause camera orbit</button>
+        <button type="button" class="btn secondary" id="globe-reset">reset camera</button>
+      </div>
+      <div id="globe-tooltip" aria-hidden="true"></div>
+      <div id="globe-selected-label" aria-hidden="true"></div>
+      <div class="stage-fallback" id="globe-fallback" hidden>
+        <p><strong>The globe cannot be drawn in this browser.</strong></p>
+        <p id="globe-fallback-reason">WebGL is unavailable.</p>
+        <p>Every value it would show is available without it: the object list on the left, the panel on the
+          right and the <a href="/objects">digital twin pages</a> read the same archived records.</p>
+      </div>
+    </div>
+    <p class="chart-caption">
+      Camera motion only. Marker positions are layout points on each ellipse, not positions at a time; the
+      Earth is held fixed because rotating it under these orbits would imply a ground-track relationship the
+      archive cannot support.
+    </p>
+  </div>
+</div>
+
+
+<details class="more">
+  <summary>Demonstration objects, geometry basis and objects not drawn</summary>
+  <div class="more-body">
+<div class="section-head">
+  <h2>Demonstration objects</h2>
+  <span class="note">the four objects of the guided demonstration, always drawn</span>
+</div>
+<div class="panel">
+  <div class="chip-row">
+    {%- for norad, why in demo_objects %}
+    <a class="btn secondary btn-small" href="/explorer?select={{ norad }}">{{ norad }} — {{ why }}</a>
+    {%- endfor %}
+  </div>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Geometry basis <span class="count">what is evidence and what is layout</span></h2>
+    <table class="kv">
+      <tr><th>frame</th><td>{{ basis.frame }}</td></tr>
+      <tr><th>from the archive</th><td>{{ basis.from_archive | join(', ') }}</td></tr>
+      <tr><th>derived from it</th><td>{{ basis.derived_from_archive | join(', ') }}</td></tr>
+      <tr><th>not available, not invented</th><td>{{ basis.not_available_and_not_invented | join(', ') }}</td></tr>
+      <tr><th>layout angles</th><td>{{ basis.layout_angles }}</td></tr>
+      <tr><th>how to read it</th><td>{{ basis.reading }}</td></tr>
+      <tr><th>Earth texture</th><td>{{ basis.earth_texture }}</td></tr>
+      <tr><th>limitation</th><td>{{ basis.limitation }}</td></tr>
+    </table>
+  </div>
+  <div class="panel">
+    <h2>Objects not drawn <span class="count">no usable geometry in the snapshot</span></h2>
+    <ul id="globe-excluded" class="panel-note" style="padding-left:1.1rem"></ul>
+    <p class="panel-note">
+      An object is excluded when the snapshot has no perigee, apogee or inclination for it. Nothing is
+      substituted and no default orbit is drawn.
+    </p>
+    <details class="evidence">
+      <summary>Provenance of the drawn geometry</summary>
+      <div class="body">
+        <table class="kv">
+          <tr><th>artifact</th><td class="mono">{{ provenance.artifact }}</td></tr>
+          <tr><th>SHA-256</th><td class="mono">{{ provenance.sha256 }}</td></tr>
+          <tr><th>sources</th><td>{{ provenance.sources | join(', ') }}</td></tr>
+          <tr><th>endpoint</th><td class="mono">GET /api/globe/objects</td></tr>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+  </div>
+</details>
+{% endblock %}
+
+{% block scripts %}
+<script type="application/json" id="globe-config">{{ config_json | safe }}</script>
+<script src="/static/js/cosmos-globe.js"></script>
+<script src="/static/js/cosmos-explorer.js"></script>
+{% endblock %}

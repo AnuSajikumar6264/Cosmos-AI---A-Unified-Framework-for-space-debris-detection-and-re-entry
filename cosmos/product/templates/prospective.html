@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block topmeta %}
+<span class="mode-badge prospective">RESEARCH ONLY · {{ status.overall_status }}</span>
+{% endblock %}
+
+{% block scope %}
+{% if enabled %}
+<div class="scope-note">
+  A qualifying later snapshot is present. Scoring is still a deliberate research action and
+  must follow the fixed protocol below, which was written before any outcome was inspected.
+</div>
+{% else %}
+<div class="error-state" style="margin:.9rem 0 1.3rem">
+  <span class="status status-blocked">BLOCKED</span>
+  <strong>Prospective evaluation is disabled.</strong>
+  The required later outcome snapshot is not available, so nothing can be scored.
+  <strong>No prospective validation is claimed anywhere in this product.</strong>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Why this is blocked</h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Forecast as-of</div>
+      <div class="value">{{ status.forecast_as_of }}</div>
+      <div class="foot">immutable, hashed</div>
+    </div>
+    <div class="metric">
+      <div class="label">Latest outcome coverage</div>
+      <div class="value">{{ status.latest_outcome_coverage or '—' }}</div>
+      <div class="foot">newest decay date on disk</div>
+    </div>
+    <div class="metric">
+      <div class="label">Outcome days available</div>
+      <div class="value">{{ status.outcome_days_available_after_forecast }}</div>
+      <div class="foot">after the forecast date</div>
+    </div>
+    <div class="metric">
+      <div class="label">Forecast digest</div>
+      <div class="value">
+        {% if status.digest_verification.state == 'verified' %}
+          <span class="status status-pass">VERIFIED</span>
+        {% else %}<span class="status status-fail">{{ status.digest_verification.state }}</span>{% endif %}
+      </div>
+      <div class="foot">recomputed from the file</div>
+    </div>
+  </div>
+  <p class="panel-note">
+    A negative number of outcome days means the newest catalogue coverage <em>predates</em> the
+    forecast. Scoring against it would be a zero-length or negative evaluation window.
+  </p>
+</div>
+
+<div class="panel">
+  <h2>Per-horizon status</h2>
+  <table class="data">
+    <thead><tr>
+      <th>Horizon</th><th>Status</th><th>Outcome window</th>
+      <th>Snapshot data date required</th><th>Qualifying snapshot</th>
+    </tr></thead>
+    <tbody>
+    {% for name, record in status.horizons.items() %}
+      <tr>
+        <td>{{ name }}</td>
+        <td><span class="status status-{{ 'pass' if record.ready else 'blocked' }}">{{ record.status }}</span></td>
+        <td class="mono">{{ record.outcome_window | join(' → ') }}</td>
+        <td class="mono">≥ {{ record.required_snapshot_data_date_at_or_after }}</td>
+        <td>{{ record.qualifying_snapshots | join(', ') or 'none' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Snapshots on disk</h2>
+    <table class="data">
+      <thead><tr><th>Snapshot</th><th>Rows</th><th>Decayed</th><th>Max decay date</th></tr></thead>
+      <tbody>
+      {% for snapshot in status.available_snapshots %}
+        <tr>
+          <td>{{ snapshot.label }}</td>
+          <td class="num">{{ snapshot.rows | fmt }}</td>
+          <td class="num">{{ snapshot.decayed_rows | fmt }}</td>
+          <td class="mono">{{ snapshot.max_decay_date or '—' }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>What is needed to unblock</h2>
+    <table class="kv">
+      <tr><th>Artifact</th><td>{{ status.required_to_unblock.artifact }}</td></tr>
+      <tr><th>Earliest useful data date</th>
+        <td>{{ status.required_to_unblock.earliest_useful_data_date }}</td></tr>
+      <tr><th>Required fields</th>
+        <td class="mono">{{ status.required_to_unblock.fields | join(', ') }}</td></tr>
+    </table>
+    <p class="panel-note">{{ status.required_to_unblock.note }}</p>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Fixed evaluation protocol</h2>
+  <p class="panel-note">Specified in advance, before any outcome is inspected. It is shown
+    here so that the protocol cannot be adjusted after seeing a result.</p>
+  <ul>
+  {% for requirement in status.protocol_requirements %}<li>{{ requirement }}</li>{% endfor %}
+  </ul>
+</div>
+
+<div class="panel">
+  <h2>What this mode does not establish</h2>
+  <ul>
+  {% for item in status.not_established %}<li>{{ item }}</li>{% endfor %}
+    <li>The forecast population and horizons are characterised, but <strong>nothing has been
+      scored</strong>; no accuracy, calibration or skill claim follows from this page.</li>
+  </ul>
+  <div class="controls" style="margin-top:.8rem">
+    <button class="btn disabled" disabled
+      title="disabled: no qualifying later outcome snapshot is available">
+      Score the dated forecast
+    </button>
+    <a class="btn secondary" href="/api/prospective" target="_blank">Status JSON</a>
+  </div>
+</div>
+{% endblock %}

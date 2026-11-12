@@ -1,0 +1,47 @@
+COSMOS-AI v1.0 — demonstration release (2026-11-08)
+
+Target: release commit D 727ecec95fbb8ec3ac47b23df569dc5c376318f4 on branch product/mission-intelligence-console,
+descending from C 66f0bc54da30094d5750bd93e877726aab2142f5, B 633ad862bf5d7fe2612bb01038aee309bd350a07,
+A aeefac2bd93244f98f7acb20fb88427bbbe34da8 and the owner-approved checkpoint 938d514a9f91988e37b63d25475899632eb370d0.
+
+What this release is: a read-only, archive-backed satellite digital twin and its Mission Intelligence Console, serving
+one dated catalogue snapshot (2026-10-27, 31,396 objects) with lifetime, re-entry, decision-priority and twin-state
+evidence, plus three independent research benchmarks (ESA-ADB telemetry, Kelvins CAC conjunctions, SpotGEO debris)
+that are never attributed to a catalogued object. No live data source is connected and no model runs on demand:
+every value is an archived prediction re-expressed through typed contracts with provenance, uncertainty and abstention.
+
+Verification at this tag:
+- Full test suite: 508 passed, 3 skipped (optional artifacts), 0 failed, run once at commit B
+  (outputs/audit/pytest_full_20261108_post_commit_b.log) and not rerun afterwards. After that run no application, console or
+  orbital-processing pipeline code changed (nothing under cosmos/, scripts/ or tests/); the only code change was the thesis
+  rendering helper thesis/tools/render_draft_md.py added in commit C, which was validated separately by regenerating the
+  thesis Markdown draft byte-identically from its sources (1,072 evidence keys, 0 unresolved). After commit D the figure-release
+  and approved-head regression tests passed (52 passed) and the protected-artifact verifier passed.
+- Demonstration run: run_20261108T121517Z (nine modules successful; tables byte-identical to the historical run);
+  thirteen-stage rehearsal 13/13 from a fresh process; sixteen-stage validation PASS WITH LIMITATIONS
+  (docs/research/COSMOS_AI_FINAL_DEMONSTRATION_VALIDATION_REPORT.md).
+- Manuscript claim audit: 147 checks, 139 PASS, 8 NOT_EVALUABLE, 0 FAIL
+  (outputs/audit/manuscript_claim_audit_release_candidate.json).
+- Protected artifacts: all_protected_ok True at commits C and D
+  (outputs/audit/protected_artifacts_post_commit_c_20261109T015934+0000.json,
+  protected_artifacts_post_commit_d_20261109T021505+0000.json); figure release manifest 107/107;
+  twin digests 19a1fede… (archived) and 6bb4871f… (re-emitted, Git LFS object, 78,616,187 bytes).
+- Performance: benchmark sequence overview 180 ms cold / peak 225 MB (targets met); fresh process import 534 ms,
+  store steps + first overview ≈ 553 ms, peak 273 MB (targets 400 ms / 250 MB not met, reported).
+
+Known limitations are stated on every screen and in docs/product/KNOWN_LIMITATIONS.md: anonymised telemetry and
+conjunction data, constant space-weather features, no cross-satellite generalisation or health-to-conjunction fusion,
+disagreeing re-entry variants, 123 incoherent L17 lifetime records, archived (non-prospective) validation only,
+point-probability priority, no persisted model weights. Author-only manuscript fields, licence and data DOI are not
+part of this release. Thesis DOCX/PDF require an external toolchain; the Markdown draft is included.
+
+Retrieval (usable only after this tag and the required Git objects, including the Git LFS object of the re-emitted
+twin state, have been published through a separately approved push; until then the release exists locally only):
+  git lfs install
+  git clone https://github.com/AnuSajikumar6264/Cosmos-AI-.git
+  cd Cosmos-AI-
+  git checkout v1.0-demonstration-2026-11-08
+  git lfs pull
+Start: python scripts/check_console_prerequisites.py && python scripts/serve_console.py  (http://127.0.0.1:8070/demo).
+Documentation: docs/product/COSMOS_AI_QUICKSTART.md, COSMOS_AI_COMPLETE_EXECUTION_GUIDE.md, EVALUATOR_GUIDE.md;
+release status docs/research/COSMOS_AI_RELEASE_PROPOSAL.md §8; acceptance docs/research/COSMOS_AI_FINAL_ACCEPTANCE_REPORT.md.

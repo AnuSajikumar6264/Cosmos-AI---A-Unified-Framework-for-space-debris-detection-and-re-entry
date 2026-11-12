@@ -1,0 +1,284 @@
+{
+ "generated_at": "2026-11-08T06:26:30+00:00",
+ "created": [
+  {
+   "path": "scripts/verify_protected_artifacts.py",
+   "present": true,
+   "bytes": 4680,
+   "sha256": "c7a5fdaf052d88e5d02ff009a09769b6653a8df6ecacb0d691e399ef53b796cf",
+   "mtime_utc": "2026-11-08T05:32:16+00:00"
+  },
+  {
+   "path": "scripts/e6_opssat_branch_analysis.py",
+   "present": true,
+   "bytes": 9692,
+   "sha256": "d565fac7fe6ccb35f23cded82c0df7a9f89cd3ca905409e30547fc574446f894",
+   "mtime_utc": "2026-11-08T05:36:29+00:00"
+  },
+  {
+   "path": "scripts/am_design_stage1.py",
+   "present": true,
+   "bytes": 11289,
+   "sha256": "ad6e3955ecc2b439d598159e7f5e852445b5a69a63b97e9ff00b0201f8d632a1",
+   "mtime_utc": "2026-11-08T05:44:28+00:00"
+  },
+  {
+   "path": "scripts/cluster_logit.py",
+   "present": true,
+   "bytes": 4727,
+   "sha256": "88e5c5b76b2fec2ceb53b3c10fd59c643589ba7f77fb6254455f01648eda42b0",
+   "mtime_utc": "2026-11-08T05:43:08+00:00"
+  },
+  {
+   "path": "scripts/track3b_stage2_cells.py",
+   "present": true,
+   "bytes": 12687,
+   "sha256": "c4771bac1de10712d653aad1b0e5cedcd044c498edd312a35435b0bb048db70a",
+   "mtime_utc": "2026-11-08T05:41:15+00:00"
+  },
+  {
+   "path": "scripts/phase8_approved_analyses_manifest.py",
+   "present": true,
+   "bytes": 3206,
+   "sha256": "c277ec900301ee846e403d845f7dca41c98b867ae7e9f5f84d5858627e5f322e",
+   "mtime_utc": "2026-11-08T05:47:25+00:00"
+  },
+  {
+   "path": "tests/test_e6_branch.py",
+   "present": true,
+   "bytes": 2657,
+   "sha256": "abe9e2d5a110f81e42267b8454afe270dd79746542411fc9878bd27f709927e1",
+   "mtime_utc": "2026-11-08T05:44:32+00:00"
+  },
+  {
+   "path": "tests/test_am_design_stage1.py",
+   "present": true,
+   "bytes": 3436,
+   "sha256": "521ad6d340f416fddec5f5c8a4aecfb5cd187ea02f8bf0a5c9560d4bffd98e79",
+   "mtime_utc": "2026-11-08T05:45:28+00:00"
+  },
+  {
+   "path": "tests/test_track3b_stage2.py",
+   "present": true,
+   "bytes": 2953,
+   "sha256": "cdd12e97d9e4edcbc6d2a2e074a67f92706e895f22bf8f9733fa4ed1dec09316",
+   "mtime_utc": "2026-11-08T06:24:09+00:00"
+  },
+  {
+   "path": "docs/research/PHASE8_GATE_ADDENDUM_2026-11-08.md",
+   "present": true,
+   "bytes": 5599,
+   "sha256": "b8c54c3042df167f14a4d40909f5454c81275a2d0d6fe27e47a84a3fcf521098",
+   "mtime_utc": "2026-11-08T06:26:15+00:00"
+  },
+  {
+   "path": "docs/research/PHASE8_APPROVED_ANALYSES_REPORT_2026-11-08.md",
+   "present": true,
+   "bytes": 12026,
+   "sha256": "85c9a683dad51dc6bdab9119ee08b5bc12df9127fd561a082bf10448db174003",
+   "mtime_utc": "2026-11-08T06:26:15+00:00"
+  }
+ ],
+ "modified_living_documents": [
+  {
+   "path": "docs/research/MASTER_COMPLETION_TRACKER.md",
+   "present": true,
+   "bytes": 73014,
+   "sha256": "dd5595d08bb2bd4cf2e95c492bc4fe9e976246199f7406565487d38aac928740",
+   "mtime_utc": "2026-11-08T06:26:15+00:00"
+  },
+  {
+   "path": "docs/research/PHASE1_NOVELTY_AND_EXPERIMENTAL_DESIGN.md",
+   "present": true,
+   "bytes": 38715,
+   "sha256": "2508020e61e7b2d6a646df15965d859c6cb81a11b44460e75d4e8a2999084084",
+   "mtime_utc": "2026-11-08T05:46:19+00:00"
+  }
+ ],
+ "outputs": {
+  "outputs/e6_opssat_branch": [
+   {
+    "path": "outputs/e6_opssat_branch/paired_comparisons.csv",
+    "present": true,
+    "bytes": 2713,
+    "sha256": "ba53fa84ae6d89a15883362249cc28bba486b14d98d1e2d5c3282c737e8d959f",
+    "mtime_utc": "2026-11-08T05:39:00+00:00"
+   },
+   {
+    "path": "outputs/e6_opssat_branch/per_seed_metrics.csv",
+    "present": true,
+    "bytes": 2933,
+    "sha256": "efde21f484b422f4738f0240009442e29ca880dcaee87b4125e9b1e93c5b433c",
+    "mtime_utc": "2026-11-08T05:39:00+00:00"
+   },
+   {
+    "path": "outputs/e6_opssat_branch/results.json",
+    "present": true,
+    "bytes": 12857,
+    "sha256": "d39142666d3d6b016c85e6a32f403fd2bedde84142aedbe1ec4fffa6d4fdb479",
+    "mtime_utc": "2026-11-08T05:39:00+00:00"
+   },
+   {
+    "path": "outputs/e6_opssat_branch/run.log",
+    "present": true,
+    "bytes": 3534,
+    "sha256": "11f337f431fa9d77bab2a3114d65d811a0c12ed01739d5bedf35fe94b2287264",
+    "mtime_utc": "2026-11-08T05:39:00+00:00"
+   }
+  ],
+  "outputs/am_design_stage1": [
+   {
+    "path": "outputs/am_design_stage1/odds_ratios_by_window.csv",
+    "present": true,
+    "bytes": 1761,
+    "sha256": "5aa4fef78fa175b1caf825f748eae0c6fa4d186814507b31d1c8c1d682596868",
+    "mtime_utc": "2026-11-08T05:44:31+00:00"
+   },
+   {
+    "path": "outputs/am_design_stage1/results.json",
+    "present": true,
+    "bytes": 19087,
+    "sha256": "b7700780e7eecd7e4f8f69474bd1b1171e6656fd2acfcf0005329e457830af63",
+    "mtime_utc": "2026-11-08T05:44:32+00:00"
+   },
+   {
+    "path": "outputs/am_design_stage1/run.log",
+    "present": true,
+    "bytes": 3288,
+    "sha256": "8a6434d3f9a77083be3000fde33b1d82b8871be0fc355e1d87abd81ceb07f1de",
+    "mtime_utc": "2026-11-08T05:44:32+00:00"
+   },
+   {
+    "path": "outputs/am_design_stage1/subgroup_coverage.csv",
+    "present": true,
+    "bytes": 4136,
+    "sha256": "2a4eb917ee45a82feeed44075694494c3b39e1a86f4db8f3d445042744b7e514",
+    "mtime_utc": "2026-11-08T05:44:31+00:00"
+   }
+  ],
+  "outputs/benchmarks/telemetry_esa_adb/track3b_stage2": [
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/cells_partial.json",
+    "present": true,
+    "bytes": 22280,
+    "sha256": "be9627a10af0f88c57017287cfd2dcac907d3350ee12a48a28ca805b7a81937d",
+    "mtime_utc": "2026-11-08T06:22:28+00:00"
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/m1_target_conformal_bh.json",
+    "present": true,
+    "bytes": 28757,
+    "sha256": "a7ddddaeb7e9639abf31c611d63b8e70adeeeae38739887ab16cc0be13289369",
+    "mtime_utc": "2026-11-08T06:22:29+00:00"
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/folds.json",
+    "present": true,
+    "bytes": 1337,
+    "sha256": "86a5d26037f33db261613171e5c185cb9208aa67383c122179620baa2f3cab74",
+    "mtime_utc": "2026-11-08T05:47:11+00:00"
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/run.log",
+    "present": true,
+    "bytes": 2433,
+    "sha256": "c129838268be1ec8929df71e063511f6c1b0ce6e448573f5fa1d501fee64fae6",
+    "mtime_utc": "2026-11-08T06:22:29+00:00"
+   }
+  ]
+ },
+ "large_regenerated_arrays_not_hashed_individually": {
+  "outputs/e6_opssat_branch": [],
+  "outputs/am_design_stage1": [],
+  "outputs/benchmarks/telemetry_esa_adb/track3b_stage2": [
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c0_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c2_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c3_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c4_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c5_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/n_sh_half_cal_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/n_sh_half_half_global.npy",
+    "bytes": 920649
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/scores_test.npy",
+    "bytes": 1708485480
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/scores_train_oof.npy",
+    "bytes": 1708485480
+   },
+   {
+    "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/sigma.npy",
+    "bytes": 1520
+   }
+  ]
+ },
+ "protected_unchanged": [
+  {
+   "path": "outputs/audit/phase8_acceptance_gate.json",
+   "present": true,
+   "bytes": 8289,
+   "sha256": "83b1150215020e0e189f6bcc7537cdcbc9dc679334739bd786de0a6c40e86473",
+   "mtime_utc": "2026-11-06T06:34:17+00:00"
+  },
+  {
+   "path": "docs/research/PHASE8_TECHNICAL_ACCEPTANCE_GATE.md",
+   "present": true,
+   "bytes": 5081,
+   "sha256": "86ae2e8c828e3e183cca447805dc0af92285d89d7b26c57881d21bc305defaf9",
+   "mtime_utc": "2026-11-06T06:34:17+00:00"
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/oof/m1_target_ar8/folds.json",
+   "present": true,
+   "bytes": 1336,
+   "sha256": "cbf3ea6cfd08caee02d8effe556e6f7da4dc69adc6fc4c28664134ab33b0b955",
+   "mtime_utc": "2026-11-03T15:53:08+00:00"
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/posthoc_v2/p1_decompose/m1_target_conformal_bh.json",
+   "present": true,
+   "bytes": 37955,
+   "sha256": "1f7adfcaf8bc8faf3bed6332c0d72541da6ef697f8cf5b6bdfef525d457a684d",
+   "mtime_utc": "2026-11-03T15:53:08+00:00"
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/oof_protocol/CONFIRMATORY.json",
+   "present": true,
+   "bytes": 42101,
+   "sha256": "fc2223d6ffe238819ce76dc46875708ac9703308422c11a94ffead2492280bda",
+   "mtime_utc": "2026-11-03T15:53:08+00:00"
+  },
+  {
+   "path": "paper/jint/COSMOS_AI_JINT_MANUSCRIPT.md",
+   "present": true,
+   "bytes": 46793,
+   "sha256": "fcdc30df7789f9cdde0ba86c9ce6fa1b4b6c6c48c5fb496443d43296f3f79df6",
+   "mtime_utc": "2026-11-05T07:28:15+00:00"
+  }
+ ],
+ "after_verification_records": [
+  "outputs/audit/protected_artifacts_after_x4_x6_x10_20261108T062410+0000.json",
+  "outputs/audit/protected_artifacts_before_x4_x6_x10_20261108T053216+0000.json"
+ ]
+}

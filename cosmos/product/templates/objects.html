@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block topmeta %}snapshot {{ provenance.as_of }} · {{ provenance.objects | fmt }} objects{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  Search the dated catalogue snapshot by NORAD ID or name. These are catalogued objects with
+  mean orbital elements — <strong>not</strong> a live tracking feed, and no object here has
+  telemetry (the telemetry datasets are anonymised).
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <h2>Object search</h2>
+  <form class="controls" method="get" action="/objects">
+    <input type="text" name="q" value="{{ query }}" placeholder="NORAD ID or name, e.g. 37607 or ARIANE" size="38">
+    <button class="btn" type="submit">Search</button>
+    <a class="btn secondary" href="/objects">Highest 30-day probability</a>
+  </form>
+
+  {% if results %}
+  <div class="scroll">
+    <table class="data">
+      <thead><tr>
+        <th>NORAD</th><th>Name</th><th>Class</th><th>Regime</th>
+        <th>Perigee km</th><th>Apogee km</th><th>Incl °</th><th>P(re-entry 30 d)</th>
+      </tr></thead>
+      <tbody>
+      {% for row in results %}
+        <tr>
+          <td><a href="/objects/{{ row.norad }}">{{ row.norad }}</a></td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.object_class }}</td>
+          <td>{{ row.regime.replace('_', ' ') }}</td>
+          <td class="num">{{ row.perigee_km | fmt(0) }}</td>
+          <td class="num">{{ row.apogee_km | fmt(0) }}</td>
+          <td class="num">{{ row.inclination_deg | fmt(2) }}</td>
+          <td class="num">{{ row.p_reentry_30d | fmt(4) }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="panel-note">Showing {{ results | length }} match(es).
+    {% if not query %}Ordered by 30-day re-entry probability.{% endif %}</p>
+  {% else %}
+  <div class="empty">
+    No object matches <strong>{{ query }}</strong> in the {{ provenance.as_of }} snapshot.
+    The object may have decayed, never existed, or lie outside the perigee &lt; 2000 km selection.
+  </div>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>Snapshot provenance</h2>
+  <table class="kv">
+    <tr><th>Artifact</th><td class="mono">{{ provenance.artifact }}</td></tr>
+    <tr><th>SHA-256</th><td class="mono">{{ provenance.sha256 }}</td></tr>
+    <tr><th>As of</th><td>{{ provenance.as_of }}</td></tr>
+    <tr><th>Sources</th><td>{{ provenance.sources | join(', ') }}</td></tr>
+  </table>
+</div>
+{% endblock %}

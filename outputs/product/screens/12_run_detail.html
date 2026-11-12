@@ -1,0 +1,1849 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run run_20261109T041153Z · COSMOS-AI Mission Intelligence Console</title>
+<style>
+/* COSMOS-AI Mission Intelligence Console
+ *
+ * Midnight-navy mission-control theme with a light theme toggle. Colour carries meaning only
+ * through the status tokens: PASS / PARTIAL / FAIL / BLOCKED / ABSTAIN / UNAVAILABLE, and through
+ * the globe's object-class legend. Series colour is neutral so that a chart cannot imply a verdict
+ * it does not hold. Accent cyan is used for interaction and the violet accent for the twin layer.
+ */
+
+:root {
+  --bg: #070d18;
+  --bg-raised: #0e1829;
+  --bg-sunken: #060b14;
+  --bg-float: #132135;
+  --line: #22324a;
+  --line-soft: #182436;
+  --ink: #e2ecf8;
+  --ink-dim: #9bacc2;
+  --ink-faint: #6e8099;
+  --accent: #4ea8de;
+  --accent-dim: #2d6d96;
+  --accent-bright: #7fd4ff;
+  --violet: #a67fe8;
+  --violet-dim: #6f52a8;
+  --glow: 0 0 0 1px rgba(78,168,222,.12), 0 8px 28px -14px rgba(0,0,0,.85);
+  --glow-accent: 0 0 18px -4px rgba(78,168,222,.45);
+
+  --pass: #46a86c;
+  --partial: #c9a227;
+  --fail: #d4604f;
+  --blocked: #7f8b9c;
+  --abstain: #9a7fb8;
+  --unavailable: #a8705a;
+
+  --radius: 6px;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="light"] {
+  --bg: #f4f6f9;
+  --bg-raised: #ffffff;
+  --bg-sunken: #e8edf3;
+  --bg-float: #ffffff;
+  --accent-bright: #0f5c8c;
+  --violet: #6b46b8;
+  --glow: 0 1px 2px rgba(16,32,48,.08);
+  --glow-accent: 0 0 0 1px rgba(29,111,165,.25);
+  --line: #ccd6e0;
+  --line-soft: #dde4ec;
+  --ink: #16222e;
+  --ink-dim: #4c5c6e;
+  --ink-faint: #70808f;
+  --accent: #1d6fa5;
+  --accent-dim: #4a90bd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, .mono { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------- layout */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 232px;
+  flex: 0 0 232px;
+  background: var(--bg-sunken);
+  border-right: 1px solid var(--line);
+  padding: 1.1rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.brand { padding: 0 1.1rem 1rem; border-bottom: 1px solid var(--line-soft); }
+.brand .mark { font-size: 15px; font-weight: 650; letter-spacing: .02em; }
+.brand .sub { font-size: 11px; color: var(--ink-faint); margin-top: .15rem; }
+
+.nav { padding: .8rem 0; }
+.nav-group { font-size: 10px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--ink-faint); padding: .7rem 1.1rem .3rem; }
+.nav a {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .44rem 1.1rem; color: var(--ink-dim); font-size: 13px;
+  border-left: 2px solid transparent; transition: background .14s ease, color .14s ease;
+}
+.nav a svg { width: 15px; height: 15px; flex: 0 0 15px; stroke: currentColor; fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+.nav a.active svg { opacity: 1; color: var(--accent); }
+.nav a:hover { background: var(--bg-raised); color: var(--ink); text-decoration: none; }
+.nav a.active { color: var(--ink); border-left-color: var(--accent); background: var(--bg-raised);
+  box-shadow: inset 12px 0 24px -22px var(--accent); }
+.nav a .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); }
+.nav a.active .dot { background: var(--accent); }
+
+.main { flex: 1; min-width: 0; padding: 1.3rem 1.6rem 3rem; }
+
+.topbar {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem;
+}
+.topbar h1 { font-size: 19px; margin: 0; font-weight: 620; letter-spacing: -.01em; }
+.topbar .meta { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); }
+
+.scope-note {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-left: 3px solid var(--partial);
+  padding: .6rem .8rem; border-radius: var(--radius);
+  font-size: 12px; color: var(--ink-dim); margin: .9rem 0 1.3rem;
+}
+
+/* ---------------------------------------------------------------- panels */
+.panel {
+  background: linear-gradient(180deg, var(--bg-float) 0%, var(--bg-raised) 68%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 1.1rem;
+  box-shadow: var(--glow);
+}
+.panel.flush { padding: 0; overflow: hidden; }
+.panel.accent { border-left: 2px solid var(--accent); }
+.panel.violet { border-left: 2px solid var(--violet); }
+.panel > h2 {
+  font-size: 13px; margin: 0 0 .8rem; font-weight: 620;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--ink-dim);
+}
+.panel > h2 .count { color: var(--ink-faint); font-weight: 400; letter-spacing: 0;
+  text-transform: none; }
+.panel-note { font-size: 12px; color: var(--ink-faint); margin: .5rem 0 0; }
+
+.grid { display: grid; gap: 1.1rem; }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+/* ---------------------------------------------------------- metric cards */
+.metrics { display: grid; gap: .7rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.metric {
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); padding: .65rem .75rem; position: relative; overflow: hidden;
+}
+.metric::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--line); }
+.metric.is-accent::before { background: var(--accent); }
+.metric.is-violet::before { background: var(--violet); }
+.metric.is-warn::before { background: var(--partial); }
+.metric .label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); margin-bottom: .25rem;
+}
+.metric .value { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums;
+  line-height: 1.15; }
+.metric .value.absent { color: var(--ink-faint); font-weight: 400; }
+.metric .unit { font-size: 11px; color: var(--ink-faint); margin-left: .2rem;
+  font-weight: 400; }
+.metric .foot { font-size: 11px; color: var(--ink-faint); margin-top: .2rem; }
+
+/* -------------------------------------------------------- status tokens */
+.status {
+  display: inline-block; padding: .1rem .42rem; border-radius: 3px;
+  font-size: 10px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; font-family: var(--mono); white-space: nowrap;
+  border: 1px solid transparent;
+}
+.status-success, .status-pass { background: rgba(70,168,108,.15); color: var(--pass);
+  border-color: rgba(70,168,108,.35); }
+.status-partial { background: rgba(201,162,39,.15); color: var(--partial);
+  border-color: rgba(201,162,39,.35); }
+.status-failed, .status-fail { background: rgba(212,96,79,.15); color: var(--fail);
+  border-color: rgba(212,96,79,.35); }
+.status-blocked, .status-not_requested { background: rgba(127,139,156,.15);
+  color: var(--blocked); border-color: rgba(127,139,156,.35); }
+.status-abstain { background: rgba(154,127,184,.15); color: var(--abstain);
+  border-color: rgba(154,127,184,.35); }
+.status-unavailable, .status-invalid, .status-unsupported {
+  background: rgba(168,112,90,.15); color: var(--unavailable);
+  border-color: rgba(168,112,90,.35); }
+.status-info { background: rgba(78,168,222,.13); color: var(--accent);
+  border-color: rgba(78,168,222,.3); }
+
+/* ---------------------------------------------------------------- tables */
+table.data { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.data th, table.data td {
+  border-bottom: 1px solid var(--line-soft); padding: .4rem .5rem; text-align: left;
+  vertical-align: top;
+}
+table.data th {
+  color: var(--ink-faint); font-weight: 600; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--bg-raised);
+}
+table.data tbody tr:hover { background: var(--bg-sunken); }
+table.data td.num { text-align: right; font-variant-numeric: tabular-nums;
+  font-family: var(--mono); }
+table.data td.absent { color: var(--ink-faint); }
+
+table.kv { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.kv th, table.kv td {
+  border-bottom: 1px solid var(--line-soft); padding: .35rem .5rem; text-align: left;
+  vertical-align: top;
+}
+table.kv th { width: 38%; color: var(--ink-faint); font-weight: 500; }
+table.kv td { font-variant-numeric: tabular-nums; }
+table.kv td.absent { color: var(--ink-faint); }
+
+.scroll { overflow: auto; max-height: 440px; }
+
+/* ---------------------------------------------------------------- charts */
+svg.chart { width: 100%; height: auto; display: block; }
+svg.overlay { width: 100%; height: auto; display: block; background: #060b12;
+  border: 1px solid var(--line); border-radius: var(--radius); }
+.chart-caption { font-size: 11px; color: var(--ink-faint); margin-top: .45rem; }
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 11px;
+  color: var(--ink-faint); margin-top: .5rem; }
+.legend .key { display: inline-flex; align-items: center; gap: .35rem; }
+.legend .swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+/* ----------------------------------------------------------- disclosures */
+details.evidence {
+  border: 1px solid var(--line-soft); border-radius: var(--radius);
+  margin: .5rem 0; background: var(--bg-sunken);
+}
+details.evidence > summary {
+  cursor: pointer; padding: .45rem .7rem; font-size: 12px; color: var(--ink-dim);
+  font-weight: 500; list-style: none;
+}
+details.evidence > summary::-webkit-details-marker { display: none; }
+details.evidence > summary::before { content: "▸ "; color: var(--ink-faint); }
+details.evidence[open] > summary::before { content: "▾ "; }
+details.evidence > summary:hover { color: var(--ink); }
+details.evidence .body { padding: 0 .7rem .7rem; font-size: 12px; color: var(--ink-dim); }
+pre.json {
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); padding: .7rem; font-family: var(--mono);
+  font-size: 11.5px; overflow: auto; max-height: 420px; color: var(--ink-dim);
+  white-space: pre-wrap;
+}
+
+/* ---------------------------------------------------------------- states */
+.empty, .unavailable-state {
+  border: 1px dashed var(--line); border-radius: var(--radius);
+  padding: 1.1rem; text-align: center; color: var(--ink-faint); font-size: 12.5px;
+}
+.unavailable-state strong { color: var(--unavailable); }
+.error-state {
+  border: 1px solid rgba(212,96,79,.4); border-left: 3px solid var(--fail);
+  border-radius: var(--radius); padding: .8rem 1rem; background: rgba(212,96,79,.07);
+}
+.loading { color: var(--ink-faint); font-size: 12px; }
+.loading::after {
+  content: ""; display: inline-block; width: 7px; height: 7px; margin-left: .4rem;
+  border-radius: 50%; background: var(--accent); animation: pulse 1.1s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+/* ---------------------------------------------------------------- controls */
+.controls { display: flex; gap: .55rem; flex-wrap: wrap; align-items: center;
+  margin-bottom: .9rem; }
+input[type="text"], input[type="number"], select {
+  background: var(--bg-sunken); border: 1px solid var(--line); color: var(--ink);
+  padding: .4rem .55rem; border-radius: var(--radius); font: inherit; font-size: 13px;
+}
+input[type="text"]:focus, select:focus, input[type="number"]:focus {
+  outline: none; border-color: var(--accent-dim);
+}
+.btn {
+  background: var(--accent-dim); color: #fff; border: 1px solid var(--accent-dim);
+  padding: .4rem .8rem; border-radius: var(--radius); font: inherit; font-size: 13px;
+  cursor: pointer; text-decoration: none; display: inline-block;
+}
+.btn:hover { background: var(--accent); text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--ink-dim); border-color: var(--line); }
+.btn.secondary:hover { color: var(--ink); border-color: var(--accent-dim); background: transparent; }
+.btn[disabled], .btn.disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+.mode-badge {
+  display: inline-flex; align-items: center; gap: .35rem; font-size: 11px;
+  padding: .18rem .5rem; border-radius: 3px; border: 1px solid var(--line);
+  color: var(--ink-dim); background: var(--bg-sunken); font-family: var(--mono);
+}
+.mode-badge.historical { border-color: rgba(78,168,222,.4); color: var(--accent); }
+.mode-badge.scenario { border-color: rgba(70,168,108,.4); color: var(--pass); }
+.mode-badge.prospective { border-color: rgba(127,139,156,.4); color: var(--blocked); }
+
+.finding { display: flex; gap: .6rem; align-items: flex-start; padding: .45rem 0;
+  border-bottom: 1px solid var(--line-soft); font-size: 12.5px; }
+.finding:last-child { border-bottom: none; }
+
+.chip-row { display: flex; gap: .4rem; flex-wrap: wrap; }
+.chip {
+  font-size: 11px; padding: .18rem .45rem; border-radius: 3px;
+  background: var(--bg-sunken); border: 1px solid var(--line-soft); color: var(--ink-dim);
+  font-family: var(--mono);
+}
+.theme-toggle {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 10;
+  background: var(--bg-raised); border: 1px solid var(--line); color: var(--ink-dim);
+  border-radius: 20px; padding: .35rem .7rem; font-size: 11px; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); }
+
+@media (max-width: 860px) {
+  .shell { flex-direction: column; }
+  .sidebar { width: 100%; flex: none; height: auto; position: static; }
+  .main { padding: 1rem; }
+}
+
+/* snapshot-age warning on the overview (added 2026-11-06) */
+.status-stale { background: rgba(201,162,39,.15); color: var(--partial); }
+
+/* P1.4 freshness */
+.status-stale { background: rgba(201,162,39,.15); color: var(--partial); }
+
+/* navigation loading indicator (Phase B.9): appears after 250 ms of waiting for a server-rendered page */
+#nav-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent, #4ea8de); opacity: 0;
+  transition: width .4s ease, opacity .2s ease; z-index: 1000; pointer-events: none; }
+#nav-progress.active { width: 85%; opacity: 1; animation: nav-progress-pulse 1.2s ease-in-out infinite; }
+@keyframes nav-progress-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* ================================================================================================
+ * Visual digital-twin layer (2026-11-09). Everything below is additive: the component classes the
+ * seventeen existing templates use are unchanged, so the restyle cannot alter what any page says.
+ * ============================================================================================= */
+
+/* ------------------------------------------------------------------ application bar */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap; padding: .55rem .9rem; margin: -.3rem 0 1rem;
+  background: linear-gradient(90deg, var(--bg-float), var(--bg-raised) 60%, var(--bg-raised));
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--glow);
+}
+.app-bar .bar-left { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+.app-bar h1 { font-size: 18px; margin: 0; font-weight: 640; letter-spacing: -.01em; }
+.app-bar .bar-sub { font-size: 11.5px; color: var(--ink-faint); }
+.app-bar .bar-right { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+.bar-stat { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .5rem;
+  border: 1px solid var(--line-soft); border-radius: 3px; background: var(--bg-sunken); }
+.bar-stat b { color: var(--ink-dim); font-weight: 600; }
+.bar-live { display: inline-flex; align-items: center; gap: .4rem; }
+.bar-live .lamp { width: 7px; height: 7px; border-radius: 50%; background: var(--partial);
+  box-shadow: 0 0 8px -1px var(--partial); }
+.bar-live.is-ready .lamp { background: var(--pass); box-shadow: 0 0 8px -1px var(--pass); }
+.bar-live.is-down .lamp { background: var(--fail); box-shadow: 0 0 8px -1px var(--fail); }
+
+/* ------------------------------------------------------------------ KPI row */
+.kpis { display: grid; gap: .7rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-bottom: 1.1rem; }
+.kpi { background: linear-gradient(180deg, var(--bg-float), var(--bg-raised));
+  border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .8rem;
+  position: relative; overflow: hidden; box-shadow: var(--glow); }
+.kpi::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--accent); opacity: .8; }
+.kpi.violet::after { background: var(--violet); }
+.kpi.warn::after { background: var(--partial); }
+.kpi.neutral::after { background: var(--line); }
+.kpi .k-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-faint); }
+.kpi .k-value { font-size: 23px; font-weight: 650; font-variant-numeric: tabular-nums;
+  line-height: 1.2; margin-top: .15rem; }
+.kpi .k-value small { font-size: 11px; font-weight: 400; color: var(--ink-faint); margin-left: .25rem; }
+.kpi .k-foot { font-size: 10.5px; color: var(--ink-faint); margin-top: .2rem; }
+.kpi .k-value.absent { color: var(--ink-faint); font-weight: 400; font-size: 15px; }
+
+/* ------------------------------------------------------------------ globe stage */
+.globe-layout { display: grid; gap: 1.1rem; grid-template-columns: 250px minmax(0, 1fr) 340px;
+  align-items: start; }
+.globe-layout > * { min-width: 0; }
+@media (max-width: 1400px) { .globe-layout { grid-template-columns: 230px minmax(0, 1fr); }
+  .globe-layout .globe-side-right { grid-column: 1 / -1; } }
+@media (max-width: 980px) { .globe-layout { grid-template-columns: 1fr; } }
+
+.stage { position: relative; border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; background: radial-gradient(circle at 50% 42%, #0d1a2c 0%, #060b14 70%);
+  box-shadow: var(--glow); }
+.stage.tall { height: min(70vh, 720px); }
+.stage.compact { height: 360px; }
+.stage canvas { display: block; width: 100%; height: 100%; outline: none; }
+.stage-hud { position: absolute; top: .65rem; left: .75rem; pointer-events: none;
+  font-family: var(--mono); font-size: 10.5px; color: var(--ink-dim); line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0,0,0,.9); max-width: 60%; }
+.stage-hud .hud-title { font-size: 11px; color: var(--accent-bright); letter-spacing: .06em;
+  text-transform: uppercase; }
+.stage-hud .hud-line b { color: var(--ink); font-weight: 600; }
+.stage-controls { position: absolute; right: .65rem; bottom: .65rem; display: flex; gap: .35rem;
+  flex-wrap: wrap; justify-content: flex-end; }
+.stage-controls .btn { font-size: 11px; padding: .3rem .6rem; background: rgba(13,24,40,.82);
+  border-color: var(--line); color: var(--ink-dim); backdrop-filter: blur(3px); }
+.stage-controls .btn:hover { color: var(--ink); border-color: var(--accent-dim); background: rgba(19,33,53,.92); }
+.stage-legend { position: absolute; left: .75rem; bottom: .65rem; display: flex; gap: .7rem;
+  flex-wrap: wrap; font-size: 10.5px; color: var(--ink-faint); pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0,0,0,.9); }
+.stage-legend .key { display: inline-flex; align-items: center; gap: .3rem; }
+.stage-legend .swatch { width: 9px; height: 9px; border-radius: 50%; }
+
+#globe-tooltip, #globe-selected-label {
+  position: absolute; transform: translate(-50%, -140%); pointer-events: none; opacity: 0;
+  transition: opacity .12s ease; background: rgba(8,15,26,.93); border: 1px solid var(--line);
+  border-radius: 4px; padding: .3rem .5rem; font-size: 11px; color: var(--ink);
+  white-space: nowrap; box-shadow: 0 6px 18px -10px #000; z-index: 3;
+}
+#globe-tooltip strong, #globe-selected-label strong { display: block; font-size: 11.5px; }
+#globe-tooltip small, #globe-selected-label small { color: var(--ink-faint); font-family: var(--mono);
+  font-size: 10px; }
+#globe-tooltip.is-visible, #globe-selected-label.is-visible { opacity: 1; }
+#globe-selected-label { border-color: var(--accent-dim); box-shadow: var(--glow-accent); }
+
+.stage-fallback { padding: 1.4rem; text-align: center; color: var(--ink-dim); font-size: 12.5px; }
+.stage-fallback strong { color: var(--partial); }
+
+/* ------------------------------------------------------------------ object list */
+.globe-side { background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--glow); overflow: hidden; }
+.globe-side h2 { font-size: 11px; margin: 0; padding: .7rem .8rem .5rem; font-weight: 620;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--ink-dim);
+  border-bottom: 1px solid var(--line-soft); }
+.globe-side .side-body { padding: .7rem .8rem; }
+.globe-filters { display: grid; gap: .45rem; padding: .7rem .8rem; border-bottom: 1px solid var(--line-soft); }
+.globe-filters label { font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); display: block; margin-bottom: .18rem; }
+.globe-filters input, .globe-filters select { width: 100%; font-size: 12px; }
+.globe-list { max-height: 44vh; overflow-y: auto; }
+.globe-item { display: flex; gap: .55rem; align-items: center; width: 100%; text-align: left;
+  background: transparent; border: none; border-bottom: 1px solid var(--line-soft);
+  padding: .42rem .8rem; cursor: pointer; color: var(--ink-dim); font: inherit; }
+.globe-item:hover { background: var(--bg-float); color: var(--ink); }
+.globe-item.is-active { background: var(--bg-float); color: var(--ink);
+  box-shadow: inset 2px 0 0 var(--accent); }
+.globe-swatch { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
+.globe-item-main { display: flex; flex-direction: column; min-width: 0; }
+.globe-item-main strong { font-size: 12px; font-weight: 580; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
+.globe-item-main small { font-size: 10px; color: var(--ink-faint); font-family: var(--mono); }
+.globe-count { font-size: 10.5px; color: var(--ink-faint); padding: .45rem .8rem;
+  border-top: 1px solid var(--line-soft); font-family: var(--mono); }
+
+/* ------------------------------------------------------------------ selected-object panel */
+.twin-head { display: flex; flex-direction: column; gap: .3rem; padding-bottom: .6rem;
+  border-bottom: 1px solid var(--line-soft); margin-bottom: .7rem; }
+.twin-head h3 { margin: 0; font-size: 15px; font-weight: 640; }
+.twin-sub { margin: 0; font-size: 11px; color: var(--ink-faint); font-family: var(--mono); }
+.btn-small { font-size: 11px; padding: .25rem .55rem; align-self: flex-start; }
+.twin-group { margin-bottom: .85rem; }
+.twin-group h4 { margin: 0 0 .35rem; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--accent); font-weight: 650; }
+dl.kv { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: .1rem .6rem;
+  margin: 0; font-size: 12px; }
+dl.kv dt { color: var(--ink-faint); padding: .2rem 0; border-bottom: 1px solid var(--line-soft); }
+dl.kv dd { margin: 0; padding: .2rem 0; border-bottom: 1px solid var(--line-soft);
+  font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+dl.kv dd.is-unavailable { color: var(--ink-faint); font-style: italic; }
+.token-row { display: flex; gap: .3rem; flex-wrap: wrap; }
+
+/* ------------------------------------------------------------------ mission timeline */
+.timeline { display: flex; gap: 0; overflow-x: auto; padding: .3rem 0 .1rem; }
+.timeline-item { position: relative; flex: 0 0 auto; min-width: 190px; padding: 0 .9rem .2rem 1.1rem;
+  border-left: 1px solid var(--line-soft); }
+.timeline-item:first-child { border-left: none; padding-left: .3rem; }
+.timeline-dot { position: absolute; left: -4px; top: .28rem; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px -1px var(--accent); }
+.timeline-item:first-child .timeline-dot { left: -3px; }
+.timeline-dot.violet { background: var(--violet); box-shadow: 0 0 8px -1px var(--violet); }
+.timeline-dot.warn { background: var(--partial); box-shadow: 0 0 8px -1px var(--partial); }
+.timeline-dot.muted { background: var(--blocked); box-shadow: none; }
+.timeline-when { font-size: 10px; color: var(--ink-faint); font-family: var(--mono); }
+.timeline-what { font-size: 12px; color: var(--ink); margin-top: .1rem; }
+.timeline-note { font-size: 10.5px; color: var(--ink-faint); margin-top: .1rem; }
+
+/* ------------------------------------------------------------------ meters (distributions) */
+.meter-row { display: grid; grid-template-columns: minmax(70px, auto) 1fr minmax(52px, auto);
+  gap: .5rem; align-items: center; font-size: 11.5px; padding: .14rem 0; }
+.meter-label { color: var(--ink-faint); font-family: var(--mono); font-size: 10.5px; }
+.meter { height: 7px; background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: 4px; overflow: hidden; }
+.meter-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  border-radius: 4px; }
+.meter-fill.violet { background: linear-gradient(90deg, var(--violet-dim), var(--violet)); }
+.meter-fill.warn { background: linear-gradient(90deg, #8a6f1c, var(--partial)); }
+.meter-value { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono);
+  font-size: 10.5px; color: var(--ink-dim); }
+
+/* ------------------------------------------------------------------ section heads and notes */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem;
+  flex-wrap: wrap; margin: 1.5rem 0 .6rem; }
+.section-head h2 { font-size: 13px; margin: 0; font-weight: 620; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink-dim); }
+.section-head .note { font-size: 11px; color: var(--ink-faint); }
+.integrity-note { font-size: 11.5px; color: var(--ink-faint); border-left: 2px solid var(--violet);
+  padding: .35rem 0 .35rem .65rem; margin: .6rem 0; }
+.integrity-note strong { color: var(--ink-dim); }
+
+</style>
+</head>
+<body>
+<div id="nav-progress" aria-hidden="true"></div>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark">COSMOS-AI</div>
+      <div class="sub">Mission Intelligence Console</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">Start here</div>
+      <a href="/demo" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>Guided Demonstration</a>
+      <div class="nav-group">Mission picture</div>
+      <a href="/" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3zM13 21h8v-10h-8zM3 21h8v-5H3zM13 8h8V3h-8z"/></svg>Mission Overview</a>
+      <a href="/explorer" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>Earth &amp; Orbit Explorer</a>
+      <a href="/objects" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.5-4.5"/></svg>Satellite Digital Twin</a>
+      <a href="/twin-state" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>Twin State</a>
+      <div class="nav-group">Analysis</div>
+      <a href="/intelligence" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8 4 5"/><path d="M3 21h18"/></svg>Lifetime &amp; Re-entry</a>
+      <a href="/telemetry" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3l2-5 3 10 3-7 2 4h5"/></svg>Health &amp; Telemetry Benchmarks</a>
+      <a href="/risk" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>Conjunction &amp; Collision</a>
+      <a href="/debris" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="8" r="2"/><circle cx="16" cy="6" r="1.5"/><circle cx="18" cy="15" r="2.5"/><circle cx="9" cy="17" r="1.5"/><circle cx="12" cy="11" r="1"/></svg>Debris Detection</a>
+      <a href="/decisions" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="19" cy="17" r="3"/></svg>Decision Intelligence</a>
+      <div class="nav-group">Operate</div>
+      <a href="/runs" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="7" cy="7" r="1"/><circle cx="7" cy="12" r="1"/><circle cx="7" cy="17" r="1"/></svg>Run Explorer</a>
+      <a href="/scenario" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v6M12 14v6M4 12h6M14 12h6"/><circle cx="12" cy="12" r="2"/></svg>Scenario Analysis</a>
+      <a href="/prospective" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>Prospective Eval</a>
+      <div class="nav-group">Reference</div>
+      <a href="/evidence" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13h7M9 17h5"/></svg>Evidence &amp; Provenance</a>
+      <a href="/docs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>API documentation</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h1>Run run_20261109T041153Z</h1>
+      <div class="meta">
+<span class="mode-badge historical">HISTORICAL · never recomputed</span>
+</div>
+    </div>
+    <div class="app-bar">
+      <div class="bar-left">
+        <span class="bar-sub">Archive-backed digital twin · snapshot <b>2026-10-27</b> · nothing live, nothing inferred at request time</span>
+      </div>
+      <div class="bar-right">
+        <span class="bar-live is-ready"><span class="lamp"></span>READY</span>
+        <span class="bar-stat"><b>31,396</b> objects</span><span class="bar-stat">twin <b>reemitted</b></span>
+        <span class="bar-stat">API <b>1.2</b></span>
+      </div>
+    </div>
+    
+<div class="scope-note">
+  Loaded from <code>outputs/pipeline/run_20261109T041153Z/</code>. Opening a run does not recompute,
+  modify or overwrite anything in it.
+</div>
+
+    
+
+<div class="panel">
+  <h2>Run provenance</h2>
+  <div class="grid two">
+    <table class="kv">
+      <tr><th>Run ID</th><td class="mono">run_20261109T041153Z</td></tr>
+      <tr><th>Started (UTC)</th><td class="mono">2026-11-09T04:11:53.987594+00:00</td></tr>
+      <tr><th>Duration</th><td>5.089 s</td></tr>
+      <tr><th>Snapshot as-of</th><td>2026-10-27</td></tr>
+      <tr><th>Completed successfully</th>
+        <td><span class="status status-pass">YES</span>
+          </td></tr>
+    </table>
+    <table class="kv">
+      <tr><th>Configuration SHA-256</th><td class="mono">ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90</td></tr>
+      <tr><th>Git commit</th><td class="mono">727ecec95fbb8ec3ac47b23df569dc5c376318f4</td></tr>
+      <tr><th>Tracked worktree</th>
+        <td>
+          <span class="status status-partial">MODIFIED</span>
+          outputs may not match the commit
+        </td></tr>
+      <tr><th>Requested modules</th>
+        <td class="mono">catalogue_state, lifetime, reentry, collision, health, debris, twin_state, twin_equivalence, decision_priority</td></tr>
+      <tr><th>Snapshot consistency</th>
+        <td><span class="status status-pass">SINGLE SNAPSHOT</span>
+          </td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Module outputs</h2>
+  <table class="data">
+    <thead><tr>
+      <th>Module</th><th>Status</th><th>Duration</th><th>As of</th>
+      <th>Input sources</th><th>Detail</th>
+    </tr></thead>
+    <tbody>
+    
+      
+      
+      <tr>
+        <td>catalogue_state</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">1.13</td>
+        <td>2026-10-27</td>
+        <td>CelesTrak SATCAT snapshot via COSMOS twin; GCAT</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>lifetime</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.61</td>
+        <td>2026-10-27</td>
+        <td>COSMOS lifetime expert (saved snapshot)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>reentry</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.76</td>
+        <td>2026-10-27</td>
+        <td>COSMOS dated twin forecast (saved snapshot)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>collision</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.03</td>
+        <td>2026-10-27</td>
+        <td>ESA Kelvins Collision Avoidance Challenge (anonymised CDMs)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>health</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.02</td>
+        <td>2026-10-27</td>
+        <td>ESA Anomaly Detection Benchmark (anonymised missions)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>debris</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.96</td>
+        <td>2026-10-27</td>
+        <td>SpotGEO benchmark (ESA Kelvins)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>twin_state</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.62</td>
+        <td>2026-10-27</td>
+        <td>COSMOS twin-state archive (reemitted, twin_state/1.1); re-emission manifest</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>twin_equivalence</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.87</td>
+        <td>2026-10-27</td>
+        <td>twin_state module output; catalogue chain outputs (catalogue_state, lifetime, reentry)</td>
+        <td>—</td>
+      </tr>
+    
+      
+      
+      <tr>
+        <td>decision_priority</td>
+        <td><span class="status status-success">success</span></td>
+        <td class="num">0.07</td>
+        <td>2026-10-27</td>
+        <td>COSMOS re-entry forecast; COSMOS lifetime expert; GCAT mass</td>
+        <td>—</td>
+      </tr>
+    
+    </tbody>
+  </table>
+  <p class="panel-note">A failed module writes no output; its dependants are reported as
+    blocked rather than completed with substituted values.</p>
+</div>
+
+<div class="panel">
+  <h2>Decision ranking — top 25 with the interval-versus-horizon cue</h2>
+  <p class="panel-note">Display only. The order, priority scores and probabilities are the run's own
+    <code>decision_ranking.csv</code>; the cue classifies each object's 5–95 % re-entry interval
+    (from the same run's <code>reentry_predictions.csv</code>) against the 30-day decision horizon.
+    An interval is a spread of predicted time, not a probability of survival and not a guarantee;
+    the ranking uses p(30 d) alone.</p>
+  
+  <table class="data" data-test="ranking-horizon">
+    <thead><tr><th>#</th><th>Object</th><th>Regime</th><th class="num">p(30 d)</th><th class="num">Priority</th>
+      <th>5–95 % interval (days)</th><th>Versus 30-day horizon</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td class="num">1</td>
+        <td><a href="/objects/32730">NORAD-32730</a> BLOCK DM-SL R/B</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">2</td>
+        <td class="num">10 – 10</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">2</td>
+        <td><a href="/objects/37607">NORAD-37607</a> ARIANE 5 R/B</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">2</td>
+        <td class="num">10 – 10</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">3</td>
+        <td><a href="/objects/57705">NORAD-57705</a> STARLINK-30342</td>
+        <td>natural_decay</td>
+        <td class="num">0.9688</td>
+        <td class="num">1.9375</td>
+        <td class="num">3.3 – 14.2</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">4</td>
+        <td><a href="/objects/54246">NORAD-54246</a> USA 299 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.8750</td>
+        <td class="num">1.7500</td>
+        <td class="num">16.7 – 35.2</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">5</td>
+        <td><a href="/objects/4133">NORAD-4133</a> THORAD AGENA D DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">4.5 – 5.6</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">6</td>
+        <td><a href="/objects/7003">NORAD-7003</a> AUREOLE 2</td>
+        <td>unknown</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">0.5 – 2.2</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">7</td>
+        <td><a href="/objects/12892">NORAD-12892</a> COSMOS 1261 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">2.4 – 10</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">8</td>
+        <td><a href="/objects/13809">NORAD-13809</a> COSMOS 1275 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">4.0 – 4.7</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">9</td>
+        <td><a href="/objects/30744">NORAD-30744</a> FENGYUN 1C DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">5.4 – 7.1</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">10</td>
+        <td><a href="/objects/37367">NORAD-37367</a> USA 225 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">0.3 – 5.6</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">11</td>
+        <td><a href="/objects/37734">NORAD-37734</a> CZ-2C DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">4.9 – 5.7</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">12</td>
+        <td><a href="/objects/38487">NORAD-38487</a> COSMOS 2251 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">21.5 – 25.0</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">13</td>
+        <td><a href="/objects/43834">NORAD-43834</a> OBJECT D</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">0.1 – 0.1</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">14</td>
+        <td><a href="/objects/48737">NORAD-48737</a> NOAA 17 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">7.8 – 8.5</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">15</td>
+        <td><a href="/objects/50058">NORAD-50058</a> COSMOS 1408 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">9.1 – 9.1</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">16</td>
+        <td><a href="/objects/69676">NORAD-69676</a> OBJECT G</td>
+        <td>natural_decay</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">6.6 – 12.2</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">17</td>
+        <td><a href="/objects/62636">NORAD-62636</a> FLOCK 4G-20</td>
+        <td>natural_decay</td>
+        <td class="num">0.9688</td>
+        <td class="num">0.9688</td>
+        <td class="num">3.6 – 22.5</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">18</td>
+        <td><a href="/objects/101147">NORAD-101147</a> ELECTRON R/B</td>
+        <td>natural_decay</td>
+        <td class="num">0.9688</td>
+        <td class="num">0.9688</td>
+        <td class="num">2.3 – 19.2</td>
+        <td><span class="status status-info">BEFORE HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">19</td>
+        <td><a href="/objects/31619">NORAD-31619</a> FENGYUN 1C DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.9062</td>
+        <td class="num">0.9062</td>
+        <td class="num">19.7 – 31.6</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">20</td>
+        <td><a href="/objects/45273">NORAD-45273</a> SL-14 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.8125</td>
+        <td class="num">0.8125</td>
+        <td class="num">13.9 – 77.1</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">21</td>
+        <td><a href="/objects/23806">NORAD-23806</a> TITAN 34B DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.7188</td>
+        <td class="num">0.7188</td>
+        <td class="num">1.1 – 202.5</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">22</td>
+        <td><a href="/objects/20893">NORAD-20893</a> CZ-4 DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.5312</td>
+        <td class="num">0.5312</td>
+        <td class="num">15.1 – 90.3</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">23</td>
+        <td><a href="/objects/8872">NORAD-8872</a> TITAN 34B R/B</td>
+        <td>natural_decay</td>
+        <td class="num">0.2500</td>
+        <td class="num">0.5000</td>
+        <td class="num">30 – 122.5</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">24</td>
+        <td><a href="/objects/100608">NORAD-100608</a> GSLV R/B</td>
+        <td>natural_decay</td>
+        <td class="num">0.4688</td>
+        <td class="num">0.4688</td>
+        <td class="num">10 – 621.5</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+      <tr>
+        <td class="num">25</td>
+        <td><a href="/objects/28524">NORAD-28524</a> TITAN 34B DEB</td>
+        <td>natural_decay</td>
+        <td class="num">0.4375</td>
+        <td class="num">0.4375</td>
+        <td class="num">10 – 1,074.8</td>
+        <td><span class="status status-partial">CROSSES HORIZON</span></td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</div>
+
+<div class="panel">
+  <h2>Evidence class and lineage per module</h2>
+  <p class="panel-note">Four version notions are kept apart: code (Git commit), configuration
+    (SHA-256 of the resolved run configuration), data artifacts (SHA-256 of every file read) and
+    model. <strong>No module of this run executed a fitted model</strong>: every value was read from an
+    archived artifact, so the model version is recorded as unavailable rather than borrowed from an
+    artifact hash or a registry card. The modules are independent evidence roots; the health module is a
+    table of benchmark-arm scores and is not a satellite health assessment.</p>
+  <table class="data">
+    <thead><tr><th>Module</th><th>Evidence class</th><th>Code</th><th>Configuration</th>
+      <th>Data artifacts</th><th>Model version</th></tr></thead>
+    <tbody>
+    
+      
+      <tr data-test="lineage-catalogue_state">
+        <td>catalogue_state</td>
+        <td>archived dated catalogue snapshot (real CelesTrak/GCAT data)</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/twin/as_of_2026-10-27/forecast_table.csv.gz b15644aab581</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-lifetime">
+        <td>lifetime</td>
+        <td>archived lifetime expert outputs read from the dated forecast table</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/twin/as_of_2026-10-27/forecast_table.csv.gz b15644aab581</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-reentry">
+        <td>reentry</td>
+        <td>archived dated re-entry forecast read from the forecast table</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/twin/as_of_2026-10-27/forecast_table.csv.gz b15644aab581</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-collision">
+        <td>collision</td>
+        <td>archived held-out benchmark predictions on anonymised conjunction events — not linked to any object</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz b8e806e41a4f</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-health">
+        <td>health</td>
+        <td>archived benchmark-arm detection scores (ESA-ADB) — not a spacecraft health state</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/benchmarks/telemetry_esa_adb/results.csv 1e98567df6a2</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-debris">
+        <td>debris</td>
+        <td>archived classical detections on real SpotGEO frames — no object identity, no time</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/benchmarks/vision_spotgeo/classical_cosmos_frontend_test_submission.json 1bba3d17b539</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-twin_state">
+        <td>twin_state</td>
+        <td>archived twin-state records read from the selected archive (re-emitted twin_state/1.1 or historical 1.0) — an additional evidence root, nothing regenerated</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl 6bb4871f7ded</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-twin_equivalence">
+        <td>twin_equivalence</td>
+        <td>value comparison of the twin-state records with the catalogue chain of this run — a check, not a prediction</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl 6bb4871f7ded; outputs/twin/as_of_2026-10-27/forecast_table.csv.gz b15644aab581</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+      
+      <tr data-test="lineage-decision_priority">
+        <td>decision_priority</td>
+        <td>ranking computed from the archived re-entry probability and GCAT mass</td>
+        
+        <td class="mono">727ecec95fbb</td>
+        <td class="mono">ff03cc1b3407</td>
+        <td class="mono">derived_from_upstream_outputs catalogue_state, lifetime, reentry</td>
+        <td><span class="status status-unavailable">UNAVAILABLE</span> no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts</td>
+        
+      </tr>
+    
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="panel">
+  <h2>Abstentions and reasons</h2>
+  
+    
+    
+  
+    
+    <details class="evidence" open>
+      <summary>lifetime — 18,281 object(s) abstained</summary>
+      <div class="body">
+        <ul>
+        
+          <li><strong>18,158</strong> — saved lifetime expert produced no value for this object</li>
+        
+          <li><strong>123</strong> — saved per-horizon calibrated probabilities are not monotone across horizons (independent isotonic calibration per horizon); no coherent CDF available</li>
+        
+        </ul>
+        
+        <p><strong>123</strong> of these were
+          excluded for non-monotone per-horizon calibrated probabilities (limitation L17) and
+          are listed in <code>lifetime_noncoherent_horizons.csv</code>. The twin's final
+          reported forecast is unaffected.</p>
+        
+        <p>An abstention means no value was produced. Nothing is imputed in its place.</p>
+      </div>
+    </details>
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+    <div class="unavailable-state" style="text-align:left;margin-top:.5rem">
+      <span class="status status-abstain">
+        ABSTAIN</span>
+      <strong>Coupling C4 (decision_priority).</strong> health evidence is present but not identity-linked to these objects: ESA-ADB missions are anonymised and share no identifier with the catalogue, so no health-driven escalation (C4) can be computed
+    </div>
+    
+  
+</div>
+
+
+<div class="panel">
+  <h2>Tables written by this run</h2>
+  
+  <table class="data">
+    <thead><tr><th>Table</th><th>Preview</th></tr></thead>
+    <tbody>
+    
+      <tr>
+        <td class="mono">decision_ranking.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/decision_ranking.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">reentry_predictions.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/reentry_predictions.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">lifetime_estimates.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/lifetime_estimates.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">lifetime_noncoherent_horizons.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/lifetime_noncoherent_horizons.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">collision_risk.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/collision_risk.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">health_benchmark_arms.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/health_benchmark_arms.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">debris_detections.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/debris_detections.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+      <tr>
+        <td class="mono">twin_equivalence.csv</td>
+        <td><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z/tables/twin_equivalence.csv?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+</div>
+
+<div class="panel">
+  <h2>What this run does not establish</h2>
+  
+  <ul>
+  <li>this run does not re-evaluate or revalidate any scientific result</li><li>health (ESA-ADB) and conjunction (Kelvins CAC) records are anonymised and are not identity-linked to the catalogue or to each other</li><li>the catalogue chain (elements, lifetime, re-entry) is identity-linked by NORAD number within one snapshot</li>
+  </ul>
+  
+  <details class="evidence">
+    <summary>Full run manifest (JSON)</summary>
+    <div class="body">
+      <p><a href="http://127.0.0.1:8070/api/runs/run_20261109T041153Z" target="_blank">Open raw manifest</a></p>
+      <pre class="json">{
+  "as_of": "2026-10-27",
+  "config": {
+    "as_of": "2026-10-27",
+    "collision_limit": null,
+    "collision_model": "cosmos_gated",
+    "debris_sequence_limit": null,
+    "health_calibrator": "conformal_bh",
+    "limit": null,
+    "twin_source_policy": "prefer_reemitted"
+  },
+  "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+  "duration_s": 5.089,
+  "environment": {
+    "cpu_count": 512,
+    "device": "cpu",
+    "host": "bmg17417.jf.intel.com",
+    "numpy": "2.3.5",
+    "pandas": "3.1.0",
+    "platform": "Linux-6.17.0-1010-intel-x86_64-with-glibc2.41",
+    "python": "3.12.16",
+    "torch": "2.14.0+xpu",
+    "utc": "2026-11-09T04:12:00.554771+00:00"
+  },
+  "git": {
+    "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+    "git_error": null,
+    "tracked_worktree_dirty": true
+  },
+  "interpretation": {
+    "not_established": [
+      "this run does not re-evaluate or revalidate any scientific result",
+      "health (ESA-ADB) and conjunction (Kelvins CAC) records are anonymised and are not identity-linked to the catalogue or to each other",
+      "the catalogue chain (elements, lifetime, re-entry) is identity-linked by NORAD number within one snapshot"
+    ],
+    "scope": "interface and lineage execution over saved artifacts"
+  },
+  "modules": {
+    "catalogue_state": {
+      "duration_s": 1.1298175080446526,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "characteristics": {
+          "count": 31396
+        },
+        "elements": {
+          "count": 31396
+        },
+        "name": {
+          "count": 31396
+        },
+        "object_class": {
+          "count": 31396
+        },
+        "regime": {
+          "count": 31396
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "input_sources": [
+          "CelesTrak SATCAT snapshot via COSMOS twin",
+          "GCAT"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:53.987665+00:00",
+      "status": "success"
+    },
+    "collision": {
+      "duration_s": 0.03352800605352968,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz": "b8e806e41a4f3ced9bb58687c125b5aa4ec98d894b75de386fd0c615aa4f9aed"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "collision": {
+          "count": 2167
+        },
+        "identity_linkable": false
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz": "b8e806e41a4f3ced9bb58687c125b5aa4ec98d894b75de386fd0c615aa4f9aed"
+        },
+        "input_sources": [
+          "ESA Kelvins Collision Avoidance Challenge (anonymised CDMs)"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:56.493350+00:00",
+      "status": "success"
+    },
+    "debris": {
+      "duration_s": 0.9608752229250968,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/benchmarks/vision_spotgeo/classical_cosmos_frontend_test_submission.json": "1bba3d17b539f357c7eac33d907026d265c13493531ad17961b892cd532432a2"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "astrometric_calibration": false,
+        "detections": {
+          "count": 283026
+        },
+        "sequences": 5120
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/benchmarks/vision_spotgeo/classical_cosmos_frontend_test_submission.json": "1bba3d17b539f357c7eac33d907026d265c13493531ad17961b892cd532432a2"
+        },
+        "input_sources": [
+          "SpotGEO benchmark (ESA Kelvins)"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:56.550127+00:00",
+      "status": "success"
+    },
+    "decision_priority": {
+      "duration_s": 0.06987641099840403,
+      "error": "",
+      "health_escalation": {
+        "reason": "health evidence is present but not identity-linked to these objects: ESA-ADB missions are anonymised and share no identifier with the catalogue, so no health-driven escalation (C4) can be computed",
+        "status": "abstain"
+      },
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "derived_from_upstream_outputs": [
+            "catalogue_state",
+            "lifetime",
+            "reentry"
+          ]
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "consequence_mass_kg": 500.0,
+        "health_escalation": {
+          "module": "decision_priority",
+          "reason": "health evidence is present but not identity-linked to these objects: ESA-ADB missions are anonymised and share no identifier with the catalogue, so no health-driven escalation (C4) can be computed",
+          "status": "abstain"
+        },
+        "priority_rule": {
+          "consequence_mass_kg": 500.0,
+          "consequence_multiplier": 2.0,
+          "formula": "priority_score = p_reentry_30d * (consequence_multiplier if mass_kg \u003e= consequence_mass_kg else 1.0)",
+          "inputs": [
+            "p_reentry_30d (reported 30-day re-entry probability of the dated forecast)",
+            "mass_kg (GCAT mass; None when unknown, in which case the multiplier is never applied)"
+          ],
+          "interval_use": "none: the rule uses the point probability only; the 5-95 % interval is carried as a flag",
+          "semantics": "an operational ordering with no probabilistic interpretation; it never modifies a physical probability, and health evidence never escalates it because no dataset links telemetry to a catalogued object (C4)"
+        },
+        "ranking": {
+          "columns": [
+            "object_id",
+            "name",
+            "regime",
+            "p_reentry_30d",
+            "mass_kg",
+            "mass_known",
+            "high_consequence",
+            "priority_score",
+            "lifetime_evidence",
+            "reentry_interval_available"
+          ],
+          "rows": 31396
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {},
+        "input_sources": [
+          "COSMOS re-entry forecast",
+          "COSMOS lifetime expert",
+          "GCAT mass"
+        ],
+        "upstream_outputs": [
+          "catalogue_state",
+          "lifetime",
+          "reentry"
+        ]
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:59.006620+00:00",
+      "status": "success"
+    },
+    "health": {
+      "duration_s": 0.023219028022140265,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/benchmarks/telemetry_esa_adb/results.csv": "1e98567df6a2f366b8d40dadac3090b8de1487af0d00e4a7ea3032f44628462c"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "health": {
+          "count": 36
+        },
+        "identity_linkable": false
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/benchmarks/telemetry_esa_adb/results.csv": "1e98567df6a2f366b8d40dadac3090b8de1487af0d00e4a7ea3032f44628462c"
+        },
+        "input_sources": [
+          "ESA Anomaly Detection Benchmark (anonymised missions)"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:56.526894+00:00",
+      "status": "success"
+    },
+    "lifetime": {
+      "abstained_total": 18281,
+      "abstentions": {
+        "saved lifetime expert produced no value for this object": 18158,
+        "saved per-horizon calibrated probabilities are not monotone across horizons (independent isotonic calibration per horizon); no coherent CDF available": 123
+      },
+      "duration_s": 0.6115035590482876,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "noncoherent_horizon_probabilities": 123,
+      "outputs": {
+        "abstained": {
+          "count": 18281
+        },
+        "lifetime": {
+          "count": 13115
+        },
+        "noncoherent_horizon_probabilities": {
+          "count": 123
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "input_sources": [
+          "COSMOS lifetime expert (saved snapshot)"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:55.117558+00:00",
+      "status": "success"
+    },
+    "reentry": {
+      "duration_s": 0.7642455690074712,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "abstained": {
+          "count": 0
+        },
+        "reentry": {
+          "count": 31396
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "input_sources": [
+          "COSMOS dated twin forecast (saved snapshot)"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:55.729087+00:00",
+      "status": "success"
+    },
+    "twin_equivalence": {
+      "duration_s": 0.8745875629829243,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+          "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "chain_source": "reemitted",
+        "comparison": {
+          "count": 31396
+        },
+        "different_fields_summary": "none",
+        "equivalent": true,
+        "fields_compared": 452690,
+        "fields_different": 0,
+        "fields_equal": 452690,
+        "not_comparable_reasons_summary": "reentry.abstained: twin marks operator-controlled objects as abstaining (C3) with base-rate values attached; the chain records a prediction with the regime as an assumption \u2014 representations differ, values are compared (16386) | reentry.time_quantiles: chain has no time quantiles for this object (bounds missing or non-positive) (16386) | lifetime: chain lifetime abstained: saved per-horizon calibrated probabilities are not monotone across horizons (independent isotonic calibration per horizon); no coherent CDF available (123)",
+        "note": "value equivalence of twin records with the catalogue chain of one run; fields with differing semantics are listed as not comparable, not forced equal",
+        "records_compared": 31396,
+        "records_different": 0,
+        "records_equal": 31396,
+        "records_missing_in_chain": 0,
+        "records_missing_in_twin": 0,
+        "records_not_comparable": 0,
+        "run_universe": 31396,
+        "twin_records": 31396
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+          "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84"
+        },
+        "input_sources": [
+          "twin_state module output",
+          "catalogue chain outputs (catalogue_state, lifetime, reentry)"
+        ],
+        "upstream_outputs": [
+          "twin_state",
+          "catalogue_state",
+          "lifetime",
+          "reentry"
+        ]
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:58.131986+00:00",
+      "status": "success"
+    },
+    "twin_state": {
+      "duration_s": 0.6209505599690601,
+      "error": "",
+      "lineage": {
+        "code_version": {
+          "git_commit": "727ecec95fbb8ec3ac47b23df569dc5c376318f4"
+        },
+        "configuration_version": {
+          "config_sha256": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90"
+        },
+        "data_artifacts": {
+          "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84"
+        },
+        "model_version": {
+          "digest": null,
+          "label": null,
+          "reason": "no fitted model is persisted for this module; its values were read from the archived prediction artifact(s) listed under data_artifacts",
+          "registry_card": null,
+          "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred",
+          "status": "unavailable"
+        }
+      },
+      "outputs": {
+        "artifact": "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl",
+        "artifact_recorded_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+        "artifact_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+        "digest_state": "verified",
+        "duplicate_identities": 0,
+        "fallback_used": false,
+        "integrity_examples": {
+          "count": 4
+        },
+        "integrity_status": "ok",
+        "model_executed": false,
+        "model_version_status": "unavailable",
+        "original_or_reemitted": "reemitted",
+        "policy": "prefer_reemitted",
+        "predictions_regenerated": false,
+        "provenance_complete": true,
+        "provenance_on_outputs": true,
+        "record_count": 31396,
+        "record_count_state": "matches",
+        "record_index": {
+          "count": 31396
+        },
+        "recorded_record_count": 31396,
+        "records_malformed_json": 0,
+        "records_schema_invalid": 0,
+        "records_total": 31396,
+        "records_valid": 31396,
+        "records_with_value_problems": 0,
+        "reemission_code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "reemission_method": "cosmos.ai.twin.reemit.emit_records v1 (row-wise mapping of forecast_table.csv.gz; no model executed)",
+        "schema_version": "twin_state/1.1",
+        "schema_versions_seen": "twin_state/1.1: 31396",
+        "selection_reason": "re-emitted twin_state/1.1 archive present and valid (preferred source)",
+        "selection_status": "primary",
+        "source": "reemitted",
+        "transformation_digest_sha256": "da9724148c7d056d4f093858fe8f1725dfee9d608c3549837ba9b2bbb67d603d",
+        "unique_identities": 31396
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "code_revision": "727ecec95fbb8ec3ac47b23df569dc5c376318f4",
+        "config_digest": "ff03cc1b34078183f493ea637a4849a01dfa91a79612646260bc0b1566b9dd90",
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84"
+        },
+        "input_sources": [
+          "COSMOS twin-state archive (reemitted, twin_state/1.1)",
+          "re-emission manifest"
+        ],
+        "upstream_outputs": []
+      },
+      "reason": "",
+      "started_at": "2026-11-09T04:11:57.511023+00:00",
+      "status": "success"
+    }
+  },
+  "requested": [
+    "catalogue_state",
+    "lifetime",
+    "reentry",
+    "collision",
+    "health",
+    "debris",
+    "twin_state",
+    "twin_equivalence",
+    "decision_priority"
+  ],
+  "schema_version": "run_manifest/1.2",
+  "started_at": "2026-11-09T04:11:53.987594+00:00",
+  "successful": true,
+  "tables_written": [
+    "decision_ranking.csv",
+    "reentry_predictions.csv",
+    "lifetime_estimates.csv",
+    "lifetime_noncoherent_horizons.csv",
+    "collision_risk.csv",
+    "health_benchmark_arms.csv",
+    "debris_detections.csv",
+    "twin_equivalence.csv"
+  ]
+}</pre>
+    </div>
+  </details>
+</div>
+
+  </main>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">light / dark</button>
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try { localStorage.setItem('cosmos-theme', next); } catch (e) {}
+}
+(function () {
+  try {
+    const saved = localStorage.getItem('cosmos-theme');
+    if (saved) { document.documentElement.dataset.theme = saved; }
+  } catch (e) {}
+})();
+// Navigation loading indicator: pages are rendered on the server, so a slow first load (for example the Twin State
+// page streaming the archive) would otherwise give no feedback. A thin bar appears after 250 ms of waiting.
+(function () {
+  const bar = document.getElementById('nav-progress');
+  if (!bar) { return; }
+  let timer = null;
+  document.addEventListener('click', function (event) {
+    const link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download') || event.defaultPrevented) { return; }
+    if (link.origin !== window.location.origin || link.getAttribute('href').startsWith('#')) { return; }
+    timer = setTimeout(function () { bar.classList.add('active'); }, 250);
+  });
+  document.addEventListener('submit', function () { timer = setTimeout(function () { bar.classList.add('active'); }, 250); });
+  window.addEventListener('pageshow', function () { if (timer) { clearTimeout(timer); } bar.classList.remove('active'); });
+})();
+</script>
+
+</body>
+</html>

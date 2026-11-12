@@ -1,0 +1,67 @@
+T1 ranking utility (exploratory, non-blind) — 2026-11-08T14:36:08+00:00
+x7_uncontrolled_natural_decay_with_history n=13186 y_30d events=29 base_rate=0.00220
+  deployed_rule      P@10=0.600 P@25=0.720 P@50=0.560 P@100=0.280 P@250=0.112
+  p_30d_alone        P@10=0.600 P@25=0.800 P@50=0.560 P@100=0.280 P@250=0.112
+  physics_prior      P@10=0.500 P@25=0.640 P@50=0.480 P@100=0.280 P@250=0.116
+  lifetime_expert    P@10=0.700 P@25=0.680 P@50=0.360 P@100=0.240 P@250=0.112
+  perigee_ascending  P@10=0.400 P@25=0.160 P@50=0.080 P@100=0.060 P@250=0.032
+  base_rate_random   P@10=0.002 P@25=0.002 P@50=0.002 P@100=0.002 P@250=0.002
+  rule_minus_p30d_k25: diff=-0.080 ci95=-0.160..+0.000
+  rule_minus_p30d_k50: diff=+0.000 ci95=-0.040..+0.000
+  rule_minus_perigee_k25: diff=+0.560 ci95=+0.320..+0.760
+  rule_minus_perigee_k50: diff=+0.480 ci95=+0.260..+0.640
+x7_uncontrolled_natural_decay_with_history n=13186 y_72d events=64 base_rate=0.00485
+  deployed_rule      P@10=0.600 P@25=0.800 P@50=0.720 P@100=0.370 P@250=0.148
+  p_30d_alone        P@10=0.700 P@25=0.880 P@50=0.700 P@100=0.370 P@250=0.148
+  physics_prior      P@10=0.500 P@25=0.720 P@50=0.640 P@100=0.500 P@250=0.236
+  lifetime_expert    P@10=0.800 P@25=0.800 P@50=0.460 P@100=0.350 P@250=0.220
+  perigee_ascending  P@10=0.500 P@25=0.200 P@50=0.120 P@100=0.080 P@250=0.044
+  base_rate_random   P@10=0.005 P@25=0.005 P@50=0.005 P@100=0.005 P@250=0.005
+  rule_minus_p30d_k25: diff=-0.080 ci95=-0.200..+0.000
+  rule_minus_p30d_k50: diff=+0.020 ci95=-0.060..+0.020
+  rule_minus_perigee_k25: diff=+0.600 ci95=+0.320..+0.800
+  rule_minus_perigee_k50: diff=+0.600 ci95=+0.320..+0.760
+natural_decay_all n=13745 y_30d events=36 base_rate=0.00262
+  deployed_rule      P@10=0.500 P@25=0.680 P@50=0.580 P@100=0.340 P@250=0.136
+  p_30d_alone        P@10=0.600 P@25=0.760 P@50=0.580 P@100=0.340 P@250=0.136
+  physics_prior      P@10=0.500 P@25=0.600 P@50=0.500 P@100=0.300 P@250=0.136
+  lifetime_expert    P@10=0.700 P@25=0.680 P@50=0.360 P@100=0.240 P@250=0.112
+  perigee_ascending  P@10=0.400 P@25=0.160 P@50=0.080 P@100=0.060 P@250=0.036
+  base_rate_random   P@10=0.003 P@25=0.003 P@50=0.003 P@100=0.003 P@250=0.003
+  rule_minus_p30d_k25: diff=-0.080 ci95=-0.200..+0.000
+  rule_minus_p30d_k50: diff=+0.000 ci95=-0.060..+0.000
+  rule_minus_perigee_k25: diff=+0.520 ci95=+0.280..+0.720
+  rule_minus_perigee_k50: diff=+0.500 ci95=+0.320..+0.640
+natural_decay_all n=13745 y_72d events=81 base_rate=0.00589
+  deployed_rule      P@10=0.500 P@25=0.760 P@50=0.740 P@100=0.470 P@250=0.188
+  p_30d_alone        P@10=0.700 P@25=0.840 P@50=0.740 P@100=0.470 P@250=0.188
+  physics_prior      P@10=0.500 P@25=0.680 P@50=0.660 P@100=0.520 P@250=0.264
+  lifetime_expert    P@10=0.800 P@25=0.800 P@50=0.460 P@100=0.350 P@250=0.220
+  perigee_ascending  P@10=0.500 P@25=0.200 P@50=0.120 P@100=0.080 P@250=0.048
+  base_rate_random   P@10=0.006 P@25=0.006 P@50=0.006 P@100=0.006 P@250=0.006
+  rule_minus_p30d_k25: diff=-0.080 ci95=-0.200..+0.000
+  rule_minus_p30d_k50: diff=+0.000 ci95=-0.060..+0.020
+  rule_minus_perigee_k25: diff=+0.560 ci95=+0.280..+0.760
+  rule_minus_perigee_k50: diff=+0.620 ci95=+0.420..+0.760
+all_objects n=30826 y_30d events=101 base_rate=0.00328
+  deployed_rule      P@10=0.500 P@25=0.640 P@50=0.580 P@100=0.340 P@250=0.136
+  p_30d_alone        P@10=0.600 P@25=0.760 P@50=0.580 P@100=0.340 P@250=0.136
+  physics_prior      P@10=0.700 P@25=0.840 P@50=0.820 P@100=0.730 P@250=0.356
+  lifetime_expert    P@10=0.700 P@25=0.680 P@50=0.360 P@100=0.240 P@250=0.112
+  perigee_ascending  P@10=0.400 P@25=0.160 P@50=0.080 P@100=0.110 P@250=0.132
+  base_rate_random   P@10=0.003 P@25=0.003 P@50=0.003 P@100=0.003 P@250=0.003
+  rule_minus_p30d_k25: diff=-0.120 ci95=-0.240..+0.000
+  rule_minus_p30d_k50: diff=+0.000 ci95=-0.060..+0.000
+  rule_minus_perigee_k25: diff=+0.480 ci95=+0.240..+0.680
+  rule_minus_perigee_k50: diff=+0.500 ci95=+0.300..+0.640
+all_objects n=30826 y_72d events=246 base_rate=0.00798
+  deployed_rule      P@10=0.600 P@25=0.760 P@50=0.740 P@100=0.480 P@250=0.192
+  p_30d_alone        P@10=0.700 P@25=0.840 P@50=0.760 P@100=0.480 P@250=0.212
+  physics_prior      P@10=0.700 P@25=0.840 P@50=0.840 P@100=0.840 P@250=0.604
+  lifetime_expert    P@10=0.800 P@25=0.800 P@50=0.460 P@100=0.350 P@250=0.220
+  perigee_ascending  P@10=0.500 P@25=0.200 P@50=0.120 P@100=0.130 P@250=0.144
+  base_rate_random   P@10=0.008 P@25=0.008 P@50=0.008 P@100=0.008 P@250=0.008
+  rule_minus_p30d_k25: diff=-0.080 ci95=-0.200..+0.040
+  rule_minus_p30d_k50: diff=-0.020 ci95=-0.060..+0.020
+  rule_minus_perigee_k25: diff=+0.560 ci95=+0.280..+0.760
+  rule_minus_perigee_k50: diff=+0.620 ci95=+0.440..+0.760

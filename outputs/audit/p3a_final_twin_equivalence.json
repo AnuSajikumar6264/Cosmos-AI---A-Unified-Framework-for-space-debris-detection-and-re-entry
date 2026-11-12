@@ -1,0 +1,11 @@
+{
+ "records_compared": 31396,
+ "records_equal": 31396,
+ "records_differing": 0,
+ "extra_in_reemitted": 0,
+ "extra_in_archive": 0,
+ "first_difference": null,
+ "equivalent": true,
+ "elapsed_s": 1.4,
+ "evaluated_at": "2026-11-08"
+}

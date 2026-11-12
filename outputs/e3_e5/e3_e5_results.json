@@ -1,0 +1,252 @@
+{
+  "experiments": [
+    "E5 selection regret",
+    "E3 instability reference distribution"
+  ],
+  "analysed_at": "2026-11-04T13:08:51.094205+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "seed": 20261027,
+  "n_boot": 4000,
+  "refitting_performed": false,
+  "frozen_artifacts_modified": false,
+  "preregistered_verdict_changed": false,
+  "artifacts": {
+    "2011": {
+      "path": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/test_predictions.npz",
+      "sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+      "n_scored": 2667,
+      "n_families": 435
+    },
+    "2016": {
+      "path": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/test_predictions.npz",
+      "sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+      "n_scored": 2978,
+      "n_families": 621
+    },
+    "2006": {
+      "path": "outputs/g5d_origin2006/lifetime/test_predictions.npz",
+      "sha256": "2cb1cb31e2608184458952ccadda8cc30fa0fbb222d65439b85d7688fd5a04cf",
+      "n_scored": 7277,
+      "n_families": 440
+    }
+  },
+  "E5_selection_regret": {
+    "2011": {
+      "regret": {
+        "learners_with_tuneA_score": {
+          "n_candidates": 7,
+          "n_selectable_on_tuneA": 7,
+          "selected_arm": "kumo",
+          "selected_test_loss": 0.06161253035125438,
+          "best_arm_on_test": "tabicl",
+          "best_test_loss": 0.059584065715467,
+          "regret_absolute": 0.0020284646357873817,
+          "regret_percent_of_best": 3.4043743263072215,
+          "selected_arm_test_rank": 2,
+          "worst_case_regret_in_set": 0.05507716380965838,
+          "regret_as_fraction_of_worst_case": 0.03682950419882856
+        },
+        "deployed_selection_pool": {
+          "n_candidates": 3,
+          "n_selectable_on_tuneA": 3,
+          "selected_arm": "kumo",
+          "selected_test_loss": 0.06161253035125438,
+          "best_arm_on_test": "tabicl",
+          "best_test_loss": 0.059584065715467,
+          "regret_absolute": 0.0020284646357873817,
+          "regret_percent_of_best": 3.4043743263072215,
+          "selected_arm_test_rank": 2,
+          "worst_case_regret_in_set": 0.039852630306611125,
+          "regret_as_fraction_of_worst_case": 0.05089914066351804
+        },
+        "all_point_forecast_arms": {
+          "n_candidates": 17,
+          "n_selectable_on_tuneA": 7,
+          "selected_arm": "kumo",
+          "selected_test_loss": 0.06161253035125438,
+          "best_arm_on_test": "physics_only",
+          "best_test_loss": 0.05267631417331738,
+          "regret_absolute": 0.008936216177936995,
+          "regret_percent_of_best": 16.964391526208072,
+          "selected_arm_test_rank": 8,
+          "worst_case_regret_in_set": 0.061984915351807994,
+          "regret_as_fraction_of_worst_case": 0.14416759508692853
+        }
+      },
+      "bootstrap_deployed_pool": {
+        "selected_arm": "kumo",
+        "n_boot": 4000,
+        "regret_mean": 0.0021035865925061984,
+        "regret_ci95": [
+          0.0,
+          0.0060798665985344405
+        ],
+        "fraction_of_resamples_with_zero_regret": 0.18975
+      }
+    },
+    "2016": {
+      "regret": {
+        "learners_with_tuneA_score": {
+          "n_candidates": 7,
+          "n_selectable_on_tuneA": 7,
+          "selected_arm": "tabm",
+          "selected_test_loss": 0.05929212409282305,
+          "best_arm_on_test": "tabicl",
+          "best_test_loss": 0.049943988791243385,
+          "regret_absolute": 0.009348135301579664,
+          "regret_percent_of_best": 18.717238105777128,
+          "selected_arm_test_rank": 5,
+          "worst_case_regret_in_set": 0.01622489709777976,
+          "regret_as_fraction_of_worst_case": 0.5761599130794413
+        },
+        "deployed_selection_pool": {
+          "n_candidates": 3,
+          "n_selectable_on_tuneA": 3,
+          "selected_arm": "tabm",
+          "selected_test_loss": 0.05929212409282305,
+          "best_arm_on_test": "tabicl",
+          "best_test_loss": 0.049943988791243385,
+          "regret_absolute": 0.009348135301579664,
+          "regret_percent_of_best": 18.717238105777128,
+          "selected_arm_test_rank": 3,
+          "worst_case_regret_in_set": 0.009348135301579664,
+          "regret_as_fraction_of_worst_case": 1.0
+        },
+        "all_point_forecast_arms": {
+          "n_candidates": 17,
+          "n_selectable_on_tuneA": 7,
+          "selected_arm": "tabm",
+          "selected_test_loss": 0.05929212409282305,
+          "best_arm_on_test": "tabicl",
+          "best_test_loss": 0.049943988791243385,
+          "regret_absolute": 0.009348135301579664,
+          "regret_percent_of_best": 18.717238105777128,
+          "selected_arm_test_rank": 6,
+          "worst_case_regret_in_set": 0.03930512691676133,
+          "regret_as_fraction_of_worst_case": 0.2378350112283503
+        }
+      },
+      "bootstrap_deployed_pool": {
+        "selected_arm": "tabm",
+        "n_boot": 4000,
+        "regret_mean": 0.009891925813554718,
+        "regret_ci95": [
+          0.003953435630867325,
+          0.016876077382580807
+        ],
+        "fraction_of_resamples_with_zero_regret": 0.00025
+      }
+    },
+    "2006": {
+      "regret": {
+        "learners_with_tuneA_score": {
+          "n_candidates": 2,
+          "n_selectable_on_tuneA": 2,
+          "selected_arm": "mlp",
+          "selected_test_loss": 0.10391744007858389,
+          "best_arm_on_test": "xgboost",
+          "best_test_loss": 0.08303350461722324,
+          "regret_absolute": 0.02088393546136065,
+          "regret_percent_of_best": 25.15121523249399,
+          "selected_arm_test_rank": 2,
+          "worst_case_regret_in_set": 0.02088393546136065,
+          "regret_as_fraction_of_worst_case": 1.0
+        },
+        "deployed_selection_pool": {
+          "n_candidates": 2,
+          "n_selectable_on_tuneA": 2,
+          "selected_arm": "mlp",
+          "selected_test_loss": 0.10391744007858389,
+          "best_arm_on_test": "xgboost",
+          "best_test_loss": 0.08303350461722324,
+          "regret_absolute": 0.02088393546136065,
+          "regret_percent_of_best": 25.15121523249399,
+          "selected_arm_test_rank": 2,
+          "worst_case_regret_in_set": 0.02088393546136065,
+          "regret_as_fraction_of_worst_case": 1.0
+        },
+        "all_point_forecast_arms": {
+          "n_candidates": 12,
+          "n_selectable_on_tuneA": 2,
+          "selected_arm": "mlp",
+          "selected_test_loss": 0.10391744007858389,
+          "best_arm_on_test": "physics_only",
+          "best_test_loss": 0.05682407377081898,
+          "regret_absolute": 0.04709336630776491,
+          "regret_percent_of_best": 82.87573062378519,
+          "selected_arm_test_rank": 10,
+          "worst_case_regret_in_set": 0.0632132348199139,
+          "regret_as_fraction_of_worst_case": 0.7449921909854423
+        }
+      },
+      "bootstrap_deployed_pool": {
+        "selected_arm": "mlp",
+        "n_boot": 4000,
+        "regret_mean": 0.01781445932152103,
+        "regret_ci95": [
+          0.0,
+          0.04541398373682517
+        ],
+        "fraction_of_resamples_with_zero_regret": 0.32925
+      }
+    }
+  },
+  "E3_instability_reference": {
+    "observed_rank_table": {
+      "2011": {
+        "physics_only": 1,
+        "xgboost": 2,
+        "mlp": 4,
+        "tabm": 3
+      },
+      "2016": {
+        "physics_only": 4,
+        "xgboost": 1,
+        "mlp": 2,
+        "tabm": 3
+      },
+      "2006": {
+        "physics_only": 1,
+        "xgboost": 2,
+        "mlp": 3
+      }
+    },
+    "observed_criterion": {
+      "met": true,
+      "constant_arms": [],
+      "physics_only_rank_range": 3,
+      "arms_present_at_every_origin": [
+        "physics_only",
+        "xgboost",
+        "mlp"
+      ]
+    },
+    "null_A_uniform_permutation_exact": {
+      "configurations": 3456,
+      "p_no_arm_retains_rank": 0.8315972222222222,
+      "p_physics_range_ge_3": 0.22916666666666666,
+      "p_criterion_met": 0.19849537037037038,
+      "h3_closure_threshold": 0.16666666666666666,
+      "note": "exact enumeration, not Monte Carlo"
+    },
+    "null_B_sampling_noise_bootstrap": {
+      "n_boot": 4000,
+      "p_criterion_met_under_sampling_noise": 0.737,
+      "physics_only_rank_range": {
+        "mean": 2.986,
+        "p_ge_3": 0.98875,
+        "distribution": {
+          "1": 11,
+          "2": 34,
+          "3": 3955
+        }
+      },
+      "mean_n_rank_constant_arms": 0.25275,
+      "interpretation": "frequency with which the pre-registered H2 criterion is met when the fitted arms are held fixed and only the test folds are resampled. A high frequency means the observed instability is reproduced by sampling noise alone and is therefore weak evidence; a low frequency means the observed instability exceeds sampling noise."
+    }
+  }
+}

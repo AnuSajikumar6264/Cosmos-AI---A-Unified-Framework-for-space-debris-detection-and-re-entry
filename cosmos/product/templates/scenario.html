@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block topmeta %}
+<span class="mode-badge scenario">SCENARIO · writes a new run</span>
+{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  A scenario run executes the supported pipeline over saved artifacts and writes a
+  <strong>new versioned run directory</strong>. It never overwrites a previous run, and it
+  does not retrain, rescore or revalidate any scientific result.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Execute a scenario</h2>
+  <p class="panel-note" data-test="scenario-presets"><strong>Presets</strong> fill the form; nothing runs until you press the button.
+    <button class="btn secondary" type="button" onclick="applyPreset('demo')">Documented demonstration run (full snapshot, ≈ 9 s)</button>
+    <button class="btn secondary" type="button" onclick="applyPreset('fast')">Fast decision subset (top 500 objects, ≈ 5 s)</button>
+    <button class="btn secondary" type="button" onclick="applyPreset('chain')">Catalogue chain only (no benchmark roots)</button>
+    <button class="btn secondary" type="button" onclick="applyPreset('archived')">Historical twin archive (policy archived_only)</button>
+  </p>
+  <form id="scenario-form" class="controls" onsubmit="return runScenario(event)">
+    <label>Snapshot
+      <input type="text" id="as_of" value="2026-10-27" size="11" pattern="\d{4}-\d{2}-\d{2}">
+    </label>
+    <label>Object limit
+      <input type="number" id="limit" value="500" min="1" max="40000" size="6">
+    </label>
+    <label>Conjunction events
+      <input type="number" id="collision_limit" value="200" min="1" max="3000" size="6">
+    </label>
+    <label>Debris sequences
+      <input type="number" id="debris_sequence_limit" value="5" min="1" max="200" size="5">
+    </label>
+    <label>Twin-state source
+      <select id="twin_source_policy">
+        <option value="prefer_reemitted" selected>prefer_reemitted (default)</option>
+        <option value="reemitted_only">reemitted_only</option>
+        <option value="archived_only">archived_only</option>
+      </select>
+    </label>
+    <label>Modules
+      <select id="modules">
+        <option value="all" selected>all nine</option>
+        <option value="chain">catalogue chain only</option>
+        <option value="chain_twin">catalogue chain + twin state</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="full_snapshot"> full snapshot (no object limit)</label>
+    <button class="btn" type="submit" id="run-btn">Run pipeline</button>
+  </form>
+  <p class="panel-note">
+    The object limit keeps the highest 30-day re-entry probabilities, so a bounded run retains
+    the decision-relevant objects rather than an arbitrary slice. Every knob selects <em>which saved
+    artifacts are re-expressed</em>; none changes a scientific assumption, retrains or rescores anything, and the
+    historical runs are never touched — each execution writes a new directory under <code>outputs/pipeline/</code>.
+  </p>
+  <div id="status-area" aria-live="polite"></div>
+</div>
+
+<div class="panel">
+  <h2>Modules in the pipeline</h2>
+  <div class="chip-row">
+    {% for module in modules %}<span class="chip">{{ module }}</span>{% endfor %}
+  </div>
+  <p class="panel-note">
+    <code>catalogue_state → lifetime → reentry → decision_priority</code> is identity-linked
+    by NORAD within one snapshot. <code>collision</code>, <code>health</code> and
+    <code>debris</code> are independent roots, so a missing telemetry or imagery artifact
+    cannot block the catalogue chain.
+  </p>
+</div>
+
+<div class="panel">
+  <h2>Recent runs</h2>
+  {% if runs %}
+  <table class="data">
+    <thead><tr><th>Run</th><th>Started (UTC)</th><th>Result</th></tr></thead>
+    <tbody>
+    {% for run in runs %}
+      <tr>
+        <td><a href="/runs/{{ run.run_id }}">{{ run.run_id }}</a></td>
+        <td class="mono">{{ (run.started_at or '—')[:19] }}</td>
+        <td>{% if not run.complete %}<span class="status status-partial">INCOMPLETE</span>
+          {% elif run.successful %}<span class="status status-pass">PASS</span>
+          {% else %}<span class="status status-fail">FAIL</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">No runs yet.</div>
+  {% endif %}
+</div>
+
+<script>
+async function runScenario(event) {
+  event.preventDefault();
+  const button = document.getElementById('run-btn');
+  const area = document.getElementById('status-area');
+  button.disabled = true;
+  area.innerHTML = '<p class="loading">Executing pipeline and writing a new run directory</p>';
+
+  const full = document.getElementById('full_snapshot').checked;
+  const numbers = {};
+  for (const id of ['limit', 'collision_limit', 'debris_sequence_limit']) {
+    const raw = document.getElementById(id).value.trim();
+    if (id === 'limit' && full) { numbers[id] = null; continue; }
+    const value = parseInt(raw, 10);
+    if (raw === '' || Number.isNaN(value) || value < 1) {
+      area.innerHTML = '<div class="error-state"><span class="status status-fail">INVALID</span> ' +
+        escapeHtml(id.replace('_', ' ')) + ' must be a whole number of at least 1 (tick "full snapshot" to remove the object limit)</div>';
+      button.disabled = false;
+      return false;
+    }
+    numbers[id] = value;
+  }
+  const moduleChoice = document.getElementById('modules').value;
+  const moduleSets = {
+    all: null,
+    chain: ['catalogue_state', 'lifetime', 'reentry', 'decision_priority'],
+    chain_twin: ['catalogue_state', 'lifetime', 'reentry', 'decision_priority', 'twin_state', 'twin_equivalence'],
+  };
+  const payload = {
+    as_of: document.getElementById('as_of').value,
+    limit: numbers.limit,
+    collision_limit: numbers.collision_limit,
+    debris_sequence_limit: numbers.debris_sequence_limit,
+    twin_source_policy: document.getElementById('twin_source_policy').value,
+    modules: moduleSets[moduleChoice],
+  };
+
+  try {
+    const response = await fetch('/api/scenario', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok) {
+      let detail = result.detail || result.message || 'request rejected';
+      if (Array.isArray(detail)) {
+        detail = detail.map(e => (e.loc || []).slice(1).join('.') + ': ' + e.msg).join('; ');
+      }
+      area.innerHTML = '<div class="error-state"><span class="status status-fail">ERROR ' + response.status + '</span> ' +
+        escapeHtml(String(detail)) + '</div>';
+      button.disabled = false;
+      return false;
+    }
+    const modules = (result.manifest && result.manifest.modules) || {};
+    let rows = '';
+    for (const [name, record] of Object.entries(modules)) {
+      const detail = record.error || record.reason || '';
+      rows += '<tr><td>' + escapeHtml(name) + '</td><td><span class="status status-' +
+        escapeHtml(record.status) + '">' + escapeHtml(record.status) + '</span></td><td>' +
+        escapeHtml(detail) + '</td></tr>';
+    }
+    const verdict = result.successful
+      ? '<span class="status status-pass">COMPLETE</span>'
+      : '<span class="status status-partial">PARTIAL</span>';
+    area.innerHTML =
+      '<p style="margin-top:.8rem">' + verdict + ' Run <code>' + escapeHtml(result.run_id) +
+      '</code> (exit code ' + result.exit_code + ') — ' +
+      '<a href="' + escapeHtml(result.run_url) + '">open run</a></p>' +
+      '<table class="data"><thead><tr><th>Module</th><th>Status</th><th>Detail</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table>' +
+      '<p class="panel-note">Configuration digest <code>' + escapeHtml(String(result.config_sha256 || 'unavailable').slice(0, 16)) +
+      '…</code> — identical inputs and options reproduce this run byte for byte.</p>' +
+      '<p class="panel-note"><strong>Assumptions in this run:</strong></p><ul class="panel-note">' +
+      (result.assumptions || []).map(a => '<li>' + escapeHtml(a) + '</li>').join('') + '</ul>' +
+      '<p class="panel-note">' + escapeHtml(result.note) + '</p>';
+  } catch (error) {
+    area.innerHTML = '<div class="error-state"><span class="status status-fail">ERROR</span> ' +
+      escapeHtml(String(error)) + '</div>';
+  }
+  button.disabled = false;
+  return false;
+}
+
+function applyPreset(name) {
+  const set = (id, v) => { document.getElementById(id).value = v; };
+  document.getElementById('full_snapshot').checked = false;
+  set('as_of', '2026-10-27'); set('twin_source_policy', 'prefer_reemitted'); set('modules', 'all');
+  if (name === 'demo') { document.getElementById('full_snapshot').checked = true; set('limit', 31396); set('collision_limit', 3000); set('debris_sequence_limit', 200); }
+  if (name === 'fast') { set('limit', 500); set('collision_limit', 200); set('debris_sequence_limit', 5); }
+  if (name === 'chain') { set('limit', 500); set('modules', 'chain'); }
+  if (name === 'archived') { set('limit', 500); set('twin_source_policy', 'archived_only'); set('modules', 'chain_twin'); }
+  return false;
+}
+
+function escapeHtml(value) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(value === null || value === undefined ? '' : value));
+  return div.innerHTML;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{
+ "built_at": "2026-11-09T04:19:10+00:00",
+ "output": "cosmos/product/static/earth-land-mask.png",
+ "sha256": "d8270e48dfa829ec569a3f41adbb38f2b246e0b1b2cc7900593122c3eacc23b7",
+ "bytes": 43877,
+ "size_px": [
+  2048,
+  1024
+ ],
+ "native_grid_px": [
+  1440,
+  720
+ ],
+ "resample": "nearest-neighbour from the 0.25 deg grid to a power-of-two raster; WebGL 1 requires power-of-two textures for mipmaps and REPEAT wrapping. No geography is added: each output pixel takes the value of the 0.25 deg cell that contains it",
+ "projection": "equirectangular, north-up, longitude -180..180",
+ "source_array": {
+  "path": "data/feature3_reentry/external/population_grid_0p25deg.npz",
+  "member": "land_fraction",
+  "sha256": "07959d6651d983d508b7032f7f960734ecabd7ebf940fdaf8776d4635ca26bbe",
+  "resolution_deg": 0.25,
+  "attribution": "GHS-POP E2020 R2023A 30ss (JRC, CC BY 4.0); Natural Earth 1:50m land (public domain)"
+ },
+ "palette": {
+  "ocean": [
+   10,
+   22,
+   40
+  ],
+  "ocean_deep": [
+   7,
+   16,
+   30
+  ],
+  "land": [
+   31,
+   62,
+   88
+  ],
+  "coast": [
+   78,
+   168,
+   222
+  ],
+  "graticule": [
+   22,
+   44,
+   70
+  ],
+  "equator": [
+   34,
+   62,
+   92
+  ]
+ },
+ "land_cells": 343123,
+ "cells": 1036800,
+ "contains_no_invented_geography": true,
+ "orientation_probes_passed": 8,
+ "command": "python scripts/build_globe_texture.py"
+}

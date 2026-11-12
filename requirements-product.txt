@@ -1,0 +1,25 @@
+# COSMOS-AI Mission Intelligence Console.
+#
+# Every package here was ALREADY present in the project's .venv when the console was built;
+# nothing new was installed. This file declares them so the product is reproducible from a
+# clean environment. Versions are the ones the console was verified against.
+#
+#   pip install -r requirements.txt -r requirements-ai.txt -r requirements-product.txt
+#
+# No JavaScript build step, no npm, no CDN: pages are server-rendered Jinja2 and charts are
+# server-generated inline SVG, so the console runs fully offline.
+
+fastapi>=0.115            # verified with 0.162.0
+uvicorn>=0.30             # verified with 0.54.0
+jinja2>=3.1               # verified with 3.1.6
+pydantic>=2.5             # verified with 2.14.1  (request validation)
+python-multipart>=0.0.9   # form parsing for FastAPI
+pillow>=10.0              # already in requirements.txt; serves SpotGEO PNG frames
+
+# --- tests only ---------------------------------------------------------------
+httpx>=0.27               # transport behind starlette's TestClient; verified with 0.28.1
+
+# NOT used, deliberately:
+#   plotly / altair / bokeh  -- charts are server-side SVG built from real arrays only
+#   react / node / npm       -- no build step, so the demo cannot fail on a missing bundle
+#   playwright / selenium    -- would be needed for PNG screenshots; see KNOWN_LIMITATIONS P15

@@ -1,0 +1,582 @@
+{
+  "analysed_at": "2026-11-04T08:37:38.561618+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "n_boot": 4000,
+  "alpha": 0.05,
+  "seed": 20261027,
+  "post_hoc_disclosure": "all test sets analysed here were scored by the earlier studies, so every result is a post-hoc re-analysis, not a confirmatory test",
+  "method_note": "no model was retrained or rescored; saved predictions were re-analysed with cluster-aware paired bootstrap and Benjamini-Hochberg correction, both of which are more conservative than the original per-contrast intervals",
+  "C1": {
+    "coupling": "C1",
+    "hypothesis": "fragment/launch-family statistics available before prediction improve orbital lifetime prediction over the same model without them",
+    "direction": "positive effect = family features help (the ablation is worse)",
+    "primary_endpoint": "pinball loss of log10 capped lifetime, objects with known 5-year outcome",
+    "unit_of_analysis": "catalogued object",
+    "independent_unit": "launch family (paired cluster bootstrap)",
+    "method": "per-object pinball losses recomputed from the saved test quantiles; paired cluster bootstrap by launch family; Benjamini-Hochberg across the ablation family within each origin",
+    "per_origin": {
+      "2011": {
+        "learner": "kumo",
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/test_predictions.npz",
+        "artifact_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+        "n_objects_scored": 2667,
+        "n_launch_families": 435,
+        "n_tests_in_family": 5,
+        "full_arm_pinball": 0.06161253035125438,
+        "ablations": [
+          {
+            "ablation": "no_design",
+            "arm": "kumo_no_design",
+            "effect_pinball_ablation_minus_full": 0.0008244712337596849,
+            "ci95_lo": -7.242463178650616e-05,
+            "ci95_hi": 0.00165690176793933,
+            "p_value": 0.077,
+            "n_objects": 2667,
+            "n_launch_families": 435,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.1925,
+            "significant_after_correction": false
+          },
+          {
+            "ablation": "no_family",
+            "arm": "kumo_no_family",
+            "effect_pinball_ablation_minus_full": 0.0023812916543351553,
+            "ci95_lo": -0.0057650384870871745,
+            "ci95_hi": 0.010293812025956217,
+            "p_value": 0.606,
+            "n_objects": 2667,
+            "n_launch_families": 435,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.606,
+            "significant_after_correction": false
+          },
+          {
+            "ablation": "no_physics",
+            "arm": "kumo_no_physics",
+            "effect_pinball_ablation_minus_full": 0.0022467595917352676,
+            "ci95_lo": 0.00021789769501270198,
+            "ci95_hi": 0.00390780806132904,
+            "p_value": 0.034,
+            "n_objects": 2667,
+            "n_launch_families": 435,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.17,
+            "significant_after_correction": false
+          },
+          {
+            "ablation": "no_space_weather",
+            "arm": "kumo_no_space_weather",
+            "effect_pinball_ablation_minus_full": 0.0008719988588163519,
+            "ci95_lo": -0.0016318151735595422,
+            "ci95_hi": 0.00373439943765895,
+            "p_value": 0.576,
+            "n_objects": 2667,
+            "n_launch_families": 435,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.606,
+            "significant_after_correction": false
+          },
+          {
+            "ablation": "plus_rcs_2026",
+            "arm": "kumo_plus_rcs_2026",
+            "effect_pinball_ablation_minus_full": -0.0037741004947129037,
+            "ci95_lo": -0.0072489443951940956,
+            "ci95_hi": 0.0010490844322271385,
+            "p_value": 0.123,
+            "n_objects": 2667,
+            "n_launch_families": 435,
+            "feature_group_helps": false,
+            "p_adjusted_bh": 0.205,
+            "significant_after_correction": false
+          }
+        ],
+        "no_family": {
+          "ablation": "no_family",
+          "arm": "kumo_no_family",
+          "effect_pinball_ablation_minus_full": 0.0023812916543351553,
+          "ci95_lo": -0.0057650384870871745,
+          "ci95_hi": 0.010293812025956217,
+          "p_value": 0.606,
+          "n_objects": 2667,
+          "n_launch_families": 435,
+          "feature_group_helps": true,
+          "p_adjusted_bh": 0.606,
+          "significant_after_correction": false
+        },
+        "status": "INCONCLUSIVE"
+      },
+      "2016": {
+        "learner": "tabm",
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/test_predictions.npz",
+        "artifact_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+        "n_objects_scored": 2978,
+        "n_launch_families": 621,
+        "n_tests_in_family": 5,
+        "full_arm_pinball": 0.05929212409282305,
+        "ablations": [
+          {
+            "ablation": "no_design",
+            "arm": "tabm_no_design",
+            "effect_pinball_ablation_minus_full": 0.007064419804472942,
+            "ci95_lo": 0.0035796667770851514,
+            "ci95_hi": 0.012248760752248703,
+            "p_value": 0.0,
+            "n_objects": 2978,
+            "n_launch_families": 621,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.0,
+            "significant_after_correction": true
+          },
+          {
+            "ablation": "no_family",
+            "arm": "tabm_no_family",
+            "effect_pinball_ablation_minus_full": 0.005567416073970728,
+            "ci95_lo": 0.0014752574790554854,
+            "ci95_hi": 0.010168867826526424,
+            "p_value": 0.0065,
+            "n_objects": 2978,
+            "n_launch_families": 621,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.010833333333333334,
+            "significant_after_correction": true
+          },
+          {
+            "ablation": "no_physics",
+            "arm": "tabm_no_physics",
+            "effect_pinball_ablation_minus_full": -0.0049622852961914675,
+            "ci95_lo": -0.008459385293555713,
+            "ci95_hi": -0.0021428353217204715,
+            "p_value": 0.0,
+            "n_objects": 2978,
+            "n_launch_families": 621,
+            "feature_group_helps": false,
+            "p_adjusted_bh": 0.0,
+            "significant_after_correction": true
+          },
+          {
+            "ablation": "no_space_weather",
+            "arm": "tabm_no_space_weather",
+            "effect_pinball_ablation_minus_full": 0.0038309010218234535,
+            "ci95_lo": -0.005473168954273235,
+            "ci95_hi": 0.012467245143712948,
+            "p_value": 0.4215,
+            "n_objects": 2978,
+            "n_launch_families": 621,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.4215,
+            "significant_after_correction": false
+          },
+          {
+            "ablation": "plus_rcs_2026",
+            "arm": "tabm_plus_rcs_2026",
+            "effect_pinball_ablation_minus_full": 0.007146792015284447,
+            "ci95_lo": -0.0010389884962985518,
+            "ci95_hi": 0.015550019254417166,
+            "p_value": 0.0825,
+            "n_objects": 2978,
+            "n_launch_families": 621,
+            "feature_group_helps": true,
+            "p_adjusted_bh": 0.10312500000000001,
+            "significant_after_correction": false
+          }
+        ],
+        "no_family": {
+          "ablation": "no_family",
+          "arm": "tabm_no_family",
+          "effect_pinball_ablation_minus_full": 0.005567416073970728,
+          "ci95_lo": 0.0014752574790554854,
+          "ci95_hi": 0.010168867826526424,
+          "p_value": 0.0065,
+          "n_objects": 2978,
+          "n_launch_families": 621,
+          "feature_group_helps": true,
+          "p_adjusted_bh": 0.010833333333333334,
+          "significant_after_correction": true
+        },
+        "status": "SUPPORTED"
+      }
+    },
+    "effects_by_origin": {
+      "2011": 0.0023812916543351553,
+      "2016": 0.005567416073970728
+    },
+    "cross_origin_sign_consistent": true,
+    "origins_supporting": [
+      "2016"
+    ],
+    "confound": "the selected learner differs by origin (2016: tabm, 2011: kumo), so temporal origin and learner are entangled; the two origins are not exchangeable replicates of the same experiment",
+    "verdict": "PARTIALLY SUPPORTED",
+    "post_hoc": true
+  },
+  "C2": {
+    "coupling": "C2",
+    "hypothesis": "per-object survival probabilities from the lifetime module improve breakup-cloud population forecasts over physics-only survival",
+    "primary_endpoint": "absolute error of the expected in-orbit fragment count, as a fraction of fragments catalogued by the evaluation date",
+    "unit_of_analysis": "cloud-year",
+    "independent_unit": "breakup cloud (cluster bootstrap)",
+    "artifact": "outputs/benchmarks/twin_couplings/c2_cloud_survival.csv",
+    "artifact_sha256": "5b558ba17e4bb7de42e5da0ff101b0f232cf51da645484bfca2f0db427874c62",
+    "cloud_years": 160,
+    "clouds": 32,
+    "contrasts": [
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": -0.05030147747738543,
+        "ci95_lo": -0.08051417244609799,
+        "ci95_hi": -0.018949884035149654,
+        "p_value": 0.0020000000000000018,
+        "bootstrap_draws": 4000,
+        "name": "learned_vs_physics_calibrated",
+        "contrast": "predcal_tabicl - predcal_physics_only",
+        "family": "coupling",
+        "mean_abs_fraction_error_a": 0.09493736810105122,
+        "mean_abs_fraction_error_b": 0.14523884557843664,
+        "verdict": "SUPPORTED",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.008000000000000007,
+        "significant_after_correction": true
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": 0.02375866849725793,
+        "ci95_lo": -0.03738507919969931,
+        "ci95_hi": 0.08245551101280645,
+        "p_value": 0.4115,
+        "bootstrap_draws": 4000,
+        "name": "learned_vs_physics_raw",
+        "contrast": "pred_tabicl - pred_physics_only",
+        "family": "coupling",
+        "mean_abs_fraction_error_a": 0.1532393668590551,
+        "mean_abs_fraction_error_b": 0.12948069836179715,
+        "verdict": "INCONCLUSIVE",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.4115,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": -0.043891521929358794,
+        "ci95_lo": -0.088685772090727,
+        "ci95_hi": -0.0017867848629272963,
+        "p_value": 0.03849999999999998,
+        "bootstrap_draws": 4000,
+        "name": "kumo_vs_physics_calibrated",
+        "contrast": "predcal_kumo - predcal_physics_only",
+        "family": "coupling",
+        "mean_abs_fraction_error_a": 0.10134732364907784,
+        "mean_abs_fraction_error_b": 0.14523884557843664,
+        "verdict": "SUPPORTED",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.07699999999999996,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": 0.03327421120924057,
+        "ci95_lo": -0.028712776226755665,
+        "ci95_hi": 0.0901612976692295,
+        "p_value": 0.2655,
+        "bootstrap_draws": 4000,
+        "name": "kumo_vs_physics_raw",
+        "contrast": "pred_kumo - pred_physics_only",
+        "family": "coupling",
+        "mean_abs_fraction_error_a": 0.1627549095710377,
+        "mean_abs_fraction_error_b": 0.12948069836179715,
+        "verdict": "INCONCLUSIVE",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.35400000000000004,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": -0.02319202725737095,
+        "ci95_lo": -0.07100496233154796,
+        "ci95_hi": 0.026198074771007236,
+        "p_value": 0.3640000000000001,
+        "bootstrap_draws": 4000,
+        "name": "deployed_gated_vs_physics_calibrated",
+        "contrast": "predcal_cosmos_gated - predcal_physics_only",
+        "family": "deployed",
+        "mean_abs_fraction_error_a": 0.12204681832106568,
+        "mean_abs_fraction_error_b": 0.14523884557843664,
+        "verdict": "INCONCLUSIVE",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.387,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": 0.02526627766410668,
+        "ci95_lo": -0.033318205646064435,
+        "ci95_hi": 0.08285326659229247,
+        "p_value": 0.387,
+        "bootstrap_draws": 4000,
+        "name": "deployed_gated_vs_physics_raw",
+        "contrast": "pred_cosmos_gated - pred_physics_only",
+        "family": "deployed",
+        "mean_abs_fraction_error_a": 0.15474697602590382,
+        "mean_abs_fraction_error_b": 0.12948069836179715,
+        "verdict": "INCONCLUSIVE",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.387,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": 0.015758147216639495,
+        "ci95_lo": -0.012097471722921225,
+        "ci95_hi": 0.04055762699868325,
+        "p_value": 0.2375,
+        "bootstrap_draws": 4000,
+        "name": "calibration_effect_physics",
+        "contrast": "predcal_physics_only - pred_physics_only",
+        "family": "calibration",
+        "mean_abs_fraction_error_a": 0.14523884557843664,
+        "mean_abs_fraction_error_b": 0.12948069836179715,
+        "verdict": "INCONCLUSIVE",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.23749999999999996,
+        "significant_after_correction": false
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": -0.05830199875800387,
+        "ci95_lo": -0.0824369050948205,
+        "ci95_hi": -0.03390838904020899,
+        "p_value": 0.0,
+        "bootstrap_draws": 4000,
+        "name": "calibration_effect_tabicl",
+        "contrast": "predcal_tabicl - pred_tabicl",
+        "family": "calibration",
+        "mean_abs_fraction_error_a": 0.09493736810105122,
+        "mean_abs_fraction_error_b": 0.1532393668590551,
+        "verdict": "SUPPORTED",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.0,
+        "significant_after_correction": true
+      },
+      {
+        "n": 160,
+        "n_clusters": 32,
+        "mean": -0.03270015770483813,
+        "ci95_lo": -0.055215452565192585,
+        "ci95_hi": -0.0067499925494947524,
+        "p_value": 0.020000000000000018,
+        "bootstrap_draws": 4000,
+        "name": "calibration_effect_gated",
+        "contrast": "predcal_cosmos_gated - pred_cosmos_gated",
+        "family": "calibration",
+        "mean_abs_fraction_error_a": 0.12204681832106568,
+        "mean_abs_fraction_error_b": 0.15474697602590382,
+        "verdict": "SUPPORTED",
+        "interpretation": "negative mean = the first model has smaller absolute fractional count error",
+        "p_adjusted_bh": 0.030000000000000027,
+        "significant_after_correction": true
+      }
+    ],
+    "primary_contrast": "learned_vs_physics_calibrated",
+    "learned_experts_helping": [
+      "learned_vs_physics_calibrated"
+    ],
+    "deployed_expert_helps": false,
+    "verdict": "PARTIALLY SUPPORTED",
+    "deployed_expert_caveat": "the project's deployed expert (cosmos_gated) does NOT show a significant improvement over physics-only survival; the effect is carried by tabicl and kumo, which are not the deployed choice. The practical claim is therefore weaker than the statistical one for the system as configured",
+    "calibration_caveat": "isotonic recalibration of the survival reading has an effect of comparable or larger magnitude than the model choice, so part of any gain is attributable to recalibration rather than to the learned lifetime model itself",
+    "statistical_power_note": "32 independent clouds is a small number of resampling units; only a large effect could reach significance here",
+    "selection_note": "tabicl and kumo were examined because the original study's C2_PAIRS already named tabicl; reporting several learned experts rather than only the best one avoids selecting the winner after the fact",
+    "post_hoc": true
+  },
+  "C3": {
+    "coupling": "C3",
+    "hypothesis": "catalogue operational status improves 72-day re-entry probability over status-blind policies using the same information",
+    "primary_endpoint": "Brier score of P(re-entry within 72 days)",
+    "unit_of_analysis": "payload",
+    "independent_unit": "launch (cluster bootstrap)",
+    "artifact": "outputs/benchmarks/twin_couplings/c3_summary.json",
+    "artifact_sha256": "d9a0d730126283ee383673222a97749598fdc1dc6884727d5d6a3762a92607d2",
+    "population": {
+      "n": 13794,
+      "events": 182,
+      "event_rate": 0.013194142380745252,
+      "launches": 1070,
+      "launches_with_events": 86,
+      "horizon_days": 72.0
+    },
+    "prospective_scores": {
+      "physics_status_blind": {
+        "brier": 0.017926159018413802,
+        "ece": 0.02674169928954618,
+        "mean_p": 0.039156517326373784,
+        "auc_roc": 0.9568163433686502,
+        "auc_pr": 0.5486888025067778
+      },
+      "base_rate_status_blind": {
+        "brier": 0.013020350355484139,
+        "ece": 0.0005416344729278089,
+        "mean_p": 0.012652507907817443
+      },
+      "twin_status_aware_baserate": {
+        "brier": 0.012521989201900875,
+        "ece": 0.0008449689416821452,
+        "mean_p": 0.013431963287049695,
+        "auc_roc": 0.5524399931540691,
+        "auc_pr": 0.07179291892136376
+      }
+    },
+    "in_window_scores": {
+      "physics_recalibrated_status_blind": {
+        "brier": 0.008479391084578894,
+        "ece": 0.003502964336367865,
+        "mean_p": 0.015159543714628992,
+        "auc_roc": 0.9499516425390654,
+        "auc_pr": 0.49268348467746026
+      },
+      "twin_status_aware_recalibrated": {
+        "brier": 0.008079151406282526,
+        "ece": 0.0029685487568700307,
+        "mean_p": 0.014747309348999456,
+        "auc_roc": 0.9624616127334317,
+        "auc_pr": 0.5243147690942915
+      }
+    },
+    "contrasts": [
+      {
+        "contrast": "twin_status_aware_baserate_minus_physics_status_blind",
+        "family": "prospective",
+        "mean_brier_difference": -0.005404169816512928,
+        "ci95_lo": -0.011978539164129769,
+        "ci95_hi": 0.0006413549428396366,
+        "interval_excludes_zero": false,
+        "p_proxy_from_interval": 0.5,
+        "verdict": "INCONCLUSIVE",
+        "p_adjusted_bh": 0.5,
+        "significant_after_correction": false
+      },
+      {
+        "contrast": "twin_status_aware_baserate_minus_base_rate_status_blind",
+        "family": "prospective",
+        "mean_brier_difference": -0.0004983611535832611,
+        "ci95_lo": -0.0012291331984171257,
+        "ci95_hi": 8.306235716462504e-05,
+        "interval_excludes_zero": false,
+        "p_proxy_from_interval": 0.5,
+        "verdict": "INCONCLUSIVE",
+        "p_adjusted_bh": 0.5,
+        "significant_after_correction": false
+      },
+      {
+        "contrast": "in_window_recal_status_aware_minus_recal_blind",
+        "family": "in_window_diagnostic",
+        "mean_brier_difference": -0.000400239678296372,
+        "ci95_lo": -0.0010072322909980354,
+        "ci95_hi": 5.988061585175067e-05,
+        "interval_excludes_zero": false,
+        "p_proxy_from_interval": 0.5,
+        "verdict": "INCONCLUSIVE"
+      },
+      {
+        "contrast": "in_window_recal_status_aware_minus_physics_raw",
+        "family": "in_window_diagnostic",
+        "mean_brier_difference": -0.00984700761213128,
+        "ci95_lo": -0.015149245043220707,
+        "ci95_hi": -0.005264877691893917,
+        "interval_excludes_zero": true,
+        "p_proxy_from_interval": 0.05,
+        "verdict": "SUPPORTED"
+      }
+    ],
+    "event_rate_by_status": {
+      "non-operational": 0.10559006211180125,
+      "operational": 0.012167977444724736,
+      "unknown": 0.0064516129032258064
+    },
+    "verdict": "INCONCLUSIVE",
+    "physical_interpretation": "operational status is a proxy for operator control, not a causal driver of atmospheric drag. The coupling works by withholding a drag forecast from objects whose orbit is actively maintained, which is a conditioning decision, not a claim that status changes decay physics",
+    "key_caveat": "the window (as-of 2026-08-16, follow-up 2026-10-27) was analysed before, so this is not a blind test; the status-aware gain over the status-blind base rate is small and its interval includes zero",
+    "post_hoc": true
+  },
+  "C4": {
+    "coupling": "C4",
+    "hypothesis": "telemetry-derived health flags identify conjunctions where the operator may be unable to manoeuvre, improving decision priority",
+    "sources_examined": [
+      {
+        "source": "ESA-ADB telemetry",
+        "present": true,
+        "identity_key": "anonymised mission + channel",
+        "spacecraft_identifiable": false,
+        "detail": "3 prepared mission array(s); missions are anonymised and carry no spacecraft identifier"
+      },
+      {
+        "source": "ESA Kelvins CAC conjunctions",
+        "present": true,
+        "identity_key": "positional event index",
+        "spacecraft_identifiable": false,
+        "detail": "2167 held-out events; the challenge data are anonymised by construction and carry no NORAD identifier"
+      },
+      {
+        "source": "CelesTrak/GCAT catalogue",
+        "present": true,
+        "identity_key": "NORAD ID",
+        "spacecraft_identifiable": true,
+        "detail": "identifiable, but contains no telemetry and no conjunction messages"
+      }
+    ],
+    "joinable_pairs": 0,
+    "verdict": "NOT EVALUABLE",
+    "reason": "no dataset in this repository links telemetry health to a conjunction event or to a catalogued object. ESA-ADB missions and Kelvins CAC events are both anonymised by construction, and the only identifiable source (the catalogue) holds neither telemetry nor conjunction messages. The required join does not exist, so the hypothesis cannot be tested -- not merely that it was not tested",
+    "what_would_be_needed": [
+      "an operator-held dataset pairing spacecraft telemetry with conjunction data messages for the same satellite, with outcomes (manoeuvre performed or not)",
+      "or a public CDM archive with resolvable NORAD identifiers joined to a public telemetry source for the same spacecraft",
+      "either would require operator cooperation or licensed access; neither is obtainable from the public sources used here"
+    ],
+    "implementation_status": "the escalation rule exists in cosmos/ai/twin/couplings.py:c4_escalation and is exercised as a demonstration on deliberately unpaired examples. In the product and the orchestrated pipeline it abstains with a recorded reason",
+    "integrity_note": "a plausible-looking escalation could be produced by pairing unrelated health and conjunction records. That would be fabricated evidence and is not done. The physical collision probability is never modified by health evidence",
+    "post_hoc": false
+  },
+  "integration_value": {
+    "central_research_question": "does evidence-aware integration of satellite health, orbital lifetime, debris and risk intelligence provide measurable scientific or decision value beyond running the subsystems independently?",
+    "answer": "NOT DEMONSTRATED: the strongest coupling (C1) improves its endpoint in one temporal origin only, with the learner confounded with the origin. No coupling shows a reproducible benefit across replicates",
+    "verdict_by_coupling": {
+      "C1": "PARTIALLY SUPPORTED",
+      "C2": "PARTIALLY SUPPORTED",
+      "C3": "INCONCLUSIVE",
+      "C4": "NOT EVALUABLE"
+    },
+    "supported": [],
+    "partially_supported": [
+      "C1",
+      "C2"
+    ],
+    "inconclusive": [
+      "C3"
+    ],
+    "not_evaluable": [
+      "C4"
+    ],
+    "combined_chain_evaluated": false,
+    "why_no_combined_chain": "a joint C1+C2+C3 arm is not evaluable on one endpoint: C1 is scored by pinball loss on object lifetimes, C2 by fractional count error on cloud populations, and C3 by Brier score on payload re-entry. They act on different populations with different units of analysis and different independent units, so no single end-to-end metric exists that all three improve. Constructing one aggregate score to declare integration successful would be an artefact of the aggregation, not a finding",
+    "what_integration_does_provide": [
+      "traceability: every prediction carries its artifact digest, model identity and uncertainty semantics (verified by tests, not a scientific claim)",
+      "explicit abstention where evidence is insufficient, instead of a fabricated value",
+      "separation of physical probability from operational priority, enforced in code"
+    ],
+    "what_integration_does_not_provide": [
+      "no demonstrated improvement in predictive accuracy from cross-domain coupling that reproduces across temporal replicates",
+      "no validated end-to-end health-to-re-entry chain (no identity-linked data exists)",
+      "no evidence that C4 adds decision value, because it cannot be evaluated"
+    ],
+    "honest_summary": "COSMOS-AI's defensible contribution is an evidence-graded architecture with measured component performance and explicit abstention, plus a catalogue-scale forward lifetime/re-entry benchmark. The cross-domain coupling hypothesis is NOT supported by reproducible evidence on the available data"
+  }
+}

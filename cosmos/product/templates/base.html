@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · COSMOS-AI Mission Intelligence Console</title>
+<link rel="stylesheet" href="/static/console.css">
+</head>
+<body>
+<div id="nav-progress" aria-hidden="true"></div>
+{#- Inline SVG icons: no icon font, no network request, no build step. -#}
+{% macro icon(name) -%}
+<svg viewBox="0 0 24 24" aria-hidden="true">
+{%- if name == 'demo' -%}<path d="M5 3l14 9-14 9z"/>
+{%- elif name == 'overview' -%}<path d="M3 13h8V3H3zM13 21h8v-10h-8zM3 21h8v-5H3zM13 8h8V3h-8z"/>
+{%- elif name == 'globe' -%}<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>
+{%- elif name == 'objects' -%}<circle cx="11" cy="11" r="7"/><path d="M20 20l-4.5-4.5"/>
+{%- elif name == 'twin' -%}<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>
+{%- elif name == 'intelligence' -%}<path d="M3 17l5-6 4 3 5-8 4 5"/><path d="M3 21h18"/>
+{%- elif name == 'telemetry' -%}<path d="M3 12h3l2-5 3 10 3-7 2 4h5"/>
+{%- elif name == 'debris' -%}<circle cx="7" cy="8" r="2"/><circle cx="16" cy="6" r="1.5"/><circle cx="18" cy="15" r="2.5"/><circle cx="9" cy="17" r="1.5"/><circle cx="12" cy="11" r="1"/>
+{%- elif name == 'risk' -%}<path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/>
+{%- elif name == 'decisions' -%}<path d="M4 6h16M4 12h10M4 18h6"/><circle cx="19" cy="17" r="3"/>
+{%- elif name == 'runs' -%}<path d="M4 7h16M4 12h16M4 17h16"/><circle cx="7" cy="7" r="1"/><circle cx="7" cy="12" r="1"/><circle cx="7" cy="17" r="1"/>
+{%- elif name == 'scenario' -%}<path d="M12 4v6M12 14v6M4 12h6M14 12h6"/><circle cx="12" cy="12" r="2"/>
+{%- elif name == 'prospective' -%}<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>
+{%- elif name == 'evidence' -%}<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13h7M9 17h5"/>
+{%- elif name == 'docs' -%}<path d="M4 5h7v15H4zM13 5h7v15h-7z"/>
+{%- else -%}<circle cx="12" cy="12" r="4"/>
+{%- endif -%}
+</svg>
+{%- endmacro %}
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark">COSMOS-AI</div>
+      <div class="sub">Mission Intelligence Console</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">Start here</div>
+      <a href="/demo" class="{{ 'active' if nav == 'demo' }}">{{ icon('demo') }}Guided Demonstration</a>
+      <div class="nav-group">Mission picture</div>
+      <a href="/" class="{{ 'active' if nav == 'overview' }}">{{ icon('overview') }}Mission Overview</a>
+      <a href="/explorer" class="{{ 'active' if nav == 'explorer' }}">{{ icon('globe') }}Earth &amp; Orbit Explorer</a>
+      <a href="/objects" class="{{ 'active' if nav == 'objects' }}">{{ icon('objects') }}Satellite Digital Twin</a>
+      <a href="/twin-state" class="{{ 'active' if nav == 'twin' }}">{{ icon('twin') }}Twin State</a>
+      <div class="nav-group">Analysis</div>
+      <a href="/intelligence" class="{{ 'active' if nav == 'intelligence' }}">{{ icon('intelligence') }}Lifetime &amp; Re-entry</a>
+      <a href="/telemetry" class="{{ 'active' if nav == 'telemetry' }}">{{ icon('telemetry') }}Health &amp; Telemetry Benchmarks</a>
+      <a href="/risk" class="{{ 'active' if nav == 'risk' }}">{{ icon('risk') }}Conjunction &amp; Collision</a>
+      <a href="/debris" class="{{ 'active' if nav == 'debris' }}">{{ icon('debris') }}Debris Detection</a>
+      <a href="/decisions" class="{{ 'active' if nav == 'decisions' }}">{{ icon('decisions') }}Decision Intelligence</a>
+      <div class="nav-group">Operate</div>
+      <a href="/runs" class="{{ 'active' if nav == 'runs' }}">{{ icon('runs') }}Run Explorer</a>
+      <a href="/scenario" class="{{ 'active' if nav == 'scenario' }}">{{ icon('scenario') }}Scenario Analysis</a>
+      <a href="/prospective" class="{{ 'active' if nav == 'prospective' }}">{{ icon('prospective') }}Prospective Eval</a>
+      <div class="nav-group">Reference</div>
+      <a href="/evidence" class="{{ 'active' if nav == 'evidence' }}">{{ icon('evidence') }}Evidence &amp; Provenance</a>
+      <a href="/docs">{{ icon('docs') }}API documentation</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    {%- set bar = mission_bar() %}
+    <div class="topbar">
+      <h1>{{ title }}</h1>
+      <div class="meta">{% block topmeta %}{% endblock %}</div>
+    </div>
+    {%- if bar %}
+    <div class="app-bar">
+      <div class="bar-left">
+        <span class="bar-sub">Archive-backed digital twin · snapshot <b>{{ bar.as_of }}</b> · nothing live, nothing inferred at request time</span>
+      </div>
+      <div class="bar-right">
+        <span class="bar-live {{ 'is-ready' if bar.ready else 'is-down' }}"><span class="lamp"></span>{{ 'READY' if bar.ready else 'NOT READY' }}</span>
+        <span class="bar-stat"><b>{{ bar.objects }}</b> objects</span>
+        {%- if bar.run_id %}<span class="bar-stat">run <b>{{ bar.run_id }}</b></span>{% endif %}
+        {%- if bar.twin_source %}<span class="bar-stat">twin <b>{{ bar.twin_source }}</b></span>{% endif %}
+        <span class="bar-stat">API <b>{{ bar.api_schema }}</b></span>
+      </div>
+    </div>
+    {%- endif %}
+    {% block scope %}{% endblock %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">light / dark</button>
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try { localStorage.setItem('cosmos-theme', next); } catch (e) {}
+}
+(function () {
+  try {
+    const saved = localStorage.getItem('cosmos-theme');
+    if (saved) { document.documentElement.dataset.theme = saved; }
+  } catch (e) {}
+})();
+// Navigation loading indicator: pages are rendered on the server, so a slow first load (for example the Twin State
+// page streaming the archive) would otherwise give no feedback. A thin bar appears after 250 ms of waiting.
+(function () {
+  const bar = document.getElementById('nav-progress');
+  if (!bar) { return; }
+  let timer = null;
+  document.addEventListener('click', function (event) {
+    const link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download') || event.defaultPrevented) { return; }
+    if (link.origin !== window.location.origin || link.getAttribute('href').startsWith('#')) { return; }
+    timer = setTimeout(function () { bar.classList.add('active'); }, 250);
+  });
+  document.addEventListener('submit', function () { timer = setTimeout(function () { bar.classList.add('active'); }, 250); });
+  window.addEventListener('pageshow', function () { if (timer) { clearTimeout(timer); } bar.classList.remove('active'); });
+})();
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

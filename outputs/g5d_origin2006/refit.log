@@ -1,0 +1,37 @@
+pre-registration verified: 9ea4bf4171cad1b8... (frozen 2026-11-04T10:03:36.597114+00:00)
+injected origin 2006: ('1999-01-01', '2001-01-01', '2006-01-01', '2011-01-01')
+split sizes realised: {'train': 18960, 'tuneA': 211, 'tuneB': 544, 'test': 7281}
+  matches the pre-registered sizes exactly
+learners available: ['xgboost', 'mlp']
+learners MISSING (backend not installed): ['lightgbm', 'catboost', 'tabm', 'tabicl', 'kumo']
+DEVIATION: running a reduced learner set ('xgboost', 'mlp') (see research_design/G5D_DEVIATIONS.md)
+
+fitting at origin 2006 with 2 learner(s)...
+{"origin": "2006", "population": "uncontrolled", "snapshot": "2026-10-27", "dates": ["1999-01-01", "2001-01-01", "2006-01-01", "2011-01-01"], "sizes": {"train": 18960, "tuneA": 211, "tuneB": 544, "test": 7281}, "known5": {"train": 18935, "tuneA": 207, "tuneB": 539, "test": 7277}, "events_5yr": {"train": 12823, "tuneA": 123, "tuneB": 247, "test": 2434}}
+  xgboost: tuneA pinball 0.0757 (params {'max_depth': 5, 'learning_rate': 0.03971371475899955, 'subsample': 0.9342101637417355, 'colsample_bytree': 0.5922532464658178, 'min_child_weight': 1.8863748117586634, 'reg_lambda': 0.2951591707640905})
+  mlp: tuneA pinball 0.0593 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+  OOF (mlp) train pinball 0.0742
+  mlp_no_physics: tuneA pinball 0.0654 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+  mlp_no_family: tuneA pinball 0.0594 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+  mlp_no_space_weather: tuneA pinball 0.0594 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+  mlp_no_design: tuneA pinball 0.0697 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+  mlp_plus_rcs_2026: tuneA pinball 0.0576 (params {'width': 128, 'depth': 3, 'dropout': 0.18115255410189887, 'lr': 0.001161796748759689, 'weight_decay': 4.071400518714532e-06})
+                          model  pinball  mae_log10  medae_days    cov80    cov90  c_index
+                   physics_only 0.056824   0.151354    0.000000 0.847739 0.871238 0.704491
+                  equal_average 0.074164   0.257966  284.522797 0.792085 0.850625 0.702509
+             cosmos_gated_tuneA 0.078555   0.283011  325.935813 0.785626 0.843754 0.703056
+                        xgboost 0.083034   0.295320  533.935471 0.558334 0.832898 0.807341
+           mlp_no_space_weather 0.088396   0.340501  405.156159 0.705373 0.762540 0.692810
+                   cosmos_gated 0.088518   0.327013  373.621565 0.796894 0.858183 0.696860
+cosmos_gated_marginal_conformal 0.088518   0.327013  373.621565 0.934588 0.963584 0.696860
+                  mlp_no_family 0.090311   0.306460  751.445351 0.771334 0.803078 0.753673
+                 stack_constant 0.098733   0.376107  451.680416 0.799643 0.860245 0.688653
+                  mlp_no_design 0.101672   0.382627  509.759399 0.798818 0.855023 0.700246
+                            mlp 0.103917   0.399429  479.971109 0.802666 0.862856 0.682768
+         mlp_marginal_conformal 0.103917   0.399429  479.971109 0.939948 0.969356 0.682768
+                 mlp_no_physics 0.113710   0.432537  360.033151 0.656040 0.804452 0.710027
+              mlp_plus_rcs_2026 0.120037   0.473753  660.502302 0.772571 0.848427 0.657933
+
+completed in 20.6 min
+written: /data2/anupa/Final_Year_Project/outputs/g5d_origin2006/lifetime
+SCRIPT_EXIT=0

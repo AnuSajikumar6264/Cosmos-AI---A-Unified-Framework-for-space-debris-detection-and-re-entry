@@ -1,0 +1,33 @@
+  return np.sqrt(np.diag(V))
+  p = 1 / (1 + np.exp(-X @ b))
+  p = 1 / (1 + np.exp(-X @ b))
+  return np.sqrt(np.diag(V))
+origin 2011: am_source test {'class_prior_sbm': 2263, 'design': 417} (validated against summary.json); tuneB design share 0.2199, test 0.1556
+  cosmos_gated@80: design cov 0.792 [0.747,0.833] n=404 w=0.51; class_prior_sbm cov 0.947 [0.910,0.969] n=2263 w=0.94; all cov 0.923 [0.883,0.947] n=2667 w=0.88
+  cosmos_gated@90: design cov 0.889 [0.855,0.919] n=404 w=0.76; class_prior_sbm cov 0.972 [0.948,0.985] n=2263 w=1.29; all cov 0.959 [0.935,0.974] n=2667 w=1.21
+  Δ(design−sbm) cosmos_gated@80: -0.154 [-0.205,-0.098] excludes0=True
+  Δ(design−sbm) cosmos_gated@90: -0.083 [-0.119,-0.044] excludes0=True
+  Δ(design−sbm) physics_only@80: -0.062 [-0.100,-0.017] excludes0=True
+  Δ(design−sbm) physics_only@90: -0.027 [-0.053,+0.002] excludes0=False
+  Δ(design−sbm) kumo@80: -0.166 [-0.215,-0.113] excludes0=True
+  Δ(design−sbm) kumo@90: -0.094 [-0.127,-0.057] excludes0=True
+  OR(design missing → 30d decay) train ['1957-10-04', '2003-12-29'] n=20793 missing=0.69: all 2.216 [1.634, 3.004] | components 3.594 [2.766, 4.67]
+  OR(design missing → 30d decay) tuneA ['2004-01-16', '2005-12-25'] n=248 missing=0.65: all 2.257 [0.106, 47.931] | components 20380.468 [0.119, 3496799617.856]
+  OR(design missing → 30d decay) tuneB ['2004-01-09', '2005-12-24'] n=332 missing=0.78: all 21.52 [0.521, 889.757] | components 1.9959101018622653e+31 [1.4652642311912448e+29, 2.718729530084254e+33]
+  OR(design missing → 30d decay) test  ['2011-01-01', '2015-12-30'] n=2669 missing=0.85: all 1.246 [0.334, 4.649] | components 1.265 [0.375, 4.272]
+  A4 train vs test CIs non-overlapping: False
+origin 2016: am_source test {'class_prior_sbm': 2323, 'design': 670} (validated against summary.json); tuneB design share 0.059, test 0.2239
+  cosmos_gated@80: design cov 0.562 [0.512,0.614] n=656 w=0.40; class_prior_sbm cov 0.761 [0.646,0.857] n=2322 w=0.44; all cov 0.717 [0.627,0.796] n=2978 w=0.43
+  cosmos_gated@90: design cov 0.857 [0.823,0.890] n=656 w=0.65; class_prior_sbm cov 0.879 [0.782,0.941] n=2322 w=0.68; all cov 0.874 [0.802,0.924] n=2978 w=0.67
+  Δ(design−sbm) cosmos_gated@80: -0.198 [-0.306,-0.072] excludes0=True
+  Δ(design−sbm) cosmos_gated@90: -0.022 [-0.094,+0.081] excludes0=False
+  Δ(design−sbm) physics_only@80: -0.190 [-0.301,-0.061] excludes0=True
+  Δ(design−sbm) physics_only@90: -0.207 [-0.272,-0.132] excludes0=True
+  Δ(design−sbm) tabm@80: -0.183 [-0.286,-0.056] excludes0=True
+  Δ(design−sbm) tabm@90: -0.030 [-0.099,+0.071] excludes0=False
+  OR(design missing → 30d decay) train ['1957-10-04', '2008-12-26'] n=25350 missing=0.73: all 2.192 [1.624, 2.957] | components 3.437 [2.638, 4.477]
+  OR(design missing → 30d decay) tuneA ['2009-01-02', '2010-12-29'] n=1740 missing=0.96: all 165.038 [23.398, 1164.107] | components None None
+  OR(design missing → 30d decay) tuneB ['2009-01-14', '2010-12-26'] n=1560 missing=0.94: all 2.611 [0.261, 26.112] | components 0.0 [0.0, 0.0]
+  OR(design missing → 30d decay) test  ['2016-01-02', '2021-10-15'] n=2979 missing=0.78: all 7.12 [2.108, 24.047] | components 16.94 [2.337, 122.79]
+  A4 train vs test CIs non-overlapping: False
+written outputs/am_design_stage1/

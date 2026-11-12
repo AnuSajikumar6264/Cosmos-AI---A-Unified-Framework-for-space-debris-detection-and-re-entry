@@ -1,0 +1,175 @@
+{
+ "run_at": "2026-11-06T04:13:16+00:00",
+ "api": "https://api.openalex.org/works",
+ "filter": "from_publication_date:2023-01-01,type:article|preprint|book-chapter",
+ "queries": [
+  {
+   "topic": "digital_twin_predictive",
+   "query": "satellite digital twin health monitoring prediction",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/digital_twin_predictive__satellite_digital_twin_health_monitoring_prediction.json",
+   "error": null
+  },
+  {
+   "topic": "digital_twin_predictive",
+   "query": "spacecraft digital twin anomaly detection telemetry",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/digital_twin_predictive__spacecraft_digital_twin_anomaly_detection_telemetry.json",
+   "error": null
+  },
+  {
+   "topic": "digital_twin_predictive",
+   "query": "digital twin space situational awareness orbit",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/digital_twin_predictive__digital_twin_space_situational_awareness_orbit.json",
+   "error": null
+  },
+  {
+   "topic": "multimodal_fusion",
+   "query": "multimodal data fusion satellite telemetry imagery",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/multimodal_fusion__multimodal_data_fusion_satellite_telemetry_imagery.json",
+   "error": null
+  },
+  {
+   "topic": "multimodal_fusion",
+   "query": "space situational awareness sensor fusion machine learning",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/multimodal_fusion__space_situational_awareness_sensor_fusion_machine_learning.json",
+   "error": null
+  },
+  {
+   "topic": "multimodal_fusion",
+   "query": "evidence fusion spacecraft health orbital data",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/multimodal_fusion__evidence_fusion_spacecraft_health_orbital_data.json",
+   "error": null
+  },
+  {
+   "topic": "conjunction_assessment",
+   "query": "spacecraft conjunction assessment machine learning collision probability",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/conjunction_assessment__spacecraft_conjunction_assessment_machine_learning_collision_probabili.json",
+   "error": null
+  },
+  {
+   "topic": "conjunction_assessment",
+   "query": "collision avoidance conjunction data message prediction",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/conjunction_assessment__collision_avoidance_conjunction_data_message_prediction.json",
+   "error": null
+  },
+  {
+   "topic": "conjunction_assessment",
+   "query": "Kelvins collision avoidance challenge CDM",
+   "status": 200,
+   "n_results": 7,
+   "raw_file": "outputs/literature/phase1/raw/conjunction_assessment__kelvins_collision_avoidance_challenge_cdm.json",
+   "error": null
+  },
+  {
+   "topic": "provenance_decision_support",
+   "query": "data provenance machine learning pipeline reproducibility",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/provenance_decision_support__data_provenance_machine_learning_pipeline_reproducibility.json",
+   "error": null
+  },
+  {
+   "topic": "provenance_decision_support",
+   "query": "uncertainty-aware decision support abstention selective prediction",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/provenance_decision_support__uncertainty_aware_decision_support_abstention_selective_prediction.json",
+   "error": null
+  },
+  {
+   "topic": "provenance_decision_support",
+   "query": "evidence provenance digital twin trustworthiness",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/provenance_decision_support__evidence_provenance_digital_twin_trustworthiness.json",
+   "error": null
+  },
+  {
+   "topic": "temporal_shift",
+   "query": "distribution shift time series anomaly detection evaluation",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/temporal_shift__distribution_shift_time_series_anomaly_detection_evaluation.json",
+   "error": null
+  },
+  {
+   "topic": "temporal_shift",
+   "query": "temporal distribution shift conformal prediction coverage",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/temporal_shift__temporal_distribution_shift_conformal_prediction_coverage.json",
+   "error": null
+  },
+  {
+   "topic": "temporal_shift",
+   "query": "concept drift spacecraft telemetry",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/temporal_shift__concept_drift_spacecraft_telemetry.json",
+   "error": null
+  },
+  {
+   "topic": "health_monitoring_subsystem",
+   "query": "satellite power subsystem health monitoring machine learning",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/health_monitoring_subsystem__satellite_power_subsystem_health_monitoring_machine_learning.json",
+   "error": null
+  },
+  {
+   "topic": "health_monitoring_subsystem",
+   "query": "spacecraft thermal attitude control anomaly detection telemetry",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/health_monitoring_subsystem__spacecraft_thermal_attitude_control_anomaly_detection_telemetry.json",
+   "error": null
+  },
+  {
+   "topic": "reentry_variants",
+   "query": "uncontrolled reentry prediction uncertainty atmospheric density",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/reentry_variants__uncontrolled_reentry_prediction_uncertainty_atmospheric_density.json",
+   "error": null
+  },
+  {
+   "topic": "reentry_variants",
+   "query": "orbital decay prediction ballistic coefficient solar activity",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/reentry_variants__orbital_decay_prediction_ballistic_coefficient_solar_activity.json",
+   "error": null
+  },
+  {
+   "topic": "evaluation_framework",
+   "query": "benchmark evaluation framework satellite monitoring anomaly detection metrics",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/evaluation_framework__benchmark_evaluation_framework_satellite_monitoring_anomaly_detection_.json",
+   "error": null
+  },
+  {
+   "topic": "evaluation_framework",
+   "query": "event-wise metrics anomaly detection time series evaluation",
+   "status": 200,
+   "n_results": 20,
+   "raw_file": "outputs/literature/phase1/raw/evaluation_framework__event_wise_metrics_anomaly_detection_time_series_evaluation.json",
+   "error": null
+  }
+ ]
+}

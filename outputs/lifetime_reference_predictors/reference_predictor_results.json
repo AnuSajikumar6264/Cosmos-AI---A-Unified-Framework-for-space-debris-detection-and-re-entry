@@ -1,0 +1,133 @@
+{
+ "analysed_at": "2026-11-06T05:15:04+00:00",
+ "git": {
+  "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+  "tracked_worktree_dirty": true,
+  "git_error": null
+ },
+ "n_boot": 4000,
+ "seed": 20261027,
+ "endpoint": "mean pinball over MO.QUANTILES of z=log10(min(t,1826.25)), known5 test objects",
+ "cluster_unit": "launch_family",
+ "refitting_performed": false,
+ "frozen_artifacts_modified": false,
+ "origins": {
+  "2011": {
+   "n_objects": 2667,
+   "n_families": 435,
+   "every_published_arm_beats_oracle": true,
+   "worst_arm": "mlp",
+   "worst_margin_over_oracle_pct": 13.905238025805888,
+   "best_arm": "physics_only",
+   "best_margin_over_oracle_pct": 60.44735653705987,
+   "trivial": {
+    "constant_at_cap": 0.17289205765769397,
+    "train_marginal_quantiles": 0.23096599214320115,
+    "test_marginal_quantiles": 0.13318026195309504
+   },
+   "documented_vs_rederived": {
+    "constant_at_cap": {
+     "documented": 0.172892,
+     "rederived": 0.17289205765769397,
+     "abs_diff": 5.765769398036191e-08
+    },
+    "train_marginal_quantiles": {
+     "documented": 0.231209,
+     "rederived": 0.23096599214320115,
+     "abs_diff": 0.00024300785679884362
+    },
+    "test_marginal_quantiles": {
+     "documented": 0.13318,
+     "rederived": 0.13318026195309504,
+     "abs_diff": 2.619530950487281e-07
+    },
+    "best": {
+     "documented": [
+      "physics_only",
+      0.052676
+     ],
+     "rederived": [
+      "physics_only",
+      0.05267631417331738
+     ]
+    },
+    "worst": {
+     "documented": [
+      "mlp",
+      0.114661
+     ],
+     "rederived": [
+      "mlp",
+      0.11466122952512538
+     ]
+    }
+   }
+  },
+  "2016": {
+   "n_objects": 2978,
+   "n_families": 621,
+   "every_published_arm_beats_oracle": true,
+   "worst_arm": "physics_only",
+   "worst_margin_over_oracle_pct": 39.26403455034956,
+   "best_arm": "tabicl",
+   "best_margin_over_oracle_pct": 66.01202876264887,
+   "trivial": {
+    "constant_at_cap": 0.23287897448011236,
+    "train_marginal_quantiles": 0.2005305482780483,
+    "test_marginal_quantiles": 0.1469460723103042
+   },
+   "documented_vs_rederived": {
+    "constant_at_cap": {
+     "documented": 0.232879,
+     "rederived": 0.23287897448011236,
+     "abs_diff": 2.551988764754043e-08
+    },
+    "train_marginal_quantiles": {
+     "documented": 0.200591,
+     "rederived": 0.2005305482780483,
+     "abs_diff": 6.0451721951682025e-05
+    },
+    "test_marginal_quantiles": {
+     "documented": 0.146946,
+     "rederived": 0.1469460723103042,
+     "abs_diff": 7.231030421661622e-08
+    },
+    "best": {
+     "documented": [
+      "tabicl",
+      0.049944
+     ],
+     "rederived": [
+      "tabicl",
+      0.049943988791243385
+     ]
+    },
+    "worst": {
+     "documented": [
+      "physics_only",
+      0.089249
+     ],
+     "rederived": [
+      "physics_only",
+      0.08924911570800471
+     ]
+    }
+   }
+  },
+  "2006": {
+   "n_objects": 7277,
+   "n_families": 440,
+   "every_published_arm_beats_oracle": true,
+   "worst_arm": "mlp_plus_rcs_2026",
+   "worst_margin_over_oracle_pct": 9.166426504089465,
+   "best_arm": "physics_only",
+   "best_margin_over_oracle_pct": 57.00058805219489,
+   "trivial": {
+    "constant_at_cap": 0.18672006957382414,
+    "train_marginal_quantiles": 0.23302067838136947,
+    "test_marginal_quantiles": 0.13215081601533285
+   }
+  }
+ },
+ "note": "origin 2006 is the G5d confirmatory origin; its arms are the two refit learners plus the stored baselines, so its leaderboard is not comparable in breadth"
+}

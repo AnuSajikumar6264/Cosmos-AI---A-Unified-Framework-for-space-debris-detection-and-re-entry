@@ -1,0 +1,239 @@
+{
+  "phase": "M reproducibility audit",
+  "audited_at": "2026-11-04T11:20:57.851726+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "environment": {
+    "python": "3.12.16",
+    "platform": "Linux-6.17.0-1010-intel-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "cpu_count": 512,
+    "numpy": "2.3.5",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.0+xpu",
+    "xgboost": "3.4.1",
+    "matplotlib": "3.11.2",
+    "fastapi": "0.162.0",
+    "pydantic": "2.14.1"
+  },
+  "declared_packages": {
+    "requirements.txt": [
+      "numpy",
+      "pandas",
+      "matplotlib",
+      "torch",
+      "scikit-learn",
+      "pillow",
+      "jupyter",
+      "nbformat"
+    ],
+    "requirements-ai.txt": [
+      "torch",
+      "scikit-learn",
+      "xgboost",
+      "numba",
+      "tifffile",
+      "imagecodecs",
+      "pyyaml",
+      "pyarrow",
+      "requests",
+      "portion",
+      "jsonschema",
+      "chronos-forecasting",
+      "ultralytics",
+      "torchvision",
+      "nbformat",
+      "nbclient",
+      "pypdf"
+    ],
+    "requirements-product.txt": [
+      "fastapi",
+      "uvicorn",
+      "jinja2",
+      "pydantic",
+      "python-multipart",
+      "pillow",
+      "httpx"
+    ]
+  },
+  "learner_backends": {
+    "learners": [
+      {
+        "learner": "xgboost",
+        "backend": "xgboost",
+        "importable": true,
+        "version": "3.4.1",
+        "declared_in_requirements": true,
+        "import_error": null,
+        "published_role": "reference baseline in both origins' leaderboards",
+        "reproducible": true
+      },
+      {
+        "learner": "lightgbm",
+        "backend": "lightgbm",
+        "importable": false,
+        "version": null,
+        "declared_in_requirements": false,
+        "import_error": "ModuleNotFoundError",
+        "published_role": "reference baseline in both origins' leaderboards",
+        "reproducible": false
+      },
+      {
+        "learner": "catboost",
+        "backend": "catboost",
+        "importable": false,
+        "version": null,
+        "declared_in_requirements": false,
+        "import_error": "ModuleNotFoundError",
+        "published_role": "reference baseline in both origins' leaderboards",
+        "reproducible": false
+      },
+      {
+        "learner": "mlp",
+        "backend": "torch",
+        "importable": true,
+        "version": "2.14.0+xpu",
+        "declared_in_requirements": true,
+        "import_error": null,
+        "published_role": "reference baseline; the common learner used by experiment E12",
+        "reproducible": true
+      },
+      {
+        "learner": "tabm",
+        "backend": "tabm",
+        "importable": false,
+        "version": null,
+        "declared_in_requirements": false,
+        "import_error": "ModuleNotFoundError",
+        "published_role": "SELECTED learner at origin 2016; member of RECENT and of the robust blends",
+        "reproducible": false
+      },
+      {
+        "learner": "tabicl",
+        "backend": "tabicl",
+        "importable": false,
+        "version": null,
+        "declared_in_requirements": false,
+        "import_error": "ModuleNotFoundError",
+        "published_role": "best test performer at origin 2016; member of the pre-specified RECENT pool and of the Phase G+ robust blends",
+        "reproducible": false
+      },
+      {
+        "learner": "kumo",
+        "backend": "sdm",
+        "importable": false,
+        "version": null,
+        "declared_in_requirements": false,
+        "import_error": "ModuleNotFoundError",
+        "published_role": "SELECTED learner at origin 2011 (its gated fusion and all origin-2011 ablations)",
+        "reproducible": false
+      }
+    ],
+    "n_importable": 2,
+    "n_declared": 2,
+    "n_reproducible": 2,
+    "total": 7
+  },
+  "integrity": {
+    "preregistration_freeze": {
+      "state": "INTACT",
+      "files": 28,
+      "changed": [],
+      "missing": []
+    },
+    "dated_forecast": {
+      "state": "INTACT",
+      "files": {
+        "twins.jsonl": "verified"
+      }
+    },
+    "g5d_preregistration": {
+      "state": "INTACT",
+      "frozen_sha256": "9ea4bf4171cad1b8a07522c28ccc68185644e990763ee7442fa455556e8cc43a",
+      "actual_sha256": "9ea4bf4171cad1b8a07522c28ccc68185644e990763ee7442fa455556e8cc43a"
+    }
+  },
+  "artifacts": {
+    "artifacts": [
+      {
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/test_predictions.npz",
+        "present": true,
+        "sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+        "bytes": 1890037
+      },
+      {
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/test_predictions.npz",
+        "present": true,
+        "sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+        "bytes": 2141992
+      },
+      {
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/regression_test.csv",
+        "present": true,
+        "sha256": "bbd92b656870e167ac7e36c49c9ad937e517ddb261f480cbfe7761c4f94c8070",
+        "bytes": 8220
+      },
+      {
+        "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/regression_test.csv",
+        "present": true,
+        "sha256": "520d137035f194e6258dd263569a7eae3657f46ca165c495ce01d122274ca808",
+        "bytes": 8231
+      },
+      {
+        "artifact": "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz",
+        "present": true,
+        "sha256": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+        "bytes": 1769190
+      },
+      {
+        "artifact": "outputs/benchmarks/twin_couplings/c2_cloud_survival.csv",
+        "present": true,
+        "sha256": "5b558ba17e4bb7de42e5da0ff101b0f232cf51da645484bfca2f0db427874c62",
+        "bytes": 102636
+      },
+      {
+        "artifact": "outputs/benchmarks/twin_couplings/c3_summary.json",
+        "present": true,
+        "sha256": "d9a0d730126283ee383673222a97749598fdc1dc6884727d5d6a3762a92607d2",
+        "bytes": 6974
+      },
+      {
+        "artifact": "outputs/benchmarks/twin_prospective_t1/t1_objects.csv.gz",
+        "present": true,
+        "sha256": "a4573a00004e886901ed5e0dda70c477816cfe36b5ee17d2333fff13b1e4c081",
+        "bytes": 1686068
+      },
+      {
+        "artifact": "outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz",
+        "present": true,
+        "sha256": "b8e806e41a4f3ced9bb58687c125b5aa4ec98d894b75de386fd0c615aa4f9aed",
+        "bytes": 538168
+      },
+      {
+        "artifact": "outputs/benchmarks/telemetry_esa_adb/results.csv",
+        "present": true,
+        "sha256": "1e98567df6a2f366b8d40dadac3090b8de1487af0d00e4a7ea3032f44628462c",
+        "bytes": 84821
+      }
+    ],
+    "present": 10,
+    "total": 10
+  },
+  "verdict": {
+    "all_integrity_intact": true,
+    "all_artifacts_present": true,
+    "all_learners_reproducible": false,
+    "overall": "PARTIAL"
+  },
+  "interpretation": {
+    "scope": "whether published results can be regenerated from declared requirements",
+    "not_established": [
+      "artifact digests confirm the files are unchanged, not that they are correct",
+      "a reproducible environment does not make a scientific conclusion valid"
+    ]
+  }
+}

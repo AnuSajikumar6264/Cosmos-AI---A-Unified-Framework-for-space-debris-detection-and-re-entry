@@ -1,0 +1,683 @@
+{
+  "phase": "H",
+  "analysed_at": "2026-11-04T08:56:58.417010+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "n_boot": 4000,
+  "seed": 20261027,
+  "method": "per-object interval coverage recomputed from saved test predictions; deviation from nominal bootstrapped by launch family",
+  "post_hoc": true,
+  "interval_coverage": {
+    "2011": {
+      "status": "evaluated",
+      "origin": "2011",
+      "artifact": "test_predictions.npz",
+      "artifact_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+      "n_objects_scored": 2667,
+      "n_launch_families": 435,
+      "models": {
+        "cosmos_gated": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9231346081739783,
+            "deviation": 0.1231346081739782,
+            "deviation_ci95_lo": 0.08286958826230215,
+            "deviation_ci95_hi": 0.14782622359467656,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 0.8768161544762294
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9591301087364079,
+            "deviation": 0.05913010873640792,
+            "deviation_ci95_lo": 0.03364327073008431,
+            "deviation_ci95_hi": 0.07400825185949636,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 1.2139402656816065
+          }
+        },
+        "physics_only": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9437570303712036,
+            "deviation": 0.14375703037120355,
+            "deviation_ci95_lo": 0.11290912041544951,
+            "deviation_ci95_hi": 0.16332602325816795,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 0.6534060102240872
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.973753280839895,
+            "deviation": 0.07375328083989499,
+            "deviation_ci95_lo": 0.05461782083743377,
+            "deviation_ci95_hi": 0.0854525115819213,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 1.0284174363115086
+          }
+        },
+        "tabm": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.8773903262092239,
+            "deviation": 0.0773903262092238,
+            "deviation_ci95_lo": -0.021083260938240436,
+            "deviation_ci95_hi": 0.14547890737573954,
+            "p_value": 0.108,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.9724657173432307
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9175103112110986,
+            "deviation": 0.017510311211098598,
+            "deviation_ci95_lo": -0.06682116315730212,
+            "deviation_ci95_hi": 0.07550144615416625,
+            "p_value": 0.583,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 1.3765878269607434
+          }
+        },
+        "kumo": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.932883389576303,
+            "deviation": 0.1328833895763029,
+            "deviation_ci95_lo": 0.09551069165259446,
+            "deviation_ci95_hi": 0.15524482975734968,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 0.9651829543075306
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9655043119610048,
+            "deviation": 0.06550431196100485,
+            "deviation_ci95_lo": 0.043004764411116274,
+            "deviation_ci95_hi": 0.07868990988175704,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 1.3424060681537182
+          }
+        },
+        "tabicl": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.8211473565804275,
+            "deviation": 0.0211473565804274,
+            "deviation_ci95_lo": -0.08243340308620718,
+            "deviation_ci95_hi": 0.09751377280210233,
+            "p_value": 0.652,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.861635331411335
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9193850768653918,
+            "deviation": 0.019385076865391804,
+            "deviation_ci95_lo": -0.04592199730687199,
+            "deviation_ci95_hi": 0.05817920157576429,
+            "p_value": 0.4795,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 1.2857900928772887
+          }
+        },
+        "mlp": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.8196475440569929,
+            "deviation": 0.01964754405699284,
+            "deviation_ci95_lo": -0.13790951112522767,
+            "deviation_ci95_hi": 0.12370607019866811,
+            "p_value": 0.6935,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.987566329277021
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8518935133108362,
+            "deviation": -0.04810648668916388,
+            "deviation_ci95_lo": -0.22024698686104965,
+            "deviation_ci95_hi": 0.061620041418326305,
+            "p_value": 0.7404999999999999,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 1.397729343023936
+          }
+        }
+      }
+    },
+    "2016": {
+      "status": "evaluated",
+      "origin": "2016",
+      "artifact": "test_predictions.npz",
+      "artifact_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+      "n_objects_scored": 2978,
+      "n_launch_families": 621,
+      "models": {
+        "cosmos_gated": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7169241101410343,
+            "deviation": -0.08307588985896577,
+            "deviation_ci95_lo": -0.17768254989952978,
+            "deviation_ci95_hi": -0.002332548206339582,
+            "p_value": 0.04150000000000009,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "UNDER-COVERS",
+            "mean_interval_width_log10_days": 0.4328898831659264
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8740765614506381,
+            "deviation": -0.025923438549362014,
+            "deviation_ci95_lo": -0.09911043681654189,
+            "deviation_ci95_hi": 0.025092169548460205,
+            "p_value": 0.4095,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.6706956057412123
+          }
+        },
+        "physics_only": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.738079247817327,
+            "deviation": -0.06192075218267296,
+            "deviation_ci95_lo": -0.15616240578543686,
+            "deviation_ci95_hi": 0.021719077742277607,
+            "p_value": 0.15450000000000008,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.35440920113720464
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8764271323035594,
+            "deviation": -0.023572867696440583,
+            "deviation_ci95_lo": -0.0695904186493429,
+            "deviation_ci95_hi": 0.01127299947072611,
+            "p_value": 0.20599999999999996,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.6706126069925067
+          }
+        },
+        "tabm": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7276695768972464,
+            "deviation": -0.07233042310275355,
+            "deviation_ci95_lo": -0.1641623820334758,
+            "deviation_ci95_hi": 0.006640031157187481,
+            "p_value": 0.0674999999999999,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.44352082902134676
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.876762928139691,
+            "deviation": -0.023237071860308958,
+            "deviation_ci95_lo": -0.09453261857153186,
+            "deviation_ci95_hi": 0.025673988593512272,
+            "p_value": 0.4644999999999999,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.6771860115101186
+          }
+        },
+        "kumo": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9459368703828073,
+            "deviation": 0.14593687038280717,
+            "deviation_ci95_lo": 0.12544274176744855,
+            "deviation_ci95_hi": 0.16164735611893147,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 0.74916562719411
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9738079247817327,
+            "deviation": 0.07380792478173268,
+            "deviation_ci95_lo": 0.06191242813946461,
+            "deviation_ci95_hi": 0.08220666938088417,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 1.06905166930696
+          }
+        },
+        "tabicl": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9019476158495635,
+            "deviation": 0.10194761584956341,
+            "deviation_ci95_lo": 0.06882796626413643,
+            "deviation_ci95_hi": 0.12660259749550778,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 0.6748779371830707
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9620550705171256,
+            "deviation": 0.06205507051712556,
+            "deviation_ci95_lo": 0.04622132070146324,
+            "deviation_ci95_hi": 0.07367851073675301,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_interval_width_log10_days": 1.0030893775223242
+          }
+        },
+        "mlp": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.777367360644728,
+            "deviation": -0.022632639355272027,
+            "deviation_ci95_lo": -0.09943750590793082,
+            "deviation_ci95_hi": 0.040554795898256904,
+            "p_value": 0.48950000000000005,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.5219842014305864
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8915379449294829,
+            "deviation": -0.008462055070517146,
+            "deviation_ci95_lo": -0.06938622840635755,
+            "deviation_ci95_hi": 0.031258418849934515,
+            "p_value": 0.774,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_interval_width_log10_days": 0.8350786321092737
+          }
+        }
+      }
+    }
+  },
+  "temporal_drift": {
+    "2011": {
+      "status": "evaluated",
+      "artifact": "temporal_coverage_test.csv",
+      "artifact_sha256": "2df5fcac6a8f594b4e1a4d7ae854d72aa4dac8cf1cfee934024de39993e919a2",
+      "models": {
+        "cosmos_gated": {
+          "years": [
+            2011,
+            2012,
+            2013,
+            2014,
+            2015
+          ],
+          "cov90_by_year": [
+            0.9782244556113903,
+            0.9736147757255936,
+            0.9292929292929293,
+            0.9300567107750473,
+            0.9572649572649573
+          ],
+          "n_by_year": [
+            597,
+            758,
+            198,
+            529,
+            585
+          ],
+          "min_cov90": 0.9292929292929293,
+          "max_cov90": 0.9782244556113903,
+          "spread": 0.04893152631846098,
+          "rank_trend_with_year": -0.6,
+          "worst_year": 2013
+        },
+        "kumo": {
+          "years": [
+            2011,
+            2012,
+            2013,
+            2014,
+            2015
+          ],
+          "cov90_by_year": [
+            0.9748743718592965,
+            0.9815303430079155,
+            0.9292929292929293,
+            0.943289224952741,
+            0.9675213675213675
+          ],
+          "n_by_year": [
+            597,
+            758,
+            198,
+            529,
+            585
+          ],
+          "min_cov90": 0.9292929292929293,
+          "max_cov90": 0.9815303430079155,
+          "spread": 0.05223741371498625,
+          "rank_trend_with_year": -0.49999999999999994,
+          "worst_year": 2013
+        },
+        "physics_only": {
+          "years": [
+            2011,
+            2012,
+            2013,
+            2014,
+            2015
+          ],
+          "cov90_by_year": [
+            0.9798994974874372,
+            0.9802110817941952,
+            0.9646464646464646,
+            0.9565217391304348,
+            0.9777777777777777
+          ],
+          "n_by_year": [
+            597,
+            758,
+            198,
+            529,
+            585
+          ],
+          "min_cov90": 0.9565217391304348,
+          "max_cov90": 0.9802110817941952,
+          "spread": 0.023689342663760438,
+          "rank_trend_with_year": -0.6,
+          "worst_year": 2014
+        }
+      }
+    },
+    "2016": {
+      "status": "evaluated",
+      "artifact": "temporal_coverage_test.csv",
+      "artifact_sha256": "70323dd986f186907f6761e9a27c2d17f966beed9da5ea06dd9dfed73f379b5e",
+      "models": {
+        "cosmos_gated": {
+          "years": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021
+          ],
+          "cov90_by_year": [
+            0.9019607843137255,
+            0.963302752293578,
+            0.8475177304964538,
+            0.8792134831460674,
+            0.812128418549346,
+            0.8466819221967964
+          ],
+          "n_by_year": [
+            408,
+            654,
+            282,
+            356,
+            841,
+            437
+          ],
+          "min_cov90": 0.812128418549346,
+          "max_cov90": 0.963302752293578,
+          "spread": 0.15117433374423195,
+          "rank_trend_with_year": -0.8285714285714287,
+          "worst_year": 2020
+        },
+        "physics_only": {
+          "years": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021
+          ],
+          "cov90_by_year": [
+            0.928921568627451,
+            0.9740061162079511,
+            0.9078014184397163,
+            0.8848314606741573,
+            0.835909631391201,
+            0.7322654462242563
+          ],
+          "n_by_year": [
+            408,
+            654,
+            282,
+            356,
+            841,
+            437
+          ],
+          "min_cov90": 0.7322654462242563,
+          "max_cov90": 0.9740061162079511,
+          "spread": 0.2417406699836948,
+          "rank_trend_with_year": -0.942857142857143,
+          "worst_year": 2021
+        },
+        "tabm": {
+          "years": [
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021
+          ],
+          "cov90_by_year": [
+            0.8970588235294118,
+            0.963302752293578,
+            0.8226950354609929,
+            0.8679775280898876,
+            0.816884661117717,
+            0.88558352402746
+          ],
+          "n_by_year": [
+            408,
+            654,
+            282,
+            356,
+            841,
+            437
+          ],
+          "min_cov90": 0.816884661117717,
+          "max_cov90": 0.963302752293578,
+          "spread": 0.14641809117586102,
+          "rank_trend_with_year": -0.5428571428571429,
+          "worst_year": 2020
+        }
+      }
+    }
+  },
+  "mechanism_inventory": [
+    {
+      "mechanism": "Monte-Carlo propagation (drag, area-to-mass, space weather)",
+      "implementation": "cosmos/ai/lifetime/physics.py:predict, sample_log_am",
+      "type": "aleatoric + input uncertainty",
+      "output": "32 sampled decay times per object -> quantiles",
+      "assumptions": "class/history area-to-mass priors; NRLMSIS density; sample count 32",
+      "validated_here": "PARTIAL \u2014 interval coverage measured (see interval audit); the sampling distribution itself is not validated against truth",
+      "status": "PARTIAL"
+    },
+    {
+      "mechanism": "Quantile regression (pinball) over 7 levels",
+      "implementation": "cosmos/ai/lifetime/models.py:QUANTILES, pinball",
+      "type": "aleatoric",
+      "output": "7 quantiles of log10 capped lifetime",
+      "assumptions": "per-quantile fits are not jointly constrained; crossing repaired by sort",
+      "validated_here": "YES \u2014 empirical coverage measured per origin",
+      "status": "PASS"
+    },
+    {
+      "mechanism": "Mondrian conformalised quantile regression (CQR)",
+      "implementation": "cosmos/ai/lifetime/fusion.py:MondrianCQR",
+      "type": "distribution-free interval calibration",
+      "output": "conformalised 80 % / 90 % intervals",
+      "assumptions": "exchangeability between calibration and test; group-wise correction",
+      "validated_here": "YES \u2014 empirical coverage measured per origin with launch-family cluster intervals; see `interval_coverage` for the per-level verdicts",
+      "status": "MEASURED \u2014 see interval_coverage (verdict differs by origin and level)",
+      "measured_deployed_expert": {
+        "2011": {
+          "cov80": {
+            "empirical": 0.9231346081739783,
+            "verdict": "OVER-COVERS"
+          },
+          "cov90": {
+            "empirical": 0.9591301087364079,
+            "verdict": "OVER-COVERS"
+          }
+        },
+        "2016": {
+          "cov80": {
+            "empirical": 0.7169241101410343,
+            "verdict": "UNDER-COVERS"
+          },
+          "cov90": {
+            "empirical": 0.8740765614506381,
+            "verdict": "CONSISTENT WITH NOMINAL"
+          }
+        }
+      }
+    },
+    {
+      "mechanism": "Marginal conformal (ungrouped) variant",
+      "implementation": "fusion.py, `*_marginal_conformal` arms",
+      "type": "distribution-free interval calibration",
+      "output": "conformalised intervals without Mondrian grouping",
+      "assumptions": "exchangeability",
+      "validated_here": "YES \u2014 measured alongside the Mondrian variant where the arm exists",
+      "status": "MEASURED \u2014 see interval_coverage"
+    },
+    {
+      "mechanism": "Isotonic probability calibration per horizon",
+      "implementation": "cosmos/ai/twin/engine.py:M['iso'][k]",
+      "type": "calibration of horizon probabilities",
+      "output": "p_lifetime_{30d,90d,1yr}",
+      "assumptions": "each horizon calibrated independently",
+      "validated_here": "YES \u2014 and it produces a NON-COHERENT CDF for 123/13,238 objects (limitation L17)",
+      "status": "FAIL (incoherent across horizons)"
+    },
+    {
+      "mechanism": "Isotonic survival recalibration (C2)",
+      "implementation": "cosmos/ai/twin/couplings.py:survival_calibrator",
+      "type": "calibration of survival-at-age",
+      "output": "calibrated S(age) per object",
+      "assumptions": "tune-B fragments transfer to test fragments",
+      "validated_here": "YES \u2014 materially improves cloud-count error for learned experts (Phase E C2) and not for physics-only",
+      "status": "PASS"
+    },
+    {
+      "mechanism": "Conformal p-values / BH / Simes for telemetry alarms",
+      "implementation": "cosmos/ai/uncertainty.py; telemetry/alarms.py",
+      "type": "multiple-testing control on alarms",
+      "output": "alarm decisions at a target rate",
+      "assumptions": "exchangeability of calibration and test residuals; independence assumptions of the combining rule",
+      "validated_here": "NOT IN THIS PHASE \u2014 point-level alarm rate control was checked by tests/test_ai.py under drift; event-level coverage is not a coverage claim",
+      "status": "NOT VALIDATED (here)"
+    },
+    {
+      "mechanism": "Model disagreement across seeds",
+      "implementation": "5-seed ensembles; seeds_test.csv",
+      "type": "epistemic",
+      "output": "per-seed losses; ensemble mean",
+      "assumptions": "seed variation approximates fitting variability only",
+      "validated_here": "PARTIAL \u2014 recorded, but not propagated as an uncertainty to downstream consumers",
+      "status": "PARTIAL"
+    },
+    {
+      "mechanism": "Missing-data handling / abstention",
+      "implementation": "cosmos/ai/adapters.py; store.py; contracts.py",
+      "type": "epistemic / evidence coverage",
+      "output": "explicit abstention with a recorded reason",
+      "assumptions": "none \u2014 absence is reported, not modelled",
+      "validated_here": "YES \u2014 enforced and asserted by tests (no imputation)",
+      "status": "PASS"
+    },
+    {
+      "mechanism": "Cross-module uncertainty propagation",
+      "implementation": "contracts.Uncertainty carried through adapters",
+      "type": "semantic preservation",
+      "output": "kind/method/level/assumptions preserved per module",
+      "assumptions": "representations are not collapsed to a scalar",
+      "validated_here": "PARTIAL \u2014 semantic preservation is test-enforced; no end-to-end numerical propagation is performed because the chain's endpoints are not joined by a shared quantity",
+      "status": "PARTIAL"
+    }
+  ],
+  "not_established": [
+    "nominal conformal coverage is a construction-time property; this audit measures the observed coverage and they are not the same quantity",
+    "coverage is measured on objects with a known five-year outcome; censored objects are excluded and their coverage is unknown",
+    "telemetry alarm conformal control is not audited in this phase"
+  ]
+}

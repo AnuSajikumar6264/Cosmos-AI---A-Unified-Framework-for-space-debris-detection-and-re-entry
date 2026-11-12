@@ -1,0 +1,2908 @@
+{
+  "phase": "O",
+  "verified_at": "2026-11-04T11:14:04.594567+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "counts": {
+    "VERIFIED": 37,
+    "AMBIGUOUS": 3,
+    "CORRECTED": 1
+  },
+  "results": [
+    {
+      "key": "R3",
+      "doi": "10.3390/aerospace10030297",
+      "arxiv": null,
+      "query": null,
+      "prior": "D",
+      "used_for": "C-1: >400-object re-entry epoch study; informal distribution-match note",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Salmaso",
+        "year": 2023,
+        "venue": "Aerospace"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "A Machine Learning and Feature Engineering Approach for the Prediction of the Uncontrolled Re-Entry of Space Objects",
+        "authors": [
+          "Salmaso",
+          "Trisolini",
+          "Colombo"
+        ],
+        "year": 2023,
+        "venue": "Aerospace",
+        "type": "journal-article",
+        "doi": "10.3390/aerospace10030297",
+        "citations": 17
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "A Machine Learning and Feature Engineering Approach for the Prediction of the Uncontrolled Re-Entry of Space Objects",
+          "authors": [
+            "Salmaso",
+            "Trisolini",
+            "Colombo"
+          ],
+          "year": 2023,
+          "venue": "Aerospace",
+          "type": "journal-article",
+          "doi": "10.3390/aerospace10030297",
+          "citations": 17
+        },
+        {
+          "source": "openalex",
+          "title": "A Machine Learning and Feature Engineering Approach for the Prediction of the Uncontrolled Re-Entry of Space Objects",
+          "authors": [
+            "Francesco Salmaso",
+            "Mirko Trisolini",
+            "Camilla Colombo"
+          ],
+          "year": 2023,
+          "venue": "Aerospace",
+          "type": "article",
+          "doi": "10.3390/aerospace10030297",
+          "citations": 17
+        }
+      ]
+    },
+    {
+      "key": "clark_mccracken",
+      "doi": null,
+      "arxiv": null,
+      "query": "Tests of equal forecast accuracy and encompassing for nested models",
+      "prior": "D",
+      "used_for": "C-2: forecast-comparison methodology for nested models",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Clark",
+        "year": 2001,
+        "title_contains": "equal forecast accuracy"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Tests of equal forecast accuracy and encompassing for nested models",
+        "authors": [
+          "Clark",
+          "McCracken"
+        ],
+        "year": 2001,
+        "venue": "Journal of Econometrics",
+        "type": "journal-article",
+        "doi": "10.1016/s0304-4076(01)00071-9",
+        "citations": 876
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Tests of equal forecast accuracy and encompassing for nested models",
+          "authors": [
+            "Clark",
+            "McCracken"
+          ],
+          "year": 2001,
+          "venue": "Journal of Econometrics",
+          "type": "journal-article",
+          "doi": "10.1016/s0304-4076(01)00071-9",
+          "citations": 876
+        },
+        {
+          "source": "openalex",
+          "title": "Tests of equal forecast accuracy and encompassing for nested models",
+          "authors": [
+            "Todd E. Clark",
+            "Michael W. McCracken"
+          ],
+          "year": 2001,
+          "venue": "Journal of Econometrics",
+          "type": "article",
+          "doi": "10.1016/s0304-4076(01)00071-9",
+          "citations": 1186
+        },
+        {
+          "source": "crossref/query",
+          "title": "Tests of Equal Forecast Accuracy and Encompassing for Nested Models",
+          "authors": [
+            "Clark",
+            "McCracken"
+          ],
+          "year": 1999,
+          "venue": null,
+          "type": "posted-content",
+          "doi": "10.2139/ssrn.191028",
+          "citations": 11
+        }
+      ]
+    },
+    {
+      "key": "bailey2014",
+      "doi": null,
+      "arxiv": null,
+      "query": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+      "prior": "D",
+      "used_for": "C-2: rolling-origin selection instability outside the orbital domain",
+      "status": "AMBIGUOUS",
+      "claim": {
+        "first_author": "Bailey",
+        "year": 2014,
+        "title_contains": "window selection"
+      },
+      "problems": [
+        "claimed first author 'Bailey' not among ['Lu Jin']"
+      ],
+      "best_record": {
+        "source": "openalex",
+        "title": "Essays on Window Selection for Out-of-sample Forecasting",
+        "authors": [
+          "Lu Jin"
+        ],
+        "year": 2014,
+        "venue": "NCSU Libraries Repository (North Carolina State University Libraries)",
+        "type": "article",
+        "doi": null,
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "Essays on Window Selection for Out-of-sample Forecasting",
+          "authors": [
+            "Lu Jin"
+          ],
+          "year": 2014,
+          "venue": "NCSU Libraries Repository (North Carolina State University Libraries)",
+          "type": "article",
+          "doi": null,
+          "citations": 0
+        },
+        {
+          "source": "crossref/query",
+          "title": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+          "authors": [
+            "Inoue",
+            "Jin",
+            "Rossi"
+          ],
+          "year": 2017,
+          "venue": "Journal of Econometrics",
+          "type": "journal-article",
+          "doi": "10.1016/j.jeconom.2016.03.006",
+          "citations": 286
+        },
+        {
+          "source": "openalex",
+          "title": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+          "authors": [
+            "Atsushi Inoue",
+            "Lu Jin",
+            "Barbara Rossi"
+          ],
+          "year": 2016,
+          "venue": "Journal of Econometrics",
+          "type": "article",
+          "doi": "10.1016/j.jeconom.2016.03.006",
+          "citations": 291
+        }
+      ]
+    },
+    {
+      "key": "inoue_rossi_jin",
+      "doi": null,
+      "arxiv": null,
+      "query": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+      "prior": "NEW",
+      "used_for": "candidate replacement for the unconfirmed 'Bailey 2014'",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Inoue",
+        "title_contains": "window selection"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+        "authors": [
+          "Inoue",
+          "Jin",
+          "Rossi"
+        ],
+        "year": 2017,
+        "venue": "Journal of Econometrics",
+        "type": "journal-article",
+        "doi": "10.1016/j.jeconom.2016.03.006",
+        "citations": 286
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+          "authors": [
+            "Inoue",
+            "Jin",
+            "Rossi"
+          ],
+          "year": 2017,
+          "venue": "Journal of Econometrics",
+          "type": "journal-article",
+          "doi": "10.1016/j.jeconom.2016.03.006",
+          "citations": 286
+        },
+        {
+          "source": "openalex",
+          "title": "Rolling window selection for out-of-sample forecasting with time-varying parameters",
+          "authors": [
+            "Atsushi Inoue",
+            "Lu Jin",
+            "Barbara Rossi"
+          ],
+          "year": 2016,
+          "venue": "Journal of Econometrics",
+          "type": "article",
+          "doi": "10.1016/j.jeconom.2016.03.006",
+          "citations": 291
+        },
+        {
+          "source": "openalex",
+          "title": "Rolling window selection for out ofsample forecasting in panel data modelswith time varying parameters",
+          "authors": [
+            "M.L. Jongsma"
+          ],
+          "year": 2019,
+          "venue": null,
+          "type": "article",
+          "doi": null,
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "gulrajani_lopezpaz",
+      "doi": null,
+      "arxiv": null,
+      "query": "In Search of Lost Domain Generalization",
+      "prior": "D",
+      "used_for": "C-2: model selection is the hidden determinant of benchmark ranking",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Gulrajani",
+        "year": 2020
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "In Search of Lost Domain Generalization",
+        "authors": [
+          "Ishaan Gulrajani",
+          "David L\u00f3pez-Paz"
+        ],
+        "year": 2020,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2007.01434",
+        "citations": 455
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "In Search of Lost Domain Generalization",
+          "authors": [
+            "Ishaan Gulrajani",
+            "David L\u00f3pez-Paz"
+          ],
+          "year": 2020,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2007.01434",
+          "citations": 455
+        },
+        {
+          "source": "arxiv",
+          "title": "In Search of Lost Domain Generalization",
+          "authors": [
+            "Gulrajani",
+            "Lopez-Paz"
+          ],
+          "year": 2020,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "openalex",
+          "title": "Gradient Matching for Domain Generalization",
+          "authors": [
+            "Yuge Shi",
+            "Jeffrey Seely",
+            "Philip H. S. Torr",
+            "Siddharth, N.",
+            "Awni Hannun",
+            "Nicolas Usunier",
+            "Gabriel Synnaeve"
+          ],
+          "year": 2021,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2104.09937",
+          "citations": 125
+        }
+      ]
+    },
+    {
+      "key": "wild_time",
+      "doi": null,
+      "arxiv": null,
+      "query": "Wild-Time: A Benchmark of in-the-Wild Distribution Shift over Time",
+      "prior": "D",
+      "used_for": "C-2: temporal distribution-shift benchmark precedent",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Yao",
+        "year": 2022
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Wild-Time: A Benchmark of in-The-Wild Distribution Shift Over Time",
+        "authors": [
+          "Yao",
+          "Choi",
+          "Cao",
+          "Lee",
+          "Koh",
+          "Finn"
+        ],
+        "year": 2022,
+        "venue": "Advances in Neural Information Processing Systems 35",
+        "type": "proceedings-article",
+        "doi": "10.52202/068431-0749",
+        "citations": 11
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Wild-Time: A Benchmark of in-The-Wild Distribution Shift Over Time",
+          "authors": [
+            "Yao",
+            "Choi",
+            "Cao",
+            "Lee",
+            "Koh",
+            "Finn"
+          ],
+          "year": 2022,
+          "venue": "Advances in Neural Information Processing Systems 35",
+          "type": "proceedings-article",
+          "doi": "10.52202/068431-0749",
+          "citations": 11
+        },
+        {
+          "source": "openalex",
+          "title": "Wild-Time: A Benchmark of in-The-Wild Distribution Shift Over Time",
+          "authors": [
+            "Huaxiu Yao",
+            "Caroline Choi",
+            "Bochuan Cao",
+            "Yoonho Lee",
+            "Pang Wei Koh",
+            "Chelsea Finn"
+          ],
+          "year": 2022,
+          "venue": "neural information processing systems",
+          "type": "conference-paper",
+          "doi": "10.52202/068431-0749",
+          "citations": 33
+        },
+        {
+          "source": "arxiv",
+          "title": "Wild-Time: A Benchmark of in-the-Wild Distribution Shift over Time",
+          "authors": [
+            "Yao",
+            "Choi",
+            "Cao",
+            "Lee",
+            "Koh",
+            "Finn"
+          ],
+          "year": 2022,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        }
+      ]
+    },
+    {
+      "key": "chung2026",
+      "doi": null,
+      "arxiv": null,
+      "query": "LiveHouse-TS live benchmark time series forecasting",
+      "prior": "D",
+      "used_for": "C-2: live time-series benchmark, selection validity",
+      "status": "AMBIGUOUS",
+      "claim": {
+        "first_author": "Chung",
+        "year": 2026,
+        "title_contains": "LiveHouse"
+      },
+      "problems": [
+        "claimed first author 'Chung' not among ['Haomin Wen', 'Ziyu Zhou', 'Qingxiang Liu', 'Siru Zhong', 'Yuxuan Liang']"
+      ],
+      "best_record": {
+        "source": "openalex",
+        "title": "LiveHouse-TS: An Open-world Living Benchmark for Time Series Foundation Models",
+        "authors": [
+          "Haomin Wen",
+          "Ziyu Zhou",
+          "Qingxiang Liu",
+          "Siru Zhong",
+          "Yuxuan Liang"
+        ],
+        "year": 2026,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2608.17299",
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "LiveHouse-TS: An Open-world Living Benchmark for Time Series Foundation Models",
+          "authors": [
+            "Haomin Wen",
+            "Ziyu Zhou",
+            "Qingxiang Liu",
+            "Siru Zhong",
+            "Yuxuan Liang"
+          ],
+          "year": 2026,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2608.17299",
+          "citations": 0
+        },
+        {
+          "source": "crossref/query",
+          "title": "Unified long-term time series forecasting benchmark",
+          "authors": [
+            "Cyranka",
+            "Haponiuk"
+          ],
+          "year": 2026,
+          "venue": "Neurocomputing",
+          "type": "journal-article",
+          "doi": "10.1016/j.neucom.2026.134091",
+          "citations": 1
+        },
+        {
+          "source": "crossref/query",
+          "title": "No One-Size-Fits-All: A Systematic Benchmark for Multivariate Time Series Forecasting",
+          "authors": [
+            "Vu",
+            "Nguyen",
+            "Elyan"
+          ],
+          "year": 2025,
+          "venue": null,
+          "type": "posted-content",
+          "doi": "10.2139/ssrn.5397946",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "hendrickx2024",
+      "doi": null,
+      "arxiv": null,
+      "query": "Machine learning with a reject option: a survey",
+      "prior": "D",
+      "used_for": "closes evidence-graded abstention",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Hendrickx",
+        "year": 2024
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Machine learning with a reject option: a survey",
+        "authors": [
+          "Hendrickx",
+          "Perini",
+          "Van der Plas",
+          "Meert",
+          "Davis"
+        ],
+        "year": 2024,
+        "venue": "Machine Learning",
+        "type": "journal-article",
+        "doi": "10.1007/s10994-024-06534-x",
+        "citations": 118
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Machine learning with a reject option: a survey",
+          "authors": [
+            "Hendrickx",
+            "Perini",
+            "Van der Plas",
+            "Meert",
+            "Davis"
+          ],
+          "year": 2024,
+          "venue": "Machine Learning",
+          "type": "journal-article",
+          "doi": "10.1007/s10994-024-06534-x",
+          "citations": 118
+        },
+        {
+          "source": "openalex",
+          "title": "Machine learning with a reject option: a survey",
+          "authors": [
+            "Kilian Hendrickx",
+            "Lorenzo Perini",
+            "Dries Van der Plas",
+            "Wannes Meert",
+            "Jesse J. Davis"
+          ],
+          "year": 2024,
+          "venue": "Machine Learning",
+          "type": "article",
+          "doi": "10.1007/s10994-024-06534-x",
+          "citations": 137
+        },
+        {
+          "source": "crossref/query",
+          "title": "Meta-Learning and Novelty Detection for Machine Learning with Reject Option",
+          "authors": [
+            "Drapal",
+            "Silva-Filho",
+            "Prud\u00eancio"
+          ],
+          "year": 2024,
+          "venue": "2024 International Joint Conference on Neural Networks (IJCNN)",
+          "type": "proceedings-article",
+          "doi": "10.1109/ijcnn60899.2024.10650424",
+          "citations": 2
+        }
+      ]
+    },
+    {
+      "key": "csur2025_selective",
+      "doi": null,
+      "arxiv": null,
+      "query": "selective prediction survey ACM Computing Surveys learning to defer",
+      "prior": "D",
+      "used_for": "closes evidence-graded abstention",
+      "status": "VERIFIED",
+      "claim": {
+        "year": 2025,
+        "venue": "ACM Computing Surveys",
+        "title_contains": "surve"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Selective Forgetting in Machine Learning and Beyond: A Survey",
+        "authors": [
+          "Sha",
+          "Nunes",
+          "Haller"
+        ],
+        "year": 2026,
+        "venue": "ACM Computing Surveys",
+        "type": "journal-article",
+        "doi": "10.1145/3796542",
+        "citations": 2
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Selective Forgetting in Machine Learning and Beyond: A Survey",
+          "authors": [
+            "Sha",
+            "Nunes",
+            "Haller"
+          ],
+          "year": 2026,
+          "venue": "ACM Computing Surveys",
+          "type": "journal-article",
+          "doi": "10.1145/3796542",
+          "citations": 2
+        },
+        {
+          "source": "crossref/query",
+          "title": "Machine Learning for Infectious Disease Risk Prediction: A Survey",
+          "authors": [
+            "Liu",
+            "Liu",
+            "Liu"
+          ],
+          "year": 2025,
+          "venue": "ACM Computing Surveys",
+          "type": "journal-article",
+          "doi": "10.1145/3719663",
+          "citations": 14
+        },
+        {
+          "source": "crossref/query",
+          "title": "Survey on Verifiable Machine Learning",
+          "authors": [
+            "Lyu",
+            "Jiang",
+            "D\u00fcdder",
+            "Sasaki"
+          ],
+          "year": 2026,
+          "venue": "ACM Computing Surveys",
+          "type": "journal-article",
+          "doi": "10.1145/3847111",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "learning_to_defer_survey",
+      "doi": null,
+      "arxiv": null,
+      "query": "Learning to defer to an expert survey human-AI decision making",
+      "prior": "NEW",
+      "used_for": "candidate replacement for the unconfirmed 'ACM CSUR 2025 survey'",
+      "status": "VERIFIED",
+      "claim": {
+        "title_contains": "defer"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Towards Robust Human\u2013AI Decision-Making via Learning-to-Defer",
+        "authors": [
+          "Montreuil"
+        ],
+        "year": 2026,
+        "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+        "type": "journal-article",
+        "doi": "10.1609/aaai.v40i48.42160",
+        "citations": 1
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Towards Robust Human\u2013AI Decision-Making via Learning-to-Defer",
+          "authors": [
+            "Montreuil"
+          ],
+          "year": 2026,
+          "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+          "type": "journal-article",
+          "doi": "10.1609/aaai.v40i48.42160",
+          "citations": 1
+        },
+        {
+          "source": "crossref/query",
+          "title": "A benchmarking framework and dataset for learning to defer in human-AI decision-making",
+          "authors": [
+            "Alves",
+            "Leit\u00e3o",
+            "Jesus",
+            "Sampaio",
+            "Li\u00e9bana",
+            "Saleiro",
+            "Figueiredo",
+            "Bizarro"
+          ],
+          "year": 2025,
+          "venue": "Scientific Data",
+          "type": "journal-article",
+          "doi": "10.1038/s41597-025-04664-y",
+          "citations": 11
+        },
+        {
+          "source": "crossref/query",
+          "title": "Pakistan will likely defer decision on IMF",
+          "authors": [],
+          "year": 2018,
+          "venue": "Emerald Expert Briefings",
+          "type": "other",
+          "doi": "10.1108/oxan-es235388",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "selectivenet",
+      "doi": null,
+      "arxiv": null,
+      "query": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+      "prior": "D",
+      "used_for": "closes evidence-graded abstention",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Geifman",
+        "year": 2019
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+        "authors": [
+          "Yonatan Geifman",
+          "Ran El\u2010Yaniv"
+        ],
+        "year": 2019,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.1901.09192",
+        "citations": 161
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+          "authors": [
+            "Yonatan Geifman",
+            "Ran El\u2010Yaniv"
+          ],
+          "year": 2019,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.1901.09192",
+          "citations": 161
+        },
+        {
+          "source": "arxiv",
+          "title": "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+          "authors": [
+            "Geifman",
+            "El-Yaniv"
+          ],
+          "year": 2019,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "openalex",
+          "title": "Deep neural rejection against adversarial examples",
+          "authors": [
+            "Angelo Sotgiu",
+            "Ambra Demontis",
+            "Marco Melis",
+            "Battista Biggio",
+            "Giorgio Fumera",
+            "Xiaoyi Feng",
+            "Fabio Roli"
+          ],
+          "year": 2020,
+          "venue": "EURASIP Journal on Information Security",
+          "type": "article",
+          "doi": "10.1186/s13635-020-00105-y",
+          "citations": 65
+        }
+      ]
+    },
+    {
+      "key": "conformal_selective_risk",
+      "doi": null,
+      "arxiv": null,
+      "query": "Conformal risk control",
+      "prior": "D",
+      "used_for": "closes evidence-graded abstention (selective risk control)",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Angelopoulos"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "Conformal Risk Control",
+        "authors": [
+          "Anastasios N. Angelopoulos",
+          "Stephen Bates",
+          "Fisch, Adam",
+          "Lihua Lei",
+          "Tal Schuster"
+        ],
+        "year": 2022,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2208.02814",
+        "citations": 37
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "Conformal Risk Control",
+          "authors": [
+            "Anastasios N. Angelopoulos",
+            "Stephen Bates",
+            "Fisch, Adam",
+            "Lihua Lei",
+            "Tal Schuster"
+          ],
+          "year": 2022,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2208.02814",
+          "citations": 37
+        },
+        {
+          "source": "arxiv",
+          "title": "Conformal Risk Control",
+          "authors": [
+            "Angelopoulos",
+            "Bates",
+            "Fisch",
+            "Lei",
+            "Schuster"
+          ],
+          "year": 2022,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "crossref/query",
+          "title": "Taming Tail Risk in Financial Markets: Conformal Risk Control for Nonstationary Portfolio VaR",
+          "authors": [
+            "Schmitt"
+          ],
+          "year": 2026,
+          "venue": null,
+          "type": "posted-content",
+          "doi": "10.2139/ssrn.6172999",
+          "citations": 2
+        }
+      ]
+    },
+    {
+      "key": "spotgeo_dataset",
+      "doi": "10.5281/zenodo.3874325",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "SpotGEO dataset deposit (feature2_debris/spotgeo)",
+      "status": "VERIFIED",
+      "claim": {
+        "year": 2020,
+        "venue": "Zenodo"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "spotGEO dataset",
+        "authors": [
+          "Bo Chen",
+          "Daqi Liu",
+          "Tat-Jun Chin",
+          "Mark G. Rutten",
+          "Dawa Derksen",
+          "Marcus M\u00e4rtens",
+          "Moritz von Looz",
+          "Gurvan L\u00e9cuyer",
+          "Dario Izzo"
+        ],
+        "year": 2020,
+        "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+        "type": "dataset",
+        "doi": "10.5281/zenodo.3874325",
+        "citations": 1
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "spotGEO dataset",
+          "authors": [
+            "Bo Chen",
+            "Daqi Liu",
+            "Tat-Jun Chin",
+            "Mark G. Rutten",
+            "Dawa Derksen",
+            "Marcus M\u00e4rtens",
+            "Moritz von Looz",
+            "Gurvan L\u00e9cuyer",
+            "Dario Izzo"
+          ],
+          "year": 2020,
+          "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+          "type": "dataset",
+          "doi": "10.5281/zenodo.3874325",
+          "citations": 1
+        }
+      ]
+    },
+    {
+      "key": "spotgeo_challenge",
+      "doi": null,
+      "arxiv": null,
+      "query": "SpotGEO challenge detecting geostationary objects in optical images Chin",
+      "prior": "NOT_RETRIEVABLE",
+      "used_for": "SpotGEO challenge description",
+      "status": "AMBIGUOUS",
+      "claim": {
+        "title_contains": "spotgeo"
+      },
+      "problems": [
+        "expected 'spotgeo' in the title, got 'Deep Learning methods for detecting and characterizing geostationary satellites from spectro-spatial images'"
+      ],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Deep Learning methods for detecting and characterizing geostationary satellites from spectro-spatial images",
+        "authors": [
+          "Besnard"
+        ],
+        "year": null,
+        "venue": null,
+        "type": "dissertation",
+        "doi": "10.70675/4c3047eeza875z44a3z99cdza82d47a93788",
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Deep Learning methods for detecting and characterizing geostationary satellites from spectro-spatial images",
+          "authors": [
+            "Besnard"
+          ],
+          "year": null,
+          "venue": null,
+          "type": "dissertation",
+          "doi": "10.70675/4c3047eeza875z44a3z99cdza82d47a93788",
+          "citations": 0
+        },
+        {
+          "source": "crossref/query",
+          "title": "Detecting objects in three-dimensional laser radar range images",
+          "authors": [
+            "Green",
+            "Shapiro"
+          ],
+          "year": 1994,
+          "venue": "Optical Engineering",
+          "type": "journal-article",
+          "doi": "10.1117/12.160880",
+          "citations": 15
+        },
+        {
+          "source": "crossref/query",
+          "title": "Multi-Stage Feature Enhancement Pyramid Network for Detecting Objects in Optical Remote Sensing Images",
+          "authors": [
+            "Zhang",
+            "Shen"
+          ],
+          "year": 2022,
+          "venue": "Remote Sensing",
+          "type": "journal-article",
+          "doi": "10.3390/rs14030579",
+          "citations": 56
+        }
+      ]
+    },
+    {
+      "key": "R31_debriswatch2",
+      "doi": null,
+      "arxiv": null,
+      "query": "DebrisWatch II faint geosynchronous space debris",
+      "prior": "D",
+      "used_for": "debris detection prior art",
+      "status": "VERIFIED",
+      "claim": {
+        "title_contains": "debriswatch ii"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "DebrisWatch II: Digging deeper for geosynchronous debris",
+        "authors": [
+          "James A. Blake",
+          "Benjamin F Cooke",
+          "Cristina Paragini",
+          "William Feline",
+          "Christopher A. Onken",
+          "Don Pollacco",
+          "Grant Privett",
+          "Toshifumi Yanagisawa",
+          "Robert Airey",
+          "Ioannis Apergis",
+          "Roberto Armellin",
+          "Lily Beesley"
+        ],
+        "year": 2026,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2605.27516",
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "DebrisWatch II: Digging deeper for geosynchronous debris",
+          "authors": [
+            "James A. Blake",
+            "Benjamin F Cooke",
+            "Cristina Paragini",
+            "William Feline",
+            "Christopher A. Onken",
+            "Don Pollacco",
+            "Grant Privett",
+            "Toshifumi Yanagisawa",
+            "Robert Airey",
+            "Ioannis Apergis",
+            "Roberto Armellin",
+            "Lily Beesley"
+          ],
+          "year": 2026,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2605.27516",
+          "citations": 0
+        },
+        {
+          "source": "openalex",
+          "title": "DebrisWatch II: Digging Deeper for Geosynchronous Debris",
+          "authors": [
+            "James A. Blake",
+            "Benjamin F Cooke",
+            "Cristina Paragini",
+            "William Feline",
+            "Christopher A. Onken",
+            "Don Pollacco",
+            "Grant Privett",
+            "Toshifumi Yanagisawa",
+            "Robert Airey",
+            "Ioannis Apergis",
+            "Roberto Armellin",
+            "Lily Beesley"
+          ],
+          "year": 2026,
+          "venue": "The Journal of the Astronautical Sciences",
+          "type": "article",
+          "doi": "10.1007/s40295-026-00602-1",
+          "citations": 0
+        },
+        {
+          "source": "crossref/query",
+          "title": "DebrisWatch I: A survey of faint geosynchronous debris",
+          "authors": [
+            "Blake",
+            "Chote",
+            "Pollacco",
+            "Feline",
+            "Privett",
+            "Ash",
+            "Eves",
+            "Greenwood",
+            "Harwood",
+            "Marsh",
+            "Veras",
+            "Watson"
+          ],
+          "year": 2021,
+          "venue": "Advances in Space Research",
+          "type": "journal-article",
+          "doi": "10.1016/j.asr.2020.08.008",
+          "citations": 26
+        }
+      ]
+    },
+    {
+      "key": "debriswatch1",
+      "doi": null,
+      "arxiv": null,
+      "query": "DebrisWatch I A survey of faint geosynchronous debris",
+      "prior": "NEW",
+      "used_for": "candidate replacement for the unconfirmed 'DebrisWatch II'",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Blake",
+        "title_contains": "debriswatch i"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "DebrisWatch I: A survey of faint geosynchronous debris",
+        "authors": [
+          "Blake",
+          "Chote",
+          "Pollacco",
+          "Feline",
+          "Privett",
+          "Ash",
+          "Eves",
+          "Greenwood",
+          "Harwood",
+          "Marsh",
+          "Veras",
+          "Watson"
+        ],
+        "year": 2021,
+        "venue": "Advances in Space Research",
+        "type": "journal-article",
+        "doi": "10.1016/j.asr.2020.08.008",
+        "citations": 26
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "DebrisWatch I: A survey of faint geosynchronous debris",
+          "authors": [
+            "Blake",
+            "Chote",
+            "Pollacco",
+            "Feline",
+            "Privett",
+            "Ash",
+            "Eves",
+            "Greenwood",
+            "Harwood",
+            "Marsh",
+            "Veras",
+            "Watson"
+          ],
+          "year": 2021,
+          "venue": "Advances in Space Research",
+          "type": "journal-article",
+          "doi": "10.1016/j.asr.2020.08.008",
+          "citations": 26
+        },
+        {
+          "source": "openalex",
+          "title": "DebrisWatch I: A survey of faint geosynchronous debris",
+          "authors": [
+            "James A. Blake",
+            "Paul Robin Brian Chote",
+            "D. Pollacco",
+            "William Feline",
+            "Grant Privett",
+            "Andrew Ash",
+            "Stuart Eves",
+            "Arthur Greenwood",
+            "N. M. Harwood",
+            "Thomas R. Marsh",
+            "Dimitri Veras",
+            "Christopher Allan Watson"
+          ],
+          "year": 2020,
+          "venue": "Advances in Space Research",
+          "type": "article",
+          "doi": "10.1016/j.asr.2020.08.008",
+          "citations": 27
+        },
+        {
+          "source": "openalex",
+          "title": "DebrisWatch II: Digging Deeper for Geosynchronous Debris",
+          "authors": [
+            "James A. Blake",
+            "Benjamin F Cooke",
+            "Cristina Paragini",
+            "William Feline",
+            "Christopher A. Onken",
+            "Don Pollacco",
+            "Grant Privett",
+            "Toshifumi Yanagisawa",
+            "Robert Airey",
+            "Ioannis Apergis",
+            "Roberto Armellin",
+            "Lily Beesley"
+          ],
+          "year": 2026,
+          "venue": "The Journal of the Astronautical Sciences",
+          "type": "article",
+          "doi": "10.1007/s40295-026-00602-1",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "gibbs_candes",
+      "doi": null,
+      "arxiv": null,
+      "query": "Adaptive conformal inference under distribution shift",
+      "prior": "D",
+      "used_for": "venue attribution needs confirming (commonly cited as NeurIPS)",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Gibbs",
+        "year": 2021
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "Adaptive Conformal Inference Under Distribution Shift",
+        "authors": [
+          "Isaac Gibbs",
+          "Emmanuel J. Cand\u00e8s"
+        ],
+        "year": 2021,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2106.00170",
+        "citations": 84
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "Adaptive Conformal Inference Under Distribution Shift",
+          "authors": [
+            "Isaac Gibbs",
+            "Emmanuel J. Cand\u00e8s"
+          ],
+          "year": 2021,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2106.00170",
+          "citations": 84
+        },
+        {
+          "source": "arxiv",
+          "title": "Adaptive Conformal Inference Under Distribution Shift",
+          "authors": [
+            "Gibbs",
+            "Cand\u00e8s"
+          ],
+          "year": 2021,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "crossref/query",
+          "title": "Regime-Adaptive Conformal Guardrails for Prompt Injection Attacks Under Distribution Shift",
+          "authors": [
+            "Chaudhari"
+          ],
+          "year": 2026,
+          "venue": null,
+          "type": "posted-content",
+          "doi": "10.20944/preprints202609.2642.v1",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "tibshirani_covshift",
+      "doi": null,
+      "arxiv": null,
+      "query": "Conformal prediction under covariate shift",
+      "prior": "D",
+      "used_for": "venue attribution needs confirming (commonly cited as NeurIPS)",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Tibshirani",
+        "year": 2019
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "Conformal Prediction Under Covariate Shift",
+        "authors": [
+          "Ryan J. Tibshirani",
+          "Rina Foygel Barber",
+          "Emmanuel J. Cand\u00e8s",
+          "Aaditya Ramdas"
+        ],
+        "year": 2019,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.1904.06019",
+        "citations": 126
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "Conformal Prediction Under Covariate Shift",
+          "authors": [
+            "Ryan J. Tibshirani",
+            "Rina Foygel Barber",
+            "Emmanuel J. Cand\u00e8s",
+            "Aaditya Ramdas"
+          ],
+          "year": 2019,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.1904.06019",
+          "citations": 126
+        },
+        {
+          "source": "arxiv",
+          "title": "Conformal Prediction Under Covariate Shift",
+          "authors": [
+            "Tibshirani",
+            "Barber",
+            "Candes",
+            "Ramdas"
+          ],
+          "year": 2019,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "crossref/query",
+          "title": "Conformal Prediction Sets for Tabular Regression Under Covariate Shift",
+          "authors": [
+            "Banerjee"
+          ],
+          "year": 2026,
+          "venue": null,
+          "type": "posted-content",
+          "doi": "10.21203/rs.3.rs-9822449/v1",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "zaffran_etal",
+      "doi": null,
+      "arxiv": null,
+      "query": "Adaptive conformal predictions for time series",
+      "prior": "D",
+      "used_for": "venue attribution needs confirming (commonly cited as ICML)",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Zaffran",
+        "year": 2022
+      },
+      "problems": [],
+      "best_record": {
+        "source": "openalex",
+        "title": "Adaptive Conformal Predictions for Time Series",
+        "authors": [
+          "Margaux Zaffran",
+          "Aymeric Dieuleveut",
+          "Olivier F\u00e9ron",
+          "Yannig Goude",
+          "Julie Josse"
+        ],
+        "year": 2022,
+        "venue": "arXiv (Cornell University)",
+        "type": "preprint",
+        "doi": "10.48550/arxiv.2202.07282",
+        "citations": 43
+      },
+      "records": [
+        {
+          "source": "openalex",
+          "title": "Adaptive Conformal Predictions for Time Series",
+          "authors": [
+            "Margaux Zaffran",
+            "Aymeric Dieuleveut",
+            "Olivier F\u00e9ron",
+            "Yannig Goude",
+            "Julie Josse"
+          ],
+          "year": 2022,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.2202.07282",
+          "citations": 43
+        },
+        {
+          "source": "arxiv",
+          "title": "Adaptive Conformal Predictions for Time Series",
+          "authors": [
+            "Zaffran",
+            "Dieuleveut",
+            "F\u00e9ron",
+            "Goude",
+            "Josse"
+          ],
+          "year": 2022,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        },
+        {
+          "source": "openalex",
+          "title": "Conformal PID Control for Time Series Prediction",
+          "authors": [
+            "Anastasios N. Angelopoulos",
+            "Emmanuel J. Cand\u00e8s",
+            "Ryan J. Tibshirani"
+          ],
+          "year": 2023,
+          "venue": "neural information processing systems",
+          "type": "conference-paper",
+          "doi": "10.52202/075280-1000",
+          "citations": 60
+        }
+      ]
+    },
+    {
+      "key": "R15_opssat",
+      "doi": "10.1038/s41597-025-05035-3",
+      "arxiv": null,
+      "query": null,
+      "prior": "P",
+      "used_for": "OPS-SAT benchmark; the publication precedent for C-1",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Ruszczak",
+        "year": 2025,
+        "venue": "Scientific Data"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "The OPS-SAT benchmark for detecting anomalies in satellite telemetry",
+        "authors": [
+          "Ruszczak",
+          "Kotowski",
+          "Evans",
+          "Nalepa"
+        ],
+        "year": 2025,
+        "venue": "Scientific Data",
+        "type": "journal-article",
+        "doi": "10.1038/s41597-025-05035-3",
+        "citations": 47
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "The OPS-SAT benchmark for detecting anomalies in satellite telemetry",
+          "authors": [
+            "Ruszczak",
+            "Kotowski",
+            "Evans",
+            "Nalepa"
+          ],
+          "year": 2025,
+          "venue": "Scientific Data",
+          "type": "journal-article",
+          "doi": "10.1038/s41597-025-05035-3",
+          "citations": 47
+        },
+        {
+          "source": "openalex",
+          "title": "The OPS-SAT benchmark for detecting anomalies in satellite telemetry",
+          "authors": [
+            "Bogdan Ruszczak",
+            "Krzysztof Kotowski",
+            "David M Evans",
+            "Jakub Nalepa"
+          ],
+          "year": 2025,
+          "venue": "Scientific Data",
+          "type": "data-paper",
+          "doi": "10.1038/s41597-025-05035-3",
+          "citations": 46
+        }
+      ]
+    },
+    {
+      "key": "R22_barber",
+      "doi": "10.1214/23-aos2276",
+      "arxiv": null,
+      "query": null,
+      "prior": "P",
+      "used_for": "coverage beyond exchangeability; closes temporal calibration-failure",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Barber",
+        "year": 2023,
+        "venue": "Annals of Statistics"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Conformal prediction beyond exchangeability",
+        "authors": [
+          "Barber",
+          "Cand\u00e8s",
+          "Ramdas",
+          "Tibshirani"
+        ],
+        "year": 2023,
+        "venue": "The Annals of Statistics",
+        "type": "journal-article",
+        "doi": "10.1214/23-aos2276",
+        "citations": 381
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Conformal prediction beyond exchangeability",
+          "authors": [
+            "Barber",
+            "Cand\u00e8s",
+            "Ramdas",
+            "Tibshirani"
+          ],
+          "year": 2023,
+          "venue": "The Annals of Statistics",
+          "type": "journal-article",
+          "doi": "10.1214/23-aos2276",
+          "citations": 381
+        },
+        {
+          "source": "openalex",
+          "title": "Conformal prediction beyond exchangeability",
+          "authors": [
+            "Rina Foygel Barber",
+            "Emmanuel J. Cand\u00e8s",
+            "Aaditya Ramdas",
+            "Ryan J. Tibshirani"
+          ],
+          "year": 2023,
+          "venue": "The Annals of Statistics",
+          "type": "article",
+          "doi": "10.1214/23-aos2276",
+          "citations": 352
+        }
+      ]
+    },
+    {
+      "key": "R1_zhou",
+      "doi": "10.1029/2025JA034593",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "C-1: closest recent ML decay paper",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Zhou",
+        "year": 2026,
+        "venue": "Journal of Geophysical Research"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Orbital Decay Prediction in Low Earth Orbit: Integrating Along\u2010Track Density Observations With Machine Learning",
+        "authors": [
+          "Zhou",
+          "Yang",
+          "Li",
+          "Li",
+          "Qing",
+          "Xia",
+          "Luo"
+        ],
+        "year": 2026,
+        "venue": "Journal of Geophysical Research: Space Physics",
+        "type": "journal-article",
+        "doi": "10.1029/2025ja034593",
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Orbital Decay Prediction in Low Earth Orbit: Integrating Along\u2010Track Density Observations With Machine Learning",
+          "authors": [
+            "Zhou",
+            "Yang",
+            "Li",
+            "Li",
+            "Qing",
+            "Xia",
+            "Luo"
+          ],
+          "year": 2026,
+          "venue": "Journal of Geophysical Research: Space Physics",
+          "type": "journal-article",
+          "doi": "10.1029/2025ja034593",
+          "citations": 0
+        },
+        {
+          "source": "openalex",
+          "title": "Orbital Decay Prediction in Low Earth Orbit: Integrating Along\u2010Track Density Observations With Machine Learning",
+          "authors": [
+            "Hao Zhou",
+            "Jie Yang",
+            "Yaozong Li",
+            "Xinshang Li",
+            "Tiantian Qing",
+            "Mingyang Xia",
+            "Zhicai Luo"
+          ],
+          "year": 2026,
+          "venue": "Journal of Geophysical Research Space Physics",
+          "type": "article",
+          "doi": "10.1029/2025ja034593",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "R2_he",
+      "doi": "10.1155/2024/8887634",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "C-1/C-2/C-3: continual learning for decay; undisclosed protocol",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "He",
+        "year": 2024
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Expandable Orbit Decay Prediction Using Continual Learning",
+        "authors": [
+          "He",
+          "Wang",
+          "Wang",
+          "Fang",
+          "Huo"
+        ],
+        "year": 2024,
+        "venue": "International Journal of Aerospace Engineering",
+        "type": "journal-article",
+        "doi": "10.1155/2024/8887634",
+        "citations": 2
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Expandable Orbit Decay Prediction Using Continual Learning",
+          "authors": [
+            "He",
+            "Wang",
+            "Wang",
+            "Fang",
+            "Huo"
+          ],
+          "year": 2024,
+          "venue": "International Journal of Aerospace Engineering",
+          "type": "journal-article",
+          "doi": "10.1155/2024/8887634",
+          "citations": 2
+        },
+        {
+          "source": "openalex",
+          "title": "Expandable Orbit Decay Prediction Using Continual Learning",
+          "authors": [
+            "Junhua He",
+            "Hua Wang",
+            "Haitao Wang",
+            "Xuankun Fang",
+            "Chengyi Huo"
+          ],
+          "year": 2024,
+          "venue": "International Journal of Aerospace Engineering",
+          "type": "article",
+          "doi": "10.1155/2024/8887634",
+          "citations": 2
+        }
+      ]
+    },
+    {
+      "key": "R21_zou",
+      "doi": "10.1016/j.mlwa.2026.101038",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "takes cluster-CI + rolling-origin; withdraws temporal calibration claim",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Zou",
+        "year": 2026
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Horizon-aware group-conditional conformal prediction: Post-hoc shrinkage for sparse multi-horizon coverage auditing",
+        "authors": [
+          "Zou",
+          "Feng",
+          "Li",
+          "Wang"
+        ],
+        "year": 2026,
+        "venue": "Machine Learning with Applications",
+        "type": "journal-article",
+        "doi": "10.1016/j.mlwa.2026.101038",
+        "citations": 1
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Horizon-aware group-conditional conformal prediction: Post-hoc shrinkage for sparse multi-horizon coverage auditing",
+          "authors": [
+            "Zou",
+            "Feng",
+            "Li",
+            "Wang"
+          ],
+          "year": 2026,
+          "venue": "Machine Learning with Applications",
+          "type": "journal-article",
+          "doi": "10.1016/j.mlwa.2026.101038",
+          "citations": 1
+        },
+        {
+          "source": "openalex",
+          "title": "Horizon-aware group-conditional conformal prediction: Post-hoc shrinkage for sparse multi-horizon coverage auditing",
+          "authors": [
+            "Jitong Zou",
+            "Enmiao Feng",
+            "Pengfei Li",
+            "Gaike Wang"
+          ],
+          "year": 2026,
+          "venue": "Machine Learning with Applications",
+          "type": "article",
+          "doi": "10.1016/j.mlwa.2026.101038",
+          "citations": 1
+        }
+      ]
+    },
+    {
+      "key": "R20_lu",
+      "doi": "10.1371/journal.pone.0360910",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "closes conformal-on-telemetry multi-horizon",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Lu",
+        "year": 2026,
+        "venue": "PLoS ONE"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Task-aware conformal power envelopes for multi-horizon spacecraft monitoring",
+        "authors": [
+          "Lu",
+          "Cui",
+          "Zhi"
+        ],
+        "year": 2026,
+        "venue": "PLOS One",
+        "type": "journal-article",
+        "doi": "10.1371/journal.pone.0360910",
+        "citations": 0
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Task-aware conformal power envelopes for multi-horizon spacecraft monitoring",
+          "authors": [
+            "Lu",
+            "Cui",
+            "Zhi"
+          ],
+          "year": 2026,
+          "venue": "PLOS One",
+          "type": "journal-article",
+          "doi": "10.1371/journal.pone.0360910",
+          "citations": 0
+        },
+        {
+          "source": "openalex",
+          "title": "Task-aware conformal power envelopes for multi-horizon spacecraft monitoring",
+          "authors": [
+            "Nan Lu",
+            "Lehan Cui",
+            "Xinian Zhi"
+          ],
+          "year": 2026,
+          "venue": "PLoS ONE",
+          "type": "article",
+          "doi": "10.1371/journal.pone.0360910",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "R25_henzi",
+      "doi": "10.1111/rssb.12450",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "isotonic distributional regression; dissolves the L17 'discovery'",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Henzi",
+        "year": 2021,
+        "venue": "Journal of the Royal Statistical"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Isotonic Distributional Regression",
+        "authors": [
+          "Henzi",
+          "Ziegel",
+          "Gneiting"
+        ],
+        "year": 2021,
+        "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+        "type": "journal-article",
+        "doi": "10.1111/rssb.12450",
+        "citations": 55
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Isotonic Distributional Regression",
+          "authors": [
+            "Henzi",
+            "Ziegel",
+            "Gneiting"
+          ],
+          "year": 2021,
+          "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+          "type": "journal-article",
+          "doi": "10.1111/rssb.12450",
+          "citations": 55
+        },
+        {
+          "source": "openalex",
+          "title": "Isotonic Distributional Regression",
+          "authors": [
+            "Alexander Henzi",
+            "Johanna F. Ziegel",
+            "Tilmann Gneiting"
+          ],
+          "year": 2021,
+          "venue": "Journal of the Royal Statistical Society Series B (Statistical Methodology)",
+          "type": "article",
+          "doi": "10.1111/rssb.12450",
+          "citations": 47
+        }
+      ]
+    },
+    {
+      "key": "R27_massimi",
+      "doi": "10.1049/rsn2.12547",
+      "arxiv": null,
+      "query": null,
+      "prior": "V",
+      "used_for": "debris detection prior art",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Massimi",
+        "year": 2023
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/doi",
+        "title": "Deep learning\u2010based space debris detection for space situational awareness: A feasibility study applied to the radar processing",
+        "authors": [
+          "Massimi",
+          "Ferrara",
+          "Petrucci",
+          "Benedetto"
+        ],
+        "year": 2024,
+        "venue": "IET Radar, Sonar &amp; Navigation",
+        "type": "journal-article",
+        "doi": "10.1049/rsn2.12547",
+        "citations": 39
+      },
+      "records": [
+        {
+          "source": "crossref/doi",
+          "title": "Deep learning\u2010based space debris detection for space situational awareness: A feasibility study applied to the radar processing",
+          "authors": [
+            "Massimi",
+            "Ferrara",
+            "Petrucci",
+            "Benedetto"
+          ],
+          "year": 2024,
+          "venue": "IET Radar, Sonar &amp; Navigation",
+          "type": "journal-article",
+          "doi": "10.1049/rsn2.12547",
+          "citations": 39
+        },
+        {
+          "source": "openalex",
+          "title": "Deep learning\u2010based space debris detection for space situational awareness: A feasibility study applied to the radar processing",
+          "authors": [
+            "Federica Massimi",
+            "Pasquale Ferrara",
+            "Roberto Petrucci",
+            "Francesco Benedetto"
+          ],
+          "year": 2024,
+          "venue": "IET Radar Sonar & Navigation",
+          "type": "article",
+          "doi": "10.1049/rsn2.12547",
+          "citations": 37
+        }
+      ]
+    },
+    {
+      "key": "R23_wang_hyndman",
+      "doi": null,
+      "arxiv": "2410.13115",
+      "query": null,
+      "prior": "V",
+      "used_for": "withdraws temporal calibration-failure contribution",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Wang",
+        "note": "coverage error increases with horizon"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "arxiv",
+        "title": "Online conformal inference for multi-step time series forecasting",
+        "authors": [
+          "Wang",
+          "Hyndman"
+        ],
+        "year": 2024,
+        "venue": "arXiv",
+        "type": "preprint",
+        "doi": null,
+        "citations": null
+      },
+      "records": [
+        {
+          "source": "arxiv",
+          "title": "Online conformal inference for multi-step time series forecasting",
+          "authors": [
+            "Wang",
+            "Hyndman"
+          ],
+          "year": 2024,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        }
+      ]
+    },
+    {
+      "key": "mldsgp4",
+      "doi": null,
+      "arxiv": "2402.04830",
+      "query": null,
+      "prior": "V",
+      "used_for": "ML_DSGP4_FEASIBILITY.md: comparison not attempted",
+      "status": "CORRECTED",
+      "claim": {
+        "note": "ML-dSGP4"
+      },
+      "problems": [
+        "nothing in the claim was checkable against this record"
+      ],
+      "best_record": {
+        "source": "arxiv",
+        "title": "Closing the Gap Between SGP4 and High-Precision Propagation via Differentiable Programming",
+        "authors": [
+          "Acciarini",
+          "Baydin",
+          "Izzo"
+        ],
+        "year": 2024,
+        "venue": "arXiv",
+        "type": "preprint",
+        "doi": null,
+        "citations": null
+      },
+      "records": [
+        {
+          "source": "arxiv",
+          "title": "Closing the Gap Between SGP4 and High-Precision Propagation via Differentiable Programming",
+          "authors": [
+            "Acciarini",
+            "Baydin",
+            "Izzo"
+          ],
+          "year": 2024,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        }
+      ]
+    },
+    {
+      "key": "castet_saleh",
+      "doi": null,
+      "arxiv": null,
+      "query": "Satellite reliability statistical data analysis and modeling Journal of Spacecraft and Rockets",
+      "prior": "D",
+      "used_for": "censored satellite survival at catalogue scale; foundational estimand",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Castet",
+        "year": 2009,
+        "title_contains": "satellite reliability"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Satellite Reliability: Statistical Data Analysis and Modeling",
+        "authors": [
+          "Castet",
+          "Saleh"
+        ],
+        "year": 2009,
+        "venue": "Journal of Spacecraft and Rockets",
+        "type": "journal-article",
+        "doi": "10.2514/1.42243",
+        "citations": 83
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Satellite Reliability: Statistical Data Analysis and Modeling",
+          "authors": [
+            "Castet",
+            "Saleh"
+          ],
+          "year": 2009,
+          "venue": "Journal of Spacecraft and Rockets",
+          "type": "journal-article",
+          "doi": "10.2514/1.42243",
+          "citations": 83
+        },
+        {
+          "source": "crossref/query",
+          "title": "Satellite and satellite subsystems reliability",
+          "authors": [
+            "Castet",
+            "Saleh"
+          ],
+          "year": 2009,
+          "venue": "Reliability, Risk, and Safety",
+          "type": "book-chapter",
+          "doi": "10.1201/9780203859759.ch121",
+          "citations": 6
+        },
+        {
+          "source": "crossref/query",
+          "title": "Satellite and satellite subsystems reliability: Statistical data analysis and modeling",
+          "authors": [],
+          "year": 2009,
+          "venue": "Reliability, Risk, and Safety, Three Volume Set",
+          "type": "book-chapter",
+          "doi": "10.1201/9780203859759-141",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "castet_saleh_subsystem",
+      "doi": null,
+      "arxiv": null,
+      "query": "Satellite and satellite subsystems reliability statistical data analysis and modeling",
+      "prior": "NEW",
+      "used_for": "alternative Castet & Saleh record if the 2009 JSR paper does not resolve",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Castet",
+        "title_contains": "subsystem"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Satellite and satellite subsystems reliability",
+        "authors": [
+          "Castet",
+          "Saleh"
+        ],
+        "year": 2009,
+        "venue": "Reliability, Risk, and Safety",
+        "type": "book-chapter",
+        "doi": "10.1201/9780203859759.ch121",
+        "citations": 6
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Satellite and satellite subsystems reliability",
+          "authors": [
+            "Castet",
+            "Saleh"
+          ],
+          "year": 2009,
+          "venue": "Reliability, Risk, and Safety",
+          "type": "book-chapter",
+          "doi": "10.1201/9780203859759.ch121",
+          "citations": 6
+        },
+        {
+          "source": "crossref/query",
+          "title": "Satellite and satellite subsystems reliability: Statistical data analysis and modeling",
+          "authors": [
+            "Castet",
+            "Saleh"
+          ],
+          "year": 2009,
+          "venue": "Reliability Engineering &amp; System Safety",
+          "type": "journal-article",
+          "doi": "10.1016/j.ress.2009.05.004",
+          "citations": 156
+        },
+        {
+          "source": "openalex",
+          "title": "Satellite and satellite subsystems reliability: Statistical data analysis and modeling",
+          "authors": [
+            "Jean\u2010Fran\u00e7ois Castet",
+            "Joseph Homer Saleh"
+          ],
+          "year": 2009,
+          "venue": "Reliability Engineering & System Safety",
+          "type": "article",
+          "doi": "10.1016/j.ress.2009.05.004",
+          "citations": 181
+        }
+      ]
+    },
+    {
+      "key": "graf1999",
+      "doi": null,
+      "arxiv": null,
+      "query": "Assessment and comparison of prognostic classification schemes for survival data",
+      "prior": "D",
+      "used_for": "censoring-aware scoring (Brier for survival)",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Graf",
+        "year": 1999
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Assessment and comparison of prognostic classification schemes for survival data",
+        "authors": [
+          "Graf",
+          "Schmoor",
+          "Sauerbrei",
+          "Schumacher"
+        ],
+        "year": 1999,
+        "venue": "Statistics in Medicine",
+        "type": "journal-article",
+        "doi": "10.1002/(sici)1097-0258(19990915/30)18:17/18<2529::aid-sim274>3.0.co;2-5",
+        "citations": 593
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Assessment and comparison of prognostic classification schemes for survival data",
+          "authors": [
+            "Graf",
+            "Schmoor",
+            "Sauerbrei",
+            "Schumacher"
+          ],
+          "year": 1999,
+          "venue": "Statistics in Medicine",
+          "type": "journal-article",
+          "doi": "10.1002/(sici)1097-0258(19990915/30)18:17/18<2529::aid-sim274>3.0.co;2-5",
+          "citations": 593
+        },
+        {
+          "source": "openalex",
+          "title": "Assessment and comparison of prognostic classification schemes for survival data",
+          "authors": [
+            "Erika Graf",
+            "Claudia Schmoor",
+            "Willi Sauerbrei",
+            "Martin Schumacher"
+          ],
+          "year": 1999,
+          "venue": "Statistics in Medicine",
+          "type": "article",
+          "doi": "10.1002/(sici)1097-0258(19990915/30)18:17/18<2529::aid-sim274>3.0.co;2-5",
+          "citations": 1003
+        },
+        {
+          "source": "openalex",
+          "title": "How to Assess Prognostic Models for Survival Data: A Case Study in Oncology",
+          "authors": [
+            "Martin Christian Schumacher",
+            "Erika Graf",
+            "Thomas Alexander Gerds"
+          ],
+          "year": 2003,
+          "venue": "Methods of Information in Medicine",
+          "type": "article",
+          "doi": "10.1055/s-0038-1634384",
+          "citations": 49
+        }
+      ]
+    },
+    {
+      "key": "antolini2005",
+      "doi": null,
+      "arxiv": null,
+      "query": "A time-dependent discrimination index for survival data",
+      "prior": "D",
+      "used_for": "time-dependent concordance under censoring",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Antolini",
+        "year": 2005
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "A time\u2010dependent discrimination index for survival data",
+        "authors": [
+          "Antolini",
+          "Boracchi",
+          "Biganzoli"
+        ],
+        "year": 2005,
+        "venue": "Statistics in Medicine",
+        "type": "journal-article",
+        "doi": "10.1002/sim.2427",
+        "citations": 299
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "A time\u2010dependent discrimination index for survival data",
+          "authors": [
+            "Antolini",
+            "Boracchi",
+            "Biganzoli"
+          ],
+          "year": 2005,
+          "venue": "Statistics in Medicine",
+          "type": "journal-article",
+          "doi": "10.1002/sim.2427",
+          "citations": 299
+        },
+        {
+          "source": "openalex",
+          "title": "A time\u2010dependent discrimination index for survival data",
+          "authors": [
+            "Laura Antolini",
+            "Patrizia Boracchi",
+            "Elia Mario Biganzoli"
+          ],
+          "year": 2005,
+          "venue": "Statistics in Medicine",
+          "type": "article",
+          "doi": "10.1002/sim.2427",
+          "citations": 340
+        },
+        {
+          "source": "crossref/query",
+          "title": "Time-dependent variables",
+          "authors": [],
+          "year": 2015,
+          "venue": "Modelling Survival Data in Medical Research",
+          "type": "book-chapter",
+          "doi": "10.1201/b18041-10",
+          "citations": 0
+        }
+      ]
+    },
+    {
+      "key": "uno2011",
+      "doi": null,
+      "arxiv": null,
+      "query": "On the C-statistics for evaluating overall adequacy of risk prediction procedures with censored survival data",
+      "prior": "D",
+      "used_for": "censoring-robust discrimination",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Uno",
+        "year": 2011
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "On the C\u2010statistics for evaluating overall adequacy of risk prediction procedures with censored survival data",
+        "authors": [
+          "Uno",
+          "Cai",
+          "Pencina",
+          "D'Agostino",
+          "Wei"
+        ],
+        "year": 2011,
+        "venue": "Statistics in Medicine",
+        "type": "journal-article",
+        "doi": "10.1002/sim.4154",
+        "citations": 1465
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "On the C\u2010statistics for evaluating overall adequacy of risk prediction procedures with censored survival data",
+          "authors": [
+            "Uno",
+            "Cai",
+            "Pencina",
+            "D'Agostino",
+            "Wei"
+          ],
+          "year": 2011,
+          "venue": "Statistics in Medicine",
+          "type": "journal-article",
+          "doi": "10.1002/sim.4154",
+          "citations": 1465
+        },
+        {
+          "source": "openalex",
+          "title": "On the C\u2010statistics for evaluating overall adequacy of risk prediction procedures with censored survival data",
+          "authors": [
+            "Hajime Uno",
+            "Tianxi Cai",
+            "Michael J. Pencina",
+            "Ralph B. D\u2019Agostino",
+            "L. J. Wei"
+          ],
+          "year": 2011,
+          "venue": "Statistics in Medicine",
+          "type": "article",
+          "doi": "10.1002/sim.4154",
+          "citations": 1538
+        },
+        {
+          "source": "openalex",
+          "title": "survC1: C-Statistics for Risk Prediction Models with Censored Survival Data",
+          "authors": [
+            "Hajime Uno"
+          ],
+          "year": 2011,
+          "venue": null,
+          "type": "dataset",
+          "doi": "10.32614/cran.package.survc1",
+          "citations": 3
+        }
+      ]
+    },
+    {
+      "key": "sonabend2022",
+      "doi": null,
+      "arxiv": null,
+      "query": "Avoiding C-hacking when evaluating survival distribution predictions",
+      "prior": "D",
+      "used_for": "metric-choice pitfalls in survival evaluation",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Sonabend",
+        "year": 2022
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Avoiding C-hacking when evaluating survival distribution predictions with discrimination measures",
+        "authors": [
+          "Sonabend",
+          "Bender",
+          "Vollmer"
+        ],
+        "year": 2022,
+        "venue": "Bioinformatics",
+        "type": "journal-article",
+        "doi": "10.1093/bioinformatics/btac451",
+        "citations": 14
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Avoiding C-hacking when evaluating survival distribution predictions with discrimination measures",
+          "authors": [
+            "Sonabend",
+            "Bender",
+            "Vollmer"
+          ],
+          "year": 2022,
+          "venue": "Bioinformatics",
+          "type": "journal-article",
+          "doi": "10.1093/bioinformatics/btac451",
+          "citations": 14
+        },
+        {
+          "source": "openalex",
+          "title": "Avoiding C-hacking when evaluating survival distribution predictions with discrimination measures",
+          "authors": [
+            "Raphael Sonabend",
+            "Andreas Bender",
+            "Sebastian J. Vollmer"
+          ],
+          "year": 2022,
+          "venue": "Bioinformatics",
+          "type": "article",
+          "doi": "10.1093/bioinformatics/btac451",
+          "citations": 15
+        },
+        {
+          "source": "openalex",
+          "title": "Avoiding C-hacking when evaluating survival distribution predictions with discrimination measures",
+          "authors": [
+            "Raphael Sonabend",
+            "Bender, Andreas",
+            "Vollmer, Sebastian"
+          ],
+          "year": 2021,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.17863/cam.86808",
+          "citations": 1
+        }
+      ]
+    },
+    {
+      "key": "hundman2018",
+      "doi": null,
+      "arxiv": null,
+      "query": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+      "prior": "D",
+      "used_for": "SMAP/MSL telemetry benchmark origin",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Hundman",
+        "year": 2018
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+        "authors": [
+          "Hundman",
+          "Constantinou",
+          "Laporte",
+          "Colwell",
+          "Soderstrom"
+        ],
+        "year": 2018,
+        "venue": "Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining",
+        "type": "proceedings-article",
+        "doi": "10.1145/3219819.3219845",
+        "citations": 1603
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+          "authors": [
+            "Hundman",
+            "Constantinou",
+            "Laporte",
+            "Colwell",
+            "Soderstrom"
+          ],
+          "year": 2018,
+          "venue": "Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining",
+          "type": "proceedings-article",
+          "doi": "10.1145/3219819.3219845",
+          "citations": 1603
+        },
+        {
+          "source": "openalex",
+          "title": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+          "authors": [
+            "Kyle Hundman",
+            "Valentino Constantinou",
+            "Christopher Laporte",
+            "Ian Colwell",
+            "Tom Soderstrom"
+          ],
+          "year": 2018,
+          "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+          "type": "conference-paper",
+          "doi": "10.1145/3219819.3219845",
+          "citations": 1778
+        },
+        {
+          "source": "arxiv",
+          "title": "Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding",
+          "authors": [
+            "Hundman",
+            "Constantinou",
+            "Laporte",
+            "Colwell",
+            "Soderstrom"
+          ],
+          "year": 2018,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        }
+      ]
+    },
+    {
+      "key": "caldas_soares",
+      "doi": null,
+      "arxiv": null,
+      "query": "Machine learning in orbit estimation: a survey",
+      "prior": "V",
+      "used_for": "C-2: frames the open problem as accuracy, not selection",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Caldas",
+        "year": 2024
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Machine learning in orbit estimation: A survey",
+        "authors": [
+          "Caldas",
+          "Soares"
+        ],
+        "year": 2024,
+        "venue": "Acta Astronautica",
+        "type": "journal-article",
+        "doi": "10.1016/j.actaastro.2024.03.072",
+        "citations": 50
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Machine learning in orbit estimation: A survey",
+          "authors": [
+            "Caldas",
+            "Soares"
+          ],
+          "year": 2024,
+          "venue": "Acta Astronautica",
+          "type": "journal-article",
+          "doi": "10.1016/j.actaastro.2024.03.072",
+          "citations": 50
+        },
+        {
+          "source": "openalex",
+          "title": "Machine learning in orbit estimation: A survey",
+          "authors": [
+            "Francisco Caldas",
+            "Cl\u00e1udia Soares"
+          ],
+          "year": 2024,
+          "venue": "Acta Astronautica",
+          "type": "article",
+          "doi": "10.1016/j.actaastro.2024.03.072",
+          "citations": 53
+        },
+        {
+          "source": "crossref/query",
+          "title": "Data-driven thermal state estimation for in-orbit systems via physics-informed machine learning",
+          "authors": [
+            "Tanaka",
+            "Nagai"
+          ],
+          "year": 2023,
+          "venue": "Acta Astronautica",
+          "type": "journal-article",
+          "doi": "10.1016/j.actaastro.2023.07.039",
+          "citations": 13
+        }
+      ]
+    },
+    {
+      "key": "herrmann2024",
+      "doi": null,
+      "arxiv": null,
+      "query": "Unmasking overestimation: a re-evaluation of deep anomaly detection in spacecraft telemetry",
+      "prior": "V",
+      "used_for": "C-2/C-3: metric validity; calls for pre-split datasets",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Herrmann",
+        "year": 2024
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Unmasking overestimation: a re-evaluation of deep anomaly detection in spacecraft telemetry",
+        "authors": [
+          "Herrmann",
+          "Bieber",
+          "Verhagen",
+          "Cosson",
+          "Santos"
+        ],
+        "year": 2024,
+        "venue": "CEAS Space Journal",
+        "type": "journal-article",
+        "doi": "10.1007/s12567-023-00529-5",
+        "citations": 23
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Unmasking overestimation: a re-evaluation of deep anomaly detection in spacecraft telemetry",
+          "authors": [
+            "Herrmann",
+            "Bieber",
+            "Verhagen",
+            "Cosson",
+            "Santos"
+          ],
+          "year": 2024,
+          "venue": "CEAS Space Journal",
+          "type": "journal-article",
+          "doi": "10.1007/s12567-023-00529-5",
+          "citations": 23
+        },
+        {
+          "source": "openalex",
+          "title": "Unmasking overestimation: a re-evaluation of deep anomaly detection in spacecraft telemetry",
+          "authors": [
+            "Lars Herrmann",
+            "Marie Bieber",
+            "Wim J.C. Verhagen",
+            "Fabrice Cosson",
+            "Bruno Filipe Santos"
+          ],
+          "year": 2024,
+          "venue": "CEAS Space Journal",
+          "type": "article",
+          "doi": "10.1007/s12567-023-00529-5",
+          "citations": 23
+        },
+        {
+          "source": "crossref/query",
+          "title": "Deep Learning-Based Anomaly Detection in Spacecraft Telemetry on Edge Devices",
+          "authors": [
+            "Goetze",
+            "Schlippe",
+            "Lakey"
+          ],
+          "year": 2025,
+          "venue": "2025 IEEE Space Computing Conference (SCC)",
+          "type": "proceedings-article",
+          "doi": "10.1109/scc66396.2025.00019",
+          "citations": 1
+        }
+      ]
+    },
+    {
+      "key": "siew2025",
+      "doi": null,
+      "arxiv": null,
+      "query": "Siew space object behavioral analysis machine learning satellite pattern of life",
+      "prior": "D",
+      "used_for": "PHASE_I_NOVELTY_REVIEW positioning",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Siew",
+        "year": 2025
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Towards a Machine Learning-Based Approach to Predict Space Object Density Distributions",
+        "authors": [
+          "Rodriguez-Fernandez",
+          "Sarangerel",
+          "Siew",
+          "Machuca",
+          "Jang",
+          "Linares"
+        ],
+        "year": 2024,
+        "venue": "AIAA SCITECH 2024 Forum",
+        "type": "proceedings-article",
+        "doi": "10.2514/6.2024-1673",
+        "citations": 6
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Towards a Machine Learning-Based Approach to Predict Space Object Density Distributions",
+          "authors": [
+            "Rodriguez-Fernandez",
+            "Sarangerel",
+            "Siew",
+            "Machuca",
+            "Jang",
+            "Linares"
+          ],
+          "year": 2024,
+          "venue": "AIAA SCITECH 2024 Forum",
+          "type": "proceedings-article",
+          "doi": "10.2514/6.2024-1673",
+          "citations": 6
+        },
+        {
+          "source": "openalex",
+          "title": "AI Challenge for Satellite Pattern-of-Life Identification: Dataset, Design and Results",
+          "authors": [
+            "Peng Mun Siew",
+            "Haley E. Solera",
+            "Giovanni Lavezzi",
+            "Thomas G. Roberts",
+            "Daniel Jang",
+            "David Baldsiefen",
+            "Binh Tran",
+            "Christopher Yeung",
+            "Kurtis Johnson",
+            "Nathan J. Metzger",
+            "Francois Porcher",
+            "Isaac Haik"
+          ],
+          "year": 2025,
+          "venue": "The Journal of the Astronautical Sciences",
+          "type": "article",
+          "doi": "10.1007/s40295-025-00515-5",
+          "citations": 1
+        },
+        {
+          "source": "crossref/query",
+          "title": "Geosynchronous Satellite Pattern-of-Life Characterization Through Machine Learning-based Mode Change Detection and Classification",
+          "authors": [
+            "Dehadraya",
+            "Paliwal",
+            "Malhotra",
+            "Vatsal"
+          ],
+          "year": 2024,
+          "venue": "2024 IEEE Space, Aerospace and Defence Conference (SPACE)",
+          "type": "proceedings-article",
+          "doi": "10.1109/space63117.2024.10667695",
+          "citations": 1
+        }
+      ]
+    },
+    {
+      "key": "taggart_huber",
+      "doi": null,
+      "arxiv": null,
+      "query": "Point forecasting and forecast evaluation with generalized Huber loss",
+      "prior": "V",
+      "used_for": "local elicitability; justifies excluding rmse_log10",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Taggart",
+        "year": 2022,
+        "title_contains": "huber"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Point forecasting and forecast evaluation with generalized Huber loss",
+        "authors": [
+          "Taggart"
+        ],
+        "year": 2022,
+        "venue": "Electronic Journal of Statistics",
+        "type": "journal-article",
+        "doi": "10.1214/21-ejs1957",
+        "citations": 30
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Point forecasting and forecast evaluation with generalized Huber loss",
+          "authors": [
+            "Taggart"
+          ],
+          "year": 2022,
+          "venue": "Electronic Journal of Statistics",
+          "type": "journal-article",
+          "doi": "10.1214/21-ejs1957",
+          "citations": 30
+        },
+        {
+          "source": "openalex",
+          "title": "Point forecasting and forecast evaluation with generalized Huber loss",
+          "authors": [
+            "Robert J. Taggart"
+          ],
+          "year": 2022,
+          "venue": "Electronic Journal of Statistics",
+          "type": "article",
+          "doi": "10.1214/21-ejs1957",
+          "citations": 35
+        },
+        {
+          "source": "arxiv",
+          "title": "Point forecasting and forecast evaluation with generalized Huber loss",
+          "authors": [
+            "Taggart"
+          ],
+          "year": 2021,
+          "venue": "arXiv",
+          "type": "preprint",
+          "doi": null,
+          "citations": null
+        }
+      ]
+    },
+    {
+      "key": "gneiting2011",
+      "doi": null,
+      "arxiv": null,
+      "query": "Making and Evaluating Point Forecasts",
+      "prior": "NEW",
+      "used_for": "the canonical elicitability result: quantiles yes, mean under censoring no",
+      "status": "VERIFIED",
+      "claim": {
+        "first_author": "Gneiting",
+        "year": 2011,
+        "title_contains": "point forecasts"
+      },
+      "problems": [],
+      "best_record": {
+        "source": "crossref/query",
+        "title": "Making and Evaluating Point Forecasts",
+        "authors": [
+          "Gneiting"
+        ],
+        "year": 2011,
+        "venue": "Journal of the American Statistical Association",
+        "type": "journal-article",
+        "doi": "10.1198/jasa.2011.r10138",
+        "citations": 1014
+      },
+      "records": [
+        {
+          "source": "crossref/query",
+          "title": "Making and Evaluating Point Forecasts",
+          "authors": [
+            "Gneiting"
+          ],
+          "year": 2011,
+          "venue": "Journal of the American Statistical Association",
+          "type": "journal-article",
+          "doi": "10.1198/jasa.2011.r10138",
+          "citations": 1014
+        },
+        {
+          "source": "openalex",
+          "title": "Making and Evaluating Point Forecasts",
+          "authors": [
+            "Tilmann Gneiting"
+          ],
+          "year": 2011,
+          "venue": "Journal of the American Statistical Association",
+          "type": "article",
+          "doi": "10.1198/jasa.2011.r10138",
+          "citations": 1174
+        },
+        {
+          "source": "openalex",
+          "title": "Making and Evaluating Point Forecasts",
+          "authors": [
+            "Tilmann Gneiting"
+          ],
+          "year": 2009,
+          "venue": "arXiv (Cornell University)",
+          "type": "preprint",
+          "doi": "10.48550/arxiv.0912.0902",
+          "citations": 3
+        }
+      ]
+    }
+  ],
+  "method": {
+    "indexes": [
+      "Crossref",
+      "OpenAlex",
+      "arXiv"
+    ],
+    "rule": "VERIFIED only when a retrieved record matches the claimed first author, year (+/-1) and venue prefix; CORRECTED when a direct identifier resolves but disagrees with the claim; AMBIGUOUS when a bibliographic query returns no matching record; NOT_FOUND when no index returns anything.",
+    "policy": "a candidate that is not VERIFIED or CORRECTED must be dropped from the manuscript, not softened"
+  }
+}

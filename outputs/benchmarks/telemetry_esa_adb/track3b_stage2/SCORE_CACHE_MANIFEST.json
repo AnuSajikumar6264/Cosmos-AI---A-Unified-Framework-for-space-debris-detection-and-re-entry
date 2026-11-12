@@ -1,0 +1,111 @@
+{
+ "recorded_at": "2026-11-08T06:51:56+00:00",
+ "policy": "large regenerated arrays are intentionally NOT version-controlled; they are preserved by this manifest (size + SHA-256), by the deterministic regeneration recipe below, and by the archived sample hash in folds.json; small alarm bitmaps and JSON records are kept in git via a narrow exception",
+ "regeneration": {
+  "command": "POSTHOC_TMP=/data2/anupa/tmp_posthoc python scripts/track3b_stage2_cells.py",
+  "producer": "frozen cosmos.ai.telemetry.oof.run(1, 'target') (K = 5, purge 1 day, seed 0) and frozen forecasting.py for A0",
+  "seconds_observed": 353.03421449661255,
+  "oof_sha256_sample": "02455519984c",
+  "archived_sha256_sample_reproduced": true
+ },
+ "files": [
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c0_global.npy",
+   "bytes": 920649,
+   "sha256": "ef1159432001b0230c24c511918218db57e1e1bfab24865e8324cf0f98f83ae7",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c2_global.npy",
+   "bytes": 920649,
+   "sha256": "65e6fa4994cfcf833bf97f8d2e8ac7c42f4d1b52f107c88bed0df607cfa018ca",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c3_global.npy",
+   "bytes": 920649,
+   "sha256": "95b923f8d5ca929f3ccc849107d2da3e5d81ac6b82168be9e21ecdb5adf0f243",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c4_global.npy",
+   "bytes": 920649,
+   "sha256": "cfba45e6a9f009eeab28ccb70c4b60797996bf50295c09f903ee4dcf76fdfd3c",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/c5_global.npy",
+   "bytes": 920649,
+   "sha256": "8cc53fefbba50da6f5067e16ef1bed6c3e8577ed7d2e9ff9f51ba3bd9010db3f",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/n_sh_half_cal_global.npy",
+   "bytes": 920649,
+   "sha256": "499ab726e6f982bd82f8bc40fb6460be0b3cfc59a7b245a2dc973a8a4a863190",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/alarms/p1_decompose/m1_target_conformal_bh/n_sh_half_half_global.npy",
+   "bytes": 920649,
+   "sha256": "dbb0fb27db5b8df23a4091aa44e3146ee19eb69e88a9c95ce98dde1020460b04",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/cells_partial.json",
+   "bytes": 22280,
+   "sha256": "be9627a10af0f88c57017287cfd2dcac907d3350ee12a48a28ca805b7a81937d",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/m1_target_conformal_bh.json",
+   "bytes": 28757,
+   "sha256": "a7ddddaeb7e9639abf31c611d63b8e70adeeeae38739887ab16cc0be13289369",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/folds.json",
+   "bytes": 1337,
+   "sha256": "86a5d26037f33db261613171e5c185cb9208aa67383c122179620baa2f3cab74",
+   "large": false,
+   "kept_in_git": true
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/scores_test.npy",
+   "bytes": 1708485480,
+   "sha256": "380399f30dccdb86cb301934c0967c8b1362b4b8a7a014bc13f62e344f90d561",
+   "large": true,
+   "kept_in_git": false
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/scores_train_oof.npy",
+   "bytes": 1708485480,
+   "sha256": "9e60f6e165c0a5a3a6acb2a46424b6dffb10eed608a70d81c277013ce7807508",
+   "large": true,
+   "kept_in_git": false
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8/sigma.npy",
+   "bytes": 1520,
+   "sha256": "24a8f346157197f754417f5e69c828bdc59521ef8c506b990188bf4241ac4492",
+   "large": false,
+   "kept_in_git": false
+  },
+  {
+   "path": "outputs/benchmarks/telemetry_esa_adb/track3b_stage2/run.log",
+   "bytes": 2433,
+   "sha256": "c129838268be1ec8929df71e063511f6c1b0ce6e448573f5fa1d501fee64fae6",
+   "large": false,
+   "kept_in_git": true
+  }
+ ]
+}

@@ -1,0 +1,214 @@
+{
+ "at": "2026-11-08T08:38:08+00:00",
+ "host_sha256_prefix": "b883a301442b",
+ "prerequisites": {
+  "python": {
+   "version": "3.12.16",
+   "ok": true
+  },
+  "required_packages": {
+   "fastapi": {
+    "present": true,
+    "version": "0.162.0"
+   },
+   "uvicorn": {
+    "present": true,
+    "version": "0.54.0"
+   },
+   "jinja2": {
+    "present": true,
+    "version": "3.1.6"
+   },
+   "pandas": {
+    "present": true,
+    "version": "3.1.0"
+   },
+   "numpy": {
+    "present": true,
+    "version": "2.3.5"
+   }
+  },
+  "required_artifacts": {
+   "forecast table": {
+    "path": "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz",
+    "present": true
+   },
+   "forecast digest file": {
+    "path": "outputs/twin/as_of_2026-10-27/FORECAST_SHA256.txt",
+    "present": true
+   }
+  },
+  "optional_artifacts": {
+   "prepared telemetry (mission1.npz)": {
+    "path": "data/feature1_health/external/esa_ad/prepared/mission1.npz",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "SpotGEO test frames": {
+    "path": "data/feature2_debris/spotgeo/raw/extracted/SpotGEOv2/test",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "SpotGEO saved detections": {
+    "path": "outputs/benchmarks/vision_spotgeo/classical_cosmos_frontend_test_submission.json",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "conjunction predictions": {
+    "path": "outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "ESA-ADB arm table": {
+    "path": "outputs/benchmarks/telemetry_esa_adb/results.csv",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "X6 subgroup-coverage evidence": {
+    "path": "outputs/am_design_stage1/results.json",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   },
+   "at least one pipeline run": {
+    "path": "outputs/pipeline",
+    "present": true,
+    "if_missing": "the corresponding screen reports UNAVAILABLE with the reason"
+   }
+  },
+  "optional_backends": {
+   "torch": {
+    "present": true,
+    "version": "2.14.0+xpu",
+    "needed_to_serve_console": false
+   },
+   "xgboost": {
+    "present": true,
+    "version": "3.4.1",
+    "needed_to_serve_console": false
+   },
+   "sklearn": {
+    "present": true,
+    "version": "1.9.1",
+    "needed_to_serve_console": false
+   },
+   "scipy": {
+    "present": true,
+    "version": "1.18.1",
+    "needed_to_serve_console": false
+   },
+   "statsmodels": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "lightgbm": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "catboost": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "tabm": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "tabicl": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "kumo": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   },
+   "pymsis": {
+    "present": false,
+    "error": "ModuleNotFoundError",
+    "needed_to_serve_console": false
+   }
+  },
+  "launch_command": "python scripts/serve_console.py            # default http://127.0.0.1:8070/  (API docs at /docs)",
+  "expected_url": "http://127.0.0.1:8070/",
+  "no_live_sources": "the console serves archived artifacts and a dated snapshot only; nothing is real-time",
+  "launchable": true
+ },
+ "probes": {
+  "/api/ready": {
+   "status": 200,
+   "ms": 156.1,
+   "kb": 0.7
+  },
+  "/api/health": {
+   "status": 200,
+   "ms": 13.4,
+   "kb": 0.1
+  },
+  "/api/overview": {
+   "status": 200,
+   "ms": 305.6,
+   "kb": 5.9
+  },
+  "/api/objects/37607": {
+   "status": 200,
+   "ms": 137.4,
+   "kb": 15.9
+  },
+  "/api/runs": {
+   "status": 200,
+   "ms": 25.4,
+   "kb": 46.3
+  }
+ },
+ "ready": {
+  "ready": true,
+  "schema_version": "api/1.1",
+  "checks": {
+   "forecast_table_present": true,
+   "dated_forecast_digest_state": "verified",
+   "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+   "complete_run_present": true,
+   "twin_state_reemitted_present": true
+  },
+  "latest_run": "run_20261108T083402Z",
+  "schema_versions": {
+   "forecast_table": "1.0",
+   "twin_state": "1.1",
+   "run_manifest": "1.2",
+   "object_record": "1.1",
+   "report": "1.1",
+   "api": "1.1",
+   "freshness": "1.0"
+  },
+  "cache": {
+   "json_hit": 352,
+   "json_miss": 87,
+   "digest_hit": 2,
+   "digest_miss": 1,
+   "git_hit": 2,
+   "git_miss": 1,
+   "prospective_hit": 0,
+   "prospective_miss": 1,
+   "json_entries": 87,
+   "digest_entries": 1
+  },
+  "note": "readiness of the read-only evidence console; it says nothing about any spacecraft"
+ },
+ "cache_stats": {
+  "json_hit": 352,
+  "json_miss": 87,
+  "digest_hit": 2,
+  "digest_miss": 1,
+  "git_hit": 2,
+  "git_miss": 1,
+  "prospective_hit": 0,
+  "prospective_miss": 1,
+  "json_entries": 87,
+  "digest_entries": 1
+ },
+ "protected_artifacts_exit_code": 0
+}

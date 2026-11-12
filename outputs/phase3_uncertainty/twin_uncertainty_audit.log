@@ -1,0 +1,135 @@
+  has_re_q = t[["lo90_days", "median_days", "hi90_days"]].notna().all(1)
+  "p_lifetime_30d", "p_lifetime_90d", "p_lifetime_1yr"]].notna().all(1)
+  "reentry": {"horizon_probabilities_present": int(t[["p_30d", "p_90d", "p_1yr"]].notna().all(1).sum()),
+{
+ "uncertainty_kinds": {
+  "reentry": {
+   "horizon_probabilities_present": 31396,
+   "with_time_quantiles": 15010,
+   "probabilities_only_no_quantiles": 16386,
+   "by_regime_with_quantiles": {
+    "natural_decay": 13787,
+    "unknown": 1223
+   },
+   "by_regime_without_quantiles": {
+    "operator_controlled": 16386
+   }
+  },
+  "lifetime": {
+   "learned_reading_present": 13238,
+   "absent_physics_only": 18158,
+   "present_but_isotonic_incoherent_abstained_by_adapter": 123
+  },
+  "mass": {
+   "known": 18896,
+   "unknown": 12500,
+   "known_share_among_uncontrolled_with_quantiles": 0.24896735509660226
+  }
+ },
+ "consistency_p30_vs_time_quantiles": {
+  "reentry_reported_p_30d_vs_lo90_median_hi90": {
+   "n_checked": 15010,
+   "violations": {
+    "q95<30d_but_p<0.95": 0,
+    "median<30d_but_p<0.5": 0,
+    "median>30d_but_p>0.5": 0,
+    "q05>30d_but_p>0.05": 3
+   },
+   "any_violation": 3,
+   "max_abs_gap_median_rule": 0.0
+  },
+  "lifetime_isotonic_p_lifetime_30d_vs_lifetime_quantiles": {
+   "n_checked": 13238,
+   "violations": {
+    "q95<30d_but_p<0.95": 4,
+    "median<30d_but_p<0.5": 0,
+    "median>30d_but_p>0.5": 131,
+    "q05>30d_but_p>0.05": 315
+   },
+   "any_violation": 450,
+   "max_abs_gap_median_rule": 0.2796610169491526
+  },
+  "lifetime_coherent_p_lifetime_raw_30d_vs_lifetime_quantiles": {
+   "n_checked": 13238,
+   "violations": {
+    "q95<30d_but_p<0.95": 0,
+    "median<30d_but_p<0.5": 0,
+    "median>30d_but_p>0.5": 0,
+    "q05>30d_but_p>0.05": 0
+   },
+   "any_violation": 0,
+   "max_abs_gap_median_rule": 0.0
+  },
+  "physics_history_p_30d_vs_reentry_quantiles": {
+   "n_checked": 13238,
+   "violations": {
+    "q95<30d_but_p<0.95": 0,
+    "median<30d_but_p<0.5": 0,
+    "median>30d_but_p>0.5": 0,
+    "q05>30d_but_p>0.05": 2
+   },
+   "any_violation": 2,
+   "max_abs_gap_median_rule": 0.0
+  },
+  "note": "the reported reentry quantiles (lo90/median/hi90) and the reported p_30d need not come from one distribution if the gate mixes variants; violations quantify that, they are not a bug by themselves \u2014 but a consumer reading both as one forecast would be misled"
+ }
+}
+{
+ "ranking_vs_interval": {
+  "top50": {
+   "with_quantiles": 50,
+   "interval_entirely_before_30d": 17,
+   "interval_straddles_30d": 23,
+   "interval_entirely_after_30d": 10,
+   "median_width_ratio_q95_over_q05": 7.161356317704986,
+   "p30_min": 0.03125,
+   "mass_unknown": 38,
+   "high_consequence": 7
+  },
+  "top200": {
+   "with_quantiles": 52,
+   "interval_entirely_before_30d": 17,
+   "interval_straddles_30d": 23,
+   "interval_entirely_after_30d": 12,
+   "median_width_ratio_q95_over_q05": 7.354116965530785,
+   "p30_min": 0.005277044854881266,
+   "mass_unknown": 40,
+   "high_consequence": 155
+  },
+  "top1000": {
+   "with_quantiles": 52,
+   "interval_entirely_before_30d": 17,
+   "interval_straddles_30d": 23,
+   "interval_entirely_after_30d": 12,
+   "median_width_ratio_q95_over_q05": 7.354116965530785,
+   "p30_min": 0.005277044854881266,
+   "mass_unknown": 40,
+   "high_consequence": 955
+  }
+ },
+ "ranking_sensitivity_top1000": {
+  "by_median_days_ascending": {
+   "kendall_tau_vs_deployed": 0.7990171654260566,
+   "top50_overlap": 48
+  },
+  "by_q95_days_ascending_pessimistic": {
+   "kendall_tau_vs_deployed": 0.698322372611004,
+   "top50_overlap": 48
+  },
+  "by_q05_days_ascending_optimistic": {
+   "kendall_tau_vs_deployed": 0.6754136069936748,
+   "top50_overlap": 48
+  },
+  "by_p30_without_consequence_multiplier": {
+   "kendall_tau_vs_deployed": 0.9153269762939102,
+   "top50_overlap": 50
+  }
+ },
+ "ties_in_priority_score": {
+  "top50_distinct_scores": 23,
+  "objects_at_priority_2.0": 2,
+  "objects_at_p30_1.0": 14
+ }
+}
+modules: {'catalogue_state': ('success', None), 'lifetime': ('success', 18281), 'reentry': ('success', None), 'collision': ('success', None), 'health': ('success', None), 'debris': ('success', None), 'decision_priority': ('success', None)}
+written outputs/phase3_uncertainty/twin_uncertainty_audit.json

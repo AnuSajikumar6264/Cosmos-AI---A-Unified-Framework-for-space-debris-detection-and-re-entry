@@ -1,0 +1,1563 @@
+{
+ "generated_at": "2026-11-06T06:04:46+00:00",
+ "nothing_rerun": true,
+ "sections": {
+  "A_fusion_physics_vs_learned": {
+   "question": "does reliability-gated fusion beat either expert alone and the trivial fusions?",
+   "metric": "mean pinball over 7 quantiles of log10 capped lifetime (lower is better); launch-family cluster-bootstrap 95 % CI",
+   "source": {
+    "artifact": "outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv",
+    "sha256": "04597a5ea7313a667b930401a89fc929777b29121ae53fef684cdf902528e3fb",
+    "present": true
+   },
+   "origins": {
+    "2011": {
+     "selected_learner": "kumo",
+     "arms": {
+      "physics_only": {
+       "pinball": 0.05267631417331738,
+       "ci95": [
+        0.03732839801016377,
+        0.0760999191630588
+       ]
+      },
+      "equal_average": {
+       "pinball": 0.05269684597930894,
+       "ci95": [
+        0.04155618625605026,
+        0.06792501376834258
+       ]
+      },
+      "stack_constant": {
+       "pinball": 0.0607762627184865,
+       "ci95": [
+        0.04660044484480912,
+        0.07378766771799021
+       ]
+      },
+      "cosmos_gated": {
+       "pinball": 0.05826284242323395,
+       "ci95": [
+        0.04513905084597245,
+        0.07136579930841724
+       ]
+      },
+      "cosmos_gated_tuneA": {
+       "pinball": 0.06160742062540094,
+       "ci95": [
+        0.04717507825904524,
+        0.07465827553420326
+       ]
+      },
+      "kumo": {
+       "pinball": 0.06161253035125438,
+       "ci95": [
+        0.04717684890875006,
+        0.07466678951381431
+       ]
+      }
+     },
+     "paired_vs_cosmos_gated": {
+      "physics_only": {
+       "gated_minus_other": 0.005586528249916543,
+       "ci95": [
+        -0.013920797220309497,
+        0.019873335339615685
+       ],
+       "significant": false
+      },
+      "tabicl": {
+       "gated_minus_other": -0.0013212232922330564,
+       "ci95": [
+        -0.004432848545874671,
+        0.0015724090840701765
+       ],
+       "significant": false
+      },
+      "kumo": {
+       "gated_minus_other": -0.0033496879280204323,
+       "ci95": [
+        -0.005479335705105325,
+        -0.0006888704503946588
+       ],
+       "significant": true
+      }
+     },
+     "pairwise_source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/pairwise_test.csv",
+      "sha256": "3cb74b9eaded342088bf4e8db1c26b34926c21b101a1fca4b683fb14063ccd19",
+      "present": true
+     }
+    },
+    "2016": {
+     "selected_learner": "tabm",
+     "arms": {
+      "physics_only": {
+       "pinball": 0.08924911570800471,
+       "ci95": [
+        0.058646541931556696,
+        0.1242944001564539
+       ]
+      },
+      "equal_average": {
+       "pinball": 0.06909000759451554,
+       "ci95": [
+        0.04685247412046405,
+        0.09442613451210254
+       ]
+      },
+      "stack_constant": {
+       "pinball": 0.060121990275091415,
+       "ci95": [
+        0.0416533305435124,
+        0.0798453725151263
+       ]
+      },
+      "cosmos_gated": {
+       "pinball": 0.06037598117327946,
+       "ci95": [
+        0.04174182505308167,
+        0.08060856862053013
+       ]
+      },
+      "cosmos_gated_tuneA": {
+       "pinball": 0.06949503017980183,
+       "ci95": [
+        0.047574590322012084,
+        0.09381043734157324
+       ]
+      },
+      "tabm": {
+       "pinball": 0.05929212409282305,
+       "ci95": [
+        0.041246150449006015,
+        0.07854589539074674
+       ]
+      }
+     },
+     "paired_vs_cosmos_gated": {
+      "physics_only": {
+       "gated_minus_other": -0.02887313453472524,
+       "ci95": [
+        -0.04693291566677323,
+        -0.014812380127826649
+       ],
+       "significant": true
+      },
+      "tabicl": {
+       "gated_minus_other": 0.010431992382036077,
+       "ci95": [
+        0.004312751605541444,
+        0.017870403824302813
+       ],
+       "significant": true
+      },
+      "kumo": {
+       "gated_minus_other": 0.009608234298182937,
+       "ci95": [
+        0.00225986106259575,
+        0.018122052967611116
+       ],
+       "significant": true
+      }
+     },
+     "pairwise_source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/pairwise_test.csv",
+      "sha256": "fe2657a5a15db7b434e2b3c5fb1551f787a5caa9bfb4d98be3da2dd13aff198a",
+      "present": true
+     }
+    },
+    "2006": {
+     "selected_learner": "mlp",
+     "arms": {
+      "physics_only": {
+       "pinball": 0.05682407377081898,
+       "ci95": [
+        0.03080585886228485,
+        0.13752538721301708
+       ]
+      },
+      "equal_average": {
+       "pinball": 0.07416354434024079,
+       "ci95": [
+        0.05690748909031834,
+        0.1255927055183896
+       ]
+      },
+      "stack_constant": {
+       "pinball": 0.0987327266710609,
+       "ci95": [
+        0.07087383205833003,
+        0.1317545094499505
+       ]
+      },
+      "cosmos_gated": {
+       "pinball": 0.08851765417184905,
+       "ci95": [
+        0.06587535350789585,
+        0.1303569117625131
+       ]
+      },
+      "cosmos_gated_tuneA": {
+       "pinball": 0.078555191431989,
+       "ci95": [
+        0.05876250038194619,
+        0.12207723648456843
+       ]
+      },
+      "mlp": {
+       "pinball": 0.10391744007858389,
+       "ci95": [
+        0.07337586437436819,
+        0.13446141147470497
+       ]
+      }
+     },
+     "paired_vs_cosmos_gated": {},
+     "pairwise_source": {
+      "artifact": "outputs/g5d_origin2006/lifetime/pairwise_test.csv",
+      "sha256": null,
+      "present": false
+     }
+    }
+   }
+  },
+  "B_reliability_gate_per_learner": {
+   "question": "what does the reliability gate add to each learner alone?",
+   "origins": {
+    "2011": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv",
+      "sha256": "91a32e96e27bf8e306f1515beb672664944c43963d179aa2d8fa790894d47bf0",
+      "present": true
+     },
+     "learners": {
+      "xgboost": {
+       "pinball_alone": 0.06484232951162518,
+       "pinball_gated": 0.06481493295200365,
+       "gain": 2.7396559621532498e-05,
+       "gain_ci95": [
+        1.1621704612796277e-05,
+        4.008986358896717e-05
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.0012134176278786526,
+       "cov90_alone": 0.9591301087364079,
+       "cov90_gated": 0.9591301087364079
+      },
+      "lightgbm": {
+       "pinball_alone": 0.0683209886858614,
+       "pinball_gated": 0.057785099463863225,
+       "gain": 0.010535889221998157,
+       "gain_ci95": [
+        0.006949854749851561,
+        0.016114724035137095
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.2834363024996147,
+       "cov90_alone": 0.9662542182227222,
+       "cov90_gated": 0.9692538432695913
+      },
+      "catboost": {
+       "pinball_alone": 0.06266006907918586,
+       "pinball_gated": 0.06264341386313621,
+       "gain": 1.6655216049645956e-05,
+       "gain_ci95": [
+        7.669078873950508e-06,
+        2.4051664172861183e-05
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.0008204551764562644,
+       "cov90_alone": 0.9437570303712036,
+       "cov90_gated": 0.943382077240345
+      },
+      "mlp": {
+       "pinball_alone": 0.11466122952512538,
+       "pinball_gated": 0.10737762207469106,
+       "gain": 0.00728360745043431,
+       "gain_ci95": [
+        0.0008988132162216849,
+        0.014702600472326395
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.10069606251350023,
+       "cov90_alone": 0.7150356205474315,
+       "cov90_gated": 0.739782527184102
+      },
+      "tabm": {
+       "pinball_alone": 0.09943669602207811,
+       "pinball_gated": 0.09514847750583519,
+       "gain": 0.004288218516242921,
+       "gain_ci95": [
+        0.00030376979699645116,
+        0.008801618737023979
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.06988548269755214,
+       "cov90_alone": 0.8548931383577053,
+       "cov90_gated": 0.8492688413948256
+      },
+      "tabicl": {
+       "pinball_alone": 0.059584065715467,
+       "pinball_gated": 0.05687882351160476,
+       "gain": 0.002705242203862232,
+       "gain_ci95": [
+        0.0006700732733892617,
+        0.004338023528872346
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.11187301396599865,
+       "cov90_alone": 0.9092613423322085,
+       "cov90_gated": 0.9298837645294338
+      },
+      "kumo": {
+       "pinball_alone": 0.06161253035125437,
+       "pinball_gated": 0.05826341979475783,
+       "gain": 0.0033491105564965413,
+       "gain_ci95": [
+        0.0006884655769385181,
+        0.005478698708576749
+       ],
+       "gain_significant": true,
+       "gate_weight_on_physics_mean": 0.1185736419068073,
+       "cov90_alone": 0.958005249343832,
+       "cov90_gated": 0.948631421072366
+      }
+     }
+    },
+    "2016": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv",
+      "sha256": "3ee7f439d470ad3a72c5f06895e64d1cce162b66d6b860b31896c6a66b530ec0",
+      "present": true
+     },
+     "learners": {
+      "xgboost": {
+       "pinball_alone": 0.05758207135968794,
+       "pinball_gated": 0.058980245973788495,
+       "gain": -0.0013981746141005457,
+       "gain_ci95": [
+        -0.004273819676996,
+        0.0009887250413384472
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.26292367155305235,
+       "cov90_alone": 0.9184016118200135,
+       "cov90_gated": 0.9167226326393553
+      },
+      "lightgbm": {
+       "pinball_alone": 0.06616888588902313,
+       "pinball_gated": 0.06844512006853014,
+       "gain": -0.0022762341795070054,
+       "gain_ci95": [
+        -0.010721862486889937,
+        0.005739408851978551
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.5146356190834659,
+       "cov90_alone": 0.9523169912693082,
+       "cov90_gated": 0.8834788448623238
+      },
+      "catboost": {
+       "pinball_alone": 0.06114625923110467,
+       "pinball_gated": 0.061423851259938135,
+       "gain": -0.00027759202883346085,
+       "gain_ci95": [
+        -0.002691651385104249,
+        0.0014852617927797124
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.2281027183871398,
+       "cov90_alone": 0.9069845533915379,
+       "cov90_gated": 0.9177300201477502
+      },
+      "mlp": {
+       "pinball_alone": 0.05777586392896601,
+       "pinball_gated": 0.05920125736257405,
+       "gain": -0.0014253934336080382,
+       "gain_ci95": [
+        -0.004915840494764013,
+        0.0017383964714391144
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.3098678623494883,
+       "cov90_alone": 0.876762928139691,
+       "cov90_gated": 0.8801208865010074
+      },
+      "tabm": {
+       "pinball_alone": 0.059292124092823056,
+       "pinball_gated": 0.060905301103020074,
+       "gain": -0.001613177010197019,
+       "gain_ci95": [
+        -0.0038460823022734925,
+        9.464856838627372e-05
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.15265155460958832,
+       "cov90_alone": 0.9217595701813297,
+       "cov90_gated": 0.9237743451981195
+      },
+      "tabicl": {
+       "pinball_alone": 0.04994398879124338,
+       "pinball_gated": 0.05456535227841696,
+       "gain": -0.004621363487173574,
+       "gain_ci95": [
+        -0.011234200746018252,
+        0.0007093724291873407
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.5060020665404749,
+       "cov90_alone": 0.9583613163196776,
+       "cov90_gated": 0.9237743451981195
+      },
+      "kumo": {
+       "pinball_alone": 0.050767746875096526,
+       "pinball_gated": 0.04939692633260363,
+       "gain": 0.0013708205424928963,
+       "gain_ci95": [
+        -0.0023417497056030462,
+        0.004527171063212108
+       ],
+       "gain_significant": false,
+       "gate_weight_on_physics_mean": 0.36273410772377246,
+       "cov90_alone": 0.9731363331094695,
+       "cov90_gated": 0.9529885829415715
+      }
+     }
+    },
+    "2006": {
+     "status": "NOT ARCHIVED",
+     "source": {
+      "artifact": "outputs/g5d_origin2006/lifetime/gate_all_learners.csv",
+      "sha256": null,
+      "present": false
+     }
+    }
+   },
+   "metric": "pinball alone vs gated with physics; gain = alone - gated; bootstrap CI; mean gate weight on physics"
+  },
+  "C_feature_group_ablations": {
+   "question": "which input groups carry the learned lifetime signal? (refit without the group, selected learner's settings)",
+   "metric": "pinball(ablation) - pinball(full); positive = the group helped; bootstrap CI",
+   "origins": {
+    "2011": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv",
+      "sha256": "80d4690b5e02d255e788b0e87498af2696a02542aa67a15736c9a8c754771a23",
+      "present": true
+     },
+     "effects": {
+      "no_design": {
+       "delta_pinball": 0.0008244712337596849,
+       "ci95": [
+        -7.770734338627382e-05,
+        0.0016569017679393299
+       ],
+       "significant": false,
+       "note": ""
+      },
+      "no_family": {
+       "delta_pinball": 0.0023812916543351553,
+       "ci95": [
+        -0.005760797394473095,
+        0.010293991783185168
+       ],
+       "significant": false,
+       "note": ""
+      },
+      "no_physics": {
+       "delta_pinball": 0.0022467595917352676,
+       "ci95": [
+        0.00017350236338680314,
+        0.00388720683724969
+       ],
+       "significant": true,
+       "note": ""
+      },
+      "no_space_weather": {
+       "delta_pinball": 0.0008719988588163519,
+       "ci95": [
+        -0.0016295646173441326,
+        0.0038401903101053917
+       ],
+       "significant": false,
+       "note": ""
+      },
+      "plus_rcs_2026": {
+       "delta_pinball": -0.0037741004947129037,
+       "ci95": [
+        -0.007238339259171562,
+        0.0011105778700788577
+       ],
+       "significant": false,
+       "note": "LEAK DEMONSTRATION: 2026 RCS depends on the outcome; never a candidate"
+      }
+     }
+    },
+    "2016": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv",
+      "sha256": "d71221ed74d8ca119d06e5901eb081c3af6b688f40e96896f3792b4d1ed23644",
+      "present": true
+     },
+     "effects": {
+      "no_design": {
+       "delta_pinball": 0.007064419804472942,
+       "ci95": [
+        0.003488463753637764,
+        0.012111923861873484
+       ],
+       "significant": true,
+       "note": ""
+      },
+      "no_family": {
+       "delta_pinball": 0.005567416073970728,
+       "ci95": [
+        0.0014976451987233862,
+        0.010104319903598535
+       ],
+       "significant": true,
+       "note": ""
+      },
+      "no_physics": {
+       "delta_pinball": -0.0049622852961914675,
+       "ci95": [
+        -0.008575613614536154,
+        -0.002232667248928344
+       ],
+       "significant": true,
+       "note": ""
+      },
+      "no_space_weather": {
+       "delta_pinball": 0.0038309010218234535,
+       "ci95": [
+        -0.005741460528322097,
+        0.012864604271758054
+       ],
+       "significant": false,
+       "note": ""
+      },
+      "plus_rcs_2026": {
+       "delta_pinball": 0.007146792015284447,
+       "ci95": [
+        -0.0010411199330517462,
+        0.015087726884631118
+       ],
+       "significant": false,
+       "note": "LEAK DEMONSTRATION: 2026 RCS depends on the outcome; never a candidate"
+      }
+     }
+    },
+    "2006": {
+     "status": "NOT ARCHIVED (the 2006 refit saved per-arm predictions only; ablation deltas not tabulated)",
+     "source": {
+      "artifact": "outputs/g5d_origin2006/lifetime/ablation_effects_test.csv",
+      "sha256": null,
+      "present": false
+     }
+    }
+   }
+  },
+  "D_uncertainty_construction": {
+   "question": "how do interval constructions compare: fixed \u00b120/30 % rules vs conformal, and conformal variants?",
+   "origins": {
+    "2011": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json",
+      "sha256": "df81b4e22a0a91048a99c950e30136fc2ff0e70aa7277775163ef38209f68c3f",
+      "present": true
+     },
+     "rules": {
+      "physics_only_pm20": {
+       "coverage": 0.7469066366704162,
+       "width_log10": 0.17497552096251007,
+       "coverage_decayed": 0.17130307467057102
+      },
+      "physics_only_pm30": {
+       "coverage": 0.7656542932133483,
+       "width_log10": 0.26694294317337325,
+       "coverage_decayed": 0.2342606149341142
+      },
+      "physics_only_conformal80": {
+       "coverage": 0.9437570303712036,
+       "width_log10": 0.6534060102240872,
+       "coverage_decayed": 0.8052708638360175
+      },
+      "physics_only_conformal90": {
+       "coverage": 0.973753280839895,
+       "width_log10": 1.0284174363115086,
+       "coverage_decayed": 0.9062957540263543
+      },
+      "cosmos_gated_pm20": {
+       "coverage": 0.6512935883014623,
+       "width_log10": 0.17609125905568093,
+       "coverage_decayed": 0.2005856515373353
+      },
+      "cosmos_gated_pm30": {
+       "coverage": 0.6944131983502062,
+       "width_log10": 0.26884531229258,
+       "coverage_decayed": 0.28257686676427524
+      },
+      "cosmos_gated_conformal80": {
+       "coverage": 0.9231346081739783,
+       "width_log10": 0.8768161544762294,
+       "coverage_decayed": 0.7759882869692533
+      },
+      "cosmos_gated_conformal90": {
+       "coverage": 0.9591301087364079,
+       "width_log10": 1.2139402656816065,
+       "coverage_decayed": 0.8843338213762811
+      }
+     }
+    },
+    "2016": {
+     "source": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json",
+      "sha256": "0a075e233be2a7e8f59d070e51300f4251ea4af9be666e303ace918e8228edda",
+      "present": true
+     },
+     "rules": {
+      "physics_only_pm20": {
+       "coverage": 0.6020819341840161,
+       "width_log10": 0.17540119085976646,
+       "coverage_decayed": 0.12234042553191489
+      },
+      "physics_only_pm30": {
+       "coverage": 0.6383478844862324,
+       "width_log10": 0.2676876638461152,
+       "coverage_decayed": 0.20364741641337386
+      },
+      "physics_only_conformal80": {
+       "coverage": 0.738079247817327,
+       "width_log10": 0.35440920113720464,
+       "coverage_decayed": 0.4194528875379939
+      },
+      "physics_only_conformal90": {
+       "coverage": 0.8764271323035594,
+       "width_log10": 0.6706126069925067,
+       "coverage_decayed": 0.7256838905775076
+      },
+      "cosmos_gated_pm20": {
+       "coverage": 0.5285426460711887,
+       "width_log10": 0.17609125905568093,
+       "coverage_decayed": 0.1831306990881459
+      },
+      "cosmos_gated_pm30": {
+       "coverage": 0.5990597716588314,
+       "width_log10": 0.2688453122925801,
+       "coverage_decayed": 0.2796352583586626
+      },
+      "cosmos_gated_conformal80": {
+       "coverage": 0.7169241101410343,
+       "width_log10": 0.4328898831659264,
+       "coverage_decayed": 0.5425531914893617
+      },
+      "cosmos_gated_conformal90": {
+       "coverage": 0.8740765614506381,
+       "width_log10": 0.6706956057412123,
+       "coverage_decayed": 0.8351063829787234
+      }
+     }
+    },
+    "2006": {
+     "status": "NOT ARCHIVED",
+     "source": {
+      "artifact": "outputs/g5d_origin2006/lifetime/interval_rules.json",
+      "sha256": null,
+      "present": false
+     }
+    }
+   },
+   "conformal_constructions_G3prime": {
+    "source": {
+     "artifact": "outputs/phase3_uncertainty/recalibration_alternatives/results.json",
+     "sha256": "ba2fb2f0bae0a1332de50de9f02fc7be9767c7c0c414178c1df8c7ff70d36ddf",
+     "present": true
+    },
+    "primary_cosmos_gated": {
+     "R0_deployed_mondrian": {
+      "mean_abs_deviation": 0.05603106723888692,
+      "minus_R0": 0.0,
+      "paired_ci95": [
+       0.0,
+       0.0
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 1.0,
+      "cells_within_ci_of_nominal": 3
+     },
+     "R1_marginal": {
+      "mean_abs_deviation": 0.0733897811018629,
+      "minus_R0": 0.017358713862975973,
+      "paired_ci95": [
+       -0.02750189962275729,
+       0.035113263371431204
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 0.9864781327879761,
+      "cells_within_ci_of_nominal": 3
+     },
+     "R2_class_only": {
+      "mean_abs_deviation": 0.07233286382504805,
+      "minus_R0": 0.016301796586161134,
+      "paired_ci95": [
+       -0.030431540864416667,
+       0.03444050688941106
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 0.9983840658447304,
+      "cells_within_ci_of_nominal": 2
+     },
+     "R3_asymmetric": {
+      "mean_abs_deviation": 0.041905845313789325,
+      "minus_R0": -0.014125221925097596,
+      "paired_ci95": [
+       -0.04362151139662573,
+       0.01905173404864274
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 0.9693906962255826,
+      "cells_within_ci_of_nominal": 4
+     },
+     "R4_recent_half_window": {
+      "mean_abs_deviation": 0.07911811571267192,
+      "minus_R0": 0.023087048473785003,
+      "paired_ci95": [
+       -0.018408934465198916,
+       0.04200073591936812
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 1.091622006989949,
+      "cells_within_ci_of_nominal": 2
+     },
+     "R5_recency_weighted": {
+      "mean_abs_deviation": 0.0785829335915451,
+      "minus_R0": 0.022551866352658177,
+      "paired_ci95": [
+       -0.016586263265465463,
+       0.03867349541257869
+      ],
+      "closer_to_nominal_than_R0": false,
+      "mean_width_ratio_vs_R0": 1.0985337287996968,
+      "cells_within_ci_of_nominal": 1
+     }
+    },
+    "status": "pre-declared protocol; no alternative established closer to nominal"
+   }
+  },
+  "E_telemetry_alarm_layers": {
+   "question": "which alarm layer (calibrator) on top of a fixed scorer gives the best event-wise F0.5 and false-alarm rate?",
+   "protocol": "A0 \u2014 9-month calibration period (results.csv); NOT the OOF protocol (A1-A3), which must not be mixed with these numbers",
+   "source": {
+    "artifact": "outputs/benchmarks/telemetry_esa_adb/results.csv",
+    "sha256": "1e98567df6a2f366b8d40dadac3090b8de1487af0d00e4a7ea3032f44628462c",
+    "present": true
+   },
+   "by_scorer": {
+    "m1_lightweight_ar8_s0": {
+     "threshold": {
+      "EW_F0.5": 0.13732273052354063,
+      "false_alarms_per_year": 3.571079389910051,
+      "alarm_runs": 73
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.13165009532863897,
+      "false_alarms_per_year": 4.999511145874071,
+      "alarm_runs": 90
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.1772993440304026,
+      "false_alarms_per_year": 3.2853930387172467,
+      "alarm_runs": 63
+     }
+    },
+    "m1_lightweight_cosmos_monitor": {
+     "native": {
+      "EW_F0.5": 0.07460942189384559,
+      "false_alarms_per_year": 14.71284708642941,
+      "alarm_runs": 984
+     }
+    },
+    "m1_lightweight_global_std3": {
+     "native": {
+      "EW_F0.5": 0.0003478250216097456,
+      "false_alarms_per_year": 4570.553089558076,
+      "alarm_runs": 32499
+     }
+    },
+    "m1_lightweight_global_std5": {
+     "native": {
+      "EW_F0.5": 0.21136388870820877,
+      "false_alarms_per_year": 3.856765741102855,
+      "alarm_runs": 342
+     }
+    },
+    "m1_lightweight_out_of_limits": {
+     "native": {
+      "EW_F0.5": 0.09729203137371314,
+      "false_alarms_per_year": 12.427356276886977,
+      "alarm_runs": 283
+     }
+    },
+    "m1_lightweight_out_of_limits_all": {
+     "native": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 0
+     }
+    },
+    "m1_lightweight_patchtst_s0": {
+     "threshold": {
+      "EW_F0.5": 0.377356393185486,
+      "false_alarms_per_year": 0.28568635119280406,
+      "alarm_runs": 103
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.04334869154003235,
+      "false_alarms_per_year": 14.855690262025812,
+      "alarm_runs": 188
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.4081631536863644,
+      "false_alarms_per_year": 0.14284317559640203,
+      "alarm_runs": 17
+     }
+    },
+    "m1_lightweight_persistence_s0": {
+     "threshold": {
+      "EW_F0.5": 0.07366510045364776,
+      "false_alarms_per_year": 14.855690262025812,
+      "alarm_runs": 168
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.018082963291528364,
+      "false_alarms_per_year": 66.70776300351976,
+      "alarm_runs": 549
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.24137580542911338,
+      "false_alarms_per_year": 3.142549863120845,
+      "alarm_runs": 46
+     }
+    },
+    "m1_target_ar8_s0": {
+     "threshold": {
+      "EW_F0.5": 0.04409407216204171,
+      "false_alarms_per_year": 64.42227219397732,
+      "alarm_runs": 581
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.03161745478583164,
+      "false_alarms_per_year": 91.56247555729371,
+      "alarm_runs": 790
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0312407478823498,
+      "false_alarms_per_year": 103.84698865858428,
+      "alarm_runs": 936
+     }
+    },
+    "m1_target_chronos-bolt-small_s0": {
+     "threshold": {
+      "EW_F0.5": 0.015892522368135983,
+      "false_alarms_per_year": 64.56511536957372,
+      "alarm_runs": 564
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.008643880300229678,
+      "false_alarms_per_year": 303.9702776691435,
+      "alarm_runs": 2630
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 1.5712749315604224,
+      "alarm_runs": 11
+     }
+    },
+    "m1_target_cosmos_monitor": {
+     "native": {
+      "EW_F0.5": 0.0021818974036456208,
+      "false_alarms_per_year": 3278.1080367618306,
+      "alarm_runs": 25973
+     }
+    },
+    "m1_target_global_std3": {
+     "native": {
+      "EW_F0.5": 0.0002786609499582509,
+      "false_alarms_per_year": 24834.000293312478,
+      "alarm_runs": 193636
+     }
+    },
+    "m1_target_global_std5": {
+     "native": {
+      "EW_F0.5": 0.001875739649002789,
+      "false_alarms_per_year": 3745.490907313258,
+      "alarm_runs": 27653
+     }
+    },
+    "m1_target_out_of_limits": {
+     "native": {
+      "EW_F0.5": 0.0004437047609324038,
+      "false_alarms_per_year": 11627.005964020336,
+      "alarm_runs": 92383
+     }
+    },
+    "m1_target_out_of_limits_all": {
+     "native": {
+      "EW_F0.5": 0.003167744956580673,
+      "false_alarms_per_year": 778.3524638247947,
+      "alarm_runs": 6047
+     }
+    },
+    "m1_target_patchtst_s0": {
+     "threshold": {
+      "EW_F0.5": 0.02000161628641577,
+      "false_alarms_per_year": 50.70932733672272,
+      "alarm_runs": 435
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.019686158348435567,
+      "false_alarms_per_year": 51.56638639030113,
+      "alarm_runs": 445
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.15873015873015872,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 5
+     }
+    },
+    "m1_target_patchtst_s1": {
+     "threshold": {
+      "EW_F0.5": 0.01960963870899122,
+      "false_alarms_per_year": 60.70834962847086,
+      "alarm_runs": 542
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.007397478252858973,
+      "false_alarms_per_year": 284.11507626124364,
+      "alarm_runs": 2368
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.09708730953430113,
+      "false_alarms_per_year": 1.4284317559640203,
+      "alarm_runs": 12
+     }
+    },
+    "m1_target_patchtst_s2": {
+     "threshold": {
+      "EW_F0.5": 0.022735210637167037,
+      "false_alarms_per_year": 51.99491591709034,
+      "alarm_runs": 455
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.02177288011496709,
+      "false_alarms_per_year": 54.42324990222917,
+      "alarm_runs": 477
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0285186732065519,
+      "false_alarms_per_year": 40.853148220570986,
+      "alarm_runs": 328
+     }
+    },
+    "m1_target_patchtst_tc_s0": {
+     "threshold": {
+      "EW_F0.5": 0.019264349919526722,
+      "false_alarms_per_year": 61.85109503324208,
+      "alarm_runs": 549
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.00724277877539843,
+      "false_alarms_per_year": 290.25733281188894,
+      "alarm_runs": 2406
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.09345786761540986,
+      "false_alarms_per_year": 1.5712749315604224,
+      "alarm_runs": 13
+     }
+    },
+    "m1_target_patchtst_tc_s1": {
+     "threshold": {
+      "EW_F0.5": 0.02015286667656134,
+      "false_alarms_per_year": 58.99423152131404,
+      "alarm_runs": 529
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.007363274392229307,
+      "false_alarms_per_year": 285.4006648416113,
+      "alarm_runs": 2392
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.09708730953430113,
+      "false_alarms_per_year": 1.4284317559640203,
+      "alarm_runs": 12
+     }
+    },
+    "m1_target_patchtst_tc_s2": {
+     "threshold": {
+      "EW_F0.5": 0.019140477095701006,
+      "false_alarms_per_year": 62.27962456003129,
+      "alarm_runs": 551
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.007188076875150509,
+      "false_alarms_per_year": 292.54282362143135,
+      "alarm_runs": 2418
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.09708730953430113,
+      "false_alarms_per_year": 1.4284317559640203,
+      "alarm_runs": 12
+     }
+    },
+    "m1_target_persistence_s0": {
+     "threshold": {
+      "EW_F0.5": 0.02005169623786633,
+      "false_alarms_per_year": 120.55964020336332,
+      "alarm_runs": 1140
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.02005169623786633,
+      "false_alarms_per_year": 120.55964020336332,
+      "alarm_runs": 1140
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.14925370684504724,
+      "false_alarms_per_year": 0.14284317559640203,
+      "alarm_runs": 3
+     }
+    },
+    "m1_target_tcn_s0": {
+     "threshold": {
+      "EW_F0.5": 0.022248405273246178,
+      "false_alarms_per_year": 67.99335158388737,
+      "alarm_runs": 593
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.019163710622194612,
+      "false_alarms_per_year": 79.42080563159953,
+      "alarm_runs": 703
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.31645537315058164,
+      "false_alarms_per_year": 0.14284317559640203,
+      "alarm_runs": 26
+     }
+    },
+    "m1_target_tcn_s1": {
+     "threshold": {
+      "EW_F0.5": 0.029621041740850767,
+      "false_alarms_per_year": 50.56648416112632,
+      "alarm_runs": 422
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.011033452159658322,
+      "false_alarms_per_year": 312.96939773171687,
+      "alarm_runs": 2450
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.1010100392970908,
+      "false_alarms_per_year": 1.2855885803676184,
+      "alarm_runs": 11
+     }
+    },
+    "m1_target_tcn_s2": {
+     "threshold": {
+      "EW_F0.5": 0.025522440716009745,
+      "false_alarms_per_year": 45.99550254204146,
+      "alarm_runs": 438
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.009494487799716957,
+      "false_alarms_per_year": 382.39118107156827,
+      "alarm_runs": 2906
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.07407391316299673,
+      "false_alarms_per_year": 2.5711771607352367,
+      "alarm_runs": 20
+     }
+    },
+    "m1_target_tcn_tc_s0": {
+     "threshold": {
+      "EW_F0.5": 0.016006216974014446,
+      "false_alarms_per_year": 118.55983574501369,
+      "alarm_runs": 1083
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.008288473100911183,
+      "false_alarms_per_year": 374.10627688697696,
+      "alarm_runs": 2889
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.09708730953430113,
+      "false_alarms_per_year": 1.4284317559640203,
+      "alarm_runs": 12
+     }
+    },
+    "m1_target_tcn_tc_s1": {
+     "threshold": {
+      "EW_F0.5": 0.03033476621374458,
+      "false_alarms_per_year": 54.99462260461478,
+      "alarm_runs": 478
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.03080399936453638,
+      "false_alarms_per_year": 59.708447399296055,
+      "alarm_runs": 503
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.31645537315058164,
+      "false_alarms_per_year": 0.14284317559640203,
+      "alarm_runs": 18
+     }
+    },
+    "m1_target_tcn_tc_s2": {
+     "threshold": {
+      "EW_F0.5": 0.03079811423843032,
+      "false_alarms_per_year": 54.56609307782558,
+      "alarm_runs": 484
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.027477700057882578,
+      "false_alarms_per_year": 61.56540868204928,
+      "alarm_runs": 542
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.36144537340197563,
+      "false_alarms_per_year": 0.14284317559640203,
+      "alarm_runs": 26
+     }
+    },
+    "m2_lightweight_ar8_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 48.08934169278997,
+      "alarm_runs": 450
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 9.15987460815047,
+      "alarm_runs": 322
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 110
+     }
+    },
+    "m2_lightweight_cosmos_monitor": {
+     "native": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 214
+     }
+    },
+    "m2_lightweight_global_std3": {
+     "native": {
+      "EW_F0.5": 2.0379206426887945e-05,
+      "false_alarms_per_year": 34174.34717868338,
+      "alarm_runs": 66233
+     }
+    },
+    "m2_lightweight_global_std5": {
+     "native": {
+      "EW_F0.5": 0.00023141608361479154,
+      "false_alarms_per_year": 3084.587774294671,
+      "alarm_runs": 11143
+     }
+    },
+    "m2_lightweight_out_of_limits": {
+     "native": {
+      "EW_F0.5": 0.08771874889179768,
+      "false_alarms_per_year": 7.442398119122257,
+      "alarm_runs": 3176
+     }
+    },
+    "m2_lightweight_out_of_limits_all": {
+     "native": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 8
+     }
+    },
+    "m2_lightweight_patchtst_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 298
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 297
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 19
+     }
+    },
+    "m2_lightweight_persistence_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 322
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 1.1449843260188088,
+      "alarm_runs": 350
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 20
+     }
+    },
+    "m2_target_ar8_s0": {
+     "threshold": {
+      "EW_F0.5": 0.4999951359827777,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 243
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.1470516608223046,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 358
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 91
+     }
+    },
+    "m2_target_chronos-bolt-small_s0": {
+     "threshold": {
+      "EW_F0.5": 0.5,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 132
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.09258410176257754,
+      "false_alarms_per_year": 6.297413793103448,
+      "alarm_runs": 357
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 21
+     }
+    },
+    "m2_target_cosmos_monitor": {
+     "native": {
+      "EW_F0.5": 0.0005824953329356456,
+      "false_alarms_per_year": 3576.358542319749,
+      "alarm_runs": 6867
+     }
+    },
+    "m2_target_global_std3": {
+     "native": {
+      "EW_F0.5": 0.00010460398321254174,
+      "false_alarms_per_year": 32105.3605015674,
+      "alarm_runs": 61989
+     }
+    },
+    "m2_target_global_std5": {
+     "native": {
+      "EW_F0.5": 0.0005664360712937522,
+      "false_alarms_per_year": 3770.4333855799373,
+      "alarm_runs": 11115
+     }
+    },
+    "m2_target_out_of_limits": {
+     "native": {
+      "EW_F0.5": 0.08966527682732979,
+      "false_alarms_per_year": 20.609717868338556,
+      "alarm_runs": 2505
+     }
+    },
+    "m2_target_out_of_limits_all": {
+     "native": {
+      "EW_F0.5": 0.1281162044046771,
+      "false_alarms_per_year": 4.007445141065831,
+      "alarm_runs": 56
+     }
+    },
+    "m2_target_patchtst_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 175
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.14705242775344413,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 316
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 21
+     }
+    },
+    "m2_target_patchtst_s1": {
+     "threshold": {
+      "EW_F0.5": 0.14705242775344413,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 311
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.07575056562188869,
+      "false_alarms_per_year": 8.014890282131661,
+      "alarm_runs": 388
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 27
+     }
+    },
+    "m2_target_patchtst_s2": {
+     "threshold": {
+      "EW_F0.5": 0.4999951359827777,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 170
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.06755973767993986,
+      "false_alarms_per_year": 9.15987460815047,
+      "alarm_runs": 393
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 27
+     }
+    },
+    "m2_target_patchtst_tc_s0": {
+     "threshold": {
+      "EW_F0.5": 0.14705242775344413,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 323
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.060968521656939174,
+      "false_alarms_per_year": 10.304858934169278,
+      "alarm_runs": 393
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 27
+     }
+    },
+    "m2_target_patchtst_tc_s1": {
+     "threshold": {
+      "EW_F0.5": 0.043856517941667304,
+      "false_alarms_per_year": 14.884796238244514,
+      "alarm_runs": 296
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.14705242775344413,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 324
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 21
+     }
+    },
+    "m2_target_patchtst_tc_s2": {
+     "threshold": {
+      "EW_F0.5": 0.14705242775344413,
+      "false_alarms_per_year": 3.4349529780564265,
+      "alarm_runs": 332
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.07142022399914866,
+      "false_alarms_per_year": 8.587382445141065,
+      "alarm_runs": 393
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 27
+     }
+    },
+    "m2_target_persistence_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 222
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.4999951359827777,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 238
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 18
+     }
+    },
+    "m2_target_tcn_s0": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.5724921630094044,
+      "alarm_runs": 207
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.06326468443313393,
+      "false_alarms_per_year": 9.732366771159874,
+      "alarm_runs": 422
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 5.152429467084639,
+      "alarm_runs": 40
+     }
+    },
+    "m2_target_tcn_s1": {
+     "threshold": {
+      "EW_F0.5": 0.5,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 177
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.02807729642814747,
+      "false_alarms_per_year": 24.044670846394986,
+      "alarm_runs": 442
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 27
+     }
+    },
+    "m2_target_tcn_s2": {
+     "threshold": {
+      "EW_F0.5": 0.09999288091465534,
+      "false_alarms_per_year": 5.724921630094044,
+      "alarm_runs": 309
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.02134306500997353,
+      "false_alarms_per_year": 32.059561128526646,
+      "alarm_runs": 452
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 4.007445141065831,
+      "alarm_runs": 35
+     }
+    },
+    "m2_target_tcn_tc_s0": {
+     "threshold": {
+      "EW_F0.5": 0.015248562368285371,
+      "false_alarms_per_year": 45.22688087774295,
+      "alarm_runs": 365
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.07958638687733409,
+      "false_alarms_per_year": 7.442398119122257,
+      "alarm_runs": 427
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 8.014890282131661,
+      "alarm_runs": 45
+     }
+    },
+    "m2_target_tcn_tc_s1": {
+     "threshold": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 0.0,
+      "alarm_runs": 207
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.06668261002098405,
+      "false_alarms_per_year": 9.15987460815047,
+      "alarm_runs": 428
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 4.579937304075235,
+      "alarm_runs": 40
+     }
+    },
+    "m2_target_tcn_tc_s2": {
+     "threshold": {
+      "EW_F0.5": 0.015061906855660835,
+      "false_alarms_per_year": 45.79937304075235,
+      "alarm_runs": 296
+     },
+     "conformal_bh": {
+      "EW_F0.5": 0.057357668419316415,
+      "false_alarms_per_year": 10.877351097178684,
+      "alarm_runs": 376
+     },
+     "conformal_bh_rolling": {
+      "EW_F0.5": 0.0,
+      "false_alarms_per_year": 6.869905956112853,
+      "alarm_runs": 45
+     }
+    }
+   }
+  },
+  "F_vision_input_channels": {
+   "question": "does the COSMOS registration front end (registered differences) help a learned detector?",
+   "source": {
+    "artifact": "outputs/spotgeo_difficulty/results.json",
+    "sha256": "be22f65d2e0924b6176427ed8f963ba7033867f49568ae48c4d752c3823f5116",
+    "present": true
+   },
+   "f1": {
+    "raw_highpass_only": 0.7506954461158046,
+    "diff_registered_only": 0.6440304999744128,
+    "both_mean_3_seeds": 0.7460083066565798,
+    "both_sd_3_seeds": 0.005344048587528351
+   },
+   "verdict": "negative for the front end: raw >= both > diff; see X14 for drift/background strata",
+   "seeds_note": "raw and diff single-seed"
+  },
+  "G_coherence_and_abstention_logic": {
+   "question": "what changes if the twin used the coherent lifetime reading instead of abstaining on incoherent isotonic records?",
+   "source": {
+    "artifact": "outputs/reentry_variant_decomposition/results.json",
+    "sha256": "5d69c628596cd5f6ef5d839f67cb22aa6e3616a12d1d491895fbc72da17ab852",
+    "present": true
+   },
+   "t1_30d": {
+    "physics_history": {
+     "ratio_expected_over_observed": 1.5086206896551724,
+     "brier": 0.0012655467920521767
+    },
+    "physics_prior": {
+     "ratio_expected_over_observed": 4.068965517241379,
+     "brier": 0.0032441486235401185
+    },
+    "lifetime_isotonic": {
+     "ratio_expected_over_observed": 10.507603178558153,
+     "brier": 0.00870436735417998
+    },
+    "lifetime_coherent_raw": {
+     "ratio_expected_over_observed": 14.794239126130503,
+     "brier": 0.0026043234905304777
+    }
+   },
+   "reading": "the coherent reading removes the 123 incoherent records (0 violations) and has the better Brier on T1, but over-predicts the 30-day count more (14.8x vs 10.5x of observed); neither lifetime variant is count-calibrated; the deployed gate (physics_history for uncontrolled objects) is closest to observation at 1.5x \u2014 abstaining on the 123 records changes no reported p_30d because the reported forecast does not use the isotonic reading",
+   "exploratory": true
+  },
+  "H_not_evaluable_or_awaiting_approval": {
+   "evidence_validation_fusion_abstention_on_real_joined_evidence": "NOT EVALUABLE \u2014 no two modules share an identity (C4); `fusion.decide` is unit-validated only (tests/test_fusion_properties.py)",
+   "shared_state_ablation": "NOT APPLICABLE \u2014 ObjectTwin is a typed container with no behaviour to remove; its consistency is tested (tests/test_twin_state_consistency.py)",
+   "temporal_modelling_branches_telemetry_E6": "AWAITING APPROVAL (X10) \u2014 needs new training (hours); the regenerated OPS-SAT runs give per-model, not per-branch, results",
+   "esa_adb_input_perturbation_X13": "AWAITING APPROVAL \u2014 would re-expose the pre-registered test half",
+   "design_time_missingness_am_design_stage2_X6": "AWAITING APPROVAL"
+  }
+ }
+}

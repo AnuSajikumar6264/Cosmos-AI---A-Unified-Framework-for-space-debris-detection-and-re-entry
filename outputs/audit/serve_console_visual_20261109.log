@@ -1,0 +1,81 @@
+INFO:     Started server process [2543375]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8070 (Press CTRL+C to quit)
+{"ts": "2026-11-09T04:19:56.374+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "7662cafb4af3410b", "method": "GET", "path": "/api/ready", "status": 200, "duration_ms": 252.8}
+COSMOS-AI Mission Intelligence Console
+  repository : /data2/anupa/Final_Year_Project
+  console    : http://127.0.0.1:8070/
+  API docs   : http://127.0.0.1:8070/docs
+  modes      : historical (read) · scenario (new run) · prospective (blocked)
+INFO:     127.0.0.1:39654 - "GET /api/ready HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:56.712+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "b91eead3a1fa48a7", "method": "GET", "path": "/", "status": 200, "duration_ms": 318.6}
+INFO:     127.0.0.1:39658 - "GET / HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:56.746+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "737c85e300f94634", "method": "GET", "path": "/explorer", "status": 200, "duration_ms": 15.3}
+INFO:     127.0.0.1:39674 - "GET /explorer HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:56.772+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "b6a1813aaa724747", "method": "GET", "path": "/explorer", "status": 200, "duration_ms": 9.2}
+INFO:     127.0.0.1:39680 - "GET /explorer?select=25544 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:56.807+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "ff2994b54a4c4e8e", "method": "GET", "path": "/objects", "status": 200, "duration_ms": 24.6}
+INFO:     127.0.0.1:39690 - "GET /objects HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:56.996+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "1f00dd70c2694f26", "method": "GET", "path": "/objects/37607", "status": 200, "duration_ms": 177.3}
+INFO:     127.0.0.1:39692 - "GET /objects/37607 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:57.033+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "10b6e19fb5e14517", "method": "GET", "path": "/objects/23806", "status": 200, "duration_ms": 18.0}
+INFO:     127.0.0.1:39700 - "GET /objects/23806 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:57.067+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "069fe56cf86445f0", "method": "GET", "path": "/objects/25544", "status": 200, "duration_ms": 17.6}
+INFO:     127.0.0.1:39706 - "GET /objects/25544 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:57.098+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "6a94ed9687514e7f", "method": "GET", "path": "/objects/12", "status": 200, "duration_ms": 16.9}
+INFO:     127.0.0.1:39722 - "GET /objects/12 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:57.153+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "65529078a5be48b5", "method": "GET", "path": "/intelligence", "status": 200, "duration_ms": 42.7}
+INFO:     127.0.0.1:39734 - "GET /intelligence HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:57.196+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "e8980ebd3f994089", "method": "GET", "path": "/decisions", "status": 200, "duration_ms": 26.3}
+INFO:     127.0.0.1:39744 - "GET /decisions HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:58.710+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "8f624b29ca60442b", "method": "GET", "path": "/evidence", "status": 200, "duration_ms": 1496.8}
+INFO:     127.0.0.1:39760 - "GET /evidence HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:58.751+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "2a1ec3ef57a24f8f", "method": "GET", "path": "/twin-state", "status": 200, "duration_ms": 22.6}
+INFO:     127.0.0.1:39768 - "GET /twin-state HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:19:58.783+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "cc055dc2c43541f7", "method": "GET", "path": "/telemetry", "status": 200, "duration_ms": 14.8}
+INFO:     127.0.0.1:39784 - "GET /telemetry HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.001+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "b96a2c176d634d57", "method": "GET", "path": "/telemetry/1/channel_12", "status": 200, "duration_ms": 1202.6}
+INFO:     127.0.0.1:39790 - "GET /telemetry/1/channel_12 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.388+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "6028644cced543e8", "method": "GET", "path": "/debris", "status": 200, "duration_ms": 366.0}
+INFO:     127.0.0.1:47684 - "GET /debris HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.418+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "304b99ab35964d40", "method": "GET", "path": "/debris/1", "status": 200, "duration_ms": 11.0}
+INFO:     127.0.0.1:47688 - "GET /debris/1 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.447+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "9198b6de314d4e08", "method": "GET", "path": "/risk", "status": 200, "duration_ms": 12.3}
+INFO:     127.0.0.1:47694 - "GET /risk HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.470+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "ca555197a0bc470d", "method": "GET", "path": "/runs", "status": 200, "duration_ms": 12.8}
+INFO:     127.0.0.1:47702 - "GET /runs HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.489+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "3a545f56e69b46b1", "method": "GET", "path": "/scenario", "status": 200, "duration_ms": 10.4}
+INFO:     127.0.0.1:47706 - "GET /scenario HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.507+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "3c7791beb8f94d50", "method": "GET", "path": "/prospective", "status": 200, "duration_ms": 9.5}
+INFO:     127.0.0.1:47716 - "GET /prospective HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.602+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "8c67f5dc3fed4c71", "method": "GET", "path": "/demo", "status": 200, "duration_ms": 88.0}
+INFO:     127.0.0.1:47728 - "GET /demo HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.643+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "28ff9895c89a4062", "method": "GET", "path": "/api/globe/objects", "status": 200, "duration_ms": 23.4}
+INFO:     127.0.0.1:47738 - "GET /api/globe/objects?limit=20 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.695+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "2711b0d7ca7e4744", "method": "GET", "path": "/api/globe/objects", "status": 200, "duration_ms": 35.1}
+INFO:     127.0.0.1:47750 - "GET /api/globe/objects?limit=120&include=37607,23806,25544,12 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.715+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "4f15afd3b9324a8a", "method": "GET", "path": "/api/globe/object/37607", "status": 200, "duration_ms": 6.8}
+INFO:     127.0.0.1:47758 - "GET /api/globe/object/37607 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.726+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "41c244417517419d", "method": "GET", "path": "/static/js/cosmos-globe.js", "status": 200, "duration_ms": 4.0}
+INFO:     127.0.0.1:47760 - "GET /static/js/cosmos-globe.js HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.743+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "e1a76d6c26214777", "method": "GET", "path": "/static/js/cosmos-explorer.js", "status": 200, "duration_ms": 0.9}
+INFO:     127.0.0.1:47772 - "GET /static/js/cosmos-explorer.js HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.760+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "77179a56603a4828", "method": "GET", "path": "/static/earth-land-mask.png", "status": 200, "duration_ms": 1.2}
+INFO:     127.0.0.1:47778 - "GET /static/earth-land-mask.png HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.769+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "c2e11e198bba4960", "method": "GET", "path": "/static/console.css", "status": 200, "duration_ms": 0.8}
+INFO:     127.0.0.1:47792 - "GET /static/console.css HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.793+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "c5f817661b904480", "method": "GET", "path": "/api/ready", "status": 200, "duration_ms": 8.4}
+INFO:     127.0.0.1:47798 - "GET /api/ready HTTP/1.1" 200 OK
+{"ts": "2026-11-09T04:20:00.807+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "463b34f207694562", "method": "GET", "path": "/explorer", "status": 422, "duration_ms": 6.1}
+INFO:     127.0.0.1:47810 - "GET /explorer?select=0 HTTP/1.1" 422 Unprocessable Entity
+{"ts": "2026-11-09T04:20:00.824+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "9364a2b3791e448b", "method": "GET", "path": "/api/globe/objects", "status": 400, "duration_ms": 2.7}
+INFO:     127.0.0.1:47822 - "GET /api/globe/objects?regime=bogus HTTP/1.1" 400 Bad Request
+{"ts": "2026-11-09T04:20:00.848+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "414871140381468c", "method": "GET", "path": "/api/globe/object/99999999", "status": 404, "duration_ms": 8.4}
+INFO:     127.0.0.1:47838 - "GET /api/globe/object/99999999 HTTP/1.1" 404 Not Found
+{"ts": "2026-11-09T04:20:00.860+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "139227e915224439", "method": "GET", "path": "/nonexistent", "status": 404, "duration_ms": 3.8}
+INFO:     127.0.0.1:47852 - "GET /nonexistent HTTP/1.1" 404 Not Found
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2543375]

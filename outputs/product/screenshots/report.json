@@ -1,0 +1,730 @@
+{
+ "captured_at": "2026-11-09T05:37:35+00:00",
+ "base": "http://127.0.0.1:8070",
+ "viewport": [
+  1440,
+  900
+ ],
+ "screens": [
+  {
+   "route": "/",
+   "file": "01_mission_overview.png",
+   "expect": "globe stage, KPI strip, selected-object panel, timeline",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 62,
+     "orbitVertices": 7936,
+     "markers": 62,
+     "frames": 144,
+     "running": true,
+     "canvasPx": [
+      852,
+      481
+     ],
+     "cssPx": [
+      852,
+      481
+     ],
+     "camera": {
+      "azimuth": -0.8915999999999965,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 37607
+    },
+    "objects": 62,
+    "selected": 37607,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 325,
+    "litFraction": 1
+   },
+   "elements": {
+    "#globe-canvas": {
+     "w": 852,
+     "h": 481,
+     "visible": true
+    },
+    ".kpis": {
+     "w": 1157,
+     "h": 73,
+     "visible": true
+    },
+    "#twin-record": {
+     "w": 264,
+     "h": 1481,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 961,
+    "textCharacters": 3270,
+    "paragraphs": 11,
+    "canvases": 1,
+    "svgCharts": 3
+   },
+   "console_errors": [],
+   "console_warnings": [
+    {
+     "type": "warning",
+     "text": "[.WebGL-0xb2c001c2600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+     "type": "warning",
+     "text": "[.WebGL-0xb2c001c2600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+     "type": "warning",
+     "text": "[.WebGL-0xb2c001c2600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+     "type": "warning",
+     "text": "[.WebGL-0xb2c001c2600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    }
+   ],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/explorer",
+   "file": "02_earth_explorer.png",
+   "expect": "full-height globe, filters, object list, selected-object panel",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 122,
+     "orbitVertices": 15616,
+     "markers": 122,
+     "frames": 93,
+     "running": true,
+     "canvasPx": [
+      851,
+      662
+     ],
+     "cssPx": [
+      851,
+      662
+     ],
+     "camera": {
+      "azimuth": -0.947699999999996,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 37607
+    },
+    "objects": 122,
+    "selected": 37607,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 329,
+    "litFraction": 1
+   },
+   "elements": {
+    "#globe-canvas": {
+     "w": 851,
+     "h": 662,
+     "visible": true
+    },
+    "#globe-list": {
+     "w": 284,
+     "h": 270,
+     "visible": true
+    },
+    "#twin-record": {
+     "w": 258,
+     "h": 1481,
+     "visible": true
+    },
+    ".stage": {
+     "w": 853,
+     "h": 664,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 2743,
+    "textCharacters": 8460,
+    "paragraphs": 6,
+    "canvases": 1,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/objects/37607",
+   "file": "03_twin_37607.png",
+   "expect": "digital twin: orbit view, lifetime and re-entry charts",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 1,
+     "orbitVertices": 384,
+     "markers": 1,
+     "frames": 180,
+     "running": true,
+     "canvasPx": [
+      563,
+      450
+     ],
+     "cssPx": [
+      563,
+      450
+     ],
+     "camera": {
+      "azimuth": -0.8519999999999969,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 37607
+    },
+    "objects": 1,
+    "selected": 37607,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 85,
+    "litFraction": 1
+   },
+   "elements": {
+    "#globe-canvas": {
+     "w": 563,
+     "h": 450,
+     "visible": true
+    },
+    "svg.chart": {
+     "w": 517,
+     "h": 112,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 5960,
+    "textCharacters": 14241,
+    "paragraphs": 18,
+    "canvases": 1,
+    "svgCharts": 8
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/objects/23806",
+   "file": "04_twin_23806.png",
+   "expect": "digital twin with a lifetime abstention (L17)",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 1,
+     "orbitVertices": 384,
+     "markers": 1,
+     "frames": 189,
+     "running": true,
+     "canvasPx": [
+      563,
+      450
+     ],
+     "cssPx": [
+      563,
+      450
+     ],
+     "camera": {
+      "azimuth": -0.842099999999997,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 23806
+    },
+    "objects": 1,
+    "selected": 23806,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 106,
+    "litFraction": 1
+   },
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 5883,
+    "textCharacters": 14578,
+    "paragraphs": 18,
+    "canvases": 1,
+    "svgCharts": 8
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/objects/25544",
+   "file": "05_twin_25544.png",
+   "expect": "operator-controlled object: re-entry abstention",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 1,
+     "orbitVertices": 384,
+     "markers": 1,
+     "frames": 176,
+     "running": true,
+     "canvasPx": [
+      563,
+      450
+     ],
+     "cssPx": [
+      563,
+      450
+     ],
+     "camera": {
+      "azimuth": -0.8563999999999968,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 25544
+    },
+    "objects": 1,
+    "selected": 25544,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 105,
+    "litFraction": 1
+   },
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 5108,
+    "textCharacters": 11476,
+    "paragraphs": 17,
+    "canvases": 1,
+    "svgCharts": 6
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/objects/12",
+   "file": "06_twin_12.png",
+   "expect": "object at the prediction cap",
+   "status": 200,
+   "globe": {
+    "webgl": true,
+    "info": {
+     "renderer": "webgl",
+     "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+     "vendor": "WebKit",
+     "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+     "textureLoaded": true,
+     "objects": 1,
+     "orbitVertices": 384,
+     "markers": 1,
+     "frames": 178,
+     "running": true,
+     "canvasPx": [
+      563,
+      450
+     ],
+     "cssPx": [
+      563,
+      450
+     ],
+     "camera": {
+      "azimuth": -0.8541999999999969,
+      "elevation": 0.42,
+      "distance": 3.4
+     },
+     "autoRotate": true,
+     "selected": 12
+    },
+    "objects": 1,
+    "selected": 12,
+    "fallbackVisible": false
+   },
+   "canvas_pixels": {
+    "webgl": true,
+    "sampled": 102400,
+    "distinctColours": 112,
+    "litFraction": 1
+   },
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 5922,
+    "textCharacters": 14208,
+    "paragraphs": 18,
+    "canvases": 1,
+    "svgCharts": 8
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/intelligence",
+   "file": "07_orbital_intelligence.png",
+   "expect": "distribution charts and the priority queue",
+   "status": 200,
+   "elements": {
+    ".meter": null,
+    "table.data": {
+     "w": 1120,
+     "h": 891,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 2099,
+    "textCharacters": 7371,
+    "paragraphs": 5,
+    "canvases": 0,
+    "svgCharts": 4
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/telemetry",
+   "file": "08_health_monitoring.png",
+   "expect": "mission cards and the alarm-layer benchmark",
+   "status": 200,
+   "elements": {
+    ".kpis": {
+     "w": 1157,
+     "h": 111,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 1636,
+    "textCharacters": 4764,
+    "paragraphs": 9,
+    "canvases": 0,
+    "svgCharts": 2
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/telemetry/1/channel_12",
+   "file": "09_telemetry_channel.png",
+   "expect": "real telemetry series with ground-truth intervals",
+   "status": 200,
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 1591,
+    "textCharacters": 6896,
+    "paragraphs": 1,
+    "canvases": 0,
+    "svgCharts": 1
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/risk",
+   "file": "10_conjunction_analysis.png",
+   "expect": "risk distribution strip and event table",
+   "status": 200,
+   "elements": {
+    "svg.chart": {
+     "w": 1120,
+     "h": 179,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 1419,
+    "textCharacters": 2888,
+    "paragraphs": 9,
+    "canvases": 0,
+    "svgCharts": 1
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/debris",
+   "file": "11_debris_monitoring.png",
+   "expect": "SpotGEO sequences and benchmark arms",
+   "status": 200,
+   "elements": {
+    ".kpis": {
+     "w": 1157,
+     "h": 96,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 2276,
+    "textCharacters": 3731,
+    "paragraphs": 6,
+    "canvases": 0,
+    "svgCharts": 3
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/debris/1",
+   "file": "12_debris_detections.png",
+   "expect": "real frame with detection overlay",
+   "status": 200,
+   "elements": {
+    "svg.overlay": {
+     "w": 1120,
+     "h": 840,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 1754,
+    "textCharacters": 2064,
+    "paragraphs": 5,
+    "canvases": 0,
+    "svgCharts": 1
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/decisions",
+   "file": "13_decision_intelligence.png",
+   "expect": "ordering rule, queue, precision-at-k evidence",
+   "status": 200,
+   "elements": {
+    "table.data": {
+     "w": 1120,
+     "h": 891,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 2952,
+    "textCharacters": 6406,
+    "paragraphs": 5,
+    "canvases": 0,
+    "svgCharts": 2
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/evidence",
+   "file": "14_evidence_validation.png",
+   "expect": "digests, lineage, twin integrity",
+   "status": 200,
+   "elements": {
+    "table.kv": {
+     "w": 532,
+     "h": 213,
+     "visible": true
+    }
+   },
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 2400,
+    "textCharacters": 6364,
+    "paragraphs": 5,
+    "canvases": 0,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/twin-state",
+   "file": "15_twin_state.png",
+   "expect": "source policies and equivalence",
+   "status": 200,
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 1676,
+    "textCharacters": 4032,
+    "paragraphs": 3,
+    "canvases": 0,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/demo",
+   "file": "16_guided_demo.png",
+   "expect": "capability map and stages",
+   "status": 200,
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 3538,
+    "textCharacters": 11170,
+    "paragraphs": 15,
+    "canvases": 0,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/runs",
+   "file": "17_run_explorer.png",
+   "expect": "run history",
+   "status": 200,
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 4201,
+    "textCharacters": 14098,
+    "paragraphs": 1,
+    "canvases": 0,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  },
+  {
+   "route": "/scenario",
+   "file": "18_scenario.png",
+   "expect": "scenario form",
+   "status": 200,
+   "elements": {},
+   "layout": {
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "horizontalOverflow": false,
+    "pageHeight": 951,
+    "textCharacters": 2349,
+    "paragraphs": 3,
+    "canvases": 0,
+    "svgCharts": 0
+   },
+   "console_errors": [],
+   "console_warnings": [],
+   "page_errors": [],
+   "failed_requests": []
+  }
+ ]
+}

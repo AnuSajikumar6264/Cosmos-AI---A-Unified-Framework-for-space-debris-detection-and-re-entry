@@ -1,0 +1,26 @@
+Phase 8 — technical acceptance gate
+
+  ok   [integrity] ESA-ADB pre-registration freeze: 28/28 frozen files hash-identical (freeze_id 681cc7ddec86)
+  ok   [integrity] original confirmatory freeze: freeze 09a98f5e160e (CONFIRMATORY.json): 27/28 files identical; differing: ['research_design/preregistration/PREREG_TELEMETRY_V1.md'] (expected only the pre-registration document, whose section 9 was filled in afterwards — DEVIATIONS.md 2026-10-24 22:00)
+  ok   [integrity] G5d pre-registration: research_design/G5D_PREREGISTRATION.md hash matches
+  ok   [integrity] figure release manifest: 107/107 files (figures, source data, scripts, documents, upstream artifacts) unchanged
+  ok   [integrity] OPS-SAT historical archive: 10/10 archived files unchanged
+  ok   [integrity] dated twin state and forecast: twins.jsonl = recorded digest; forecast_table = run-manifest digest
+  ok   [git      ] HEAD unchanged, nothing committed: HEAD 78ee33962007 (directive start 78ee33962007)
+  ok   [git      ] nothing staged: 0 staged paths
+  info [git      ] working tree: 17 modified tracked files, 1605 untracked paths — all uncommitted by instruction
+  ok   [writing  ] JINT manuscript untouched: paper/jint/COSMOS_AI_JINT_MANUSCRIPT.md = release-manifest hash
+  ok   [writing  ] no manuscript/thesis file modified since the directive day: 0 files modified on/after 2026-11-06
+  ok   [tests    ] full suite: 341 passed, 3 skipped in 55.72s
+  ok   [tracker  ] Phase 0-7 rows with a non-terminal status: 0 of 93 rows still IN PROGRESS / NOT STARTED / VALIDATION PENDING
+  lim  [tracker  ] rows limited by data, approval or external dependency: 14 rows
+  lim  [approval ] X3: ESA-ADB 3b Stage 1 — 2x2 re-selection (F4 x F5), new output dir — cost minutes CPU — NOT RUN, awaiting explicit approval
+  lim  [approval ] X4: ESA-ADB 3b Stage 2 — 12 AR(8) OOF fits — cost 3-4 h — NOT RUN, awaiting explicit approval
+  lim  [approval ] X6: lifetime am_design Stage 2 missingness ablation (design-time) — cost per protocol doc — NOT RUN, awaiting explicit approval
+  lim  [approval ] X10: OPS-SAT E6 branch ablation (decides K8) — cost hours of training, 5 seeds x branches — NOT RUN, awaiting explicit approval
+  lim  [approval ] X13: ESA-ADB input-perturbation robustness — re-exposes the pre-registered test half — cost minutes-hour CPU — NOT RUN, awaiting explicit approval
+  lim  [approval ] twin-state: regenerate twins.jsonl with the current engine into a NEW directory (provenance + forecast reproduction check) — cost ~1,250 s — NOT RUN, awaiting explicit approval
+  info [audit    ] latest Phase N system audit: PARTIAL: 27 PASS, 1 FAIL (learner training-reproducibility)
+
+=== verdict: PASS WITH LIMITATIONS ===  (0 hard failures; 14 limitation rows; 6 approval items)
+written outputs/audit/phase8_acceptance_gate.json, docs/research/PHASE8_TECHNICAL_ACCEPTANCE_GATE.md

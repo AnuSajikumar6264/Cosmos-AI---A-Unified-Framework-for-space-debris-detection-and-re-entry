@@ -1,0 +1,132 @@
+{
+ "verified_at": "2026-11-09T05:40:39+00:00",
+ "base": "http://127.0.0.1:8070",
+ "viewport": [
+  1440,
+  900
+ ],
+ "checks": [
+  {
+   "check": "WebGL context created",
+   "passed": true,
+   "detail": "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
+  },
+  {
+   "check": "renderer is drawing frames",
+   "passed": true,
+   "detail": "83 frames, hardware ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  {
+   "check": "Earth texture loaded",
+   "passed": true,
+   "detail": "textureLoaded=True"
+  },
+  {
+   "check": "orbits and markers uploaded",
+   "passed": true,
+   "detail": "15616 orbit vertices, 122 markers"
+  },
+  {
+   "check": "canvas is large",
+   "passed": true,
+   "detail": "851x662 css px"
+  },
+  {
+   "check": "fallback notice hidden while WebGL works",
+   "passed": true,
+   "detail": "fallbackVisible=False"
+  },
+  {
+   "check": "mouse drag rotates the camera",
+   "passed": true,
+   "detail": "azimuth -0.958 -> -2.084, elevation 0.420 -> 0.720"
+  },
+  {
+   "check": "wheel zooms the camera",
+   "passed": true,
+   "detail": "distance 3.400 -> 1.655"
+  },
+  {
+   "check": "reset camera restores the home view",
+   "passed": true,
+   "detail": "distance back to 3.400"
+  },
+  {
+   "check": "camera orbit can be paused",
+   "passed": true,
+   "detail": "autoRotate=False"
+  },
+  {
+   "check": "clicking the list selects an object and loads its record",
+   "passed": true,
+   "detail": "selected 25544, panel starts 'ISS (ZARYA)'"
+  },
+  {
+   "check": "clicking a marker on the globe selects that object",
+   "passed": true,
+   "detail": "clicked marker 23806 -> selected 23806"
+  },
+  {
+   "check": "demonstration object 37607 selects and shows archived fields",
+   "passed": true,
+   "detail": "panel mentions 37607: True, 'not available' shown 1 time(s) for fields the archive lacks"
+  },
+  {
+   "check": "demonstration object 23806 selects and shows archived fields",
+   "passed": true,
+   "detail": "panel mentions 23806: True, 'not available' shown 1 time(s) for fields the archive lacks"
+  },
+  {
+   "check": "demonstration object 25544 selects and shows archived fields",
+   "passed": true,
+   "detail": "panel mentions 25544: True, 'not available' shown 5 time(s) for fields the archive lacks"
+  },
+  {
+   "check": "demonstration object 12 selects and shows archived fields",
+   "passed": true,
+   "detail": "panel mentions 12: True, 'not available' shown 1 time(s) for fields the archive lacks"
+  },
+  {
+   "check": "dashboard globe draws",
+   "passed": true,
+   "detail": "117 frames, 62 objects"
+  },
+  {
+   "check": "dashboard globeis 45-55 % of the dashboard area",
+   "passed": true,
+   "detail": "852x481 = 50% of the dashboard area"
+  },
+  {
+   "check": "dashboard carries charts",
+   "passed": true,
+   "detail": "3 SVG charts"
+  },
+  {
+   "check": "dashboard is not a wall of text",
+   "passed": true,
+   "detail": "3270 characters"
+  },
+  {
+   "check": "no horizontal scrolling at 1440x900",
+   "passed": true,
+   "detail": "overflow=False"
+  },
+  {
+   "check": "dashboard selection updates the right panel",
+   "passed": true,
+   "detail": "TITAN 34B DEB"
+  },
+  {
+   "check": "every sidebar link navigates",
+   "passed": true,
+   "detail": "broken: none"
+  },
+  {
+   "check": "no uncaught JavaScript errors during the whole session",
+   "passed": true,
+   "detail": "0 error(s): none"
+  }
+ ],
+ "passed": 24,
+ "failed": 0
+}

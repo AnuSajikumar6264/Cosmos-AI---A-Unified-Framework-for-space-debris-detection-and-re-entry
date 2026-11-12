@@ -1,0 +1,188 @@
+{
+ "record": "fresh_clone_lfs_verification",
+ "label": "post_commit_a",
+ "evaluated_at": "2026-11-08T15:31:48+00:00",
+ "purpose": "Release decision 2 condition: confirm that a fresh clone can read the 78 MB re-emitted twin state after Git LFS retrieval, and that the console reads it from the clone root.",
+ "source_repository": {
+  "path": "/data2/anupa/Final_Year_Project",
+  "head": "aeefac2bd93244f98f7acb20fb88427bbbe34da8",
+  "head_parent": "938d514a9f91988e37b63d25475899632eb370d0",
+  "head_subject": "Complete the Mission Intelligence Console demonstration: readiness panel, policies, errors, run comparison, guided demo"
+ },
+ "clone": {
+  "path": "/tmp/cosmos_clone_verify",
+  "command": "GIT_LFS_SKIP_SMUDGE=1 git clone --branch product/mission-intelligence-console /data2/anupa/Final_Year_Project /tmp/cosmos_clone_verify",
+  "head": "aeefac2bd93244f98f7acb20fb88427bbbe34da8",
+  "parent": "938d514a9f91988e37b63d25475899632eb370d0",
+  "working_tree_clean_after_checkout": true
+ },
+ "tooling": {
+  "git": "2.48.1",
+  "git_lfs": "3.6.1 (/home/anupa/.local/bin/git-lfs)",
+  "lfs_endpoint": "file:///data2/anupa/Final_Year_Project/.git",
+  "transfer_agent": "lfs-standalone-file"
+ },
+ "environment_finding": {
+  "symptom": "first checkout of the clone aborted with 'fatal: the remote end hung up unexpectedly'; 4,861 tracked files were left unchecked-out",
+  "cause": "the global ~/.gitconfig points filter.lfs.{clean,smudge,process} at /data/anupa/COSMOS_work/.tools/bin/git-lfs, which no longer exists; the source repository is unaffected only because its .git/config overrides the filter with /home/anupa/.local/bin/git-lfs",
+  "remedy_applied_in_clone_only": "git lfs install --local (repoints the filter to git-lfs on PATH), then git checkout -f HEAD -- .",
+  "global_gitconfig_changed": false,
+  "documentation_status": "docs/product/CONSOLE_LAUNCH.md \u00a70 and README.md \u00a7Working with the LFS content already require `git lfs install` before cloning"
+ },
+ "lfs_retrieval": {
+  "command": "git lfs pull",
+  "wall_seconds": 6.2,
+  "files_tracked": 831,
+  "files_present_after_pull": 831,
+  "files_missing": 0,
+  "unique_objects_in_clone_store": 826,
+  "git_lfs_fsck": "Git LFS fsck OK"
+ },
+ "twin_state_artifacts": {
+  "reemitted_twins_jsonl": {
+   "path": "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl",
+   "storage": "Git LFS (pattern outputs/twin/*_reemitted_*/twins.jsonl)",
+   "pointer_oid": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+   "size_bytes": 78616187,
+   "lines": 31396,
+   "sha256_clone": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+   "sha256_recorded_TWINS_SHA256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+   "sha256_source_working_tree": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+   "match": true
+  },
+  "archived_twins_jsonl": {
+   "path": "outputs/twin/as_of_2026-10-27/twins.jsonl",
+   "storage": "ordinary Git object",
+   "sha256_clone": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+   "sha256_recorded_FORECAST_SHA256": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+   "sha256_source": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+   "match": true
+  },
+  "forecast_table": {
+   "path": "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz",
+   "storage": "Git LFS",
+   "pointer_oid": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+   "sha256_clone": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+   "sha256_source": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+   "match": true,
+   "note": "FORECAST_SHA256.txt records the digest of the archived twins.jsonl, not of this gzip; the gzip is verified against the source and its LFS pointer"
+  }
+ },
+ "console_read_from_clone_root": {
+  "code_imported_from": "/tmp/cosmos_clone_verify/cosmos",
+  "ArtifactStore_root": "/tmp/cosmos_clone_verify",
+  "api_ROOT": "/tmp/cosmos_clone_verify",
+  "twin_selection": {
+   "default(prefer_reemitted)": {
+    "selected": "reemitted",
+    "status": "primary",
+    "fallback_used": false,
+    "digest_state": "verified",
+    "schema": "twin_state/1.1",
+    "provenance_complete": true
+   },
+   "reemitted_only": {
+    "selected": "reemitted",
+    "status": "primary",
+    "fallback_used": false,
+    "digest_state": "verified"
+   },
+   "archived_only": {
+    "selected": "archived",
+    "status": "explicit_archived",
+    "fallback_used": false,
+    "digest_state": "verified",
+    "schema": "twin_state/1.0"
+   }
+  },
+  "validate_archive": {
+   "records_total": 31396,
+   "records_valid": 31396,
+   "records_malformed_json": 0,
+   "records_schema_invalid": 0,
+   "records_with_value_problems": 0,
+   "duplicate_identities": 0,
+   "schema_versions": {
+    "twin_state/1.1": 31396
+   },
+   "status": "ok",
+   "seconds": 0.5
+  },
+  "http": {
+   "GET /api/twin-state": {
+    "status": 200,
+    "selected": "reemitted",
+    "digest_state": "verified",
+    "record_count": 31396,
+    "record_count_state": "matches"
+   },
+   "GET /api/ready": {
+    "status": 200,
+    "ready": true,
+    "complete_run_present": false,
+    "twin_state_reemitted_present": true,
+    "dated_forecast_digest_state": "verified",
+    "warning": "no complete pipeline run is present: object priorities and run views are unavailable until one is produced"
+   },
+   "GET /twin-state": {
+    "status": 200,
+    "html_chars": 7653
+   }
+  }
+ },
+ "documented_fresh_clone_checks_in_clone": {
+  "scripts/twin_state_integrity.py": {
+   "integrity": "ok",
+   "selected": "reemitted",
+   "selection_status": "primary",
+   "overall": "primary_with_findings",
+   "equivalence": "unavailable",
+   "explanation": "equivalence needs a pipeline run's chain tables; outputs/pipeline/ run directories are deliberately not committed (owner decision), so a fresh clone has none until scripts/run_pipeline.py is executed"
+  },
+  "scripts/verify_protected_artifacts.py --label clone": {
+   "all_protected_ok": false,
+   "twin": {
+    "twins_ok": true,
+    "forecast_table_ok": true
+   },
+   "opssat_archive_bad": [],
+   "esa_adb_freeze_bad": [],
+   "g5d_prereg_ok": true,
+   "figure_release_manifest_bad": [
+    "tests/test_figures.py"
+   ],
+   "head_ok": false,
+   "explanation": "(1) the clone at Commit A still carries the 2026-11-06 frozen manifest, which hashes the pre-Phase-B tests/test_figures.py; the re-issued manifest is scheduled for Commit B. (2) head_ok compares HEAD against the exact set {78ee339, 938d514}; see open_issue"
+  }
+ },
+ "source_repository_checks_at_head_aeefac2": {
+  "scripts/verify_protected_artifacts.py --label post_commit_a": {
+   "all_protected_ok": false,
+   "content_checks": "all pass (figure_release_manifest n=107 bad=[] with the re-issued manifest in the working tree; twin ok; opssat ok; esa_adb ok; g5d ok)",
+   "head_ok": false
+  },
+  "tests/test_figures.py::test_manifest_git_state_is_consistent_with_git": {
+   "result": "FAILED",
+   "assertion": "HEAD aeefac2bd932 is neither the manifest's commit nor an approved checkpoint",
+   "other_38_figure_tests": "passed"
+  },
+  "scripts/twin_state_integrity.py": {
+   "overall": "primary_verified",
+   "integrity": "ok",
+   "equivalence": {
+    "status": "computed",
+    "records_compared": 31396,
+    "records_equal": 31396,
+    "equivalent": true
+   }
+  }
+ },
+ "open_issue": {
+  "id": "approved-head-set-exact-match",
+  "statement": "APPROVED_HEADS in scripts/verify_protected_artifacts.py (used by the verifier's head_ok and by tests/test_figures.py) accepts only the exact commits 78ee339 and 938d514. Every new commit on the branch, including each of the four planned release commits, therefore fails head_ok and the figure test until its hash is added in a later commit; the final commit can never contain its own hash.",
+  "impact": "no artifact drift: all content hashes verify; the failure is the HEAD-membership predicate only",
+  "recommended_fix": "accept HEAD when it is an approved head OR a descendant of one (git merge-base --is-ancestor), in both the verifier and the test; this matches the test's existing 'committed in a descendant' invariant and keeps the protection against unrelated branches",
+  "decision": "owner's: the fix changes two tracked files already in Commit A and would have to go into Commit B or a dedicated commit"
+ },
+ "conclusion": "Fresh-clone LFS retrieval and twin-state integrity verification PASSED. The re-emitted twin state is byte-identical in clone, source and recorded digest, and the console reads it from the clone root as the primary verified source."
+}

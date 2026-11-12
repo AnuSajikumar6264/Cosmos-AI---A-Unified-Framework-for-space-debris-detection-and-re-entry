@@ -1,0 +1,87 @@
+{
+ "as_of": "2026-10-27",
+ "version": "v1",
+ "generated_at": "2026-11-06T05:18:59+00:00",
+ "source": "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz",
+ "source_sha256": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+ "source_modified": false,
+ "n_objects_in_snapshot": 31396,
+ "n_objects_with_lifetime_reading": 13238,
+ "monotonicity_by_column_set": {
+  "isotonic_p_lifetime": {
+   "violations": 123,
+   "n_objects": 13238,
+   "max_drop": 0.1796610169491526
+  },
+  "coherent_p_lifetime_raw": {
+   "violations": 0,
+   "n_objects": 13238,
+   "max_drop": -0.00669626719016099
+  },
+  "final_p": {
+   "violations": 0,
+   "n_objects": 31396,
+   "max_drop": 0.0
+  },
+  "physics_prior": {
+   "violations": 0,
+   "n_objects": 31396,
+   "max_drop": 0.0
+  },
+  "physics_history": {
+   "violations": 0,
+   "n_objects": 13238,
+   "max_drop": 0.0
+  }
+ },
+ "incoherent_isotonic_records": 123,
+ "incoherent_split": {
+  "30d_gt_90d": 47,
+  "90d_gt_1yr": 76
+ },
+ "incoherent_by_class": {
+  "D": 114,
+  "C": 9
+ },
+ "incoherent_by_am_source": {
+  "class_prior_sbm": 122,
+  "design": 1
+ },
+ "am_source_share_scored": {
+  "class_prior_sbm": 0.8565,
+  "design": 0.1411,
+  "class_prior_design": 0.0023
+ },
+ "am_source_share_incoherent": {
+  "class_prior_sbm": 0.9919,
+  "design": 0.0081
+ },
+ "coherent_vs_isotonic_disagreement": {
+  "30d": {
+   "mean_abs_diff_flagged": 0.27472390253439694,
+   "mean_abs_diff_all_scored": 0.032167842206446
+  },
+  "90d": {
+   "mean_abs_diff_flagged": 0.29283064621181193,
+   "mean_abs_diff_all_scored": 0.042160061790312425
+  },
+  "1yr": {
+   "mean_abs_diff_flagged": 0.07809487970284121,
+   "mean_abs_diff_all_scored": 0.05853923239264518
+  }
+ },
+ "what_the_coherent_reading_is": "p_lifetime_raw_* from the same lifetime model, read off its monotone quantile function; coherent across horizons by construction; NOT a recalibration",
+ "evidence_for_preferring_it": {
+  "artifact": "outputs/phase_g_multihorizon/multihorizon_results.json",
+  "population": "T1 window, as-of 2026-08-16, 13,186 objects, 1,814 launches",
+  "result": "isotonic 54 violations vs coherent 0; Brier better at both horizons, p < 0.0001 (cluster bootstrap by launch, 4000 draws)",
+  "status": "EXPLORATORY: T1 is not a blind window (29 and 64 events); the population differs from this snapshot, which has no outcomes yet"
+ },
+ "count_calibration_caveat": {
+  "finding": "coherence is not calibration. Summed over the 13,238 uncontrolled objects the coherent reading expects MORE 30-day re-entries than the isotonic one (404.0 vs 229.1 on this snapshot; physics_history 21.6), and on the T1 window it over-predicts observed events by 14.8x [10.2, 23.6] against 10.5x for the isotonic reading and 1.5x for physics_history \u2014 while having the better Brier score (0.0026 vs 0.0087)",
+  "source": "outputs/reentry_variant_decomposition/results.json (X7, 2026-11-06)",
+  "consequence": "prefer the coherent reading for per-object ordering and horizon consistency; do not read either lifetime variant as a calibrated expected count. The twin's reported forecast uses physics_history for uncontrolled objects, which is the variant closest to observation"
+ },
+ "scope_note": "L17 concerns the lifetime-variant columns only. The twin's reported forecast p_30d/p_90d/p_1yr is a gated mixture and has 0 violations; the top-50 ranking uses p_30d and is unaffected.",
+ "published_artifact_policy": "preserved unchanged per L17_METHODOLOGY_DECISION.md; this directory is a derived, versioned reading beside it"
+}

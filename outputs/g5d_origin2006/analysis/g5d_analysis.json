@@ -1,0 +1,233 @@
+{
+  "experiment": "G5d analysis",
+  "analysed_at": "2026-11-04T10:50:03.391475+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "preregistration_sha256": "9ea4bf4171cad1b8a07522c28ccc68185644e990763ee7442fa455556e8cc43a",
+  "confirmatory": true,
+  "confirmatory_basis": "origin 2006's test fold had never been constructed or scored before the G5d refit",
+  "n_boot": 4000,
+  "seed": 20261027,
+  "outcome": "INCONCLUSIVE",
+  "per_origin": {
+    "2011": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/test_predictions.npz",
+      "artifact_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+      "n_objects_scored": 2667,
+      "n_launch_families": 435,
+      "test_at_cap_fraction": 0.7439070116235471,
+      "arms": [
+        {
+          "arm": "physics_only",
+          "status": "ok",
+          "test_pinball": 0.05267631417331738,
+          "tuneA_pinball": NaN,
+          "implied_cap_mass": 0.7487814023247095,
+          "rank": 1,
+          "cap_mass_error": 0.004874390701162357
+        },
+        {
+          "arm": "xgboost",
+          "status": "ok",
+          "test_pinball": 0.06484232951162519,
+          "tuneA_pinball": 0.06714729073866008,
+          "implied_cap_mass": 0.06411698537682789,
+          "rank": 2,
+          "cap_mass_error": -0.6797900262467192
+        },
+        {
+          "arm": "mlp",
+          "status": "ok",
+          "test_pinball": 0.11466122952512538,
+          "tuneA_pinball": 0.05747355040439768,
+          "implied_cap_mass": 0.005249343832020997,
+          "rank": 4,
+          "cap_mass_error": -0.7386576677915261
+        },
+        {
+          "arm": "tabm",
+          "status": "ok",
+          "test_pinball": 0.09943669602207812,
+          "tuneA_pinball": 0.05608990082287044,
+          "implied_cap_mass": 0.0,
+          "rank": 3,
+          "cap_mass_error": -0.7439070116235471
+        }
+      ],
+      "ranks": {
+        "physics_only": 1,
+        "xgboost": 2,
+        "mlp": 4,
+        "tabm": 3
+      },
+      "best_arm": "physics_only"
+    },
+    "2016": {
+      "artifact": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/test_predictions.npz",
+      "artifact_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+      "n_objects_scored": 2978,
+      "n_launch_families": 621,
+      "test_at_cap_fraction": 0.5580926796507724,
+      "arms": [
+        {
+          "arm": "physics_only",
+          "status": "ok",
+          "test_pinball": 0.08924911570800471,
+          "tuneA_pinball": NaN,
+          "implied_cap_mass": 0.7548690396239086,
+          "rank": 4,
+          "cap_mass_error": 0.19677635997313625
+        },
+        {
+          "arm": "xgboost",
+          "status": "ok",
+          "test_pinball": 0.05758207135968795,
+          "tuneA_pinball": 0.03527627376846493,
+          "implied_cap_mass": 0.06682337139019476,
+          "rank": 1,
+          "cap_mass_error": -0.4912693082605776
+        },
+        {
+          "arm": "mlp",
+          "status": "ok",
+          "test_pinball": 0.05777586392896602,
+          "tuneA_pinball": 0.02868610231499341,
+          "implied_cap_mass": 0.23438549361987912,
+          "rank": 2,
+          "cap_mass_error": -0.3237071860308932
+        },
+        {
+          "arm": "tabm",
+          "status": "ok",
+          "test_pinball": 0.05929212409282305,
+          "tuneA_pinball": 0.028291817495200353,
+          "implied_cap_mass": 0.31867024848891873,
+          "rank": 3,
+          "cap_mass_error": -0.23942243116185363
+        }
+      ],
+      "ranks": {
+        "physics_only": 4,
+        "xgboost": 1,
+        "mlp": 2,
+        "tabm": 3
+      },
+      "best_arm": "xgboost"
+    },
+    "2006": {
+      "artifact": "outputs/g5d_origin2006/lifetime/test_predictions.npz",
+      "artifact_sha256": "2cb1cb31e2608184458952ccadda8cc30fa0fbb222d65439b85d7688fd5a04cf",
+      "n_objects_scored": 7277,
+      "n_launch_families": 440,
+      "test_at_cap_fraction": 0.6655215061151574,
+      "arms": [
+        {
+          "arm": "physics_only",
+          "status": "ok",
+          "test_pinball": 0.05682407377081898,
+          "tuneA_pinball": NaN,
+          "implied_cap_mass": 0.7860382025559983,
+          "rank": 1,
+          "cap_mass_error": 0.12051669644084095
+        },
+        {
+          "arm": "xgboost",
+          "status": "ok",
+          "test_pinball": 0.08303350461722324,
+          "tuneA_pinball": 0.07574223533924779,
+          "implied_cap_mass": 0.007283221107599286,
+          "rank": 2,
+          "cap_mass_error": -0.6582382850075581
+        },
+        {
+          "arm": "mlp",
+          "status": "ok",
+          "test_pinball": 0.10391744007858389,
+          "tuneA_pinball": 0.059290637154156355,
+          "implied_cap_mass": 0.0010993541294489488,
+          "rank": 3,
+          "cap_mass_error": -0.6644221519857084
+        }
+      ],
+      "ranks": {
+        "physics_only": 1,
+        "xgboost": 2,
+        "mlp": 3
+      },
+      "best_arm": "physics_only"
+    }
+  },
+  "H1": {
+    "hypothesis": "selection on tune-A carries no rank information about forward test",
+    "n_learners": 2,
+    "verdict": "NOT_EVALUABLE",
+    "power_note": "fewer than 3 learners with a tune-A score"
+  },
+  "H2": {
+    "hypothesis": "model ranking is unstable across temporal origins",
+    "origins": [
+      "2011",
+      "2016",
+      "2006"
+    ],
+    "rank_table": {
+      "2011": {
+        "physics_only": 1,
+        "xgboost": 2,
+        "mlp": 4,
+        "tabm": 3
+      },
+      "2016": {
+        "physics_only": 4,
+        "xgboost": 1,
+        "mlp": 2,
+        "tabm": 3
+      },
+      "2006": {
+        "physics_only": 1.0,
+        "xgboost": 2.0,
+        "mlp": 3.0,
+        "tabm": NaN
+      }
+    },
+    "arms_present_at_every_origin": [
+      "physics_only",
+      "xgboost",
+      "mlp"
+    ],
+    "arms_excluded_incomplete": [
+      "tabm"
+    ],
+    "arms_with_identical_rank_everywhere": [],
+    "physics_only_rank_range": 3,
+    "best_arm_by_origin": {
+      "2011": "physics_only",
+      "2016": "xgboost",
+      "2006": "physics_only"
+    },
+    "supports_h2": true,
+    "verdict": "SUPPORTED"
+  },
+  "H3": {
+    "hypothesis": "point-mass composition shift predicts test loss",
+    "prediction": "positive and >= +0.5 at origin 2006 (shift +0.267, same sign as 2011)",
+    "spearman_abs_cap_mass_error_vs_test_pinball": 1.0,
+    "n_arms": 3,
+    "min_arms_for_confirmation": 5,
+    "underpowered": true,
+    "confirms_h3": false,
+    "falsifies_h3": false,
+    "verdict": "UNDERPOWERED",
+    "power_note": "3 arms; a Spearman correlation needs at least 5 arms to be informative. With 3 arms rho = 1.0 occurs with probability 1/6 under random ordering, so a numerical pass is not evidence."
+  },
+  "arm_set_used": [
+    "physics_only",
+    "xgboost",
+    "mlp",
+    "tabm"
+  ],
+  "deviation_log": "research_design/G5D_DEVIATIONS.md"
+}

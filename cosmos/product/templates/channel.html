@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block topmeta %}
+<span class="mode-badge historical">ANONYMISED MISSION {{ series.mission }}</span>
+{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  {{ series.identity_note }}.
+  The chart is a <strong>strided subsample</strong> of the real series (every
+  {{ series.decimation_stride | fmt }}<sup>th</sup> sample), not a smoothed or modelled curve.
+  Gaps in the line are missing samples, not interpolated values.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>{{ series.channel }} <span class="count">— subsystem {{ series.subsystem }}{% if series.is_target %}, target channel{% endif %}</span></h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Total samples</div>
+      <div class="value">{{ series.total_samples | fmt }}</div>
+      <div class="foot">at {{ series.cadence }} cadence</div>
+    </div>
+    <div class="metric">
+      <div class="label">Plotted points</div>
+      <div class="value">{{ series.returned_points | fmt }}</div>
+      <div class="foot">stride {{ series.decimation_stride | fmt }}</div>
+    </div>
+    <div class="metric">
+      <div class="label">Missing samples</div>
+      <div class="value {{ 'absent' if series.missing_samples == 0 }}">{{ series.missing_samples | fmt }}</div>
+      <div class="foot">non-finite in the source</div>
+    </div>
+    <div class="metric">
+      <div class="label">Labelled intervals</div>
+      <div class="value">{{ series.labelled_intervals | length }}</div>
+      <div class="foot">benchmark ground truth</div>
+    </div>
+    <div class="metric">
+      <div class="label">Value range</div>
+      <div class="value">{{ series.value_min | fmt(3) }} – {{ series.value_max | fmt(3) }}</div>
+      <div class="foot">normalised units</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Telemetry series</h2>
+  {{ chart | safe }}
+  <div class="legend">
+    <span class="key"><span class="swatch" style="background:#4ea8de"></span>telemetry value</span>
+    <span class="key"><span class="swatch" style="background:#d98236;opacity:.5"></span>
+      labelled anomaly / rare-event interval (ground truth)</span>
+  </div>
+  <p class="chart-caption">
+    Window {{ series.times[0][:16] if series.times else '—' }} to
+    {{ series.times[-1][:16] if series.times else '—' }} UTC.
+    {{ series.score_note }}
+  </p>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Labelled intervals <span class="count">— {{ series.labelled_intervals | length }}</span></h2>
+    {% if series.labelled_intervals %}
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>ID</th><th>Start</th><th>End</th><th>Class</th><th>Category</th></tr></thead>
+        <tbody>
+        {% for interval in series.labelled_intervals %}
+          <tr>
+            <td class="mono">{{ interval.id }}</td>
+            <td class="mono">{{ (interval.start or '—')[:19] }}</td>
+            <td class="mono">{{ (interval.end or '—')[:19] }}</td>
+            <td>{{ interval.label_class or '—' }}</td>
+            <td>{{ interval.category or '—' }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty">This channel has no labelled interval in the benchmark annotations.</div>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Channels in this mission <span class="count">— {{ channels | length }}</span></h2>
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>Channel</th><th>Subsystem</th><th>Target</th><th>Labels</th></tr></thead>
+        <tbody>
+        {% for channel in channels %}
+          <tr>
+            <td><a href="/telemetry/{{ series.mission }}/{{ channel.channel }}">{{ channel.channel }}</a></td>
+            <td>{{ channel.subsystem }}</td>
+            <td>{{ 'yes' if channel.is_target else '—' }}</td>
+            <td class="num">{{ channel.labelled_intervals }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>What this view does not establish</h2>
+  <ul>
+    <li>No per-sample anomaly score is shown: {{ series.score_note }}</li>
+    <li>This channel cannot be attributed to a named spacecraft or a NORAD object.</li>
+    <li>Benchmark detection performance is reported per arm in
+      <a href="/telemetry">Satellite Intelligence</a>; it is not a health verdict for this channel.</li>
+    <li>No live telemetry feed is connected to this console.</li>
+  </ul>
+</div>
+{% endblock %}

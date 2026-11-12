@@ -1,0 +1,20 @@
+m1 target ar8: OOF scores in 353 s -> /data2/anupa/Final_Year_Project/outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8
+OOF regenerated: {'dir': 'outputs/benchmarks/telemetry_esa_adb/track3b_stage2/oof_regen/m1_target_ar8', 'sha256_sample': '02455519984c', 'archived_sha256_sample': '02455519984c', 'reproduces_archived_sample': True, 'seconds': 353.03421449661255, 'folds': [[0, 1472832], [1472832, 2945664], [2945664, 4418497], [4418497, 5891329], [5891329, 7364161]]}
+score levels ready in 123 s
+  c0: S=S0 P=cal D=cal G0 -> level 0.01 k 10: F0.5 0.0744 (exact 0.0744), FA/yr 91.6, 234 s
+  c2: S=Sh P=cal D=cal G1 -> level 0.001 k 10: F0.5 0.0844 (exact 0.0844), FA/yr 52.0, 257 s
+  c3: S=S1 P=cal D=cal G1 -> level 0.001 k 10: F0.5 0.0844 (exact 0.0844), FA/yr 52.0, 260 s
+  c4: S=S1 P=half D=cal G1 -> level 0.01 k 10: F0.5 0.1272 (exact 0.1272), FA/yr 34.6, 241 s
+  c5: S=S1 P=half D=half G1 -> level 0.0001 k 10: F0.5 0.4278 (exact 0.4278), FA/yr 1.1, 373 s
+  n_sh_half_cal: S=Sh P=half D=cal G1 -> level 0.01 k 10: F0.5 0.1310 (exact 0.1310), FA/yr 34.6, 258 s
+  n_sh_half_half: S=Sh P=half D=half G1 -> level 0.0001 k 10: F0.5 0.4278 (exact 0.4278), FA/yr 1.1, 370 s
+reproduction: {'A0_official': 0.07435099036517134, 'c0': 0.07435099036517134, 'A1_official': 0.4278060106400274, 'c5': 0.4278060106400274, 'p1_cells_reproduced': {'c0': True, 'c2': True, 'c3': True, 'c4': True, 'c5': True}, 'passed': True}
+  F2 sigma at P_half, D_cal (S1 - Sh)               n_sh_half_cal->c4             -0.0038 [-0.0130, +0.0000] p=0.773
+  F2 sigma at P_half, D_half (S1 - Sh)             n_sh_half_half->c5             +0.0000 [+0.0000, +0.0000] p=2.000
+  F2 sigma at P_cal, D_cal (S1 - Sh)                           c2->c3             +0.0000 [+0.0000, +0.0000] p=2.000
+  F3 pool at Sh, D_cal (half - cal)                            c2->n_sh_half_cal  +0.0466 [+0.0187, +0.0865] p=0.001
+  F3 pool at S1, D_cal (half - cal)                            c3->c4             +0.0428 [+0.0156, +0.0808] p=0.003
+  F4 selection data at Sh, P_half (half - cal)      n_sh_half_cal->n_sh_half_half +0.2968 [+0.1522, +0.4440] p=0.001
+  F4 selection data at S1, P_half (half - cal)                 c4->c5             +0.3006 [+0.1602, +0.4426] p=0.001
+F2xF3 interaction at D_cal (point): -0.0038
+freeze unchanged: True; total 2471.0 s; written outputs/benchmarks/telemetry_esa_adb/track3b_stage2/m1_target_conformal_bh.json

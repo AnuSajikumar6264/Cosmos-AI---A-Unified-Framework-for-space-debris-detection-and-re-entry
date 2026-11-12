@@ -1,0 +1,529 @@
+{
+  "experiment": "G5 causal analysis",
+  "analysed_at": "2026-11-04T09:23:33.060652+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "n_boot": 4000,
+  "seed": 20261027,
+  "z_cap": 3.2615602289423533,
+  "exploratory": true,
+  "exploratory_note": "these test folds have been scored repeatedly across the project's history; this is diagnostic re-analysis, not independent confirmation",
+  "corrects_previous_finding": "The Phase G+ attribution to 'censoring mismatch' is CORRECTED. The capped target is known for 99.8-100 % of objects in every split, so censoring relative to the cap is not the differentiator. The operative mismatch is the share of the target at the cap POINT MASS, which differs between the selection and evaluation populations and reverses direction between the two origins. The underlying driver is launch-epoch composition: which objects were launched when, and what fraction of them survived five years.",
+  "cap_mass_shift_by_origin": {
+    "2011": 0.14755657197881555,
+    "2016": -0.1667031612917217
+  },
+  "shift_reverses_across_origins": true,
+  "results": {
+    "2011": {
+      "status": "evaluated",
+      "origin": "2011",
+      "artifact_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+      "n_objects_scored": 2667,
+      "test_at_cap_fraction": 0.7439070116235471,
+      "test_at_cap_n": 1984,
+      "test_below_cap_n": 683,
+      "census": {
+        "train": {
+          "n": 20811,
+          "known5_fraction": 0.9983662486185191,
+          "event_rate": 0.7496996780548748,
+          "at_cap_fraction": 0.3339580029791937,
+          "below_cap_n": 13861,
+          "below_cap_z_median": 1.2304489213782739,
+          "below_cap_z_sd": 1.0573214533378905,
+          "z_sd": 1.2515509876174975,
+          "t0_min": "1957-10-04",
+          "t0_max": "2003-12-29"
+        },
+        "tuneA": {
+          "n": 248,
+          "known5_fraction": 1.0,
+          "event_rate": 0.42338709677419356,
+          "at_cap_fraction": 0.592741935483871,
+          "below_cap_n": 101,
+          "below_cap_z_median": 1.505149978319906,
+          "below_cap_z_sd": 1.2154952846567662,
+          "z_sd": 1.207554773229771,
+          "t0_min": "2004-01-16",
+          "t0_max": "2005-12-25"
+        },
+        "tuneB": {
+          "n": 332,
+          "known5_fraction": 1.0,
+          "event_rate": 0.4427710843373494,
+          "at_cap_fraction": 0.5632530120481928,
+          "below_cap_n": 145,
+          "below_cap_z_median": 1.591064607026499,
+          "below_cap_z_sd": 1.0467039705716146,
+          "z_sd": 1.1473782747440133,
+          "t0_min": "2004-01-09",
+          "t0_max": "2005-12-24"
+        },
+        "test": {
+          "n": 2680,
+          "known5_fraction": 0.9951492537313433,
+          "event_rate": 0.44738805970149254,
+          "at_cap_fraction": 0.7402985074626866,
+          "below_cap_n": 696,
+          "below_cap_z_median": 2.2648178230095364,
+          "below_cap_z_sd": 1.1125216291940077,
+          "z_sd": 0.8295188877269674,
+          "t0_min": "2011-01-01",
+          "t0_max": "2015-12-30"
+        }
+      },
+      "per_model": [
+        {
+          "model": "catboost",
+          "tuneA_pinball": 0.07185402722352136,
+          "test_pinball": 0.06266006907918585,
+          "test_pinball_at_cap": 0.03634254454161017,
+          "test_pinball_below_cap": 0.13910804665246576,
+          "implied_cap_mass": 0.022122234720659918,
+          "median_prediction_mean": 2.880293259950665,
+          "cap_mass_error": -0.7217847769028872
+        },
+        {
+          "model": "cosmos_gated",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.05826284242323395,
+          "test_pinball_at_cap": 0.03233616218384709,
+          "test_pinball_below_cap": 0.13357548311861245,
+          "implied_cap_mass": 0.3775778027746532,
+          "median_prediction_mean": 2.9051322272841356,
+          "cap_mass_error": -0.3663292088488939
+        },
+        {
+          "model": "cosmos_gated_tuneA",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06160742062540094,
+          "test_pinball_at_cap": 0.03602505727474797,
+          "test_pinball_below_cap": 0.13591987873330064,
+          "implied_cap_mass": 0.37232845894263217,
+          "median_prediction_mean": 2.8993778022621712,
+          "cap_mass_error": -0.37157855268091494
+        },
+        {
+          "model": "equal_average",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.05269684597930894,
+          "test_pinball_at_cap": 0.023798934534657316,
+          "test_pinball_below_cap": 0.13664041304547117,
+          "implied_cap_mass": 0.4199475065616798,
+          "median_prediction_mean": 2.9129548702443975,
+          "cap_mass_error": -0.3239595050618673
+        },
+        {
+          "model": "kumo",
+          "tuneA_pinball": 0.054720703169263606,
+          "test_pinball": 0.06161253035125438,
+          "test_pinball_at_cap": 0.036030099959934864,
+          "test_pinball_below_cap": 0.13592518320100241,
+          "implied_cap_mass": 0.37232845894263217,
+          "median_prediction_mean": 2.899372158043253,
+          "cap_mass_error": -0.37157855268091494
+        },
+        {
+          "model": "kumo_no_design",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06243700158501406,
+          "test_pinball_at_cap": 0.03658480812651523,
+          "test_pinball_below_cap": 0.13753327072361093,
+          "implied_cap_mass": 0.3655793025871766,
+          "median_prediction_mean": 2.900636543911671,
+          "cap_mass_error": -0.37832770903637053
+        },
+        {
+          "model": "kumo_no_family",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06399382200558953,
+          "test_pinball_at_cap": 0.039940805071842035,
+          "test_pinball_below_cap": 0.13386378627580184,
+          "implied_cap_mass": 0.33820772403449567,
+          "median_prediction_mean": 2.859412889783657,
+          "cap_mass_error": -0.40569928758905144
+        },
+        {
+          "model": "kumo_no_physics",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06385928994298966,
+          "test_pinball_at_cap": 0.03940253676299283,
+          "test_pinball_below_cap": 0.13490204002953968,
+          "implied_cap_mass": 0.33858267716535434,
+          "median_prediction_mean": 2.897350989910375,
+          "cap_mass_error": -0.40532433445819277
+        },
+        {
+          "model": "kumo_no_space_weather",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.062484529210070736,
+          "test_pinball_at_cap": 0.036125041549645416,
+          "test_pinball_below_cap": 0.13905440258969567,
+          "implied_cap_mass": 0.33970753655793023,
+          "median_prediction_mean": 2.931073093908422,
+          "cap_mass_error": -0.4041994750656169
+        },
+        {
+          "model": "kumo_plus_rcs_2026",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.05783842985654147,
+          "test_pinball_at_cap": 0.028968737780444728,
+          "test_pinball_below_cap": 0.1417000244084828,
+          "implied_cap_mass": 0.3963254593175853,
+          "median_prediction_mean": 2.942350231501807,
+          "cap_mass_error": -0.3475815523059618
+        },
+        {
+          "model": "lightgbm",
+          "tuneA_pinball": 0.09394161859505967,
+          "test_pinball": 0.0683209886858614,
+          "test_pinball_at_cap": 0.030492917995171977,
+          "test_pinball_below_cap": 0.17820516474783474,
+          "implied_cap_mass": 0.06411698537682789,
+          "median_prediction_mean": 2.845666831009789,
+          "cap_mass_error": -0.6797900262467192
+        },
+        {
+          "model": "mlp",
+          "tuneA_pinball": 0.05747355040439768,
+          "test_pinball": 0.11466122952512538,
+          "test_pinball_at_cap": 0.09496423475781024,
+          "test_pinball_below_cap": 0.1718776828462868,
+          "implied_cap_mass": 0.005249343832020997,
+          "median_prediction_mean": 2.6831350870466655,
+          "cap_mass_error": -0.7386576677915261
+        },
+        {
+          "model": "physics_only",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.05267631417331738,
+          "test_pinball_at_cap": 0.011567769322377908,
+          "test_pinball_below_cap": 0.17208971532158085,
+          "implied_cap_mass": 0.7487814023247095,
+          "median_prediction_mean": 2.9265375815474903,
+          "cap_mass_error": 0.004874390701162357
+        },
+        {
+          "model": "stack_constant",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.0607762627184865,
+          "test_pinball_at_cap": 0.03519467732212545,
+          "test_pinball_below_cap": 0.13508646100015603,
+          "implied_cap_mass": 0.37195350581177355,
+          "median_prediction_mean": 2.900299895028388,
+          "cap_mass_error": -0.37195350581177355
+        },
+        {
+          "model": "tabicl",
+          "tuneA_pinball": 0.05808638740862648,
+          "test_pinball": 0.059584065715467,
+          "test_pinball_at_cap": 0.03402423236425435,
+          "test_pinball_below_cap": 0.1338310779684771,
+          "implied_cap_mass": 0.17810273715785527,
+          "median_prediction_mean": 2.9024148440029025,
+          "cap_mass_error": -0.5658042744656918
+        },
+        {
+          "model": "tabm",
+          "tuneA_pinball": 0.05608990082287044,
+          "test_pinball": 0.09943669602207812,
+          "test_pinball_at_cap": 0.07830475712811476,
+          "test_pinball_below_cap": 0.16082142042269787,
+          "implied_cap_mass": 0.0,
+          "median_prediction_mean": 2.7143651636749766,
+          "cap_mass_error": -0.7439070116235471
+        },
+        {
+          "model": "xgboost",
+          "tuneA_pinball": 0.06714729073866008,
+          "test_pinball": 0.06484232951162519,
+          "test_pinball_at_cap": 0.038684851348521176,
+          "test_pinball_below_cap": 0.14082539931484384,
+          "implied_cap_mass": 0.06411698537682789,
+          "median_prediction_mean": 2.8301610748321315,
+          "cap_mass_error": -0.6797900262467192
+        }
+      ],
+      "rank_correlations": {
+        "spearman_tuneA_vs_test_overall": 0.0,
+        "spearman_tuneA_vs_test_at_cap": -0.42857142857142866,
+        "spearman_tuneA_vs_test_below_cap": 0.3214285714285715,
+        "spearman_abs_cap_mass_error_vs_test_pinball": 0.8907982165670908,
+        "pearson_abs_cap_mass_error_vs_test_pinball": 0.6563247121363162
+      },
+      "deployed_expert_decomposition": {
+        "at_cap_mean": 0.03233616218384709,
+        "below_cap_mean": 0.13357548311861245,
+        "difference_below_minus_at": null,
+        "at_cap_ci95": [
+          0.018471203748505565,
+          0.042676448442531364
+        ],
+        "below_cap_ci95": [
+          0.11068573273549998,
+          0.166492731711505
+        ]
+      }
+    },
+    "2016": {
+      "status": "evaluated",
+      "origin": "2016",
+      "artifact_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+      "n_objects_scored": 2978,
+      "test_at_cap_fraction": 0.5580926796507724,
+      "test_at_cap_n": 1662,
+      "test_below_cap_n": 1316,
+      "census": {
+        "train": {
+          "n": 25371,
+          "known5_fraction": 0.9985416420322415,
+          "event_rate": 0.7043474833471286,
+          "at_cap_fraction": 0.3887903511883647,
+          "below_cap_n": 15507,
+          "below_cap_z_median": 1.3424226808222062,
+          "below_cap_z_sd": 1.0581833247428911,
+          "z_sd": 1.232440410653972,
+          "t0_min": "1957-10-04",
+          "t0_max": "2008-12-26"
+        },
+        "tuneA": {
+          "n": 1741,
+          "known5_fraction": 0.9994256174612292,
+          "event_rate": 0.3429063756461804,
+          "at_cap_fraction": 0.7219988512349225,
+          "below_cap_n": 484,
+          "below_cap_z_median": 2.9469432706978256,
+          "below_cap_z_sd": 0.7939457122280538,
+          "z_sd": 0.5028912776805454,
+          "t0_min": "2009-01-02",
+          "t0_max": "2010-12-29"
+        },
+        "tuneB": {
+          "n": 1560,
+          "known5_fraction": 1.0,
+          "event_rate": 0.4173076923076923,
+          "at_cap_fraction": 0.6448717948717949,
+          "below_cap_n": 554,
+          "below_cap_z_median": 2.905525293541886,
+          "below_cap_z_sd": 0.934914759529407,
+          "z_sd": 0.6899718197204552,
+          "t0_min": "2009-01-14",
+          "t0_max": "2010-12-26"
+        },
+        "test": {
+          "n": 2993,
+          "known5_fraction": 0.994988306047444,
+          "event_rate": 0.5325760106916138,
+          "at_cap_fraction": 0.5552956899432008,
+          "below_cap_n": 1331,
+          "below_cap_z_median": 2.4668737962840575,
+          "below_cap_z_sd": 0.9159234237269601,
+          "z_sd": 0.8121680729875747,
+          "t0_min": "2016-01-02",
+          "t0_max": "2021-10-15"
+        }
+      },
+      "per_model": [
+        {
+          "model": "catboost",
+          "tuneA_pinball": 0.03860140149002319,
+          "test_pinball": 0.06114625923110467,
+          "test_pinball_at_cap": 0.02231465980496124,
+          "test_pinball_below_cap": 0.11018738251852898,
+          "implied_cap_mass": 0.0,
+          "median_prediction_mean": 2.8560918998096025,
+          "cap_mass_error": -0.5580926796507724
+        },
+        {
+          "model": "cosmos_gated",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06037598117327946,
+          "test_pinball_at_cap": 0.017385465530685585,
+          "test_pinball_below_cap": 0.11466947433284713,
+          "implied_cap_mass": 0.319341840161182,
+          "median_prediction_mean": 2.856289865724459,
+          "cap_mass_error": -0.23875083948959036
+        },
+        {
+          "model": "cosmos_gated_tuneA",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06949503017980183,
+          "test_pinball_at_cap": 0.009635681924950784,
+          "test_pinball_below_cap": 0.14509247455636903,
+          "implied_cap_mass": 0.332102081934184,
+          "median_prediction_mean": 2.8870124958902763,
+          "cap_mass_error": -0.22599059771658836
+        },
+        {
+          "model": "equal_average",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06909000759451554,
+          "test_pinball_at_cap": 0.011722180034580249,
+          "test_pinball_below_cap": 0.14154086580470737,
+          "implied_cap_mass": 0.3253861652115514,
+          "median_prediction_mean": 2.879382548107312,
+          "cap_mass_error": -0.23270651443922097
+        },
+        {
+          "model": "kumo",
+          "tuneA_pinball": 0.04329247341971213,
+          "test_pinball": 0.050767746875096526,
+          "test_pinball_at_cap": 0.015509831859719589,
+          "test_pinball_below_cap": 0.09529560003281422,
+          "implied_cap_mass": 0.41840161182001345,
+          "median_prediction_mean": 2.8597216113870343,
+          "cap_mass_error": -0.1396910678307589
+        },
+        {
+          "model": "lightgbm",
+          "tuneA_pinball": 0.03860516028324525,
+          "test_pinball": 0.06616888588902314,
+          "test_pinball_at_cap": 0.016140904002363565,
+          "test_pinball_below_cap": 0.12935012137202329,
+          "implied_cap_mass": 0.0735392881128274,
+          "median_prediction_mean": 2.8318452088604635,
+          "cap_mass_error": -0.48455339153794497
+        },
+        {
+          "model": "mlp",
+          "tuneA_pinball": 0.02868610231499341,
+          "test_pinball": 0.05777586392896602,
+          "test_pinball_at_cap": 0.021428192710424107,
+          "test_pinball_below_cap": 0.10367998973840116,
+          "implied_cap_mass": 0.23438549361987912,
+          "median_prediction_mean": 2.8422618398980672,
+          "cap_mass_error": -0.3237071860308932
+        },
+        {
+          "model": "physics_only",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.08924911570800471,
+          "test_pinball_at_cap": 0.004626636966563974,
+          "test_pinball_below_cap": 0.1961203616565416,
+          "implied_cap_mass": 0.7548690396239086,
+          "median_prediction_mean": 2.9096246483635717,
+          "cap_mass_error": 0.19677635997313625
+        },
+        {
+          "model": "stack_constant",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.060121990275091415,
+          "test_pinball_at_cap": 0.017625913127335396,
+          "test_pinball_below_cap": 0.11379104819269817,
+          "implied_cap_mass": 0.319341840161182,
+          "median_prediction_mean": 2.854220092412825,
+          "cap_mass_error": -0.23875083948959036
+        },
+        {
+          "model": "tabicl",
+          "tuneA_pinball": 0.03686748809193473,
+          "test_pinball": 0.049943988791243385,
+          "test_pinball_at_cap": 0.015536499876522872,
+          "test_pinball_below_cap": 0.09339782357563965,
+          "implied_cap_mass": 0.22229684351914036,
+          "median_prediction_mean": 2.8526942227651806,
+          "cap_mass_error": -0.335795836131632
+        },
+        {
+          "model": "tabm",
+          "tuneA_pinball": 0.028291817495200353,
+          "test_pinball": 0.05929212409282305,
+          "test_pinball_at_cap": 0.018817723102596523,
+          "test_pinball_below_cap": 0.11040797093610306,
+          "implied_cap_mass": 0.31867024848891873,
+          "median_prediction_mean": 2.8491404478510542,
+          "cap_mass_error": -0.23942243116185363
+        },
+        {
+          "model": "tabm_no_design",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06635654389729599,
+          "test_pinball_at_cap": 0.0163319666604405,
+          "test_pinball_below_cap": 0.12953347958700254,
+          "implied_cap_mass": 0.34284754869039624,
+          "median_prediction_mean": 2.8787937111722046,
+          "cap_mass_error": -0.21524513096037612
+        },
+        {
+          "model": "tabm_no_family",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06485954016679378,
+          "test_pinball_at_cap": 0.023032911791998564,
+          "test_pinball_below_cap": 0.11768313922371601,
+          "implied_cap_mass": 0.30423102753525855,
+          "median_prediction_mean": 2.8633296168620292,
+          "cap_mass_error": -0.2538616521155138
+        },
+        {
+          "model": "tabm_no_physics",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.054329838796631585,
+          "test_pinball_at_cap": 0.0162319449363023,
+          "test_pinball_below_cap": 0.1024443521673514,
+          "implied_cap_mass": 0.36702484889187376,
+          "median_prediction_mean": 2.8233095814438407,
+          "cap_mass_error": -0.1910678307588986
+        },
+        {
+          "model": "tabm_no_space_weather",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.0631230251146465,
+          "test_pinball_at_cap": 0.025194896209910157,
+          "test_pinball_below_cap": 0.11102313927853086,
+          "implied_cap_mass": 0.3075889858965749,
+          "median_prediction_mean": 2.809926824517354,
+          "cap_mass_error": -0.25050369375419745
+        },
+        {
+          "model": "tabm_plus_rcs_2026",
+          "tuneA_pinball": NaN,
+          "test_pinball": 0.06643891610810751,
+          "test_pinball_at_cap": 0.04055058658047778,
+          "test_pinball_below_cap": 0.09913375172734808,
+          "implied_cap_mass": 0.24378777703156482,
+          "median_prediction_mean": 2.7426820541082484,
+          "cap_mass_error": -0.3143049026192075
+        },
+        {
+          "model": "xgboost",
+          "tuneA_pinball": 0.03527627376846493,
+          "test_pinball": 0.05758207135968795,
+          "test_pinball_at_cap": 0.017737806421991787,
+          "test_pinball_below_cap": 0.10790210808191517,
+          "implied_cap_mass": 0.06682337139019476,
+          "median_prediction_mean": 2.8389837527878243,
+          "cap_mass_error": -0.4912693082605776
+        }
+      ],
+      "rank_correlations": {
+        "spearman_tuneA_vs_test_overall": 0.0,
+        "spearman_tuneA_vs_test_at_cap": -0.5357142857142858,
+        "spearman_tuneA_vs_test_below_cap": -0.10714285714285716,
+        "spearman_abs_cap_mass_error_vs_test_pinball": -0.15818519220926988,
+        "pearson_abs_cap_mass_error_vs_test_pinball": -0.12094272251304028
+      },
+      "deployed_expert_decomposition": {
+        "at_cap_mean": 0.017385465530685585,
+        "below_cap_mean": 0.11466947433284713,
+        "difference_below_minus_at": null,
+        "at_cap_ci95": [
+          0.010554561102298408,
+          0.027234133100962343
+        ],
+        "below_cap_ci95": [
+          0.09427140496177892,
+          0.13499514607878937
+        ]
+      }
+    }
+  },
+  "not_established": [
+    "the decomposition is observational: it shows the selection ranking tracks the cap-heavy subpopulation, not that forcing the shift to zero would fix selection",
+    "only two origins exist, so the reversal is observed once in each direction",
+    "no new model was fitted, so no alternative selection objective is tested here"
+  ]
+}

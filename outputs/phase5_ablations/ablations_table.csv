@@ -1,0 +1,197 @@
+section,origin,ablation,value,ci_lo,ci_hi,metric,artifact
+A_fusion,2011,physics_only,0.05267631417331738,0.03732839801016377,0.0760999191630588,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2011,equal_average,0.05269684597930894,0.04155618625605026,0.06792501376834258,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2011,stack_constant,0.0607762627184865,0.04660044484480912,0.07378766771799021,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2011,cosmos_gated,0.05826284242323395,0.04513905084597245,0.07136579930841724,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2011,cosmos_gated_tuneA,0.06160742062540094,0.04717507825904524,0.07465827553420326,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2011,kumo,0.06161253035125438,0.04717684890875006,0.07466678951381431,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,physics_only,0.08924911570800471,0.058646541931556696,0.1242944001564539,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,equal_average,0.06909000759451554,0.04685247412046405,0.09442613451210254,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,stack_constant,0.060121990275091415,0.0416533305435124,0.0798453725151263,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,cosmos_gated,0.06037598117327946,0.04174182505308167,0.08060856862053013,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,cosmos_gated_tuneA,0.06949503017980183,0.047574590322012084,0.09381043734157324,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2016,tabm,0.05929212409282305,0.041246150449006015,0.07854589539074674,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,physics_only,0.05682407377081898,0.03080585886228485,0.13752538721301708,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,equal_average,0.07416354434024079,0.05690748909031834,0.1255927055183896,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,stack_constant,0.0987327266710609,0.07087383205833003,0.1317545094499505,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,cosmos_gated,0.08851765417184905,0.06587535350789585,0.1303569117625131,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,cosmos_gated_tuneA,0.078555191431989,0.05876250038194619,0.12207723648456843,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+A_fusion,2006,mlp,0.10391744007858389,0.07337586437436819,0.13446141147470497,pinball,outputs/lifetime_reference_predictors/leaderboard_with_intervals.csv
+B_gate,2011,xgboost: alone -> gated,2.7396559621532498e-05,1.1621704612796277e-05,4.008986358896717e-05,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,lightgbm: alone -> gated,0.010535889221998157,0.006949854749851561,0.016114724035137095,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,catboost: alone -> gated,1.6655216049645956e-05,7.669078873950508e-06,2.4051664172861183e-05,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,mlp: alone -> gated,0.00728360745043431,0.0008988132162216849,0.014702600472326395,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,tabm: alone -> gated,0.004288218516242921,0.00030376979699645116,0.008801618737023979,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,tabicl: alone -> gated,0.002705242203862232,0.0006700732733892617,0.004338023528872346,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2011,kumo: alone -> gated,0.0033491105564965413,0.0006884655769385181,0.005478698708576749,pinball gain,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/gate_all_learners.csv
+B_gate,2016,xgboost: alone -> gated,-0.0013981746141005457,-0.004273819676996,0.0009887250413384472,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,lightgbm: alone -> gated,-0.0022762341795070054,-0.010721862486889937,0.005739408851978551,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,catboost: alone -> gated,-0.00027759202883346085,-0.002691651385104249,0.0014852617927797124,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,mlp: alone -> gated,-0.0014253934336080382,-0.004915840494764013,0.0017383964714391144,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,tabm: alone -> gated,-0.001613177010197019,-0.0038460823022734925,9.464856838627372e-05,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,tabicl: alone -> gated,-0.004621363487173574,-0.011234200746018252,0.0007093724291873407,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+B_gate,2016,kumo: alone -> gated,0.0013708205424928963,-0.0023417497056030462,0.004527171063212108,pinball gain,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/gate_all_learners.csv
+C_feature_groups,2011,no_design,0.0008244712337596849,-7.770734338627382e-05,0.0016569017679393299,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2011,no_family,0.0023812916543351553,-0.005760797394473095,0.010293991783185168,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2011,no_physics,0.0022467595917352676,0.00017350236338680314,0.00388720683724969,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2011,no_space_weather,0.0008719988588163519,-0.0016295646173441326,0.0038401903101053917,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2011,plus_rcs_2026,-0.0037741004947129037,-0.007238339259171562,0.0011105778700788577,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2016,no_design,0.007064419804472942,0.003488463753637764,0.012111923861873484,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2016,no_family,0.005567416073970728,0.0014976451987233862,0.010104319903598535,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2016,no_physics,-0.0049622852961914675,-0.008575613614536154,-0.002232667248928344,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2016,no_space_weather,0.0038309010218234535,-0.005741460528322097,0.012864604271758054,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv
+C_feature_groups,2016,plus_rcs_2026,0.007146792015284447,-0.0010411199330517462,0.015087726884631118,delta pinball vs full,outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/ablation_effects_test.csv
+D_interval_rules,2011,physics_only_pm20,0.7469066366704162,,,coverage (width 0.175 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,physics_only_pm30,0.7656542932133483,,,coverage (width 0.267 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,physics_only_conformal80,0.9437570303712036,,,coverage (width 0.653 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,physics_only_conformal90,0.973753280839895,,,coverage (width 1.028 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,cosmos_gated_pm20,0.6512935883014623,,,coverage (width 0.176 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,cosmos_gated_pm30,0.6944131983502062,,,coverage (width 0.269 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,cosmos_gated_conformal80,0.9231346081739783,,,coverage (width 0.877 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2011,cosmos_gated_conformal90,0.9591301087364079,,,coverage (width 1.214 log10 d),outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled/interval_rules.json
+D_interval_rules,2016,physics_only_pm20,0.6020819341840161,,,coverage (width 0.175 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,physics_only_pm30,0.6383478844862324,,,coverage (width 0.268 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,physics_only_conformal80,0.738079247817327,,,coverage (width 0.354 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,physics_only_conformal90,0.8764271323035594,,,coverage (width 0.671 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,cosmos_gated_pm20,0.5285426460711887,,,coverage (width 0.176 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,cosmos_gated_pm30,0.5990597716588314,,,coverage (width 0.269 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,cosmos_gated_conformal80,0.7169241101410343,,,coverage (width 0.433 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+D_interval_rules,2016,cosmos_gated_conformal90,0.8740765614506381,,,coverage (width 0.671 log10 d),outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled/interval_rules.json
+E_alarm_layer_A0,m1_lightweight_ar8_s0,threshold,0.13732273052354063,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_ar8_s0,conformal_bh,0.13165009532863897,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_ar8_s0,conformal_bh_rolling,0.1772993440304026,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_cosmos_monitor,native,0.07460942189384559,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_global_std3,native,0.0003478250216097456,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_global_std5,native,0.21136388870820877,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_out_of_limits,native,0.09729203137371314,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_out_of_limits_all,native,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_patchtst_s0,threshold,0.377356393185486,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_patchtst_s0,conformal_bh,0.04334869154003235,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_patchtst_s0,conformal_bh_rolling,0.4081631536863644,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_persistence_s0,threshold,0.07366510045364776,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_persistence_s0,conformal_bh,0.018082963291528364,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_lightweight_persistence_s0,conformal_bh_rolling,0.24137580542911338,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_ar8_s0,threshold,0.04409407216204171,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_ar8_s0,conformal_bh,0.03161745478583164,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_ar8_s0,conformal_bh_rolling,0.0312407478823498,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_chronos-bolt-small_s0,threshold,0.015892522368135983,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_chronos-bolt-small_s0,conformal_bh,0.008643880300229678,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_chronos-bolt-small_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_cosmos_monitor,native,0.0021818974036456208,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_global_std3,native,0.0002786609499582509,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_global_std5,native,0.001875739649002789,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_out_of_limits,native,0.0004437047609324038,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_out_of_limits_all,native,0.003167744956580673,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s0,threshold,0.02000161628641577,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s0,conformal_bh,0.019686158348435567,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s0,conformal_bh_rolling,0.15873015873015872,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s1,threshold,0.01960963870899122,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s1,conformal_bh,0.007397478252858973,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s1,conformal_bh_rolling,0.09708730953430113,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s2,threshold,0.022735210637167037,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s2,conformal_bh,0.02177288011496709,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_s2,conformal_bh_rolling,0.0285186732065519,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s0,threshold,0.019264349919526722,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s0,conformal_bh,0.00724277877539843,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s0,conformal_bh_rolling,0.09345786761540986,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s1,threshold,0.02015286667656134,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s1,conformal_bh,0.007363274392229307,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s1,conformal_bh_rolling,0.09708730953430113,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s2,threshold,0.019140477095701006,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s2,conformal_bh,0.007188076875150509,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_patchtst_tc_s2,conformal_bh_rolling,0.09708730953430113,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_persistence_s0,threshold,0.02005169623786633,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_persistence_s0,conformal_bh,0.02005169623786633,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_persistence_s0,conformal_bh_rolling,0.14925370684504724,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s0,threshold,0.022248405273246178,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s0,conformal_bh,0.019163710622194612,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s0,conformal_bh_rolling,0.31645537315058164,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s1,threshold,0.029621041740850767,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s1,conformal_bh,0.011033452159658322,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s1,conformal_bh_rolling,0.1010100392970908,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s2,threshold,0.025522440716009745,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s2,conformal_bh,0.009494487799716957,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_s2,conformal_bh_rolling,0.07407391316299673,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s0,threshold,0.016006216974014446,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s0,conformal_bh,0.008288473100911183,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s0,conformal_bh_rolling,0.09708730953430113,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s1,threshold,0.03033476621374458,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s1,conformal_bh,0.03080399936453638,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s1,conformal_bh_rolling,0.31645537315058164,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s2,threshold,0.03079811423843032,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s2,conformal_bh,0.027477700057882578,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m1_target_tcn_tc_s2,conformal_bh_rolling,0.36144537340197563,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_ar8_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_ar8_s0,conformal_bh,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_ar8_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_cosmos_monitor,native,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_global_std3,native,2.0379206426887945e-05,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_global_std5,native,0.00023141608361479154,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_out_of_limits,native,0.08771874889179768,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_out_of_limits_all,native,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_patchtst_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_patchtst_s0,conformal_bh,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_patchtst_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_persistence_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_persistence_s0,conformal_bh,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_lightweight_persistence_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_ar8_s0,threshold,0.4999951359827777,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_ar8_s0,conformal_bh,0.1470516608223046,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_ar8_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_chronos-bolt-small_s0,threshold,0.5,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_chronos-bolt-small_s0,conformal_bh,0.09258410176257754,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_chronos-bolt-small_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_cosmos_monitor,native,0.0005824953329356456,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_global_std3,native,0.00010460398321254174,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_global_std5,native,0.0005664360712937522,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_out_of_limits,native,0.08966527682732979,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_out_of_limits_all,native,0.1281162044046771,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s0,conformal_bh,0.14705242775344413,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s1,threshold,0.14705242775344413,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s1,conformal_bh,0.07575056562188869,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s1,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s2,threshold,0.4999951359827777,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s2,conformal_bh,0.06755973767993986,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_s2,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s0,threshold,0.14705242775344413,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s0,conformal_bh,0.060968521656939174,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s1,threshold,0.043856517941667304,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s1,conformal_bh,0.14705242775344413,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s1,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s2,threshold,0.14705242775344413,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s2,conformal_bh,0.07142022399914866,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_patchtst_tc_s2,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_persistence_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_persistence_s0,conformal_bh,0.4999951359827777,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_persistence_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s0,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s0,conformal_bh,0.06326468443313393,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s1,threshold,0.5,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s1,conformal_bh,0.02807729642814747,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s1,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s2,threshold,0.09999288091465534,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s2,conformal_bh,0.02134306500997353,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_s2,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s0,threshold,0.015248562368285371,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s0,conformal_bh,0.07958638687733409,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s0,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s1,threshold,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s1,conformal_bh,0.06668261002098405,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s1,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s2,threshold,0.015061906855660835,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s2,conformal_bh,0.057357668419316415,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+E_alarm_layer_A0,m2_target_tcn_tc_s2,conformal_bh_rolling,0.0,,,anomaly/EW_F0.5 (A0),outputs/benchmarks/telemetry_esa_adb/results.csv
+F_vision_inputs,spotgeo_test,classical_cosmos_frontend,0.08384008596478375,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,resnet18_pretrained_both_f100_s0,0.7409665109132356,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,resnet18_pretrained_both_f100_s1,0.7882909667509042,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_both_f100_s0,0.75186546247275,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_both_f100_s1,0.7413977211341566,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_both_f100_s2,0.7447617363628327,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_both_f10_s0,0.5345157008882342,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_both_f25_s0,0.6630307859272182,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_diff_f100_s0,0.6440304999744128,,,official F1,outputs/spotgeo_difficulty/results.json
+F_vision_inputs,spotgeo_test,unet_raw_f100_s0,0.7506954461158046,,,official F1,outputs/spotgeo_difficulty/results.json

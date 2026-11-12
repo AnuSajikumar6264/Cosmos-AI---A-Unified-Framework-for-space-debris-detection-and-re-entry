@@ -1,0 +1,285 @@
+{
+  "as_of": "2026-10-27",
+  "started_at": "2026-11-06T05:47:45.490940+00:00",
+  "duration_s": 3.421,
+  "requested": [
+    "catalogue_state",
+    "lifetime",
+    "reentry",
+    "collision",
+    "health",
+    "debris",
+    "decision_priority"
+  ],
+  "config": {
+    "as_of": "2026-10-27",
+    "limit": null,
+    "collision_limit": null,
+    "debris_sequence_limit": null,
+    "health_calibrator": null,
+    "collision_model": "cosmos_gated"
+  },
+  "config_sha256": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+  "successful": true,
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "environment": {
+    "python": "3.12.16",
+    "platform": "Linux-6.17.0-1010-intel-x86_64-with-glibc2.41",
+    "host": "bmg17417.jf.intel.com",
+    "cpu_count": 512,
+    "numpy": "2.3.5",
+    "utc": "2026-11-06T05:47:50.330198+00:00",
+    "pandas": "3.1.0",
+    "torch": "2.14.0+xpu",
+    "device": "cpu"
+  },
+  "tables_written": [
+    "decision_ranking.csv",
+    "reentry_predictions.csv",
+    "lifetime_estimates.csv",
+    "lifetime_noncoherent_horizons.csv",
+    "collision_risk.csv",
+    "health_benchmark_arms.csv",
+    "debris_detections.csv"
+  ],
+  "modules": {
+    "catalogue_state": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:45.491020+00:00",
+      "duration_s": 1.0881266259821132,
+      "outputs": {
+        "elements": {
+          "count": 31396
+        },
+        "characteristics": {
+          "count": 31396
+        },
+        "object_class": {
+          "count": 31396
+        },
+        "regime": {
+          "count": 31396
+        },
+        "name": {
+          "count": 31396
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "CelesTrak SATCAT snapshot via COSMOS twin",
+          "GCAT"
+        ],
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "lifetime": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:46.579172+00:00",
+      "duration_s": 0.5749365930678323,
+      "outputs": {
+        "lifetime": {
+          "count": 13115
+        },
+        "abstained": {
+          "count": 18281
+        },
+        "noncoherent_horizon_probabilities": {
+          "count": 123
+        }
+      },
+      "abstentions": {
+        "saved lifetime expert produced no value for this object": 18158,
+        "saved per-horizon calibrated probabilities are not monotone across horizons (independent isotonic calibration per horizon); no coherent CDF available": 123
+      },
+      "abstained_total": 18281,
+      "noncoherent_horizon_probabilities": 123,
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "COSMOS lifetime expert (saved snapshot)"
+        ],
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "reentry": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:47.154121+00:00",
+      "duration_s": 0.7512387400493026,
+      "outputs": {
+        "reentry": {
+          "count": 31396
+        },
+        "abstained": {
+          "count": 0
+        }
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "COSMOS dated twin forecast (saved snapshot)"
+        ],
+        "input_hashes": {
+          "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "collision": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:47.905372+00:00",
+      "duration_s": 0.03295733698178083,
+      "outputs": {
+        "collision": {
+          "count": 2167
+        },
+        "identity_linkable": false
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "ESA Kelvins Collision Avoidance Challenge (anonymised CDMs)"
+        ],
+        "input_hashes": {
+          "outputs/benchmarks/conjunction_kelvins_cac/test_predictions.npz": "b8e806e41a4f3ced9bb58687c125b5aa4ec98d894b75de386fd0c615aa4f9aed"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "health": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:47.938342+00:00",
+      "duration_s": 0.018492106930352747,
+      "outputs": {
+        "health": {
+          "count": 128
+        },
+        "identity_linkable": false
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "ESA Anomaly Detection Benchmark (anonymised missions)"
+        ],
+        "input_hashes": {
+          "outputs/benchmarks/telemetry_esa_adb/results.csv": "1e98567df6a2f366b8d40dadac3090b8de1487af0d00e4a7ea3032f44628462c"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "debris": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:47.956845+00:00",
+      "duration_s": 0.8684666529297829,
+      "outputs": {
+        "detections": {
+          "count": 283026
+        },
+        "sequences": 5120,
+        "astrometric_calibration": false
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "SpotGEO benchmark (ESA Kelvins)"
+        ],
+        "input_hashes": {
+          "outputs/benchmarks/vision_spotgeo/classical_cosmos_frontend_test_submission.json": "1bba3d17b539f357c7eac33d907026d265c13493531ad17961b892cd532432a2"
+        },
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": []
+      }
+    },
+    "decision_priority": {
+      "status": "success",
+      "reason": "",
+      "error": "",
+      "started_at": "2026-11-06T05:47:48.825330+00:00",
+      "duration_s": 0.08632082596886903,
+      "outputs": {
+        "ranking": {
+          "rows": 31396,
+          "columns": [
+            "object_id",
+            "name",
+            "regime",
+            "p_reentry_30d",
+            "mass_kg",
+            "mass_known",
+            "high_consequence",
+            "priority_score",
+            "lifetime_evidence",
+            "reentry_interval_available"
+          ]
+        },
+        "health_escalation": {
+          "module": "decision_priority",
+          "status": "abstain",
+          "reason": "health evidence is present but not identity-linked to these objects: ESA-ADB missions are anonymised and share no identifier with the catalogue, so no health-driven escalation (C4) can be computed"
+        },
+        "consequence_mass_kg": 500.0
+      },
+      "health_escalation": {
+        "status": "abstain",
+        "reason": "health evidence is present but not identity-linked to these objects: ESA-ADB missions are anonymised and share no identifier with the catalogue, so no health-driven escalation (C4) can be computed"
+      },
+      "provenance": {
+        "as_of": "2026-10-27",
+        "input_sources": [
+          "COSMOS re-entry forecast",
+          "COSMOS lifetime expert",
+          "GCAT mass"
+        ],
+        "input_hashes": {},
+        "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+        "config_digest": "d7dd231ebe42472ec2834194d98327ffc7c72823a30171e7d0f135b696568d30",
+        "upstream_outputs": [
+          "catalogue_state",
+          "lifetime",
+          "reentry"
+        ]
+      }
+    }
+  },
+  "interpretation": {
+    "scope": "interface and lineage execution over saved artifacts",
+    "not_established": [
+      "this run does not re-evaluate or revalidate any scientific result",
+      "health (ESA-ADB) and conjunction (Kelvins CAC) records are anonymised and are not identity-linked to the catalogue or to each other",
+      "the catalogue chain (elements, lifetime, re-entry) is identity-linked by NORAD number within one snapshot"
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+ "analysed_at": "2026-11-06T05:18:47+00:00",
+ "git": {
+  "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+  "tracked_worktree_dirty": true,
+  "git_error": null
+ },
+ "as_of": "2026-10-27",
+ "model": "physics expert, class-prior A/m (physics_prior variant)",
+ "n_objects": 720,
+ "per_cell": 40,
+ "n_samples": 32,
+ "seed": 20261027,
+ "snapshot_space_weather": {
+  "f107_last81": 111.26913580246912,
+  "ap_last81": 9.123456790123457,
+  "constant_across_objects": true
+ },
+ "space_weather_history": {
+  "n_days": 25169,
+  "f107_percentiles": {
+   "5": 69.87135802469136,
+   "25": 79.30246913580247,
+   "50": 111.64567901234567,
+   "75": 156.5358024691358,
+   "95": 215.02913580246914
+  },
+  "ap_percentiles": {
+   "5": 5.666666666666667,
+   "25": 9.012345679012345,
+   "50": 12.061728395061728,
+   "75": 15.814814814814815,
+   "95": 23.02469135802469
+  }
+ },
+ "elasticity_log_expected_30d": {
+  "wrt_f107": 1.0148411843838507,
+  "wrt_ap": 0.07052729166113308
+ },
+ "elasticity_log_expected_1yr": {
+  "wrt_f107": 1.044626007066603,
+  "wrt_ap": 0.07258838323866562
+ },
+ "range_expected_30d_over_f107_grid": [
+  17.5625,
+  55.0625
+ ],
+ "range_expected_30d_over_ap_grid": [
+  25.9375,
+  28.625
+ ],
+ "learned_lifetime_model_note": "not measured: its space-weather features take one value across the snapshot, so its sensitivity on this snapshot is zero by construction",
+ "what_this_is_not": "a validation against observed re-entries; no outcome data enter this analysis",
+ "total_seconds": 113.10000000000002
+}

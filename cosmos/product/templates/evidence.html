@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block topmeta %}digests, lineage and integrity · nothing on this page is live{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>Digests, lineage and integrity, all read from the repository</b> — full scope and limitations</summary>
+  <div class="scope-body">
+  <strong>Where every number on this console comes from.</strong> This page shows the artifacts the console reads,
+  their SHA-256 digests, the per-module lineage of the latest run, the twin-state integrity and equivalence result,
+  and the console's own readiness. All of it is read from the repository; none of it is recomputed here. Readiness
+  describes files and digests, never a spacecraft.
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+<div class="kpis">
+  <div class="kpi {{ 'neutral' if not readiness.ready }}"><div class="k-label">Console readiness</div>
+    <div class="k-value">{{ 'READY' if readiness.ready else 'NOT READY' }}</div>
+    <div class="k-foot">{{ readiness.failing_checks | length }} failing check(s)</div></div>
+  <div class="kpi"><div class="k-label">Snapshot digest</div>
+    <div class="k-value" style="font-size:14px">{{ readiness.checks.dated_forecast_digest_state }}</div>
+    <div class="k-foot">recorded SHA-256 recomputed on read</div></div>
+  <div class="kpi violet"><div class="k-label">Twin state</div>
+    <div class="k-value" style="font-size:14px">{{ (twin.overall.status if twin else 'unavailable') | replace('_', ' ') }}</div>
+    <div class="k-foot">{{ twin.selected_source if twin else '—' }} source, policy {{ twin.policy if twin and twin.policy else 'default' }}</div></div>
+  <div class="kpi neutral"><div class="k-label">Checkout</div>
+    <div class="k-value mono" style="font-size:13px">{{ (repository.git_commit or 'unknown')[:12] }}</div>
+    <div class="k-foot">{{ 'working tree MODIFIED' if repository.tracked_worktree_dirty else 'clean working tree' }}</div></div>
+  <div class="kpi neutral"><div class="k-label">Latest run</div>
+    <div class="k-value mono" style="font-size:12px">{{ run_id or 'none' }}</div>
+    <div class="k-foot">{{ lineage | length }} modules recorded</div></div>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Readiness checks <span class="count">the same record GET /api/ready returns</span></h2>
+    <table class="kv">
+      {%- for name, value in readiness.checks.items() %}
+      <tr><th>{{ name | replace('_', ' ') }}</th>
+        <td>{% if value is sameas true %}<span class="status status-pass">true</span>
+            {%- elif value is sameas false %}<span class="status status-failed">false</span>
+            {%- elif value is mapping %}{% for k2, v2 in value.items() %}<span class="chip">{{ k2 | replace('_', ' ') }}: {{ v2 }}</span> {% endfor %}
+            {%- else %}<span class="mono">{{ value }}</span>{% endif %}</td></tr>
+      {%- endfor %}
+    </table>
+    {%- if readiness.warnings %}
+    <p class="panel-note"><strong>Warnings.</strong></p>
+    <ul class="panel-note" style="padding-left:1.1rem">
+      {%- for w in readiness.warnings %}<li>{{ w }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
+    <p class="panel-note">{{ readiness.note }}</p>
+  </div>
+
+  <div class="panel">
+    <h2>Archived catalogue <span class="count">the snapshot every object page reads</span></h2>
+    <table class="kv">
+      <tr><th>artifact</th><td class="mono">{{ catalogue.artifact }}</td></tr>
+      <tr><th>SHA-256</th><td class="mono">{{ catalogue.sha256 }}</td></tr>
+      <tr><th>as of</th><td>{{ catalogue.as_of }}</td></tr>
+      <tr><th>objects</th><td>{{ catalogue.objects | fmt(0) }}</td></tr>
+      <tr><th>sources</th><td>{{ catalogue.sources | join(', ') }}</td></tr>
+    </table>
+    <h2 style="margin-top:1rem">Record schema versions</h2>
+    <div class="chip-row">
+      {%- for family, version in schema_versions.items() %}
+      <span class="chip">{{ family }} {{ version }}</span>
+      {%- endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>Twin-state integrity and equivalence</h2>
+  <span class="note">streaming validation of the archive against the runtime chain</span>
+</div>
+<div class="panel violet">
+  {%- if twin %}
+  <table class="kv">
+    <tr><th>selected source</th><td>{{ twin.selected_source }} <span class="status status-info">{{ twin.selection_status | replace('_', ' ') }}</span></td></tr>
+    {%- set ig = twin.integrity or {} %}
+    {%- set ig_ok = ig.get('records_valid') is not none and ig.get('records_valid') == ig.get('records_total') and not ig.get('records_malformed_json') and not ig.get('records_schema_invalid') %}
+    <tr><th>archive validation</th><td><span class="status status-{{ 'pass' if ig_ok else 'failed' }}">{{ 'all records valid' if ig_ok else 'findings' }}</span>
+      {{ ig.get('records_valid') | fmt(0) }} of {{ ig.get('records_total') | fmt(0) }} records valid ·
+      {{ ig.get('records_malformed_json') | fmt(0) }} malformed · {{ ig.get('records_schema_invalid') | fmt(0) }} schema-invalid ·
+      {{ ig.get('duplicate_identities') | fmt(0) }} duplicate identities</td></tr>
+    <tr><th>overall</th><td>{{ twin.overall.label }} — {{ twin.overall.reason }}</td></tr>
+    {%- if twin.equivalence %}
+    <tr><th>records compared</th><td>{{ twin.equivalence.records_compared | fmt(0) if twin.equivalence.records_compared is not none else 'unavailable' }}</td></tr>
+    <tr><th>records equal</th><td>{{ twin.equivalence.records_equal | fmt(0) if twin.equivalence.records_equal is not none else 'unavailable' }}</td></tr>
+    <tr><th>not comparable</th><td>{{ twin.equivalence.records_not_comparable | fmt(0) if twin.equivalence.records_not_comparable is not none else 'unavailable' }}
+      <span class="panel-note">representation differences, listed with their reasons rather than forced equal</span></td></tr>
+    <tr><th>equivalent</th><td>{% if twin.equivalence.equivalent is sameas true %}<span class="status status-pass">yes</span>
+        {%- elif twin.equivalence.equivalent is sameas false %}<span class="status status-failed">no</span>
+        {%- else %}<span class="status status-unavailable">not evaluated</span>{% endif %}</td></tr>
+    {%- endif %}
+  </table>
+  <p class="panel-note">Full detail, including the per-object comparison and the three source policies, is on the
+    <a href="/twin-state">twin state</a> screen.</p>
+  {%- else %}
+  <div class="unavailable-state"><strong>Twin-state integration is unavailable.</strong>
+    The re-emitted archive or the chain tables could not be read; nothing is substituted.</div>
+  {%- endif %}
+</div>
+
+<div class="section-head">
+  <h2>Module lineage of the latest run</h2>
+  <span class="note">{% if run_id %}<code>{{ run_id }}</code>{% else %}no run{% endif %}</span>
+</div>
+<div class="panel">
+  {%- if lineage %}
+  <div class="scroll">
+    <table class="data">
+      <thead><tr><th>module</th><th>status</th><th>evidence class</th><th>code revision</th>
+        <th>configuration</th><th>data artifacts</th><th>model version</th></tr></thead>
+      <tbody>
+      {%- for item in lineage %}
+        <tr>
+          <td>{{ item.module }}</td>
+          <td><span class="status status-{{ item.status or 'unavailable' }}">{{ item.status or 'unavailable' }}</span>
+            {%- if item.reason %}<div class="panel-note">{{ item.reason }}</div>{% endif %}</td>
+          <td>{{ (item.evidence_class or '') | replace('_', ' ') }}</td>
+          <td class="mono">{{ (item.lineage.code_version.git_commit or 'unknown')[:12] if item.lineage.code_version else 'unknown' }}</td>
+          <td class="mono">{{ (item.lineage.configuration.digest or '')[:12] if item.lineage.configuration else '' }}</td>
+          <td class="mono">{{ item.lineage.data_artifacts | length if item.lineage.data_artifacts else 0 }} hashed</td>
+          <td>{% set mv = item.lineage.model_version %}
+            {%- if mv and mv.status == 'recorded' %}<span class="status status-pass">recorded</span>
+            {%- else %}<span class="status status-unavailable">unavailable</span>{% endif %}</td>
+        </tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="panel-note">Model version is unavailable for every module because no fitted model is persisted for the
+    twin chain: the console re-expresses archived predictions and runs no inference at request time.</p>
+  {%- else %}
+  <div class="unavailable-state">No run manifest to report lineage from.</div>
+  {%- endif %}
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Evidence classes of the served datasets</h2>
+    <table class="data">
+      <thead><tr><th>dataset</th><th>class</th><th>identity</th><th>available</th></tr></thead>
+      <tbody>
+      {%- for item in datasets.datasets %}
+        <tr><td>{{ item.label or item.key }}</td>
+          <td>{{ (item.evidence_class or '') | replace('_', ' ') }}</td>
+          <td>{{ item.identity or 'none' }}</td>
+          <td>{% if item.available %}<span class="status status-pass">yes</span>
+              {%- else %}<span class="status status-unavailable">no</span>{% endif %}</td></tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+    <div class="integrity-note">
+      <strong>Evidence policy.</strong> {{ datasets.evidence_policy.served }}.
+      {{ datasets.evidence_policy.synthetic_demonstration_data }}. {{ datasets.evidence_policy.live_sources }}.
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Globe geometry basis <span class="count">what the 3D view may and may not claim</span></h2>
+    <table class="kv">
+      <tr><th>from the archive</th><td>{{ globe_basis.from_archive | join(', ') }}</td></tr>
+      <tr><th>derived from it</th><td>{{ globe_basis.derived_from_archive | join(', ') }}</td></tr>
+      <tr><th>not available, not invented</th><td>{{ globe_basis.not_available_and_not_invented | join(', ') }}</td></tr>
+      <tr><th>layout angles</th><td>{{ globe_basis.layout_angles }}</td></tr>
+      <tr><th>Earth texture</th><td>{{ globe_basis.earth_texture }}</td></tr>
+    </table>
+    <p class="panel-note">The <a href="/explorer">explorer</a> repeats this statement on screen, and
+      <code>GET /api/globe/objects</code> carries it inside every response.</p>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Verification commands <span class="count">reproduce these statements</span></h2>
+  <pre class="json">python scripts/verify_protected_artifacts.py --label check   # frozen artifacts, figure manifest, twin digests
+python scripts/twin_state_integrity.py                       # twin selection, integrity, chain equivalence
+python scripts/audit_manuscript_claims.py                    # 147 manuscript checks
+python -m pytest tests/ -q -rs                               # full suite with skip reasons
+python -m cosmos.ai.data.validate                            # dataset checksums (rewrites data/DATASET_REPORT.*)</pre>
+  <p class="panel-note">Recorded results live under <code>outputs/audit/</code>; the release state is in
+    <code>docs/research/COSMOS_AI_RELEASE_PROPOSAL.md</code> §8.</p>
+</div>
+{% endblock %}

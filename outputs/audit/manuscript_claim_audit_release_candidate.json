@@ -1,0 +1,1478 @@
+{
+ "counts": {
+  "PASS": 139,
+  "NOT_EVALUABLE": 8
+ },
+ "checks": [
+  {
+   "section": "\u00a710",
+   "claim": "M1 train: 109 annotated events on target channels",
+   "artifact": "DATASET_REPORT.json",
+   "method": "sum of events over fit+es+cal periods",
+   "manuscript_value": 109,
+   "recomputed_value": 109.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 train: 63 anomalies",
+   "artifact": "DATASET_REPORT.json",
+   "method": "sum of Anomaly over fit+es+cal",
+   "manuscript_value": 63,
+   "recomputed_value": 63.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 train: 42 rare events",
+   "artifact": "DATASET_REPORT.json",
+   "method": "sum of Rare Event over fit+es+cal",
+   "manuscript_value": 42,
+   "recomputed_value": 42.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 train: 4 communication gaps",
+   "artifact": "DATASET_REPORT.json",
+   "method": "sum of Communication Gap over fit+es+cal",
+   "manuscript_value": 4,
+   "recomputed_value": 4.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 test: 55 anomalies",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission1...test.Anomaly",
+   "manuscript_value": 55,
+   "recomputed_value": 55.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 test: 36 rare events",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission1...test['Rare Event']",
+   "manuscript_value": 36,
+   "recomputed_value": 36.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M2 test: 6 anomalies",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission2...test.Anomaly",
+   "manuscript_value": 6,
+   "recomputed_value": 6.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M2 test: 356 rare events",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission2...test['Rare Event']",
+   "manuscript_value": 356,
+   "recomputed_value": 356.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 target channels 58 of 76",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission1.target_channels",
+   "manuscript_value": 58,
+   "recomputed_value": 58.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M2 target channels 47 of 100",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission2.target_channels",
+   "manuscript_value": 47,
+   "recomputed_value": 47.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "A0 selection period holds 9 M1 annotated events",
+   "artifact": "DATASET_REPORT.json",
+   "method": "esa_adb.mission1...cal.events",
+   "manuscript_value": 9,
+   "recomputed_value": 9.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a78",
+   "claim": "A1 selection uses 105 M1 annotated events",
+   "artifact": "DATASET_REPORT.json",
+   "method": "fit+es+cal events minus the 4 communication gaps = 109 - 4",
+   "manuscript_value": 105,
+   "recomputed_value": 105.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M1 bootstrap blocks = 86",
+   "artifact": "DATASET_REPORT.json test window + 30-day block size",
+   "method": "ceil(test span in days / 30)",
+   "manuscript_value": 86,
+   "recomputed_value": 86.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a710",
+   "claim": "M2 bootstrap blocks = 22",
+   "artifact": "DATASET_REPORT.json test window + 30-day block size",
+   "method": "ceil(test span in days / 30)",
+   "manuscript_value": 22,
+   "recomputed_value": 22.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a711/\u00a718",
+   "claim": "EventTCN has 220,739 parameters",
+   "artifact": "event_model/m1_target_event_ar8_all_c3_s4/meta.json",
+   "method": "read recorded param count",
+   "manuscript_value": 220739,
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a712",
+   "claim": "hypotheses fixed in PREREG_TELEMETRY_V1.md",
+   "artifact": "research_design/preregistration/PREREG_TELEMETRY_V1.md",
+   "method": "file exists on disk",
+   "manuscript_value": "present",
+   "recomputed_value": true,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M1_H4 reproduces -0.2224",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": -0.2224,
+   "recomputed_value": -0.222445,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M1_H5 reproduces -0.3383",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": -0.3383,
+   "recomputed_value": -0.338253,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M1_H6 reproduces +0.3535",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": 0.3535,
+   "recomputed_value": 0.353455,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M2_H4 reproduces +0.0014",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": 0.0014,
+   "recomputed_value": 0.001414,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M2_H5 reproduces -0.0290",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": -0.029,
+   "recomputed_value": -0.029006,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a713",
+   "claim": "M2_H6 reproduces -0.0889",
+   "artifact": "oof_protocol/test/*.json + results.csv",
+   "method": "re-derive the contrast from per-arm records, official metric",
+   "manuscript_value": -0.0889,
+   "recomputed_value": -0.088881,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "H6 effect +0.353",
+   "artifact": "CONFIRMATORY.json",
+   "method": "diff_official",
+   "manuscript_value": 0.353,
+   "recomputed_value": 0.353455,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "H6 CI low +0.206",
+   "artifact": "CONFIRMATORY.json",
+   "method": "ci95_low",
+   "manuscript_value": 0.206,
+   "recomputed_value": 0.206355,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "H6 CI high +0.488",
+   "artifact": "CONFIRMATORY.json",
+   "method": "ci95_high",
+   "manuscript_value": 0.488,
+   "recomputed_value": 0.488107,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "H6 Holm p = 0.0015",
+   "artifact": "CONFIRMATORY.json",
+   "method": "p_holm",
+   "manuscript_value": 0.0015,
+   "recomputed_value": 0.0015,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "H6 bootstrap p = 0.0005 (floor)",
+   "artifact": "CONFIRMATORY.json",
+   "method": "p_boot",
+   "manuscript_value": 0.0005,
+   "recomputed_value": 0.0005,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "A0 Mission 1 = 0.0744",
+   "artifact": "CONFIRMATORY.json",
+   "method": "B_official",
+   "manuscript_value": 0.0744,
+   "recomputed_value": 0.074351,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.1",
+   "claim": "A1 Mission 1 = 0.4278",
+   "artifact": "CONFIRMATORY.json",
+   "method": "A_official",
+   "manuscript_value": 0.4278,
+   "recomputed_value": 0.427806,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "H4 effect -0.222",
+   "artifact": "CONFIRMATORY.json",
+   "method": "diff_official",
+   "manuscript_value": -0.222,
+   "recomputed_value": -0.222445,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "H5 effect -0.338",
+   "artifact": "CONFIRMATORY.json",
+   "method": "diff_official",
+   "manuscript_value": -0.338,
+   "recomputed_value": -0.338253,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "H4 Holm p = 0.101",
+   "artifact": "CONFIRMATORY.json",
+   "method": "p_holm",
+   "manuscript_value": 0.101,
+   "recomputed_value": 0.101,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "H5 Holm p = 0.070",
+   "artifact": "CONFIRMATORY.json",
+   "method": "p_holm",
+   "manuscript_value": 0.07,
+   "recomputed_value": 0.07,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A2 Mission 1 mean 0.5436",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "mean over 5 seeds, primary calibrator",
+   "manuscript_value": 0.5436,
+   "recomputed_value": 0.543614,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A2 seed SD 0.2357",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "sample SD (ddof=1) over 5 seeds",
+   "manuscript_value": 0.2357,
+   "recomputed_value": 0.235659,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A2 seed min 0.1572",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "min over 5 seeds",
+   "manuscript_value": 0.1572,
+   "recomputed_value": 0.157195,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A2 seed max 0.7692",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "max over 5 seeds",
+   "manuscript_value": 0.7692,
+   "recomputed_value": 0.769227,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A3 Mission 1 mean 0.2054",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "mean over 5 seeds, primary calibrator",
+   "manuscript_value": 0.2054,
+   "recomputed_value": 0.205361,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A3 seed SD 0.1142",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "sample SD (ddof=1) over 5 seeds",
+   "manuscript_value": 0.1142,
+   "recomputed_value": 0.114168,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A3 seed min 0.0854",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "min over 5 seeds",
+   "manuscript_value": 0.0854,
+   "recomputed_value": 0.085422,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2",
+   "claim": "A3 seed max 0.3582",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "max over 5 seeds",
+   "manuscript_value": 0.3582,
+   "recomputed_value": 0.358179,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold anomaly_and_rare/EW_F0.5 = 0.4278",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.4278,
+   "recomputed_value": 0.427806,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold anomaly/EW_F0.5 = 0.3361",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.3361,
+   "recomputed_value": 0.336133,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold anomaly/EW_precision = 0.5",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.5,
+   "recomputed_value": 0.499997,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold anomaly/EW_recall = 0.1455",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.1455,
+   "recomputed_value": 0.145455,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold anomaly/ADTQC = 0.737",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.737,
+   "recomputed_value": 0.737444,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold alarm_runs = 90",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 90,
+   "recomputed_value": 90.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold false_alarm_runs = 8",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 8,
+   "recomputed_value": 8.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "threshold false_alarms_per_year = 1.14",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1.14,
+   "recomputed_value": 1.142745,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh anomaly_and_rare/EW_F0.5 = 0.4278",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.4278,
+   "recomputed_value": 0.427806,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh anomaly/EW_F0.5 = 0.3361",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.3361,
+   "recomputed_value": 0.336133,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh anomaly/EW_precision = 0.5",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.5,
+   "recomputed_value": 0.499997,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh anomaly/EW_recall = 0.1455",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.1455,
+   "recomputed_value": 0.145455,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh anomaly/ADTQC = 0.738",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.738,
+   "recomputed_value": 0.738044,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh alarm_runs = 123",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 123,
+   "recomputed_value": 123.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh false_alarm_runs = 8",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 8,
+   "recomputed_value": 8.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh false_alarms_per_year = 1.14",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1.14,
+   "recomputed_value": 1.142745,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling anomaly_and_rare/EW_F0.5 = 0.101",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.101,
+   "recomputed_value": 0.10101,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling anomaly/EW_F0.5 = 0.1587",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.1587,
+   "recomputed_value": 0.15873,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling anomaly/EW_precision = 1.0",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1.0,
+   "recomputed_value": 1.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling anomaly/EW_recall = 0.0364",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0364,
+   "recomputed_value": 0.036364,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling anomaly/ADTQC = 1.0",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1.0,
+   "recomputed_value": 1.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling alarm_runs = 2",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 2,
+   "recomputed_value": 2.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling false_alarm_runs = 0",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0,
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "conformal_bh_rolling false_alarms_per_year = 0.0",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0,
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event anomaly_and_rare/EW_F0.5 = 0.0085",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0085,
+   "recomputed_value": 0.008451,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event anomaly/EW_F0.5 = 0.0048",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0048,
+   "recomputed_value": 0.004849,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event anomaly/EW_precision = 0.0039",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0039,
+   "recomputed_value": 0.003886,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event anomaly/EW_recall = 0.5818",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.5818,
+   "recomputed_value": 0.581818,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event anomaly/ADTQC = 0.799",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.799,
+   "recomputed_value": 0.799184,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event alarm_runs = 9115",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 9115,
+   "recomputed_value": 9115.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event false_alarm_runs = 8044",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 8044,
+   "recomputed_value": 8044.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci_event false_alarms_per_year = 1149.03",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1149.03,
+   "recomputed_value": 1149.030504,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci anomaly_and_rare/EW_F0.5 = 5e-05",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 5e-05,
+   "recomputed_value": 5e-05,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci anomaly/EW_F0.5 = 0.0",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.0,
+   "recomputed_value": 3e-05,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci anomaly/EW_precision = 2.4e-05",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 2.4e-05,
+   "recomputed_value": 2.4e-05,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci anomaly/EW_recall = 0.9273",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.9273,
+   "recomputed_value": 0.927273,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci anomaly/ADTQC = 0.906",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 0.906,
+   "recomputed_value": 0.906481,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci alarm_runs = 1383948",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1383948,
+   "recomputed_value": 1383948.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci false_alarm_runs = 1234479",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 1234479,
+   "recomputed_value": 1234479.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "aci false_alarms_per_year = 176336.9",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "read archived per-layer record",
+   "manuscript_value": 176336.9,
+   "recomputed_value": 176336.900567,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3/\u00a721",
+   "claim": "false-alarm ratio = 154,310",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "aci false_alarms_per_year / conformal_bh false_alarms_per_year",
+   "manuscript_value": 154310,
+   "recomputed_value": 154309.875,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "ratio identical on run counts",
+   "artifact": "same",
+   "method": "aci false_alarm_runs / conformal_bh false_alarm_runs",
+   "manuscript_value": 154310,
+   "recomputed_value": 154309.875,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "recall ratio 6.4x",
+   "artifact": "same",
+   "method": "aci recall / conformal_bh recall",
+   "manuscript_value": 6.4,
+   "recomputed_value": 6.375,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "evaluation period 7.0007 years, identical across layers",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "false_alarm_runs / false_alarms_per_year for every layer with a non-zero rate",
+   "manuscript_value": 7.0007,
+   "recomputed_value": 7.000684,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "the period is the same for every layer (spread < 1e-3)",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "max - min over layers",
+   "manuscript_value": "< 1e-3",
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "ACI recall is 51 of 55 anomalies",
+   "artifact": "same",
+   "method": "round(recall x 55)",
+   "manuscript_value": 51,
+   "recomputed_value": 51.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "BH recall is 8 of 55 anomalies",
+   "artifact": "same",
+   "method": "round(recall x 55)",
+   "manuscript_value": 8,
+   "recomputed_value": 8.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "non-pathological layer spread 2.12x",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "max/min of anomaly-only F0.5 over threshold, conformal_bh, conformal_bh_rolling",
+   "manuscript_value": 2.12,
+   "recomputed_value": 2.117639,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "non-pathological layer min 0.1587",
+   "artifact": "same",
+   "method": "min of that set",
+   "manuscript_value": 0.1587,
+   "recomputed_value": 0.15873,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "non-pathological layer max 0.3361",
+   "artifact": "same",
+   "method": "max of that set",
+   "manuscript_value": 0.3361,
+   "recomputed_value": 0.336133,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "scorer spread 4.35x under the primary layer",
+   "artifact": "results.csv",
+   "method": "max/min of anomaly-only F0.5 across learned scorers, M1 target, conformal_bh",
+   "manuscript_value": 4.35,
+   "recomputed_value": 4.352198,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "scorer spread lower bound 0.0073",
+   "artifact": "results.csv",
+   "method": "min of that set",
+   "manuscript_value": 0.0073,
+   "recomputed_value": 0.007265,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "scorer spread upper bound 0.0316",
+   "artifact": "results.csv",
+   "method": "max of that set",
+   "manuscript_value": 0.0316,
+   "recomputed_value": 0.031617,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "A2 Mission 1 under `threshold` = 0.6134",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "mean over 5 seeds, threshold calibrator",
+   "manuscript_value": 0.6134,
+   "recomputed_value": 0.613444,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a715",
+   "claim": "H6 anomaly-only +0.3045",
+   "artifact": "oof_protocol + results.csv",
+   "method": "A1 - A0 on the anomaly-only metric",
+   "manuscript_value": 0.3045,
+   "recomputed_value": 0.304516,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a715",
+   "claim": "H4 anomaly-only -0.2112",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "A3 - A1 on the anomaly-only metric",
+   "manuscript_value": -0.2112,
+   "recomputed_value": -0.211164,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a715",
+   "claim": "H5 anomaly-only -0.2017",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "A3 - A2 on the anomaly-only metric",
+   "manuscript_value": -0.2017,
+   "recomputed_value": -0.201743,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "M1 target selection score 0.6237",
+   "artifact": "oof_protocol/test/m1_target_ar8.json",
+   "method": "cv_EW_F0.5 for arm A1, primary calibrator",
+   "manuscript_value": 0.6237,
+   "recomputed_value": 0.623717,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "M1 target test score 0.4278",
+   "artifact": "same",
+   "method": "anomaly_and_rare/EW_F0.5",
+   "manuscript_value": 0.4278,
+   "recomputed_value": 0.427806,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "M1 lightweight selection score 0.5278",
+   "artifact": "oof_protocol/test/m1_lightweight_ar8.json",
+   "method": "cv_EW_F0.5",
+   "manuscript_value": 0.5278,
+   "recomputed_value": 0.527775,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "M1 lightweight test score 0.0247",
+   "artifact": "same",
+   "method": "anomaly_and_rare/EW_F0.5",
+   "manuscript_value": 0.0247,
+   "recomputed_value": 0.024687,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "lightweight optimism factor 21.4x",
+   "artifact": "same",
+   "method": "selection / test",
+   "manuscript_value": 21.4,
+   "recomputed_value": 21.378476,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.1",
+   "claim": "target optimism factor 1.5x",
+   "artifact": "same",
+   "method": "selection / test",
+   "manuscript_value": 1.5,
+   "recomputed_value": 1.457944,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A0 composite 0.9624",
+   "artifact": "oof_protocol/results.csv",
+   "method": "mean over seeds, primary calibrator",
+   "manuscript_value": 0.9624,
+   "recomputed_value": 0.962411,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A0 anomaly-only 0.1471",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.1471,
+   "recomputed_value": 0.147052,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A0 anomaly precision 0.143",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.143,
+   "recomputed_value": 0.142849,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A0 anomaly recall 0.167",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.167,
+   "recomputed_value": 0.166667,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A1 composite 0.8735",
+   "artifact": "oof_protocol/results.csv",
+   "method": "mean over seeds, primary calibrator",
+   "manuscript_value": 0.8735,
+   "recomputed_value": 0.873529,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A1 anomaly-only 0.0",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.0,
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A1 anomaly precision 0.0",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.0,
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A1 anomaly recall 0.0",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.0,
+   "recomputed_value": 0.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A2 composite 0.9039",
+   "artifact": "oof_protocol/results.csv",
+   "method": "mean over seeds, primary calibrator",
+   "manuscript_value": 0.9039,
+   "recomputed_value": 0.903949,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A2 anomaly-only 0.1288",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.1288,
+   "recomputed_value": 0.128763,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A2 anomaly precision 0.13",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.13,
+   "recomputed_value": 0.129984,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A2 anomaly recall 0.133",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.133,
+   "recomputed_value": 0.133333,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A3 composite 0.8749",
+   "artifact": "oof_protocol/results.csv",
+   "method": "mean over seeds, primary calibrator",
+   "manuscript_value": 0.8749,
+   "recomputed_value": 0.874943,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A3 anomaly-only 0.1797",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.1797,
+   "recomputed_value": 0.179673,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A3 anomaly precision 0.307",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.307,
+   "recomputed_value": 0.306729,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A3 anomaly recall 0.133",
+   "artifact": "same",
+   "method": "same",
+   "manuscript_value": 0.133,
+   "recomputed_value": 0.133333,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 A1 raises 238 alarm runs",
+   "artifact": "oof_protocol/test/m2_target_ar8.json",
+   "method": "alarm_runs",
+   "manuscript_value": 238,
+   "recomputed_value": 238.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 H6 composite -0.089",
+   "artifact": "CONFIRMATORY.json",
+   "method": "diff_official",
+   "manuscript_value": -0.089,
+   "recomputed_value": -0.088881,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 H6 anomaly-only -0.147",
+   "artifact": "oof_protocol + results.csv",
+   "method": "A1 - A0 on the anomaly-only metric, Mission 2",
+   "manuscript_value": -0.147,
+   "recomputed_value": -0.147052,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 lightweight out-of-limit composite 0.9648",
+   "artifact": "results.csv",
+   "method": "read row",
+   "manuscript_value": 0.9648,
+   "recomputed_value": 0.964808,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 lightweight out-of-limit anomaly-only 0.0877",
+   "artifact": "results.csv",
+   "method": "read row",
+   "manuscript_value": 0.0877,
+   "recomputed_value": 0.087719,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a716.2",
+   "claim": "M2 lightweight out-of-limit 3,162 rare-event-only runs",
+   "artifact": "results.csv",
+   "method": "rare_event_only_runs",
+   "manuscript_value": 3162,
+   "recomputed_value": 3162.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M1 per-run Spearman composite +0.455",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "spearmanr(cv_EW_F0.5, composite) over runs",
+   "manuscript_value": 0.455,
+   "recomputed_value": 0.454545,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M1 per-run Spearman anomaly-only +0.282",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "spearmanr(cv_EW_F0.5, anomaly-only) over runs",
+   "manuscript_value": 0.282,
+   "recomputed_value": 0.281818,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M1 run count 11",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "number of runs with a selection score",
+   "manuscript_value": 11,
+   "recomputed_value": 11.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M2 per-run Spearman composite -0.118",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "spearmanr(cv_EW_F0.5, composite) over runs",
+   "manuscript_value": -0.118,
+   "recomputed_value": -0.118182,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M2 per-run Spearman anomaly-only -0.149",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "spearmanr(cv_EW_F0.5, anomaly-only) over runs",
+   "manuscript_value": -0.149,
+   "recomputed_value": -0.148877,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a717",
+   "claim": "M2 run count 11",
+   "artifact": "oof_protocol/test/*.json",
+   "method": "number of runs with a selection score",
+   "manuscript_value": 11,
+   "recomputed_value": 11.0,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.4",
+   "claim": "our out-of-limit rule scores 0.0007",
+   "artifact": "results.csv",
+   "method": "M1 target out_of_limits, primary metric",
+   "manuscript_value": 0.0007,
+   "recomputed_value": 0.000679,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.4",
+   "claim": "out-of-limit rule produces 11,627 false alarms per year",
+   "artifact": "results.csv",
+   "method": "false_alarms_per_year on that row",
+   "manuscript_value": 11627,
+   "recomputed_value": 11627.005964,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.4",
+   "claim": "our PatchTST anomaly-only value 0.0163",
+   "artifact": "results.csv",
+   "method": "mean anomaly-only F0.5 over patchtst seeds, M1 target, conformal_bh",
+   "manuscript_value": 0.0163,
+   "recomputed_value": 0.016286,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a711/\u00a714.4",
+   "claim": "ported GlobalSTD reproduces published values to within 0.001 in all eight configurations",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "the published reference values (DMLR Table 4) are not stored in this repository, so the comparison cannot be recomputed here; only our own GlobalSTD outputs are archived"
+  },
+  {
+   "section": "\u00a710",
+   "claim": "the frozen code reproduces saved A0 and A1 alarms bit for bit",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "no stored diff or hash-comparison record of that reproduction was found in outputs/"
+  },
+  {
+   "section": "\u00a714.4",
+   "claim": "Brancato et al. report 0.902 / 0.883 / 0.754 on Mission 1 full channels",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "external publication, paywalled; full text was not obtained"
+  },
+  {
+   "section": "\u00a714.4",
+   "claim": "TC-CAD reports anomaly event-wise F0.5 of 0.090 at its baseline",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "external artifact (Zenodo 10.5281/zenodo.23322711); not mirrored in this repository"
+  },
+  {
+   "section": "\u00a718",
+   "claim": "a sequential test pass over ~20 arms takes 5-6 hours",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "recorded in the pre-registration as a plan, not measured into an archived timing file"
+  },
+  {
+   "section": "\u00a720.2",
+   "claim": "the restore step affects 51 Mission 1 grid points and has zero effect on Mission 1 detections",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "no archived artifact quantifying the restore-step effect was found"
+  },
+  {
+   "section": "\u00a720.1",
+   "claim": "per-channel score ratios span 0.52-4.70 with 37 of 58 channels at the sigma floor",
+   "artifact": "external or unarchived",
+   "method": "no recomputation possible here",
+   "manuscript_value": "as stated",
+   "recomputed_value": null,
+   "status": "NOT_EVALUABLE",
+   "required_correction": "the per-channel sigma diagnostic is not among the archived protocol outputs"
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "manuscript states the corrected ratio 154,310",
+   "artifact": "manuscript",
+   "method": "literal string present",
+   "manuscript_value": "154,310",
+   "recomputed_value": true,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "figure J1 source data agrees with the manuscript ratio",
+   "artifact": "paper/figures/data/jint_F1_burden_recall.csv",
+   "method": "recompute from the figure's own CSV",
+   "manuscript_value": "154,310",
+   "recomputed_value": "154,310",
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.3",
+   "claim": "the superseded ratio 160,000 is absent",
+   "artifact": "manuscript",
+   "method": "literal string search",
+   "manuscript_value": "absent",
+   "recomputed_value": true,
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a714.2 vs Figure J2",
+   "claim": "figure J2's point estimate and the \u00a714.2 table use different estimators",
+   "artifact": "CONFIRMATORY.json diff vs diff_official",
+   "method": "the J2 caption must disclose the estimator difference with the plotted value",
+   "manuscript_value": "table -0.338 (official)",
+   "recomputed_value": "figure -0.330 (bootstrap); caption disclosure present",
+   "status": "PASS",
+   "required_correction": ""
+  },
+  {
+   "section": "\u00a715",
+   "claim": "ablation table describes the layer effect as ~3 orders of magnitude",
+   "artifact": "manuscript \u00a715 vs \u00a714.3",
+   "method": "literal string search",
+   "manuscript_value": "absent after the \u00a714.3 correction",
+   "recomputed_value": "absent",
+   "status": "PASS",
+   "required_correction": ""
+  }
+ ]
+}

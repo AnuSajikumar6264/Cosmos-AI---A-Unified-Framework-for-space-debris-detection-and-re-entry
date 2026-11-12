@@ -1,0 +1,15 @@
+stage  ok         ms  RSS MB  title
+     1 yes     323.5   145.7  Launch and readiness
+     2 yes     373.6   189.8  System overview
+     3 yes    1788.2   238.3  Satellite selection
+     4 yes     164.6   245.4  Orbital intelligence
+     5 yes      61.9   245.4  Re-entry prediction
+     6 yes    1291.7   238.9  Telemetry and health semantics
+     7 yes      47.5   239.0  Collision and conjunction
+     8 yes     457.6   306.5  Debris and imagery
+     9 yes      77.6   323.8  Decision support
+    10 yes    1249.9   314.0  Digital twin and provenance
+    11 yes    4459.6   316.6  Scenario analysis (fast preset, temporary root)
+    12 yes     284.1   332.0  Pipeline and research evidence
+    13 yes     102.6   332.0  Final mission summary
+import ms 592.2 | total ms 10682.4 | all ok True | written outputs/audit/demo_rehearsal_release_candidate_20261108T163743+0000.json

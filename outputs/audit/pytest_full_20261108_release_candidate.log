@@ -1,0 +1,38 @@
+/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pytest_asyncio/plugin.py:300: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+...............sss...................................................... [ 14%]
+........................................................................ [ 28%]
+....................................F................................... [ 43%]
+........................................................................ [ 57%]
+........................................................................ [ 72%]
+........................................................................ [ 86%]
+..................................................................       [100%]
+=================================== FAILURES ===================================
+________________ test_manifest_git_state_is_consistent_with_git ________________
+
+    def test_manifest_git_state_is_consistent_with_git():
+        """The manifest's git snapshot must still describe the tree in the ways that matter for the
+        figure release: every file it recorded as modified is either still modified or was carried into
+        an owner-approved checkpoint commit descending from the manifest's commit (none reverted behind
+        its back); nothing is staged; and HEAD is the manifest's commit or an approved checkpoint. Exact
+        equality of the modified-file count was the wrong invariant — it failed on 2026-11-06 the moment
+        unrelated, legitimate edits landed; and "still modified" became wrong on 2026-11-08 when the owner
+        approved the checkpoint commit 938d514 of all uncommitted work. Figure, source-data and
+        upstream-artifact drift are caught by their hashes in the test above."""
+        import subprocess
+        from scripts.verify_protected_artifacts import APPROVED_HEADS
+        man = json.loads((FIG / "RELEASE_MANIFEST.json").read_text())
+        run = lambda *args: subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, timeout=60).stdout
+        lines = [l for l in run("status", "--porcelain").split("\n") if l]
+        modified_now = {l[3:] for l in lines if l.startswith(" M")}
+        head = run("rev-parse", "HEAD").strip()
+>       assert head in APPROVED_HEADS, f"HEAD {head[:12]} is neither the manifest's commit nor an approved checkpoint"
+E       AssertionError: HEAD aeefac2bd932 is neither the manifest's commit nor an approved checkpoint
+E       assert 'aeefac2bd93244f98f7acb20fb88427bbbe34da8' in {'78ee33962007203bcfc829fc743a663b350373e1', '938d514a9f91988e37b63d25475899632eb370d0'}
+
+tests/test_figures.py:440: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_figures.py::test_manifest_git_state_is_consistent_with_git
+1 failed, 494 passed, 3 skipped in 131.54s (0:02:11)

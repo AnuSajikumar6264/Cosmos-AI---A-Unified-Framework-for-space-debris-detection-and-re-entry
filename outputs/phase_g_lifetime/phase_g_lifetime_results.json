@@ -1,0 +1,777 @@
+{
+  "phase": "G+ lifetime",
+  "analysed_at": "2026-11-04T09:06:15.492960+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "n_boot": 4000,
+  "alpha": 0.05,
+  "seed": 20261027,
+  "exploratory": true,
+  "exploratory_note": "the test leaderboard was inspected during the diagnosis, so these candidate results are exploratory; the combiners are parameter-free and motivated by the diagnosed mechanism rather than fitted to test, but confirmation requires a fresh temporal origin",
+  "blend_specification": {
+    "members": [
+      "physics_only",
+      "tabm",
+      "tabicl",
+      "kumo"
+    ],
+    "rationale": "union of the study's pre-specified recent-learner pool (models.RECENT) and the physics prior; chosen by role, not by test performance",
+    "combiners": [
+      "median",
+      "mean"
+    ],
+    "parameters": "none",
+    "monotonisation": "np.sort along the quantile axis, as run.py does for ensembles"
+  },
+  "selection_transfer_diagnosis": {
+    "2011": {
+      "status": "evaluated",
+      "selected_on_tuneA": "kumo",
+      "selection_pool": [
+        "tabm",
+        "tabicl",
+        "kumo"
+      ],
+      "n_models_compared": 7,
+      "spearman_tuneA_vs_test": 0.0,
+      "selected_model_test_rank": 2,
+      "best_possible_test_pinball": 0.059584065715467,
+      "selected_model_test_pinball": 0.06161253035125437,
+      "table": [
+        {
+          "model": "xgboost",
+          "tuneA_pinball": 0.06714729073866008,
+          "test_pinball": 0.06484232951162518,
+          "test_rank": 4
+        },
+        {
+          "model": "lightgbm",
+          "tuneA_pinball": 0.09394161859505967,
+          "test_pinball": 0.0683209886858614,
+          "test_rank": 5
+        },
+        {
+          "model": "catboost",
+          "tuneA_pinball": 0.07185402722352136,
+          "test_pinball": 0.06266006907918586,
+          "test_rank": 3
+        },
+        {
+          "model": "mlp",
+          "tuneA_pinball": 0.05747355040439768,
+          "test_pinball": 0.11466122952512538,
+          "test_rank": 7
+        },
+        {
+          "model": "tabm",
+          "tuneA_pinball": 0.05608990082287044,
+          "test_pinball": 0.09943669602207811,
+          "test_rank": 6
+        },
+        {
+          "model": "tabicl",
+          "tuneA_pinball": 0.05808638740862648,
+          "test_pinball": 0.059584065715467,
+          "test_rank": 1
+        },
+        {
+          "model": "kumo",
+          "tuneA_pinball": 0.054720703169263606,
+          "test_pinball": 0.06161253035125437,
+          "test_rank": 2
+        }
+      ],
+      "reading": "a Spearman correlation near zero means tune-A ranking carries no information about forward test ranking"
+    },
+    "2016": {
+      "status": "evaluated",
+      "selected_on_tuneA": "tabm",
+      "selection_pool": [
+        "tabm",
+        "tabicl",
+        "kumo"
+      ],
+      "n_models_compared": 7,
+      "spearman_tuneA_vs_test": 0.0,
+      "selected_model_test_rank": 5,
+      "best_possible_test_pinball": 0.04994398879124338,
+      "selected_model_test_pinball": 0.059292124092823056,
+      "table": [
+        {
+          "model": "xgboost",
+          "tuneA_pinball": 0.03527627376846493,
+          "test_pinball": 0.05758207135968794,
+          "test_rank": 3
+        },
+        {
+          "model": "lightgbm",
+          "tuneA_pinball": 0.03860516028324525,
+          "test_pinball": 0.06616888588902313,
+          "test_rank": 7
+        },
+        {
+          "model": "catboost",
+          "tuneA_pinball": 0.03860140149002319,
+          "test_pinball": 0.06114625923110467,
+          "test_rank": 6
+        },
+        {
+          "model": "mlp",
+          "tuneA_pinball": 0.02868610231499341,
+          "test_pinball": 0.05777586392896601,
+          "test_rank": 4
+        },
+        {
+          "model": "tabm",
+          "tuneA_pinball": 0.028291817495200353,
+          "test_pinball": 0.059292124092823056,
+          "test_rank": 5
+        },
+        {
+          "model": "tabicl",
+          "tuneA_pinball": 0.03686748809193473,
+          "test_pinball": 0.04994398879124338,
+          "test_rank": 1
+        },
+        {
+          "model": "kumo",
+          "tuneA_pinball": 0.04329247341971213,
+          "test_pinball": 0.050767746875096526,
+          "test_rank": 2
+        }
+      ],
+      "reading": "a Spearman correlation near zero means tune-A ranking carries no information about forward test ranking"
+    }
+  },
+  "results": {
+    "2011": {
+      "status": "evaluated",
+      "origin": "2011",
+      "artifact_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+      "blend_members_used": [
+        "physics_only",
+        "tabm",
+        "tabicl",
+        "kumo"
+      ],
+      "n_objects_scored": 2667,
+      "n_launch_families": 435,
+      "split_sizes": {
+        "train": 20811,
+        "tuneA": 248,
+        "tuneB": 332,
+        "test": 2680
+      },
+      "split_event_rates": {
+        "train": 0.7496996780548748,
+        "tuneA": 0.42338709677419356,
+        "tuneB": 0.4427710843373494,
+        "test": 0.44738805970149254
+      },
+      "split_max_time_days": {
+        "train": 18876.0,
+        "tuneA": 2542.0,
+        "tuneB": 2549.0,
+        "test": 5778.0
+      },
+      "pinball": {
+        "robust_median_blend": 0.05754924446511634,
+        "robust_mean_blend": 0.06427092853523661,
+        "cosmos_gated": 0.05826284242323395,
+        "equal_average": 0.05269684597930894,
+        "stack_constant": 0.0607762627184865,
+        "physics_only": 0.05267631417331738,
+        "tabm": 0.09943669602207812,
+        "tabicl": 0.059584065715467,
+        "kumo": 0.06161253035125438
+      },
+      "contrasts": [
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": -0.0007135979581175974,
+          "ci95_lo": -0.004070194222852786,
+          "ci95_hi": 0.0021674064488905456,
+          "p_value": 0.6545000000000001,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "cosmos_gated",
+          "candidate_pinball": 0.05754924446511634,
+          "incumbent_pinball": 0.05826284242323395,
+          "relative_change": -0.01224790841706415,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.6545000000000001,
+          "significant_after_correction": false
+        },
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": 0.004852398485807414,
+          "ci95_lo": -0.0032149441824361243,
+          "ci95_hi": 0.011818872290763215,
+          "p_value": 0.3075,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "equal_average",
+          "candidate_pinball": 0.05754924446511634,
+          "incumbent_pinball": 0.05269684597930894,
+          "relative_change": 0.09208138353693243,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.46125,
+          "significant_after_correction": false
+        },
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": -0.003227018253370152,
+          "ci95_lo": -0.006954718841895285,
+          "ci95_hi": 0.00021526495390544279,
+          "p_value": 0.0685,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "stack_constant",
+          "candidate_pinball": 0.05754924446511634,
+          "incumbent_pinball": 0.0607762627184865,
+          "relative_change": -0.053096687901287895,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.41100000000000003,
+          "significant_after_correction": false
+        },
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": 0.006008086112002669,
+          "ci95_lo": -0.002158832843406259,
+          "ci95_hi": 0.016270529302095466,
+          "p_value": 0.2885,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "cosmos_gated",
+          "candidate_pinball": 0.06427092853523661,
+          "incumbent_pinball": 0.05826284242323395,
+          "relative_change": 0.10312037418906919,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.46125,
+          "significant_after_correction": false
+        },
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": 0.01157408255592768,
+          "ci95_lo": -0.0011742113160948245,
+          "ci95_hi": 0.025640594086604396,
+          "p_value": 0.172,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "equal_average",
+          "candidate_pinball": 0.06427092853523661,
+          "incumbent_pinball": 0.05269684597930894,
+          "relative_change": 0.21963520474208564,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.46125,
+          "significant_after_correction": false
+        },
+        {
+          "n": 2667,
+          "n_clusters": 435,
+          "mean": 0.003494665816750114,
+          "ci95_lo": -0.00436227984543848,
+          "ci95_hi": 0.013209826507980802,
+          "p_value": 0.6015,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "stack_constant",
+          "candidate_pinball": 0.06427092853523661,
+          "incumbent_pinball": 0.0607762627184865,
+          "relative_change": 0.057500505303152344,
+          "verdict": "INCONCLUSIVE",
+          "p_adjusted_bh": 0.6545000000000001,
+          "significant_after_correction": false
+        }
+      ],
+      "coverage": {
+        "robust_median_blend": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9366329208848894,
+            "deviation": 0.13663292088488935,
+            "deviation_ci95_lo": 0.10175128858153305,
+            "deviation_ci95_hi": 0.15839381766931016,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.8683524669982916
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9711286089238845,
+            "deviation": 0.07112860892388449,
+            "deviation_ci95_lo": 0.049719290053378794,
+            "deviation_ci95_hi": 0.08355074523273737,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 1.2866654078638375
+          }
+        },
+        "robust_mean_blend": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7697787776527935,
+            "deviation": -0.03022122234720663,
+            "deviation_ci95_lo": -0.12749648549313192,
+            "deviation_ci95_hi": 0.07244992696955081,
+            "p_value": 0.5845,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 0.8631725033215459
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8796400449943758,
+            "deviation": -0.020359955005624306,
+            "deviation_ci95_lo": -0.10306514866369072,
+            "deviation_ci95_hi": 0.05540420925946041,
+            "p_value": 0.72,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 1.2583003560758148
+          }
+        },
+        "cosmos_gated": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9231346081739783,
+            "deviation": 0.1231346081739782,
+            "deviation_ci95_lo": 0.08286958826230215,
+            "deviation_ci95_hi": 0.14782622359467656,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.8768161544762294
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9591301087364079,
+            "deviation": 0.05913010873640792,
+            "deviation_ci95_lo": 0.03364327073008431,
+            "deviation_ci95_hi": 0.07400825185949636,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 1.2139402656816065
+          }
+        },
+        "equal_average": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9287589051368579,
+            "deviation": 0.12875890513685784,
+            "deviation_ci95_lo": 0.09125430783922933,
+            "deviation_ci95_hi": 0.15098087531267082,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.7095369653483108
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.96962879640045,
+            "deviation": 0.06962879640044992,
+            "deviation_ci95_lo": 0.04880756909128869,
+            "deviation_ci95_hi": 0.08269341684307649,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 1.0368572501991695
+          }
+        },
+        "stack_constant": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9242594675665542,
+            "deviation": 0.12425946756655414,
+            "deviation_ci95_lo": 0.08389939403256591,
+            "deviation_ci95_hi": 0.14837843535934017,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.9436972309346326
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9598800149981253,
+            "deviation": 0.05988001499812521,
+            "deviation_ci95_lo": 0.034998287671232864,
+            "deviation_ci95_hi": 0.07436637765200042,
+            "p_value": 0.0,
+            "n": 2667,
+            "n_launch_families": 435,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 1.310397807224375
+          }
+        }
+      }
+    },
+    "2016": {
+      "status": "evaluated",
+      "origin": "2016",
+      "artifact_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+      "blend_members_used": [
+        "physics_only",
+        "tabm",
+        "tabicl",
+        "kumo"
+      ],
+      "n_objects_scored": 2978,
+      "n_launch_families": 621,
+      "split_sizes": {
+        "train": 25371,
+        "tuneA": 1741,
+        "tuneB": 1560,
+        "test": 2993
+      },
+      "split_event_rates": {
+        "train": 0.7043474833471286,
+        "tuneA": 0.3429063756461804,
+        "tuneB": 0.4173076923076923,
+        "test": 0.5325760106916138
+      },
+      "split_max_time_days": {
+        "train": 20702.0,
+        "tuneA": 2555.0,
+        "tuneB": 2539.0,
+        "test": 3951.0
+      },
+      "pinball": {
+        "robust_median_blend": 0.04864436442462527,
+        "robust_mean_blend": 0.05192088275618287,
+        "cosmos_gated": 0.06037598117327946,
+        "equal_average": 0.06909000759451554,
+        "stack_constant": 0.060121990275091415,
+        "physics_only": 0.08924911570800471,
+        "tabm": 0.05929212409282305,
+        "tabicl": 0.049943988791243385,
+        "kumo": 0.050767746875096526
+      },
+      "contrasts": [
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.011731616748654196,
+          "ci95_lo": -0.017345810840274044,
+          "ci95_hi": -0.0068292905863857525,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "cosmos_gated",
+          "candidate_pinball": 0.04864436442462527,
+          "incumbent_pinball": 0.06037598117327946,
+          "relative_change": -0.19430933494868394,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        },
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.020445643169890268,
+          "ci95_lo": -0.030518702694604247,
+          "ci95_hi": -0.012009884943888488,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "equal_average",
+          "candidate_pinball": 0.04864436442462527,
+          "incumbent_pinball": 0.06909000759451554,
+          "relative_change": -0.29592764397833526,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        },
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.011477625850466147,
+          "ci95_lo": -0.016945777759716927,
+          "ci95_hi": -0.006790936251276063,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_median_blend",
+          "incumbent": "stack_constant",
+          "candidate_pinball": 0.04864436442462527,
+          "incumbent_pinball": 0.060121990275091415,
+          "relative_change": -0.19090562035537495,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        },
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.008455098417096598,
+          "ci95_lo": -0.013050394789829138,
+          "ci95_hi": -0.00421900139386891,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "cosmos_gated",
+          "candidate_pinball": 0.05192088275618287,
+          "incumbent_pinball": 0.06037598117327946,
+          "relative_change": -0.14004076211747857,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        },
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.017169124838332665,
+          "ci95_lo": -0.02648258727086752,
+          "ci95_hi": -0.009460823567411155,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "equal_average",
+          "candidate_pinball": 0.05192088275618287,
+          "incumbent_pinball": 0.06909000759451554,
+          "relative_change": -0.24850373355141422,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        },
+        {
+          "n": 2978,
+          "n_clusters": 621,
+          "mean": -0.008201107518908547,
+          "ci95_lo": -0.012699243106854047,
+          "ci95_hi": -0.004164490402410684,
+          "p_value": 0.0,
+          "bootstrap_draws": 4000,
+          "candidate": "robust_mean_blend",
+          "incumbent": "stack_constant",
+          "candidate_pinball": 0.05192088275618287,
+          "incumbent_pinball": 0.060121990275091415,
+          "relative_change": -0.13640778492834213,
+          "verdict": "CANDIDATE BETTER",
+          "p_adjusted_bh": 0.0,
+          "significant_after_correction": true
+        }
+      ],
+      "coverage": {
+        "robust_median_blend": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.9019476158495635,
+            "deviation": 0.10194761584956341,
+            "deviation_ci95_lo": 0.06945711863038032,
+            "deviation_ci95_hi": 0.12769343065693428,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.5472511912935935
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.9623908663532572,
+            "deviation": 0.0623908663532572,
+            "deviation_ci95_lo": 0.04689624252295316,
+            "deviation_ci95_hi": 0.07381054295917726,
+            "p_value": 0.0,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "OVER-COVERS",
+            "mean_width_log10_days": 0.8336829757228956
+          }
+        },
+        "robust_mean_blend": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.8015446608462055,
+            "deviation": 0.0015446608462054694,
+            "deviation_ci95_lo": -0.0845514137580154,
+            "deviation_ci95_hi": 0.0644942931468236,
+            "p_value": 0.959,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 0.555493398633933
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.905977165883143,
+            "deviation": 0.005977165883143019,
+            "deviation_ci95_lo": -0.06559200608622796,
+            "deviation_ci95_hi": 0.05049928650812793,
+            "p_value": 0.7865,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 0.8549849163329774
+          }
+        },
+        "cosmos_gated": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7169241101410343,
+            "deviation": -0.08307588985896577,
+            "deviation_ci95_lo": -0.17768254989952978,
+            "deviation_ci95_hi": -0.002332548206339582,
+            "p_value": 0.04150000000000009,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "UNDER-COVERS",
+            "mean_width_log10_days": 0.4328898831659264
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8740765614506381,
+            "deviation": -0.025923438549362014,
+            "deviation_ci95_lo": -0.09911043681654189,
+            "deviation_ci95_hi": 0.025092169548460205,
+            "p_value": 0.4095,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 0.6706956057412123
+          }
+        },
+        "equal_average": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7044996642041639,
+            "deviation": -0.09550033579583617,
+            "deviation_ci95_lo": -0.19414653035029808,
+            "deviation_ci95_hi": -0.007331746612650052,
+            "p_value": 0.03249999999999997,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "UNDER-COVERS",
+            "mean_width_log10_days": 0.3919312385898504
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.838482202820685,
+            "deviation": -0.061517797179315,
+            "deviation_ci95_lo": -0.13847684387723147,
+            "deviation_ci95_hi": -0.0073271457629551645,
+            "p_value": 0.016000000000000014,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "UNDER-COVERS",
+            "mean_width_log10_days": 0.6392849606988666
+          }
+        },
+        "stack_constant": {
+          "cov80": {
+            "status": "evaluated",
+            "nominal": 0.8,
+            "empirical_coverage": 0.7169241101410343,
+            "deviation": -0.08307588985896577,
+            "deviation_ci95_lo": -0.17813721454615403,
+            "deviation_ci95_hi": -0.002398061065662463,
+            "p_value": 0.040999999999999925,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "UNDER-COVERS",
+            "mean_width_log10_days": 0.43422659055857776
+          },
+          "cov90": {
+            "status": "evaluated",
+            "nominal": 0.9,
+            "empirical_coverage": 0.8770987239758227,
+            "deviation": -0.022901276024177315,
+            "deviation_ci95_lo": -0.09618813337142665,
+            "deviation_ci95_hi": 0.027088662933098827,
+            "p_value": 0.4804999999999999,
+            "n": 2978,
+            "n_launch_families": 621,
+            "verdict": "CONSISTENT WITH NOMINAL",
+            "mean_width_log10_days": 0.673570187425236
+          }
+        }
+      }
+    }
+  },
+  "promotion": [
+    {
+      "candidate": "robust_median_blend",
+      "per_origin": {
+        "2011": {
+          "pinball": 0.05754924446511634,
+          "beats_significantly": [],
+          "loses_significantly": []
+        },
+        "2016": {
+          "pinball": 0.04864436442462527,
+          "beats_significantly": [
+            "cosmos_gated",
+            "equal_average",
+            "stack_constant"
+          ],
+          "loses_significantly": []
+        }
+      },
+      "promote": false,
+      "verdict": "DO NOT PROMOTE"
+    },
+    {
+      "candidate": "robust_mean_blend",
+      "per_origin": {
+        "2011": {
+          "pinball": 0.06427092853523661,
+          "beats_significantly": [],
+          "loses_significantly": []
+        },
+        "2016": {
+          "pinball": 0.05192088275618287,
+          "beats_significantly": [
+            "cosmos_gated",
+            "equal_average",
+            "stack_constant"
+          ],
+          "loses_significantly": []
+        }
+      },
+      "promote": false,
+      "verdict": "DO NOT PROMOTE"
+    }
+  ],
+  "acceptance_criteria": [
+    "must improve pinball significantly against the incumbent at BOTH origins",
+    "must not significantly degrade against any incumbent at either origin",
+    "must not lose interval coverage relative to the incumbent",
+    "a single favourable origin is not sufficient"
+  ]
+}

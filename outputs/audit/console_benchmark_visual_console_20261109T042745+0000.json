@@ -1,0 +1,170 @@
+{
+ "label": "visual_console",
+ "at": "2026-11-09T04:27:45+00:00",
+ "rss_mb_start": 128.30859375,
+ "probes": [
+  {
+   "probe": "overview api",
+   "path": "/api/overview",
+   "status": 200,
+   "ms": 480.2,
+   "kb": 6.3,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "overview api (warm)",
+   "path": "/api/overview",
+   "status": 200,
+   "ms": 27.7,
+   "kb": 6.3,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "overview page",
+   "path": "/",
+   "status": 200,
+   "ms": 224.3,
+   "kb": 31.2,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "overview page (warm)",
+   "path": "/",
+   "status": 200,
+   "ms": 45.1,
+   "kb": 31.2,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "datasets api",
+   "path": "/api/datasets",
+   "status": 200,
+   "ms": 14.2,
+   "kb": 1.5,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "search",
+   "path": "/api/objects/search",
+   "status": 200,
+   "ms": 35.0,
+   "kb": 9.7,
+   "rss_mb": 194.0
+  },
+  {
+   "probe": "object api 37607",
+   "path": "/api/objects/37607",
+   "status": 200,
+   "ms": 154.1,
+   "kb": 17.1,
+   "rss_mb": 200.0
+  },
+  {
+   "probe": "object api 37607 (warm)",
+   "path": "/api/objects/37607",
+   "status": 200,
+   "ms": 30.1,
+   "kb": 17.1,
+   "rss_mb": 200.0
+  },
+  {
+   "probe": "object page 37607",
+   "path": "/objects/37607",
+   "status": 200,
+   "ms": 64.7,
+   "kb": 33.8,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "twin api 23806 (index build)",
+   "path": "/api/objects/23806/twin",
+   "status": 200,
+   "ms": 28.2,
+   "kb": 6.1,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "twin api 25544",
+   "path": "/api/objects/25544/twin",
+   "status": 200,
+   "ms": 14.9,
+   "kb": 5.1,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "runs list api",
+   "path": "/api/runs",
+   "status": 200,
+   "ms": 15.4,
+   "kb": 48.5,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "runs list api (warm)",
+   "path": "/api/runs",
+   "status": 200,
+   "ms": 10.7,
+   "kb": 48.5,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "run manifest api",
+   "path": "/api/runs/run_20261109T041153Z",
+   "status": 200,
+   "ms": 14.1,
+   "kb": 24.7,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "run manifest api (warm)",
+   "path": "/api/runs/run_20261109T041153Z",
+   "status": 200,
+   "ms": 9.7,
+   "kb": 24.7,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "run page",
+   "path": "/runs/run_20261109T041153Z",
+   "status": 200,
+   "ms": 54.3,
+   "kb": 52.2,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "ranking 25",
+   "path": "/api/runs/run_20261109T041153Z/ranking",
+   "status": 200,
+   "ms": 33.2,
+   "kb": 27.4,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "report json 37607",
+   "path": "/api/reports/object/37607",
+   "status": 200,
+   "ms": 54.4,
+   "kb": 25.1,
+   "rss_mb": 204.0
+  },
+  {
+   "probe": "report html 37607",
+   "path": "/reports/object/37607",
+   "status": 200,
+   "ms": 37.9,
+   "kb": 22.1,
+   "rss_mb": 204.0
+  }
+ ],
+ "list_runs_ms": 63.3,
+ "list_runs_ms_warm": 2.5,
+ "run_manifest_parse_ms": 0.1,
+ "run_manifest_parse_ms_warm": 0.0,
+ "repository_provenance_ms": 55.3,
+ "repository_provenance_ms_warm": 0.3,
+ "missions_ms": 7.7,
+ "twin_lookup_ms": 49.31,
+ "latest_run": "run_20261109T041153Z",
+ "latest_manifest_bytes": 23192,
+ "rss_mb_peak": 225.0
+}

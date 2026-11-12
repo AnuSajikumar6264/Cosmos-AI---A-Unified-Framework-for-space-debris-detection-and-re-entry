@@ -1,0 +1,18 @@
+start 2026-11-06T05:16:52Z
+sample: 720 uncontrolled objects over 6 perigee bands x 3 classes; baseline F10.7=111.27 Ap=9.12; expected 30d=26.72  (8.3 s)
+  F10.7=  69.87 Ap= 9.12  E[30d]=  17.56  E[1yr]=  64.59  shift>0.1: 0.040  (9.0 s)
+  F10.7=  79.30 Ap= 9.12  E[30d]=  19.56  E[1yr]=  71.75  shift>0.1: 0.028  (8.9 s)
+  F10.7= 111.27 Ap= 9.12  E[30d]=  26.72  E[1yr]= 100.53  shift>0.1: 0.000  (8.7 s)
+  F10.7= 111.65 Ap= 9.12  E[30d]=  26.78  E[1yr]= 101.19  shift>0.1: 0.000  (8.8 s)
+  F10.7= 156.54 Ap= 9.12  E[30d]=  38.19  E[1yr]= 147.78  shift>0.1: 0.057  (8.2 s)
+  F10.7= 215.03 Ap= 9.12  E[30d]=  55.06  E[1yr]= 206.12  shift>0.1: 0.114  (7.8 s)
+  F10.7= 111.27 Ap= 5.67  E[30d]=  25.94  E[1yr]=  97.41  shift>0.1: 0.000  (8.9 s)
+  F10.7= 111.27 Ap= 9.01  E[30d]=  26.69  E[1yr]= 100.44  shift>0.1: 0.000  (8.9 s)
+  F10.7= 111.27 Ap= 9.12  E[30d]=  26.72  E[1yr]= 100.53  shift>0.1: 0.000  (8.9 s)
+  F10.7= 111.27 Ap=12.06  E[30d]=  27.28  E[1yr]= 102.38  shift>0.1: 0.000  (8.8 s)
+  F10.7= 111.27 Ap=15.81  E[30d]=  27.75  E[1yr]= 104.47  shift>0.1: 0.000  (8.9 s)
+  F10.7= 111.27 Ap=23.02  E[30d]=  28.62  E[1yr]= 107.91  shift>0.1: 0.000  (9.0 s)
+
+elasticity of E[30d]: wrt F10.7 1.0148411843838507, wrt Ap 0.07052729166113308;  total 113 s
+written outputs/reentry_space_weather_sensitivity/sensitivity_grid.csv, results.json
+exit=0 end 2026-11-06T05:18:47Z

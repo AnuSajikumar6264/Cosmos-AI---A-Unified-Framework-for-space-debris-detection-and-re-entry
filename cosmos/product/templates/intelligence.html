@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block topmeta %}snapshot {{ as_of }} · {{ counts.objects | fmt(0) }} objects · counted from the archived table{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>Counted from the archived 2026-10-27 snapshot; nothing modelled here</b> — full scope and limitations</summary>
+  <div class="scope-body">
+  <strong>Catalogue-wide lifetime and re-entry picture.</strong> Every count and sum on this page is taken
+  directly from the archived snapshot <code>forecast_table.csv.gz</code> ({{ as_of }}); nothing is modelled,
+  refitted or inferred here. The ranking table lower down comes from a pipeline run and is labelled with that
+  run's id, because a scenario run may cover only a subset of the catalogue.
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Expected re-entries, 30 d</div>
+    <div class="k-value">{{ counts.expected_reentries_30d | fmt(1) }}</div>
+    <div class="k-foot">sum of the reported p(30 d) over all objects</div></div>
+  <div class="kpi warn"><div class="k-label">p(30 d) above 0.5</div>
+    <div class="k-value">{{ counts.p30_above_half | fmt(0) }}<small>objects</small></div>
+    <div class="k-foot">a probability, not a warning</div></div>
+  <div class="kpi"><div class="k-label">Lifetime estimate present</div>
+    <div class="k-value">{{ counts.with_lifetime_estimate | fmt(0) }}</div>
+    <div class="k-foot">{{ counts.without_lifetime_estimate | fmt(0) }} objects abstain: the saved expert produced no value</div></div>
+  <div class="kpi violet"><div class="k-label">Cross-horizon incoherence</div>
+    <div class="k-value">{{ counts.incoherent_horizons | fmt(0) }}<small>records</small></div>
+    <div class="k-foot">limitation L17: the chain abstains for these</div></div>
+  <div class="kpi neutral"><div class="k-label">At the {{ cap_days }} d cap</div>
+    <div class="k-value">{{ counts.at_cap | fmt(0) }}</div>
+    <div class="k-foot">read as "not within the cap", not as a lifetime</div></div>
+  <div class="kpi neutral"><div class="k-label">Zero-width intervals</div>
+    <div class="k-value">{{ counts.zero_width_interval | fmt(0) }}</div>
+    <div class="k-foot">integrator discretisation, never precision</div></div>
+</div>
+
+<div class="grid three">
+  <div class="panel">
+    <h2>30-day re-entry probability <span class="count">all {{ counts.objects | fmt(0) }} objects</span></h2>
+    <div class="chart-frame">{{ p30_chart | safe }}
+      <div class="chart-note">objects per probability band; the vertical axis is a count</div></div>
+    <p class="panel-note">Reported probabilities of the dated forecast. The two highest bands are the objects
+      the decision ordering puts at the top.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Median lifetime <span class="count">{{ counts.with_lifetime_estimate | fmt(0) }} with an estimate</span></h2>
+    <div class="chart-frame">{{ lifetime_chart | safe }}
+      <div class="chart-note">objects per median-lifetime band</div></div>
+    <p class="panel-note">Mondrian conformal quantile-regression medians from the archived lifetime expert;
+      objects without an estimate are not counted here and are never given a default.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Inclination <span class="count">archived mean element</span></h2>
+    <div class="chart-frame">{{ inclination_chart | safe }}
+      <div class="chart-note">objects per inclination band</div></div>
+    <p class="panel-note">Inclination is one of the three geometric quantities the catalogue publishes, and the
+      only orbit orientation the <a href="/explorer">Earth &amp; orbit explorer</a> can draw from evidence.</p>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>Highest-priority objects</h2>
+  <span class="note">{% if run_id %}from run <code>{{ run_id }}</code>{% else %}no run available{% endif %}</span>
+</div>
+<div class="panel">
+  {%- if ranking and queue_chart %}
+  <div class="chart-frame" style="margin-bottom:.8rem">{{ queue_chart | safe }}
+    <div class="chart-note">priority score of the highest-ranked objects in this run; an ordering, not a probability</div></div>
+  {%- endif %}
+  {%- if ranking %}
+  <div class="scroll scroll-x">
+    <table class="data">
+      <thead><tr>
+        <th>rank</th><th>object</th><th>regime</th><th class="num">p(30 d)</th><th class="num">mass (kg)</th>
+        <th class="num">priority</th><th>re-entry time vs 30-day horizon</th><th>lifetime evidence</th>
+      </tr></thead>
+      <tbody>
+      {%- for row in ranking %}
+        <tr>
+          <td class="num">{{ row.rank }}</td>
+          <td><a href="/objects/{{ row.object_id | replace('NORAD-', '') }}">{{ row.name or row.object_id }}</a>
+            <small class="mono" style="color:var(--ink-faint)"> {{ row.object_id }}</small></td>
+          <td>{{ (row.regime or '') | replace('_', ' ') }}</td>
+          <td class="num">{{ row.p_reentry_30d | fmt(4) }}</td>
+          <td class="num {{ 'absent' if not row.mass_known }}">{{ row.mass_kg | fmt(0) if row.mass_known else 'unknown' }}</td>
+          <td class="num">{{ row.priority_score | fmt(3) }}</td>
+          <td>
+            {%- set rel = row.horizon_relation %}
+            {%- if rel and rel.relation %}<span class="status status-info">{{ rel.relation | replace('_', ' ') }}</span>
+            {%- else %}<span class="status status-unavailable">unavailable</span>{% endif %}
+          </td>
+          <td>{% if row.lifetime_evidence %}<span class="status status-pass">present</span>
+              {%- else %}<span class="status status-abstain">abstains</span>{% endif %}</td>
+        </tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="panel-note">The ordering is an operational queue, not a probability and not a risk estimate. It uses
+    the point probability and the catalogued mass, never the uncertainty interval.</p>
+  {%- else %}
+  <div class="unavailable-state"><strong>No pipeline run is available.</strong>
+    Produce one with <code>python scripts/run_pipeline.py --as-of {{ as_of }}</code>, then reload.</div>
+  {%- endif %}
+</div>
+
+<div class="grid two">
+  <div class="panel violet">
+    <h2>Uncertainty and abstention <span class="count">how to read the intervals</span></h2>
+    <table class="kv">
+      <tr><th>lifetime interval</th><td>Mondrian conformal quantile regression, stratified by object class and
+        perigee band, calibrated on a held-out fold. Not a distribution-free guarantee for a single object.</td></tr>
+      <tr><th>re-entry interval</th><td>5–95 % Monte-Carlo spread over area-to-mass and space-weather draws.
+        Not a conformal interval.</td></tr>
+      <tr><th>zero width</th><td>{{ counts.zero_width_interval | fmt(0) }} objects: every draw returned the same
+        value. This is the integrator's discretisation, never confidence.</td></tr>
+      <tr><th>at the cap</th><td>{{ counts.at_cap | fmt(0) }} objects sit at {{ cap_days }} days: "not expected
+        within the cap", not an estimated lifetime.</td></tr>
+      <tr><th>abstention</th><td>{{ counts.without_lifetime_estimate | fmt(0) }} objects have no lifetime value and
+        {{ counts.incoherent_horizons | fmt(0) }} have incoherent per-horizon probabilities (L17). Both abstain;
+        neither is filled with a default.</td></tr>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>Subgroup coverage cue <span class="count">X6 Stage 1 evidence</span></h2>
+    {%- if subgroup %}
+    <p class="panel-note">Interval coverage measured by the provenance of the area-to-mass ratio. A subgroup
+      frequency from a benchmark evaluation, never a probability for an individual object.</p>
+    <div class="scroll" style="max-height:260px">
+      <table class="data">
+        <thead><tr><th>origin</th><th>subgroup</th><th class="num">coverage</th><th class="num">nominal</th><th class="num">n</th></tr></thead>
+        <tbody>
+        {%- for origin, record in (subgroup.origins or {}).items() %}
+          {%- for key, cov in (record.coverage or {}).items() %}
+            {%- for group, stats in cov.items() %}
+              {%- if stats is mapping and stats.coverage is defined %}
+              <tr><td>{{ origin }}</td><td>{{ group | replace('_', ' ') }} <small class="mono">{{ key }}</small></td>
+                <td class="num">{{ stats.coverage | fmt(4) }}</td>
+                <td class="num">{{ '0.80' if '80' in key else '0.90' }}</td>
+                <td class="num">{{ stats.n | fmt(0) }}</td></tr>
+              {%- endif %}
+            {%- endfor %}
+          {%- endfor %}
+        {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+    {%- else %}
+    <div class="unavailable-state"><strong>Not available.</strong>
+      <code>outputs/am_design_stage1/results.json</code> is not present, so no subgroup cue is shown and none is invented.</div>
+    {%- endif %}
+  </div>
+</div>
+{% endblock %}

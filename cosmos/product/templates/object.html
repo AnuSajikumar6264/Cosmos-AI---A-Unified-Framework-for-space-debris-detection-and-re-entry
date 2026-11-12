@@ -1,0 +1,456 @@
+{% extends "base.html" %}
+{% set obj = object %}
+{% block topmeta %}
+<span class="mode-badge historical">HISTORICAL · snapshot {{ obj.as_of }}</span>
+{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  <strong>{{ obj.name }}</strong> — NORAD {{ obj.norad }} ({{ obj.object_class_label }}),
+  re-entry regime <strong>{{ obj.regime.replace('_', ' ') }}</strong>.
+  All values are read from the dated snapshot; nothing is recomputed on this page.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel flush" style="padding: 1rem 1.1rem">
+  <h2>Orbit, lifetime and re-entry at a glance <span class="count">archived geometry · schematic orientation</span></h2>
+  <div class="twin-hero">
+    <div class="stage">
+      <canvas id="globe-canvas" aria-label="Globe with this object's schematic orbit"></canvas>
+      <div class="stage-hud">
+        <div class="hud-title">NORAD {{ object.norad }}</div>
+        <div class="hud-line">{{ object.name or 'unnamed' }} · {{ object.object_class_label or '' }}</div>
+        <div class="hud-line" id="globe-status">reading archived geometry…</div>
+      </div>
+      <div class="stage-controls">
+        <button type="button" class="btn secondary" id="globe-spin" aria-pressed="true">pause camera orbit</button>
+        <button type="button" class="btn secondary" id="globe-reset">reset camera</button>
+      </div>
+      <div id="globe-tooltip" aria-hidden="true"></div>
+      <div id="globe-selected-label" aria-hidden="true"></div>
+      <div class="stage-fallback" id="globe-fallback" hidden>
+        <p><strong>The globe cannot be drawn in this browser.</strong></p>
+        <p id="globe-fallback-reason">WebGL is unavailable.</p>
+        <p>The tables below carry the same archived values.</p>
+      </div>
+    </div>
+    <div class="hero-charts">
+      <div>
+        <h4>Re-entry probability by horizon</h4>
+        {{ reentry_chart | safe }}
+        {{ reentry_interval | safe }}
+      </div>
+      <div>
+        <h4>Lifetime probability by horizon{% if object.lifetime.horizon_coherence.status == 'incoherent' %} — abstained (L17){% endif %}</h4>
+        {{ lifetime_chart | safe }}
+        {{ lifetime_interval | safe }}
+      </div>
+    </div>
+  </div>
+  <div class="grid two" style="margin-top:.8rem">
+    <dl class="kv" id="twin-geometry"></dl>
+    <div class="integrity-note">
+      <strong>How to read the orbit.</strong> The ellipse is this object's real orbit size, shape and tilt from the
+      archived perigee, apogee and inclination. Its orientation about the pole and the marker's place on it are a
+      deterministic screen layout: the catalogue publishes no ascending node, argument of perigee, epoch or
+      anomaly, so no position at a time and no ground track can be shown (limitation P5). Only the camera moves.
+    </div>
+  </div>
+</div>
+
+
+<div class="panel" data-test="evidence-availability">
+  <h2>Evidence availability for this object</h2>
+  <details class="evidence"><summary>Status vocabulary</summary><div class="body">
+  <p class="panel-note">Status vocabulary: <strong>IMPLEMENTED</strong> = computed at run time from the dated
+    snapshot by the pipeline; <strong>ARCHIVED ONLY</strong> = exists as a saved artifact, not read by the pipeline;
+    <strong>BENCHMARK ONLY</strong> = a benchmark root exists but nothing in it can be attributed to this object;
+    <strong>BLOCKED</strong> = the module failed or was blocked in the referenced run; <strong>UNAVAILABLE</strong> =
+    no evidence exists and none is synthesised.</p>
+  </div></details>
+  <table class="data">
+    <thead><tr><th>Capability</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+    {% for c in obj.evidence_availability %}
+      <tr>
+        <td>{{ c.capability }}</td>
+        <td><span class="status status-{{ {'implemented':'pass','archived_only':'info','benchmark_only':'partial','blocked':'blocked','unavailable':'unavailable'}[c.status] }}">{{ c.status | replace('_', ' ') | upper }}</span></td>
+        <td>{{ c.detail }}
+          {% set screen = {'telemetry anomaly evidence': '/telemetry', 'conjunction / collision risk': '/risk', 'debris detections': '/debris', 'versioned twin state': '/twin-state'}.get(c.capability) %}
+          {% if screen and c.status in ('benchmark_only', 'implemented', 'archived_only') %} — <a href="{{ screen }}">{{ 'benchmark screen (no object link)' if c.status == 'benchmark_only' else 'open' }}</a>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="panel">
+  <h2>Identity and catalogue metadata</h2>
+  <div class="grid two">
+    <table class="kv">
+      <tr><th>NORAD ID</th><td>{{ obj.norad }}</td></tr>
+      <tr><th>Name</th><td>{{ obj.name }}</td></tr>
+      <tr><th>Object class</th><td>{{ obj.object_class }} — {{ obj.object_class_label }}</td></tr>
+      <tr><th>Operational status</th>
+        <td>{{ obj.operational_status or 'not recorded' }}</td></tr>
+      <tr><th>Re-entry regime</th><td>{{ obj.regime.replace('_', ' ') }}</td></tr>
+    </table>
+    <table class="kv">
+      <tr><th>Launch tag</th><td>{{ obj.launch_tag or '—' }}</td></tr>
+      <tr><th>Launch family</th><td>{{ obj.launch_family or '—' }}</td></tr>
+      <tr><th>Breakup family</th><td>{{ obj.breakup_family or 'not a fragment' }}</td></tr>
+      <tr><th>F10.7 (81-day mean)</th><td>{{ obj.space_weather.f107_last81 | fmt(1) }}</td></tr>
+      <tr><th>Ap (81-day mean)</th><td>{{ obj.space_weather.ap_last81 | fmt(1) }}</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Orbital elements</h2>
+    <table class="kv">
+      <tr><th>Element set</th><td>{{ obj.elements.element_set }}</td></tr>
+      <tr><th>Perigee altitude</th><td>{{ obj.elements.perigee_altitude_km | fmt(1) }} km</td></tr>
+      <tr><th>Apogee altitude</th><td>{{ obj.elements.apogee_altitude_km | fmt(1) }} km</td></tr>
+      <tr><th>Inclination</th><td>{{ obj.elements.inclination_deg | fmt(3) }}°</td></tr>
+      <tr><th>Reference radius</th><td>{{ obj.elements.reference_radius_km | fmt(3) }} km</td></tr>
+      <tr><th>Canonical orbit epoch</th><td>{{ obj.elements.t0_canonical or '—' }}</td></tr>
+    </table>
+    <div class="unavailable-state" style="margin-top:.7rem;text-align:left">
+      <strong>State vector UNAVAILABLE.</strong> {{ obj.elements.state_vector_note }}
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Physical properties</h2>
+    <table class="kv">
+      <tr><th>Mass</th>
+        <td {% if obj.physical.mass_kg is none %}class="absent"{% endif %}>
+          {% if obj.physical.mass_kg is none %}not catalogued
+          {% else %}{{ obj.physical.mass_kg | fmt(1) }} kg{% endif %}</td></tr>
+      <tr><th>Radar cross-section</th>
+        <td {% if obj.physical.rcs_m2 is none %}class="absent"{% endif %}>
+          {% if obj.physical.rcs_m2 is none %}not reported
+          {% else %}{{ obj.physical.rcs_m2 | fmt(3) }} m²{% endif %}</td></tr>
+      <tr><th>Area-to-mass source</th>
+        <td>{{ obj.physical.area_to_mass_source }} — {{ obj.physical.area_to_mass_source_label }}</td></tr>
+    </table>
+    <p class="panel-note">Radar cross-section is reported for context only; it is not a model
+      input. A missing value is shown as missing, never as zero.</p>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Re-entry assessment</h2>
+  <div class="grid two">
+    <div>
+      {{ reentry_chart | safe }}
+      <p class="chart-caption">Probability of re-entry within each horizon, from the dated
+        twin forecast.</p>
+    </div>
+    <div>
+      {% set quality = obj.reentry.interval_quality %}
+      {{ reentry_interval | safe }}
+      <table class="kv">
+        <tr><th>Median time to re-entry</th>
+          <td>{% if quality.censored_at_cap %}≥ {{ quality.cap_days | fmt(2) }} days
+            <span class="status status-blocked">AT CAP</span>
+          {% else %}{{ obj.reentry.median_days | fmt(1) }} days{% endif %}</td></tr>
+        <tr><th>5–95 % spread</th>
+          <td>{% if quality.censored_at_cap %}<span class="absent">not estimable — censored at the cap</span>
+          {% elif quality.zero_width %}{{ obj.reentry.lo90_days | fmt(1) }} days
+            <span class="status status-partial">ZERO WIDTH</span>
+          {% else %}{{ obj.reentry.lo90_days | fmt(1) }} – {{ obj.reentry.hi90_days | fmt(1) }} days{% endif %}</td></tr>
+        <tr><th>10–90 % spread</th>
+          <td>{% if quality.censored_at_cap %}<span class="absent">not estimable — censored at the cap</span>
+          {% else %}{{ obj.reentry.lo80_days | fmt(1) }} – {{ obj.reentry.hi80_days | fmt(1) }} days{% endif %}</td></tr>
+        <tr><th>Model</th><td>{{ obj.reentry.model }}</td></tr>
+        <tr><th>History conditioning</th>
+          <td>{{ obj.reentry.history_kind or '—' }}
+            {% if obj.reentry.history_days %}({{ obj.reentry.history_days | fmt(0) }} days){% endif %}</td></tr>
+      </table>
+    </div>
+  </div>
+
+  {% set quality = obj.reentry.interval_quality %}
+  {% if quality.kind in ('at_cap', 'degenerate') %}
+  <div class="error-state" style="margin-top:.7rem">
+    <span class="status status-{{ 'blocked' if quality.censored_at_cap else 'partial' }}">
+      {{ 'CENSORED AT CAP' if quality.censored_at_cap else 'ZERO-WIDTH INTERVAL' }}</span>
+    <strong>Do not read this interval as precision.</strong> {{ quality.detail }}
+  </div>
+  {% endif %}
+
+  <details class="evidence" open>
+    <summary>Evidence status and uncertainty semantics</summary>
+    <div class="body">
+      <p><strong>Evidence:</strong> {{ obj.reentry.evidence_status }}</p>
+      <p><strong>Uncertainty:</strong> {{ obj.reentry.uncertainty_note }}</p>
+      <table class="kv">
+        <tr><th>physics prior, 30 d</th>
+          <td>{{ obj.reentry.variants.physics_prior_30d | fmt(4) }}</td></tr>
+        <tr><th>physics + history, 30 d</th>
+          <td>{{ obj.reentry.variants.physics_history_30d | fmt(4) }}</td></tr>
+        <tr><th>learned lifetime expert, 30 d</th>
+          <td>{{ obj.reentry.variants.lifetime_30d | fmt(4) }}</td></tr>
+      </table>
+      <p>The twin selects one variant per regime. The others are shown for comparison only.</p>
+    </div>
+  </details>
+
+  <div class="unavailable-state" style="text-align:left">
+    <strong>Impact location UNAVAILABLE.</strong> {{ obj.reentry.impact_location_note }}
+  </div>
+  {% set hr = obj.reentry.horizon_relation %}
+  <div class="panel-note" style="margin-top:.7rem" data-test="reentry-horizon">
+    <span class="status status-{{ 'partial' if hr.relation == 'crosses' else ('blocked' if hr.relation in ('censored_at_cap','unavailable') else 'info') }}">{{ hr.label }}</span>
+    <strong>Re-entry interval versus the {{ hr.horizon_days | fmt(0) }}-day decision horizon.</strong>
+    {{ hr.explanation }}. {{ hr.not_a_probability }}.
+    {% if hr.p_horizon is not none %}The 30-day probability used by the ranking is {{ hr.p_horizon | fmt(4) }}.{% endif %}
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Orbital lifetime assessment</h2>
+  {% if obj.lifetime.available %}
+  <div class="grid two">
+    <div>
+      {{ lifetime_chart | safe }}
+      <p class="chart-caption">Learned lifetime expert, calibrated probability per horizon.</p>
+    </div>
+    <div>
+      {% set lq = obj.lifetime.interval_quality %}
+      {{ lifetime_interval | safe }}
+      <table class="kv">
+        <tr><th>Median lifetime</th>
+          <td>{% if lq.censored_at_cap %}≥ {{ lq.cap_days | fmt(2) }} days
+            <span class="status status-blocked">AT CAP</span>
+          {% else %}{{ obj.lifetime.median_days | fmt(1) }} days{% endif %}</td></tr>
+        <tr><th>5–95 % interval</th>
+          <td>{% if lq.censored_at_cap %}<span class="absent">not estimable — censored at the cap</span>
+          {% else %}{{ obj.lifetime.lo90_days | fmt(1) }} – {{ obj.lifetime.hi90_days | fmt(1) }} days{% endif %}</td></tr>
+        <tr><th>Interval meaning</th><td>{{ lq.label }}</td></tr>
+      </table>
+    </div>
+  </div>
+
+  {% set lhr = obj.lifetime.horizon_relation %}
+  <div class="panel-note" style="margin-top:.7rem" data-test="lifetime-horizon">
+    <span class="status status-{{ 'partial' if lhr.relation == 'crosses' else ('blocked' if lhr.relation in ('censored_at_cap','unavailable') else 'info') }}">{{ lhr.label }}</span>
+    <strong>Lifetime interval versus the {{ lhr.horizon_days | fmt(0) }}-day decision horizon.</strong>
+    {{ lhr.explanation }}. {{ lhr.not_a_probability }}.
+  </div>
+  {% set sc = obj.lifetime.subgroup_coverage %}
+  <div class="{{ 'error-state' if sc.under_coverage_flag else 'panel-note' }}" style="margin-top:.7rem"
+       data-test="subgroup-coverage">
+    <span class="status status-{{ 'partial' if sc.under_coverage_flag else ('info' if sc.available else 'unavailable') }}">
+      {{ 'SUBGROUP UNDER-COVERAGE' if sc.under_coverage_flag else ('SUBGROUP COVERAGE' if sc.available else 'NO SUBGROUP EVIDENCE') }}
+    </span>
+    <strong>Area-to-mass source: {{ sc.am_source_label }}.</strong>
+    {% if sc.design_derived %}This object's lifetime interval rests on a <strong>design-derived</strong> area-to-mass value.{% endif %}
+    {% if sc.available %}
+      In the archived evaluations of this interval construction, the share of
+      <em>{{ sc.am_source }}</em> objects whose true lifetime fell inside their interval was:
+      <ul style="margin:.3rem 0 .3rem 1.2rem">
+      {% for origin, levels in sc.observed.items() %}
+        {% for level, v in levels.items() %}
+        <li>origin {{ origin }}, {{ level }} % interval: <strong>{{ '%.4f' | format(v.coverage) }}</strong>
+          (95 % CI {{ '%.3f' | format(v.ci95[0]) }}–{{ '%.3f' | format(v.ci95[1]) }}, n = {{ v.n }})
+          against a nominal {{ '%.2f' | format(v.nominal) }}{% if v.below_nominal %} —
+          <strong>observed below nominal</strong>{% endif %}</li>
+        {% endfor %}
+      {% endfor %}
+      </ul>
+      {{ sc.evidence }}. {{ sc.not_individual }}. {{ sc.scope }}. The interval values shown above are
+      unchanged; this note qualifies how often such intervals held in the archived evaluations.
+    {% else %}
+      {{ sc.reason }}.
+    {% endif %}
+  </div>
+
+  {% set coherence = obj.lifetime.horizon_coherence %}
+  <div class="{{ 'error-state' if coherence.status == 'incoherent' else 'panel-note' }}"
+       style="margin-top:.7rem">
+    <span class="status status-{{ 'abstain' if coherence.status == 'incoherent' else 'pass' }}">
+      {{ 'INCOHERENT' if coherence.status == 'incoherent' else 'COHERENT' }}
+    </span>
+    <strong>Horizon coherence.</strong> {{ coherence.detail }}
+    {% if coherence.explanation %}<br>{{ coherence.explanation }}{% endif %}
+  </div>
+  {% else %}
+  <div class="unavailable-state" style="text-align:left">
+    <strong>ABSTAIN — no lifetime estimate.</strong>
+    {{ obj.lifetime.horizon_coherence.detail }}
+    No value is substituted from the physics forecast in its place.
+  </div>
+  {% endif %}
+</div>
+
+{% set ts = obj.twin_state %}
+<div class="panel" data-test="twin-state">
+  <h2>Twin state
+    {% if ts.available and ts.source == 'reemitted' %}<span class="status status-info">RE-EMITTED · {{ ts.schema_version }}</span>
+    {% elif ts.available %}<span class="status status-partial">HISTORICAL ARCHIVE · {{ ts.schema_version }} ({{ 'fallback' if ts.fallback.used else 'explicit policy' }})</span>
+    {% else %}<span class="status status-unavailable">UNAVAILABLE</span>{% endif %}</h2>
+  <p class="panel-note" data-test="twin-policy-selector">
+    <strong>Source policy:</strong>
+    {% for p in twin_policies %}{% if p == twin_policy %}<span class="status status-info">{{ p }}</span>{% else %}<a class="btn secondary" href="/objects/{{ object.norad }}?policy={{ p }}">{{ p }}</a>{% endif %} {% endfor %}
+    — <code>prefer_reemitted</code> reads the re-emitted <code>twin_state/1.1</code> and falls back to the archived
+    <code>twin_state/1.0</code> only with a label; <code>reemitted_only</code> never falls back; <code>archived_only</code>
+    reads the historical archive explicitly. The archived record carries no per-output provenance and is never shown as a
+    green primary. Changing the policy changes which stored record is displayed; nothing is recomputed.
+  </p>
+  {% if ts.available %}
+    <p class="panel-note">
+      {% if ts.source == 'reemitted' %}This record was <strong>re-emitted from the archived forecast table</strong>
+        ({{ ts.source_record.artifact }}, row {{ ts.source_record.row_index }}, SHA-256 {{ ts.source_record.sha256[:12] }}…) with
+        per-output provenance; no prediction was regenerated and no model executed
+        {% if ts.reemission and ts.reemission.equivalence_with_archive %} — value-equivalent to the archived record on
+        {{ ts.reemission.equivalence_with_archive.records_equal }} of {{ ts.reemission.equivalence_with_archive.records_compared }} records
+        (transformation digest {{ ts.reemission.transformation_digest_sha256[:12] }}…, code {{ ts.reemission.code_revision[:12] }}){% endif %}.
+      {% elif ts.fallback.used %}<strong>Fallback:</strong> {{ ts.fallback.reason }}. {{ ts.note }}
+      {% else %}<strong>Explicit archived read:</strong> {{ ts.note }}{% endif %}
+      Artifact <code>{{ ts.artifact }}</code>, recorded SHA-256 {{ ts.artifact_recorded_sha256 }}
+      ({{ ts.digest_state }}{% if ts.record_count %}, {{ ts.record_count }} records{% endif %}).
+      Model version: {% if ts.model_version.status == 'recorded' %}<span class="status status-info">RECORDED</span> {{ ts.model_version.digest }}{% else %}<span class="status status-unavailable">UNAVAILABLE</span> {{ ts.model_version.reason }}{% endif %}.
+    </p>
+    <p class="panel-note" data-test="twin-selection">
+      <strong>Source selection</strong> (policy <code>{{ ts.selection.policy }}</code>): {{ ts.selection.status | upper }} — {{ ts.selection.reason }}.
+      {% for name, c in ts.selection.candidates.items() %}<br>{{ name }}: {{ c.status }}{% if c.digest_state %}, digest {{ c.digest_state }}{% endif %}{% if c.schema_version %}, {{ c.schema_version }}{% endif %}{% if c.record_count is not none %}, {{ c.record_count }} records{% endif %}{% if c.reasons %} — {{ c.reasons | join('; ') }}{% endif %}{% endfor %}
+    </p>
+    {% set eq = ts.equivalence %}
+    <p class="panel-note" data-test="twin-equivalence">
+      <strong>Equivalence with the catalogue chain</strong>
+      {% if eq.status == 'equal' %}<span class="status status-info">EQUAL</span> {{ eq.fields_equal }} of {{ eq.fields_compared }} shared values equal (run {{ eq.run_id }})
+      {% elif eq.status == 'different' %}<span class="status status-fail">DIFFERENT</span> {{ eq.fields_different | join(', ') }} differ (run {{ eq.run_id }})
+      {% elif eq.status == 'not_comparable' %}<span class="status status-partial">NOT COMPARABLE</span> (run {{ eq.run_id }})
+      {% elif eq.status == 'missing_in_chain' %}<span class="status status-partial">NOT IN RUN</span> {{ eq.not_comparable['*'] }} (run {{ eq.run_id }})
+      {% else %}<span class="status status-unavailable">UNAVAILABLE</span> {{ eq.reason }}{% endif %}
+      {% if eq.not_comparable and eq.status != 'missing_in_chain' %}<br>Not compared: {% for f, why in eq.not_comparable.items() %}{{ f }} ({{ why }}){% if not loop.last %}; {% endif %}{% endfor %}{% endif %}
+    </p>
+    <table class="data">
+      <thead><tr><th>Module</th><th>Model</th><th>Validation</th><th>Output</th><th>Uncertainty</th><th>Provenance</th></tr></thead>
+      <tbody>
+      {% for o in ts.record.outputs %}
+        <tr>
+          <td>{{ o.module }}</td>
+          <td>{{ o.model }}</td>
+          <td>{{ o.validation }}</td>
+          <td>{% if o.abstain %}<span class="status status-abstain">ABSTAIN</span> {{ o.reason }}{% else %}
+            p(30 d) {{ o['values'].p_reentry_30d | fmt(4) }}, p(90 d) {{ o['values'].p_reentry_90d | fmt(4) }}, p(1 yr) {{ o['values'].p_reentry_1yr | fmt(4) }}
+            {% if o['values'].median_days is defined %}; median {{ o['values'].median_days | fmt(1) }} d{% endif %}{% endif %}</td>
+          <td>{{ o.uncertainty.interval_kind or '—' }}{% if o.uncertainty.interval90_days %}; 90 %: {{ o.uncertainty.interval90_days[0] | fmt(1) }}–{{ o.uncertainty.interval90_days[1] | fmt(1) }} d{% endif %}</td>
+          <td class="mono">{% if o.provenance %}src {{ (o.provenance.input_hashes.values() | list)[0][:10] }}… · code {{ (o.provenance.code_revision or 'unavailable')[:10] }} · cfg {{ (o.provenance.config_digest or 'unavailable')[:10] }} · model {{ 'none' if o.provenance.model_digest is none else o.provenance.model_digest[:10] }}{% else %}<span class="status status-unavailable">NONE</span> (archived record){% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="unavailable-state" style="text-align:left"><strong>No twin-state record.</strong>
+      {{ ts.missing_record or ts.malformed or ts.fallback.reason or 'neither the re-emitted nor the archived twin state is present' }}.
+      {% if ts.selection %}<br>Source selection (policy <code>{{ ts.selection.policy }}</code>): {{ ts.selection.status | upper }} — {{ ts.selection.reason }}{% endif %}</div>
+  {% endif %}
+</div>
+
+{% set dp = obj.decision_priority %}
+<div class="panel" data-test="decision-priority">
+  <h2>Decision priority
+    {% if dp.status == 'computed' %}<span class="status status-pass">RANK {{ dp.rank }} / {{ dp.ranked_objects }}</span>
+    {% elif dp.status == 'blocked' %}<span class="status status-blocked">BLOCKED</span>
+    {% else %}<span class="status status-unavailable">UNAVAILABLE</span>{% endif %}</h2>
+  {% if dp.status == 'computed' %}
+    <table class="kv">
+      <tr><th>Run</th><td class="mono">{{ dp.run_id }}</td></tr>
+      <tr><th>Recorded inputs</th><td>p_reentry_30d = {{ dp.row.p_reentry_30d | fmt(4) }}; mass_kg = {{ dp.row.mass_kg if dp.row.mass_kg is not none else 'unknown' }};
+        high_consequence = {{ dp.row.high_consequence }}</td></tr>
+      <tr><th>Recorded priority score</th><td>{{ dp.row.priority_score | fmt(4) }}</td></tr>
+      <tr><th>Rule (from the run manifest)</th>
+        <td>{% if dp.rule.status == 'recorded' %}<code>{{ dp.rule.formula }}</code> — threshold {{ dp.rule.consequence_mass_kg }} kg,
+          multiplier {{ dp.rule.consequence_multiplier }}; {{ dp.rule.semantics }}; interval use: {{ dp.rule.interval_use }}
+          {% else %}<span class="status status-unavailable">RULE NOT RECORDED</span> {{ dp.rule.reason }}{% endif %}</td></tr>
+      <tr><th>Health escalation (C4)</th><td>{% if dp.health_escalation %}<span class="status status-abstain">{{ dp.health_escalation.status | upper }}</span>
+        {{ dp.health_escalation.reason }}{% else %}not recorded{% endif %}</td></tr>
+    </table>
+    <p class="panel-note">Nothing on this page recomputes the priority; the inputs, the score and the rule are the
+      referenced run's own records. The interval-versus-horizon cues above are display only and do not enter the rule.</p>
+  {% else %}
+    <div class="unavailable-state" style="text-align:left"><strong>{{ dp.status | upper }}.</strong> {{ dp.reason }}</div>
+  {% endif %}
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Spacecraft health — not determinable</h2>
+    <div class="unavailable-state" style="text-align:left">
+      <strong>NOT DETERMINABLE for this object.</strong> {{ obj.telemetry.reason }} No subsystem health state exists for
+      it and no health score is synthesised. The anomaly-detection benchmark arms in
+      <a href="/telemetry">Telemetry Benchmarks</a> measure detectors on anonymised missions; they are not this object's health.
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Conjunction and collision risk</h2>
+    <div class="unavailable-state" style="text-align:left">
+      <strong>UNSUPPORTED for this object.</strong> {{ obj.conjunction.reason }}
+    </div>
+    <p class="panel-note">Anonymised conjunction evidence is available in
+      <a href="/risk">Risk Intelligence</a>, where it is never attributed to a named object.</p>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Report export</h2>
+  <div class="controls">
+    <a class="btn" href="/reports/object/{{ obj.norad }}/download">Download assessment report</a>
+    <a class="btn secondary" href="/reports/object/{{ obj.norad }}" target="_blank">Preview in browser</a>
+    <a class="btn secondary" href="/api/reports/object/{{ obj.norad }}" target="_blank">JSON</a>
+  </div>
+  <p class="panel-note">The report records the snapshot date, artifact digests, Git commit,
+    pipeline run ID, uncertainty, abstentions and limitations, and separates computed from
+    historical and unsupported content.</p>
+</div>
+
+<div class="panel">
+  <h2>Evidence freshness</h2>
+  {% set fr = obj.freshness %}
+  <table class="kv" data-test="freshness">
+    <tr><th>Evaluated on (UTC)</th><td>{{ fr.evaluated_on_utc }}</td></tr>
+    <tr><th>Source observation</th><td>catalogue snapshot date {{ fr.source_observation.catalogue_snapshot_date }};
+      orbit canonical epoch {{ fr.source_observation.orbit_canonical_epoch or '—' }}
+      <span class="status status-{{ 'pass' if fr.source_observation.orbit_epoch_status == 'recorded' else 'unavailable' }}">{{ fr.source_observation.orbit_epoch_status | upper }}</span>
+      {% if fr.source_observation.orbit_epoch_age_days_at_snapshot is not none %}({{ fr.source_observation.orbit_epoch_age_days_at_snapshot }} days before the snapshot; {{ fr.staleness.orbit_epoch }}){% endif %}</td></tr>
+    <tr><th>Archive time</th><td><span class="status status-unavailable">MISSING</span> {{ fr.archive.note }}</td></tr>
+    <tr><th>Processing time</th><td>{{ fr.processing.latest_run_started_at or '—' }}
+      <span class="status status-{{ 'pass' if fr.processing.status == 'recorded' else 'unavailable' }}">{{ fr.processing.status | upper }}</span></td></tr>
+    <tr><th>Staleness</th><td><span class="status status-{{ 'stale' if fr.staleness.status == 'stale' else ('pass' if fr.staleness.status == 'current' else 'fail') }}">{{ fr.staleness.status | upper }}</span>
+      snapshot age {{ fr.staleness.snapshot_age_days }} days — {{ fr.staleness.rule }}</td></tr>
+    <tr><th>Consistency</th><td><span class="status status-{{ 'pass' if fr.consistency.status == 'consistent' else 'fail' }}">{{ fr.consistency.status | upper }}</span>
+      {{ fr.consistency.issues | join('; ') }}</td></tr>
+    <tr><th>Live</th><td>no — {{ fr.note }}</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h2>Snapshot provenance</h2>
+  <table class="kv">
+    <tr><th>Artifact</th><td class="mono">{{ obj.provenance.artifact }}</td></tr>
+    <tr><th>SHA-256</th><td class="mono">{{ obj.provenance.sha256 }}</td></tr>
+    <tr><th>Objects in snapshot</th><td>{{ obj.provenance.objects | fmt }}</td></tr>
+    <tr><th>Sources</th><td>{{ obj.provenance.sources | join(', ') }}</td></tr>
+    <tr><th>Model version</th>
+      <td data-test="model-version"><span class="status status-unavailable">UNAVAILABLE</span>
+        {{ obj.provenance.model_version.reason }} {{ obj.provenance.model_version.registry_note }}</td></tr>
+  </table>
+  <p class="panel-note">Lineage recorded for this object: data artifact (SHA-256 above), code version and
+    configuration digest (on the run page of the referenced pipeline run); model version: not recorded,
+    because no fitted model is persisted anywhere in this repository.</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="application/json" id="globe-config">{{ globe_config | safe }}</script>
+<script src="/static/js/cosmos-globe.js"></script>
+<script src="/static/js/cosmos-explorer.js"></script>
+{% endblock %}

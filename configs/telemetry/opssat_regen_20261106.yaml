@@ -1,0 +1,37 @@
+# OPSSAT-AD regeneration run, 2026-11-06 (completion directive, Phase 2.1 / X1).
+#
+# Purpose: the 2026-10-24 study wrote per-seed test scores to test_scores_<protocol>.npz, which
+# .gitignore excluded (*.npz, no exception for telemetry_opssat), so the archive holds metrics but
+# not scores. This run reproduces the study with the SAME protocol, models, seeds and
+# hyperparameters and writes to a separate directory. The archived study is not touched.
+#
+# Identical to configs/telemetry/opssat.yaml except for `out_dir` and this header. Any difference
+# in results therefore comes from the environment (torch 2.13 -> 2.14, xpu:1 -> xpu:0), not the
+# protocol, and is reported as such.
+out_dir: outputs/benchmarks/telemetry_opssat_regen_20261106
+length: 256
+seeds: [0, 1, 2, 3, 4]
+protocols: [official, time_blocked]
+train_fracs: [1.0, 0.5, 0.25, 0.1]
+models:
+  - cosmos_robust_z
+  - iforest
+  - adaboost
+  - logreg
+  - random_forest
+  - xgboost
+  - fcnn
+  - cnn
+  - transformer
+  - hybrid
+  - chronos:amazon/chronos-bolt-small
+label_efficiency_models: [xgboost, fcnn, cnn, hybrid, chronos:amazon/chronos-bolt-small]
+foundation: [amazon/chronos-bolt-small]
+deep:
+  lr: 0.001
+  weight_decay: 0.0001
+  batch: 64
+  max_epochs: 300
+  patience: 30
+  width: 64
+  augment: true

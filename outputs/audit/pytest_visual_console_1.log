@@ -1,0 +1,324 @@
+/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pytest_asyncio/plugin.py:300: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+...............sss...................................................... [ 14%]
+..............................................F...F...F.F.....F.F....... [ 28%]
+........................................................................ [ 42%]
+........................................................................ [ 56%]
+..........................................................F............. [ 70%]
+.....................................................................F.. [ 84%]
+........................................................................ [ 98%]
+.......                                                                  [100%]
+=================================== FAILURES ===================================
+_________ test_d10_decision_priority_explained_from_the_manifest_only __________
+
+client = <starlette.testclient.TestClient object at 0x7922ef779f40>
+store = <cosmos.product.store.ArtifactStore object at 0x7922ef7c3650>
+run_id = 'run_20261109T033724816814Z'
+
+    def test_d10_decision_priority_explained_from_the_manifest_only(client, store, run_id):
+        manifest = store.run_manifest(run_id)
+        rule = manifest["modules"]["decision_priority"]["outputs"]["priority_rule"]
+        table = store.run_table(run_id, "decision_ranking.csv")
+        for norad in OBJECTS:
+            dp = client.get(f"/api/objects/{norad}").json()["decision_priority"]
+>           assert dp["status"] == "computed" and dp["run_id"] == run_id and dp["rule"]["status"] == "recorded"
+E           AssertionError: assert ('unavailable' == 'computed'
+E             
+E             - computed
+E             + unavailable)
+
+tests/test_demo_workflow.py:221: AssertionError
+__________________________ test_d14_health_semantics ___________________________
+
+client = <starlette.testclient.TestClient object at 0x7922ef779f40>
+
+    def test_d14_health_semantics(client):
+        page = html.unescape(client.get(f"/objects/{PRIMARY}").text)
+        assert "Spacecraft health — not determinable" in page and "no health score is synthesised" in page
+        assert "health score:" not in page.lower()
+>       assert "Telemetry Benchmarks" in client.get("/").text
+E       assert 'Telemetry Benchmarks' in '<!doctype html>\n<html lang="en" data-theme="dark">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="w... src="/static/js/cosmos-globe.js"></script>\n<script src="/static/js/cosmos-explorer.js"></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en" data-theme="dark">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="w... src="/static/js/cosmos-globe.js"></script>\n<script src="/static/js/cosmos-explorer.js"></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+E        +    where <Response [200 OK]> = get('/')
+E        +      where get = <starlette.testclient.TestClient object at 0x7922ef779f40>.get
+
+tests/test_demo_workflow.py:286: AssertionError
+________ test_stage_04_05_orbital_and_reentry_per_object[37607-expect0] ________
+
+c = <starlette.testclient.TestClient object at 0x7922ed0ed340>, norad = 37607
+expect = {'lifetime': True, 'coherence': 'coherent', 'reentry_rel': 'entirely_before', 'lifetime_rel': 'crosses', ...}
+
+    @pytest.mark.parametrize("norad,expect", [
+        (37607, {"lifetime": True, "coherence": "coherent", "reentry_rel": "entirely_before", "lifetime_rel": "crosses", "rank": 2, "high": True}),
+        (23806, {"lifetime": True, "coherence": "incoherent", "reentry_rel": "crosses", "rank": 21}),
+        (25544, {"lifetime": False, "reentry_q": None, "status_contains": "operator-controlled", "high": True}),
+        (12, {"lifetime": True, "reentry_rel": "censored_at_cap"}),
+    ])
+    def test_stage_04_05_orbital_and_reentry_per_object(c, norad, expect):
+        o = c.get(f"/api/objects/{norad}").json(); page = flat(c.get(f"/objects/{norad}").text)
+        assert o["lifetime"]["available"] is expect["lifetime"]
+        if "coherence" in expect:
+            assert o["lifetime"]["horizon_coherence"]["status"] == expect["coherence"]
+            if expect["coherence"] == "incoherent":
+                assert "ABSTAIN" in page and "not monotone" in page
+        if "reentry_rel" in expect:
+            assert o["reentry"]["horizon_relation"]["relation"] == expect["reentry_rel"]
+        if "lifetime_rel" in expect:
+            assert o["lifetime"]["horizon_relation"]["relation"] == expect["lifetime_rel"]
+        if "reentry_q" in expect:
+            assert o["reentry"]["lo90_days"] is None and expect["status_contains"] in o["reentry"]["evidence_status"]
+        if "rank" in expect:
+>           assert o["decision_priority"]["rank"] == expect["rank"] and f"{expect['rank']}" in page
+E           assert (1 == 2)
+
+tests/test_e2e_demo_journey.py:77: AssertionError
+________ test_stage_04_05_orbital_and_reentry_per_object[25544-expect2] ________
+
+c = <starlette.testclient.TestClient object at 0x7922ed0ed340>, norad = 25544
+expect = {'lifetime': False, 'reentry_q': None, 'status_contains': 'operator-controlled', 'high': True}
+
+    @pytest.mark.parametrize("norad,expect", [
+        (37607, {"lifetime": True, "coherence": "coherent", "reentry_rel": "entirely_before", "lifetime_rel": "crosses", "rank": 2, "high": True}),
+        (23806, {"lifetime": True, "coherence": "incoherent", "reentry_rel": "crosses", "rank": 21}),
+        (25544, {"lifetime": False, "reentry_q": None, "status_contains": "operator-controlled", "high": True}),
+        (12, {"lifetime": True, "reentry_rel": "censored_at_cap"}),
+    ])
+    def test_stage_04_05_orbital_and_reentry_per_object(c, norad, expect):
+        o = c.get(f"/api/objects/{norad}").json(); page = flat(c.get(f"/objects/{norad}").text)
+        assert o["lifetime"]["available"] is expect["lifetime"]
+        if "coherence" in expect:
+            assert o["lifetime"]["horizon_coherence"]["status"] == expect["coherence"]
+            if expect["coherence"] == "incoherent":
+                assert "ABSTAIN" in page and "not monotone" in page
+        if "reentry_rel" in expect:
+            assert o["reentry"]["horizon_relation"]["relation"] == expect["reentry_rel"]
+        if "lifetime_rel" in expect:
+            assert o["lifetime"]["horizon_relation"]["relation"] == expect["lifetime_rel"]
+        if "reentry_q" in expect:
+            assert o["reentry"]["lo90_days"] is None and expect["status_contains"] in o["reentry"]["evidence_status"]
+        if "rank" in expect:
+            assert o["decision_priority"]["rank"] == expect["rank"] and f"{expect['rank']}" in page
+        if expect.get("high"):
+>           assert o["decision_priority"]["row"]["high_consequence"] is True
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+tests/test_e2e_demo_journey.py:79: TypeError
+___________________ test_stage_10_twin_state_and_provenance ____________________
+
+c = <starlette.testclient.TestClient object at 0x7922ed0ed340>
+
+    def test_stage_10_twin_state_and_provenance(c):
+        ts = c.get("/api/twin-state").json()
+>       assert ts["overall"]["status"] == "primary_verified" and ts["equivalence"]["records_equal"] == 31396 and ts["equivalence"]["records_different"] == 0
+E       AssertionError: assert ('primary_verified' == 'primary_verified'
+E         
+E           primary_verified and 500 == 31396)
+
+tests/test_e2e_demo_journey.py:120: AssertionError
+_________________ test_stage_12_pipeline_and_research_evidence _________________
+
+c = <starlette.testclient.TestClient object at 0x7922ed0ed340>
+
+    def test_stage_12_pipeline_and_research_evidence(c):
+        rid = c.get("/api/ready").json()["latest_run"]
+        runs = c.get("/api/runs").json(); runs = runs if isinstance(runs, list) else runs.get("runs")
+        assert runs[0]["run_id"] == rid and runs[0]["complete"]
+        man = c.get(f"/api/runs/{rid}").json()
+        assert set(man["lineage"]) >= {"catalogue_state", "lifetime", "reentry", "decision_priority", "twin_state", "twin_equivalence"}
+        page = flat(c.get(f"/runs/{rid}").text)
+        assert "twin_equivalence" in page and "first 50 rows (JSON)" in page and "Open raw manifest" in page
+        tab = c.get(f"/api/runs/{rid}/tables/decision_ranking.csv?limit=3").json()
+        assert tab
+        cmp = c.get(f"/api/compare?a={rid}&b=run_20261108T083402Z").json()
+>       assert cmp["comparable"] and cmp["tables"]["decision_ranking.csv"]["status"] == "identical"
+E       AssertionError: assert (True and 'differences' == 'identical'
+E         
+E         - identical
+E         + differences)
+
+tests/test_e2e_demo_journey.py:153: AssertionError
+_______ test_non_comparable_and_missing_records_are_reported_separately ________
+
+tmp_path = PosixPath('/tmp/pytest-of-anupa/pytest-167/test_non_comparable_and_missin0')
+
+    def test_non_comparable_and_missing_records_are_reported_separately(tmp_path):
+        root = make_root(tmp_path, extra_twin_record=True, drop_table_row=True)   # twin has 41 records; chain has 39 objects
+        eq = ArtifactStore(root).twin_state_integration()["equivalence"]
+        assert eq["twin_records"] == 41 and eq["records_missing_in_chain"] == 2 and eq["records_missing_in_twin"] == 0
+        assert eq["records_compared"] == 39 and eq["records_equal"] == 39
+        # the real root: operator-controlled objects differ in representation, not in value; reported as not comparable
+        st = ArtifactStore(ROOT)
+        iss = st.twin_record(25544)["equivalence"]
+>       assert iss["status"] == "equal" and "reentry.abstained" in iss["not_comparable"] and "operator-controlled" in iss["not_comparable"]["reentry.abstained"]
+E       AssertionError: assert ('missing_in_chain' == 'equal'
+E         
+E         - equal
+E         + missing_in_chain)
+
+tests/test_p3b_twin_state.py:333: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     cosmos.ai.orchestration:orchestration.py:248 COSMOS-AI module catalogue_state completed
+INFO     cosmos.ai.orchestration:orchestration.py:248 COSMOS-AI module lifetime completed
+INFO     cosmos.ai.orchestration:orchestration.py:248 COSMOS-AI module reentry completed
+INFO     cosmos.ai.orchestration:orchestration.py:248 COSMOS-AI module decision_priority completed
+_____________ test_07b_absent_datasets_are_reported_as_unavailable _____________
+
+synthetic_root = PosixPath('/tmp/pytest-of-anupa/pytest-167/test_07b_absent_datasets_are_r0')
+
+    def test_07b_absent_datasets_are_reported_as_unavailable(synthetic_root: Path) -> None:
+        client = TestClient(create_app(synthetic_root))
+        datasets = client.get("/api/datasets").json()["datasets"]
+        assert datasets, "dataset inventory should still be returned"
+        assert all(entry["available"] is False for entry in datasets)
+    
+>       page = client.get("/")
+               ^^^^^^^^^^^^^^^
+
+tests/test_product.py:297: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_client.py:1112: in get
+    return self.request(
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/testclient.py:518: in request
+    return super().request(
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_client.py:796: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_client.py:993: in send
+    raise exc
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_client.py:987: in send
+    response.read()
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_models.py:877: in read
+    self._content = b"".join(self.iter_bytes())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_models.py:893: in iter_bytes
+    for raw_bytes in self.iter_raw():
+                     ^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_models.py:948: in iter_raw
+    for raw_stream_bytes in self.stream:
+                            ^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/httpx2/_client.py:143: in __iter__
+    yield from self._stream
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/testclient.py:384: in iter_body
+    exit_stack.close()
+../envs/mmgen-xpu/lib/python3.12/contextlib.py:618: in close
+    self.__exit__(None, None, None)
+../envs/mmgen-xpu/lib/python3.12/contextlib.py:610: in __exit__
+    raise exc_details[1]
+../envs/mmgen-xpu/lib/python3.12/contextlib.py:595: in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/testclient.py:399: in close_app
+    raise exception
+../envs/mmgen-xpu/lib/python3.12/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/testclient.py:366: in run_app
+    await self.app(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/applications.py:1194: in __call__
+    await super().__call__(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/base.py:203: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cosmos/product/api.py:108: in _request_log
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/base.py:179: in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/base.py:149: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:2811: in app
+    await route.handle(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:1330: in handle
+    await super().handle(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/routing.py:289: in handle
+    await self.app(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:166: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:152: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:745: in app
+    raw_response = await run_endpoint_function(
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/routing.py:374: in run_endpoint_function
+    return await run_in_threadpool(
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+../envs/mmgen-xpu/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../envs/mmgen-xpu/lib/python3.12/site-packages/fastapi/telemetry/_api.py:244: in _run_sync_endpoint
+    return function(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+cosmos/product/api.py:403: in page_overview
+    return templates.TemplateResponse(request, "overview.html", {
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/templating.py:149: in TemplateResponse
+    return _TemplateResponse(
+../envs/mmgen-xpu/lib/python3.12/site-packages/starlette/templating.py:43: in __init__
+    content = template.render(context)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/anupa/.local/lib/python3.12/site-packages/jinja2/environment.py:1295: in render
+    self.environment.handle_exception()
+/home/anupa/.local/lib/python3.12/site-packages/jinja2/environment.py:942: in handle_exception
+    raise rewrite_traceback_stack(source=source)
+cosmos/product/templates/overview.html:1: in top-level template code
+    {% extends "base.html" %}
+cosmos/product/templates/base.html:84: in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+cosmos/product/templates/overview.html:31: in block 'content'
+    <div class="k-value">{{ overview.catalogue.objects | fmt(0) }}<small>objects</small></div>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = Undefined, digits = 0
+
+    def _format_number(value: Any, digits: int = 3) -> str:
+        """Render a number, or an explicit dash for an absent one. Never prints 0 for None."""
+        if value is None or value == "":
+            return "—"
+        try:
+>           number = float(value)
+                     ^^^^^^^^^^^^
+E           jinja2.exceptions.UndefinedError: 'None' has no attribute 'objects'
+
+cosmos/product/api.py:1219: UndefinedError
+------------------------------ Captured log call -------------------------------
+INFO     cosmos.product.request:logging_setup.py:49 request
+ERROR    cosmos.product.request:logging_setup.py:49 request failed
+ERROR    cosmos.product.app:api.py:146 unhandled error UndefinedError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_ai.py:51: run_pipeline() unchanged against the baseline code: baseline snapshot missing
+SKIPPED [1] tests/test_ai.py:51: learned telemetry backend: train it: python -m cosmos.ai.telemetry.learned_monitor train
+SKIPPED [1] tests/test_ai.py:51: surrogate footprint: train it: python -m cosmos.ai.surrogate train
+8 failed, 500 passed, 3 skipped in 129.73s (0:02:09)

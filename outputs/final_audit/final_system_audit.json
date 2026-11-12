@@ -1,0 +1,264 @@
+{
+  "phase": "N",
+  "audited_at": "2026-11-06T06:33:08.106041+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "findings": [
+    {
+      "check": "pre-registration freeze",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "frozen telemetry-analysis files unchanged",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "G5d pre-registration",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "protocol unchanged since it was hashed before fitting",
+      "measured": "9ea4bf4171cad1b8",
+      "expected": "9ea4bf4171cad1b8"
+    },
+    {
+      "check": "dated forecast digest",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "hashed 2026-10-27 forecast matches its recorded digest",
+      "measured": null,
+      "expected": null
+    },
+    {
+      "check": "temporal ordering, origin 2006",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "train < tune_end <= tune < origin <= test < test_end",
+      "measured": null,
+      "expected": null
+    },
+    {
+      "check": "tune-A/tune-B family disjointness, origin 2006",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "launch families do not straddle the calibration split",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "temporal ordering, origin 2011",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "train < tune_end <= tune < origin <= test < test_end",
+      "measured": null,
+      "expected": null
+    },
+    {
+      "check": "tune-A/tune-B family disjointness, origin 2011",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "launch families do not straddle the calibration split",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "temporal ordering, origin 2016",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "train < tune_end <= tune < origin <= test < test_end",
+      "measured": null,
+      "expected": null
+    },
+    {
+      "check": "tune-A/tune-B family disjointness, origin 2016",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "launch families do not straddle the calibration split",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "test folds disjoint: 2006 vs 2011",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "no object appears in two test folds",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "test folds disjoint: 2006 vs 2016",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "no object appears in two test folds",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "test folds disjoint: 2011 vs 2016",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "no object appears in two test folds",
+      "measured": 0,
+      "expected": 0
+    },
+    {
+      "check": "published pinball recomputable",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "every published pinball value recomputed from archived predictions",
+      "measured": "0.000e+00",
+      "expected": "0.000e+00"
+    },
+    {
+      "check": "physics_only rank at origin 2011",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "rank among all published arms on the forward test fold",
+      "measured": "1/19",
+      "expected": "first"
+    },
+    {
+      "check": "physics_only rank at origin 2016",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "rank among all published arms on the forward test fold",
+      "measured": "19/19",
+      "expected": "not first"
+    },
+    {
+      "check": "Spearman(tune-A, test) origin 2011",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "selection ranking carries no information about test ranking",
+      "measured": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check": "Spearman(tune-A, test) origin 2016",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "selection ranking carries no information about test ranking",
+      "measured": 0.0,
+      "expected": 0.0
+    },
+    {
+      "check": "inverted slice-pair fraction",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "fraction of evaluation-slice pairs with negative rank correlation",
+      "measured": 0.2364,
+      "expected": 0.2364
+    },
+    {
+      "check": "below-cap loss concentration",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "per-object loss ratio below-cap vs at-cap",
+      "measured": {
+        "2011": 4.13,
+        "2016": 6.6
+      },
+      "expected": "4.1-6.6x"
+    },
+    {
+      "check": "G5d outcome",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "pre-registered classification",
+      "measured": "INCONCLUSIVE",
+      "expected": "INCONCLUSIVE"
+    },
+    {
+      "check": "G5d H2",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "ranking instability on a never-scored fold",
+      "measured": "SUPPORTED",
+      "expected": "SUPPORTED"
+    },
+    {
+      "check": "G5d H3 not upgraded",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "mechanism must not be promoted to a confirmation",
+      "measured": "UNDERPOWERED",
+      "expected": "not CONFIRMED"
+    },
+    {
+      "check": "physics_only 1st/4th/1st across origins",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "rank pattern across the three origins",
+      "measured": {
+        "2011": 1,
+        "2016": 4,
+        "2006": 1
+      },
+      "expected": {
+        "2011": 1,
+        "2016": 4,
+        "2006": 1
+      }
+    },
+    {
+      "check": "learner training-reproducibility",
+      "severity": "major",
+      "status": "FAIL",
+      "detail": "learners refittable in this environment",
+      "measured": "2/7 (mlp, xgboost)",
+      "expected": "7/7"
+    },
+    {
+      "check": "prediction-level reproducibility",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "archived per-object predictions present for every published origin",
+      "measured": "2/2",
+      "expected": "2/2"
+    },
+    {
+      "check": "tracker test count current",
+      "severity": "minor",
+      "status": "PASS",
+      "detail": "the living tracker should state the current suite size",
+      "measured": 341,
+      "expected": 341
+    },
+    {
+      "check": "mean-elicited endpoint excluded",
+      "severity": "major",
+      "status": "PASS",
+      "detail": "rmse is not locally elicitable under fixed-horizon right-censoring",
+      "measured": "none",
+      "expected": "none"
+    },
+    {
+      "check": "historical artifacts unmodified",
+      "severity": "critical",
+      "status": "PASS",
+      "detail": "published columns retained; exclusion is by non-use, not by editing",
+      "measured": null,
+      "expected": null
+    }
+  ],
+  "counts": {
+    "PASS": 27,
+    "FAIL": 1,
+    "NOT_EVALUABLE": 0
+  },
+  "failures_by_severity": {
+    "critical": 0,
+    "major": 1,
+    "minor": 0,
+    "informational": 0
+  },
+  "verdict": "PARTIAL",
+  "interpretation": {
+    "critical": "prevents scientific submission",
+    "major": "requires correction or an explicit limitation",
+    "minor": "documentation or presentation",
+    "note": "a passing audit is software and bookkeeping integrity, not scientific validity"
+  }
+}

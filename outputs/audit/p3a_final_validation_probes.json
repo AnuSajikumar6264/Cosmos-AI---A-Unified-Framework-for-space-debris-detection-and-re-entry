@@ -1,0 +1,343 @@
+{
+ "run": "run_20261108T083402Z",
+ "probes": {
+  "ready": {
+   "path": "/api/ready",
+   "status": 200,
+   "ms": 182.1,
+   "kb": 0.7
+  },
+  "overview api": {
+   "path": "/api/overview",
+   "status": 200,
+   "ms": 304.9,
+   "kb": 5.9
+  },
+  "overview page": {
+   "path": "/",
+   "status": 200,
+   "ms": 427.8,
+   "kb": 18.8
+  },
+  "overview page warm": {
+   "path": "/",
+   "status": 200,
+   "ms": 38.5,
+   "kb": 18.8
+  },
+  "object api 37607": {
+   "path": "/api/objects/37607",
+   "status": 200,
+   "ms": 122.2,
+   "kb": 15.9
+  },
+  "object page 37607": {
+   "path": "/objects/37607",
+   "status": 200,
+   "ms": 79.5,
+   "kb": 26.3
+  },
+  "twin api 37607": {
+   "path": "/api/objects/37607/twin",
+   "status": 200,
+   "ms": 13.4,
+   "kb": 4.7
+  },
+  "runs list api": {
+   "path": "/api/runs",
+   "status": 200,
+   "ms": 22.9,
+   "kb": 46.3
+  },
+  "run manifest api (new)": {
+   "path": "/api/runs/run_20261108T083402Z",
+   "status": 200,
+   "ms": 7.5,
+   "kb": 17.7
+  },
+  "run manifest api (historical)": {
+   "path": "/api/runs/run_20261108T072802Z",
+   "status": 200,
+   "ms": 15.3,
+   "kb": 3787.5
+  },
+  "run page (new)": {
+   "path": "/runs/run_20261108T083402Z",
+   "status": 200,
+   "ms": 80.0,
+   "kb": 39.7
+  },
+  "run page (historical)": {
+   "path": "/runs/run_20261108T072802Z",
+   "status": 200,
+   "ms": 154.6,
+   "kb": 5127.5
+  },
+  "ranking 25 (new)": {
+   "path": "/api/runs/run_20261108T083402Z/ranking?limit=25",
+   "status": 200,
+   "ms": 68.1,
+   "kb": 27.4
+  },
+  "report json 37607": {
+   "path": "/api/reports/object/37607",
+   "status": 200,
+   "ms": 91.4,
+   "kb": 23.8
+  },
+  "report download 37607": {
+   "path": "/reports/object/37607/download",
+   "status": 200,
+   "ms": 98.9,
+   "kb": 22.1
+  },
+  "datasets api": {
+   "path": "/api/datasets",
+   "status": 200,
+   "ms": 16.5,
+   "kb": 1.5
+  }
+ },
+ "ready": {
+  "ready": true,
+  "latest_run": "run_20261108T083402Z",
+  "checks": {
+   "forecast_table_present": true,
+   "dated_forecast_digest_state": "verified",
+   "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+   "complete_run_present": true,
+   "twin_state_reemitted_present": true
+  }
+ },
+ "overview": {
+  "latest_run": "run_20261108T083402Z",
+  "keys": [
+   "abstentions",
+   "catalogue",
+   "findings",
+   "latest_run",
+   "module_evidence_class",
+   "module_status",
+   "prospective",
+   "repository",
+   "runs_recent",
+   "runs_total",
+   "schema_version",
+   "snapshot_age"
+  ],
+  "snapshot_age": {
+   "as_of": "2026-10-27",
+   "evaluated_on_utc": "2026-11-08",
+   "age_days": 12,
+   "stale": true
+  },
+  "live_sources": null
+ },
+ "object": {
+  "norad": 37607,
+  "name": "ARIANE 5 R/B",
+  "schema_version": "object_record/1.1",
+  "evidence_availability": [
+   {
+    "capability": "catalogue identity and mean elements",
+    "status": "implemented",
+    "detail": "read from the dated snapshot at run time (NORAD-keyed)"
+   },
+   {
+    "capability": "lifetime interval and horizon probabilities",
+    "status": "implemented",
+    "detail": "read from the dated snapshot at run time"
+   },
+   {
+    "capability": "re-entry probabilities and time quantiles",
+    "status": "implemented",
+    "detail": "read from the dated snapshot at run time"
+   },
+   {
+    "capability": "decision priority",
+    "status": "implemented",
+    "detail": "ordering computed at run time from p_30d and GCAT mass"
+   },
+   {
+    "capability": "versioned twin state",
+    "status": "archived_only",
+    "detail": "re-emitted from the archived forecast with provenance; not read by the runtime pipeline"
+   },
+   {
+    "capability": "telemetry anomaly evidence",
+    "status": "benchmark_only",
+    "detail": "ESA-ADB benchmark arms exist, but no telemetry is linkable to this object"
+   },
+   {
+    "capability": "conjunction / collision risk",
+    "status": "benchmark_only",
+    "detail": "Kelvins CAC events are anonymised; none is attributable to this object"
+   },
+   {
+    "capability": "debris detections",
+    "status": "benchmark_only",
+    "detail": "SpotGEO detections are pixel positions without object identity or time"
+   },
+   {
+    "capability": "spacecraft subsystem health",
+    "status": "unavailable",
+    "detail": "not determinable: no telemetry is linkable to this object and no score is synthesised"
+   },
+   {
+    "capability": "state vector / impact location / footprint",
+    "status": "unavailable",
+    "detail": "the catalogue publishes mean elements only; no validated impact location exists"
+   }
+  ],
+  "decision_priority": {
+   "status": "computed",
+   "run_id": "run_20261108T083402Z",
+   "priority_score": null,
+   "rule_source": null,
+   "formula": null
+  },
+  "horizon_relation": {
+   "horizon_days": 30.0,
+   "quantity": "re-entry time",
+   "interval": {
+    "lo": 10.0,
+    "median": 10.0,
+    "hi": 10.0
+   },
+   "p_horizon": 1.0,
+   "not_a_probability": "the interval is the 5-95 % quantile range of the predicted time; it is not a probability of survival past the horizon and not a guarantee for this object. The separate 30-day probability (p_30d) is the quantity the ranking uses; the interval only shows how spread out the predicted time is around the horizon",
+   "display_only": true,
+   "relation": "entirely_before",
+   "label": "BEFORE HORIZON",
+   "explanation": "both the 5 % and the 95 % quantiles (10.0 and 10.0 days) lie before the 30-day decision horizon: under this forecast's own spread, the re-entry time falls before the horizon"
+  },
+  "subgroup_coverage": null,
+  "model_version": "unavailable",
+  "twin_state_source": "reemitted"
+ },
+ "twin": {
+  "source": "reemitted",
+  "schema_version": "twin_state/1.1",
+  "fallback_used": false,
+  "predictions_regenerated": false,
+  "equivalence": {
+   "records_compared": 31396,
+   "records_equal": 31396,
+   "records_differing": 0,
+   "extra_in_reemitted": 0,
+   "extra_in_archive": 0,
+   "equivalent": true
+  },
+  "artifact_recorded_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84"
+ },
+ "runs_list": {
+  "count": 87,
+  "first_run_id": "run_20261108T083402Z",
+  "first_complete": true
+ },
+ "run_view": {
+  "keys": [
+   "as_of",
+   "config",
+   "config_sha256",
+   "duration_s",
+   "environment",
+   "evidence_class",
+   "freshness",
+   "git",
+   "interpretation",
+   "lineage",
+   "modules",
+   "requested",
+   "schema_version",
+   "started_at",
+   "successful",
+   "tables_written",
+   "view_schema_version"
+  ],
+  "manifest_schema": null,
+  "view_schema_version": "api/1.1",
+  "lineage_modules": [
+   "catalogue_state",
+   "collision",
+   "debris",
+   "decision_priority",
+   "health",
+   "lifetime",
+   "reentry"
+  ]
+ },
+ "ranking": {
+  "keys": [
+   "horizon_days",
+   "note",
+   "returned",
+   "rows",
+   "run_id",
+   "schema_version"
+  ],
+  "n_rows": 25,
+  "top": {
+   "rank": 1,
+   "object_id": "NORAD-32730",
+   "name": "BLOCK DM-SL R/B",
+   "regime": "natural_decay",
+   "p_reentry_30d": 1.0,
+   "mass_kg": 12900.0,
+   "mass_known": true,
+   "high_consequence": true,
+   "priority_score": 2.0,
+   "lifetime_evidence": true,
+   "reentry_interval_available": true,
+   "days_q05": 10.0,
+   "days_q50": 10.0,
+   "days_q95": 10.0,
+   "horizon_relation": {
+    "horizon_days": 30.0,
+    "quantity": "re-entry time",
+    "interval": {
+     "lo": 10.0,
+     "median": 10.0,
+     "hi": 10.0
+    },
+    "p_horizon": 1.0,
+    "not_a_probability": "the interval is the 5-95 % quantile range of the predicted time; it is not a probability of survival past the horizon and not a guarantee for this object. The separate 30-day probability (p_30d) is the quantity the ranking uses; the interval only shows how spread out the predicted time is around the horizon",
+    "display_only": true,
+    "relation": "entirely_before",
+    "label": "BEFORE HORIZON",
+    "explanation": "both the 5 % and the 95 % quantiles (10.0 and 10.0 days) lie before the 30-day decision horizon: under this forecast's own spread, the re-entry time falls before the horizon"
+   }
+  },
+  "rule_source": null
+ },
+ "wording": {
+  "/": [],
+  "/objects/37607": [],
+  "/runs/run_20261108T083402Z": [],
+  "/objects/23806": [],
+  "/objects/25544": [],
+  "/objects/12": [],
+  "/reports/object/37607": []
+ },
+ "wording_negations_present": {
+  "/": true,
+  "/objects/37607": true,
+  "/runs/run_20261108T083402Z": false,
+  "/objects/23806": true,
+  "/objects/25544": true,
+  "/objects/12": true,
+  "/reports/object/37607": true
+ },
+ "cache_stats": {
+  "json_hit": 1521,
+  "json_miss": 87,
+  "digest_hit": 7,
+  "digest_miss": 1,
+  "git_hit": 7,
+  "git_miss": 1,
+  "prospective_hit": 3,
+  "prospective_miss": 1,
+  "json_entries": 87,
+  "digest_entries": 1
+ }
+}

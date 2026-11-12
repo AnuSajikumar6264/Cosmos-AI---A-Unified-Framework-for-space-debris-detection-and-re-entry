@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ kind }}{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <h2>{{ title }}</h2>
+  <div class="error-state">
+    <p><span class="status status-{{ tone if tone is defined and tone else (kind | lower) }}">{{ kind }}</span>
+      <strong>{{ message }}</strong></p>
+    {% if detail %}<p style="margin:.5rem 0 0">{{ detail }}</p>{% endif %}
+  </div>
+  <p class="panel-note">
+    Nothing was substituted in place of the missing data. If a value cannot be read from a
+    real artifact, this console reports its absence rather than producing an estimate.
+  </p>
+  <div class="controls" style="margin-top:.9rem">
+    <a class="btn secondary" href="/">Mission Overview</a>
+    <a class="btn secondary" href="/objects">Object search</a>
+    <a class="btn secondary" href="/runs">Run Explorer</a>
+  </div>
+</div>
+{% endblock %}

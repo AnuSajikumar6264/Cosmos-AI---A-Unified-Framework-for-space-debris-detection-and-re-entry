@@ -1,0 +1,19 @@
+step                                                                  median ms      min      max   RSS MB   ΔRSS
+import cosmos.product.api (pandas, numpy, fastapi, jinja)                 534.1    528.8    536.4    131.8  115.6
+create_app                                                                 16.3     15.9     16.4    132.6    0.8
+repository_provenance (git subprocess + digest check)                      52.3     48.4     61.4    132.7    0.1
+list_runs (fingerprint + parse every manifest)                             52.4     50.2     54.7    142.8   10.1
+prospective_status (first assessment)                                     186.0    181.1    195.3    169.4   26.9
+catalogue (forecast_table.csv.gz load)                                     58.7     58.3     64.3    180.0    8.9
+run_manifest(latest) parse                                                  2.6      2.6      2.6    180.0    0.0
+missions (telemetry metadata, header reads)                                10.8     10.0     11.6    182.1    2.1
+twin_selection (P3-B: candidate digest + peek)                             97.8     95.2     98.4    182.2    0.1
+GET / (overview page, remaining cold work)                                 76.3     67.7     83.7    185.4    3.2
+GET / (warm)                                                               38.3     37.9     47.3    187.0    1.7
+GET /api/overview (warm)                                                   26.1     18.6     35.6    187.1    0.2
+GET /api/twin-state (P3-B, first: stream archive + compare)              1492.1   1477.9   1611.7    223.2   36.8
+GET /objects/37607 (first)                                                151.4    144.6    169.8    250.1   26.1
+GET /objects/37607 (warm)                                                  38.4     22.3     43.6    250.1    0.0
+total median ms 2914.7 | RSS end median MB 250.1 | RSS peak median MB 272.7
+traced run (attribution only): python traced MB after overview 68.6 | top: [{"file": "<frozen importlib._bootstrap_external>", "mb": 29.4}, {"file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pandas/core/dtypes/concat.py", "mb": 9.1}, {"file": "<frozen importlib._bootstrap>", "mb": 8.1}, {"file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/json/decoder.py", "mb": 2.1}, {"file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/typing.py", "mb": 1.5}, {"file": "<frozen abc>", "mb": 1.1}, {"file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/dataclasses.py", "mb": 1.0}, {"file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pyarrow/compute.py", "mb": 0.5}]
+written outputs/audit/console_cold_profile_release_candidate_20261108T164707+0000.json

@@ -1,0 +1,1541 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission 1 / channel_12 · COSMOS-AI Mission Intelligence Console</title>
+<style>
+/* COSMOS-AI Mission Intelligence Console
+ *
+ * Midnight-navy mission-control theme with a light theme toggle. Colour carries meaning only
+ * through the status tokens: PASS / PARTIAL / FAIL / BLOCKED / ABSTAIN / UNAVAILABLE, and through
+ * the globe's object-class legend. Series colour is neutral so that a chart cannot imply a verdict
+ * it does not hold. Accent cyan is used for interaction and the violet accent for the twin layer.
+ */
+
+:root {
+  --bg: #070d18;
+  --bg-raised: #0e1829;
+  --bg-sunken: #060b14;
+  --bg-float: #132135;
+  --line: #22324a;
+  --line-soft: #182436;
+  --ink: #e2ecf8;
+  --ink-dim: #9bacc2;
+  --ink-faint: #6e8099;
+  --accent: #4ea8de;
+  --accent-dim: #2d6d96;
+  --accent-bright: #7fd4ff;
+  --violet: #a67fe8;
+  --violet-dim: #6f52a8;
+  --glow: 0 0 0 1px rgba(78,168,222,.12), 0 8px 28px -14px rgba(0,0,0,.85);
+  --glow-accent: 0 0 18px -4px rgba(78,168,222,.45);
+
+  --pass: #46a86c;
+  --partial: #c9a227;
+  --fail: #d4604f;
+  --blocked: #7f8b9c;
+  --abstain: #9a7fb8;
+  --unavailable: #a8705a;
+
+  --radius: 6px;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="light"] {
+  --bg: #f4f6f9;
+  --bg-raised: #ffffff;
+  --bg-sunken: #e8edf3;
+  --bg-float: #ffffff;
+  --accent-bright: #0f5c8c;
+  --violet: #6b46b8;
+  --glow: 0 1px 2px rgba(16,32,48,.08);
+  --glow-accent: 0 0 0 1px rgba(29,111,165,.25);
+  --line: #ccd6e0;
+  --line-soft: #dde4ec;
+  --ink: #16222e;
+  --ink-dim: #4c5c6e;
+  --ink-faint: #70808f;
+  --accent: #1d6fa5;
+  --accent-dim: #4a90bd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, .mono { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------- layout */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 232px;
+  flex: 0 0 232px;
+  background: var(--bg-sunken);
+  border-right: 1px solid var(--line);
+  padding: 1.1rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.brand { padding: 0 1.1rem 1rem; border-bottom: 1px solid var(--line-soft); }
+.brand .mark { font-size: 15px; font-weight: 650; letter-spacing: .02em; }
+.brand .sub { font-size: 11px; color: var(--ink-faint); margin-top: .15rem; }
+
+.nav { padding: .8rem 0; }
+.nav-group { font-size: 10px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--ink-faint); padding: .7rem 1.1rem .3rem; }
+.nav a {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .44rem 1.1rem; color: var(--ink-dim); font-size: 13px;
+  border-left: 2px solid transparent; transition: background .14s ease, color .14s ease;
+}
+.nav a svg { width: 15px; height: 15px; flex: 0 0 15px; stroke: currentColor; fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+.nav a.active svg { opacity: 1; color: var(--accent); }
+.nav a:hover { background: var(--bg-raised); color: var(--ink); text-decoration: none; }
+.nav a.active { color: var(--ink); border-left-color: var(--accent); background: var(--bg-raised);
+  box-shadow: inset 12px 0 24px -22px var(--accent); }
+.nav a .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); }
+.nav a.active .dot { background: var(--accent); }
+
+.main { flex: 1; min-width: 0; padding: 1.3rem 1.6rem 3rem; }
+
+.topbar {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: .3rem;
+}
+.topbar h1 { font-size: 19px; margin: 0; font-weight: 620; letter-spacing: -.01em; }
+.topbar .meta { font-size: 11px; color: var(--ink-faint); font-family: var(--mono); }
+
+.scope-note {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-left: 3px solid var(--partial);
+  padding: .6rem .8rem; border-radius: var(--radius);
+  font-size: 12px; color: var(--ink-dim); margin: .9rem 0 1.3rem;
+}
+
+/* ---------------------------------------------------------------- panels */
+.panel {
+  background: linear-gradient(180deg, var(--bg-float) 0%, var(--bg-raised) 68%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 1.1rem;
+  box-shadow: var(--glow);
+}
+.panel.flush { padding: 0; overflow: hidden; }
+.panel.accent { border-left: 2px solid var(--accent); }
+.panel.violet { border-left: 2px solid var(--violet); }
+.panel > h2 {
+  font-size: 13px; margin: 0 0 .8rem; font-weight: 620;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--ink-dim);
+}
+.panel > h2 .count { color: var(--ink-faint); font-weight: 400; letter-spacing: 0;
+  text-transform: none; }
+.panel-note { font-size: 12px; color: var(--ink-faint); margin: .5rem 0 0; }
+
+.grid { display: grid; gap: 1.1rem; }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+/* ---------------------------------------------------------- metric cards */
+.metrics { display: grid; gap: .7rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.metric {
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); padding: .65rem .75rem; position: relative; overflow: hidden;
+}
+.metric::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--line); }
+.metric.is-accent::before { background: var(--accent); }
+.metric.is-violet::before { background: var(--violet); }
+.metric.is-warn::before { background: var(--partial); }
+.metric .label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); margin-bottom: .25rem;
+}
+.metric .value { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums;
+  line-height: 1.15; }
+.metric .value.absent { color: var(--ink-faint); font-weight: 400; }
+.metric .unit { font-size: 11px; color: var(--ink-faint); margin-left: .2rem;
+  font-weight: 400; }
+.metric .foot { font-size: 11px; color: var(--ink-faint); margin-top: .2rem; }
+
+/* -------------------------------------------------------- status tokens */
+.status {
+  display: inline-block; padding: .1rem .42rem; border-radius: 3px;
+  font-size: 10px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; font-family: var(--mono); white-space: nowrap;
+  border: 1px solid transparent;
+}
+.status-success, .status-pass { background: rgba(70,168,108,.15); color: var(--pass);
+  border-color: rgba(70,168,108,.35); }
+.status-partial { background: rgba(201,162,39,.15); color: var(--partial);
+  border-color: rgba(201,162,39,.35); }
+.status-failed, .status-fail { background: rgba(212,96,79,.15); color: var(--fail);
+  border-color: rgba(212,96,79,.35); }
+.status-blocked, .status-not_requested { background: rgba(127,139,156,.15);
+  color: var(--blocked); border-color: rgba(127,139,156,.35); }
+.status-abstain { background: rgba(154,127,184,.15); color: var(--abstain);
+  border-color: rgba(154,127,184,.35); }
+.status-unavailable, .status-invalid, .status-unsupported {
+  background: rgba(168,112,90,.15); color: var(--unavailable);
+  border-color: rgba(168,112,90,.35); }
+.status-info { background: rgba(78,168,222,.13); color: var(--accent);
+  border-color: rgba(78,168,222,.3); }
+
+/* ---------------------------------------------------------------- tables */
+table.data { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.data th, table.data td {
+  border-bottom: 1px solid var(--line-soft); padding: .4rem .5rem; text-align: left;
+  vertical-align: top;
+}
+table.data th {
+  color: var(--ink-faint); font-weight: 600; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--bg-raised);
+}
+table.data tbody tr:hover { background: var(--bg-sunken); }
+table.data td.num { text-align: right; font-variant-numeric: tabular-nums;
+  font-family: var(--mono); }
+table.data td.absent { color: var(--ink-faint); }
+
+table.kv { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.kv th, table.kv td {
+  border-bottom: 1px solid var(--line-soft); padding: .35rem .5rem; text-align: left;
+  vertical-align: top;
+}
+table.kv th { width: 38%; color: var(--ink-faint); font-weight: 500; }
+table.kv td { font-variant-numeric: tabular-nums; }
+table.kv td.absent { color: var(--ink-faint); }
+
+.scroll { overflow: auto; max-height: 440px; }
+
+/* ---------------------------------------------------------------- charts */
+svg.chart { width: 100%; height: auto; display: block; }
+svg.overlay { width: 100%; height: auto; display: block; background: #060b12;
+  border: 1px solid var(--line); border-radius: var(--radius); }
+.chart-caption { font-size: 11px; color: var(--ink-faint); margin-top: .45rem; }
+.legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 11px;
+  color: var(--ink-faint); margin-top: .5rem; }
+.legend .key { display: inline-flex; align-items: center; gap: .35rem; }
+.legend .swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+/* ----------------------------------------------------------- disclosures */
+details.evidence {
+  border: 1px solid var(--line-soft); border-radius: var(--radius);
+  margin: .5rem 0; background: var(--bg-sunken);
+}
+details.evidence > summary {
+  cursor: pointer; padding: .45rem .7rem; font-size: 12px; color: var(--ink-dim);
+  font-weight: 500; list-style: none;
+}
+details.evidence > summary::-webkit-details-marker { display: none; }
+details.evidence > summary::before { content: "▸ "; color: var(--ink-faint); }
+details.evidence[open] > summary::before { content: "▾ "; }
+details.evidence > summary:hover { color: var(--ink); }
+details.evidence .body { padding: 0 .7rem .7rem; font-size: 12px; color: var(--ink-dim); }
+pre.json {
+  background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); padding: .7rem; font-family: var(--mono);
+  font-size: 11.5px; overflow: auto; max-height: 420px; color: var(--ink-dim);
+  white-space: pre-wrap;
+}
+
+/* ---------------------------------------------------------------- states */
+.empty, .unavailable-state {
+  border: 1px dashed var(--line); border-radius: var(--radius);
+  padding: 1.1rem; text-align: center; color: var(--ink-faint); font-size: 12.5px;
+}
+.unavailable-state strong { color: var(--unavailable); }
+.error-state {
+  border: 1px solid rgba(212,96,79,.4); border-left: 3px solid var(--fail);
+  border-radius: var(--radius); padding: .8rem 1rem; background: rgba(212,96,79,.07);
+}
+.loading { color: var(--ink-faint); font-size: 12px; }
+.loading::after {
+  content: ""; display: inline-block; width: 7px; height: 7px; margin-left: .4rem;
+  border-radius: 50%; background: var(--accent); animation: pulse 1.1s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+/* ---------------------------------------------------------------- controls */
+.controls { display: flex; gap: .55rem; flex-wrap: wrap; align-items: center;
+  margin-bottom: .9rem; }
+input[type="text"], input[type="number"], select {
+  background: var(--bg-sunken); border: 1px solid var(--line); color: var(--ink);
+  padding: .4rem .55rem; border-radius: var(--radius); font: inherit; font-size: 13px;
+}
+input[type="text"]:focus, select:focus, input[type="number"]:focus {
+  outline: none; border-color: var(--accent-dim);
+}
+.btn {
+  background: var(--accent-dim); color: #fff; border: 1px solid var(--accent-dim);
+  padding: .4rem .8rem; border-radius: var(--radius); font: inherit; font-size: 13px;
+  cursor: pointer; text-decoration: none; display: inline-block;
+}
+.btn:hover { background: var(--accent); text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--ink-dim); border-color: var(--line); }
+.btn.secondary:hover { color: var(--ink); border-color: var(--accent-dim); background: transparent; }
+.btn[disabled], .btn.disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+.mode-badge {
+  display: inline-flex; align-items: center; gap: .35rem; font-size: 11px;
+  padding: .18rem .5rem; border-radius: 3px; border: 1px solid var(--line);
+  color: var(--ink-dim); background: var(--bg-sunken); font-family: var(--mono);
+}
+.mode-badge.historical { border-color: rgba(78,168,222,.4); color: var(--accent); }
+.mode-badge.scenario { border-color: rgba(70,168,108,.4); color: var(--pass); }
+.mode-badge.prospective { border-color: rgba(127,139,156,.4); color: var(--blocked); }
+
+.finding { display: flex; gap: .6rem; align-items: flex-start; padding: .45rem 0;
+  border-bottom: 1px solid var(--line-soft); font-size: 12.5px; }
+.finding:last-child { border-bottom: none; }
+
+.chip-row { display: flex; gap: .4rem; flex-wrap: wrap; }
+.chip {
+  font-size: 11px; padding: .18rem .45rem; border-radius: 3px;
+  background: var(--bg-sunken); border: 1px solid var(--line-soft); color: var(--ink-dim);
+  font-family: var(--mono);
+}
+.theme-toggle {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 10;
+  background: var(--bg-raised); border: 1px solid var(--line); color: var(--ink-dim);
+  border-radius: 20px; padding: .35rem .7rem; font-size: 11px; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); }
+
+@media (max-width: 860px) {
+  .shell { flex-direction: column; }
+  .sidebar { width: 100%; flex: none; height: auto; position: static; }
+  .main { padding: 1rem; }
+}
+
+/* snapshot-age warning on the overview (added 2026-11-06) */
+.status-stale { background: rgba(201,162,39,.15); color: var(--partial); }
+
+/* P1.4 freshness */
+.status-stale { background: rgba(201,162,39,.15); color: var(--partial); }
+
+/* navigation loading indicator (Phase B.9): appears after 250 ms of waiting for a server-rendered page */
+#nav-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent, #4ea8de); opacity: 0;
+  transition: width .4s ease, opacity .2s ease; z-index: 1000; pointer-events: none; }
+#nav-progress.active { width: 85%; opacity: 1; animation: nav-progress-pulse 1.2s ease-in-out infinite; }
+@keyframes nav-progress-pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* ================================================================================================
+ * Visual digital-twin layer (2026-11-09). Everything below is additive: the component classes the
+ * seventeen existing templates use are unchanged, so the restyle cannot alter what any page says.
+ * ============================================================================================= */
+
+/* ------------------------------------------------------------------ application bar */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap; padding: .55rem .9rem; margin: -.3rem 0 1rem;
+  background: linear-gradient(90deg, var(--bg-float), var(--bg-raised) 60%, var(--bg-raised));
+  border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--glow);
+}
+.app-bar .bar-left { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+.app-bar h1 { font-size: 18px; margin: 0; font-weight: 640; letter-spacing: -.01em; }
+.app-bar .bar-sub { font-size: 11.5px; color: var(--ink-faint); }
+.app-bar .bar-right { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+.bar-stat { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .5rem;
+  border: 1px solid var(--line-soft); border-radius: 3px; background: var(--bg-sunken); }
+.bar-stat b { color: var(--ink-dim); font-weight: 600; }
+.bar-live { display: inline-flex; align-items: center; gap: .4rem; }
+.bar-live .lamp { width: 7px; height: 7px; border-radius: 50%; background: var(--partial);
+  box-shadow: 0 0 8px -1px var(--partial); }
+.bar-live.is-ready .lamp { background: var(--pass); box-shadow: 0 0 8px -1px var(--pass); }
+.bar-live.is-down .lamp { background: var(--fail); box-shadow: 0 0 8px -1px var(--fail); }
+
+/* ------------------------------------------------------------------ KPI row */
+.kpis { display: grid; gap: .7rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-bottom: 1.1rem; }
+.kpi { background: linear-gradient(180deg, var(--bg-float), var(--bg-raised));
+  border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem .8rem;
+  position: relative; overflow: hidden; box-shadow: var(--glow); }
+.kpi::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--accent); opacity: .8; }
+.kpi.violet::after { background: var(--violet); }
+.kpi.warn::after { background: var(--partial); }
+.kpi.neutral::after { background: var(--line); }
+.kpi .k-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-faint); }
+.kpi .k-value { font-size: 23px; font-weight: 650; font-variant-numeric: tabular-nums;
+  line-height: 1.2; margin-top: .15rem; }
+.kpi .k-value small { font-size: 11px; font-weight: 400; color: var(--ink-faint); margin-left: .25rem; }
+.kpi .k-foot { font-size: 10.5px; color: var(--ink-faint); margin-top: .2rem; }
+.kpi .k-value.absent { color: var(--ink-faint); font-weight: 400; font-size: 15px; }
+
+/* ------------------------------------------------------------------ globe stage */
+.globe-layout { display: grid; gap: 1.1rem; grid-template-columns: 250px minmax(0, 1fr) 340px;
+  align-items: start; }
+.globe-layout > * { min-width: 0; }
+@media (max-width: 1400px) { .globe-layout { grid-template-columns: 230px minmax(0, 1fr); }
+  .globe-layout .globe-side-right { grid-column: 1 / -1; } }
+@media (max-width: 980px) { .globe-layout { grid-template-columns: 1fr; } }
+
+.stage { position: relative; border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; background: radial-gradient(circle at 50% 42%, #0d1a2c 0%, #060b14 70%);
+  box-shadow: var(--glow); }
+.stage.tall { height: min(70vh, 720px); }
+.stage.compact { height: 360px; }
+.stage canvas { display: block; width: 100%; height: 100%; outline: none; }
+.stage-hud { position: absolute; top: .65rem; left: .75rem; pointer-events: none;
+  font-family: var(--mono); font-size: 10.5px; color: var(--ink-dim); line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0,0,0,.9); max-width: 60%; }
+.stage-hud .hud-title { font-size: 11px; color: var(--accent-bright); letter-spacing: .06em;
+  text-transform: uppercase; }
+.stage-hud .hud-line b { color: var(--ink); font-weight: 600; }
+.stage-controls { position: absolute; right: .65rem; bottom: .65rem; display: flex; gap: .35rem;
+  flex-wrap: wrap; justify-content: flex-end; }
+.stage-controls .btn { font-size: 11px; padding: .3rem .6rem; background: rgba(13,24,40,.82);
+  border-color: var(--line); color: var(--ink-dim); backdrop-filter: blur(3px); }
+.stage-controls .btn:hover { color: var(--ink); border-color: var(--accent-dim); background: rgba(19,33,53,.92); }
+.stage-legend { position: absolute; left: .75rem; bottom: .65rem; display: flex; gap: .7rem;
+  flex-wrap: wrap; font-size: 10.5px; color: var(--ink-faint); pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0,0,0,.9); }
+.stage-legend .key { display: inline-flex; align-items: center; gap: .3rem; }
+.stage-legend .swatch { width: 9px; height: 9px; border-radius: 50%; }
+
+#globe-tooltip, #globe-selected-label {
+  position: absolute; transform: translate(-50%, -140%); pointer-events: none; opacity: 0;
+  transition: opacity .12s ease; background: rgba(8,15,26,.93); border: 1px solid var(--line);
+  border-radius: 4px; padding: .3rem .5rem; font-size: 11px; color: var(--ink);
+  white-space: nowrap; box-shadow: 0 6px 18px -10px #000; z-index: 3;
+}
+#globe-tooltip strong, #globe-selected-label strong { display: block; font-size: 11.5px; }
+#globe-tooltip small, #globe-selected-label small { color: var(--ink-faint); font-family: var(--mono);
+  font-size: 10px; }
+#globe-tooltip.is-visible, #globe-selected-label.is-visible { opacity: 1; }
+#globe-selected-label { border-color: var(--accent-dim); box-shadow: var(--glow-accent); }
+
+.stage-fallback { padding: 1.4rem; text-align: center; color: var(--ink-dim); font-size: 12.5px; }
+.stage-fallback strong { color: var(--partial); }
+
+/* ------------------------------------------------------------------ object list */
+.globe-side { background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--glow); overflow: hidden; }
+.globe-side h2 { font-size: 11px; margin: 0; padding: .7rem .8rem .5rem; font-weight: 620;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--ink-dim);
+  border-bottom: 1px solid var(--line-soft); }
+.globe-side .side-body { padding: .7rem .8rem; }
+.globe-filters { display: grid; gap: .45rem; padding: .7rem .8rem; border-bottom: 1px solid var(--line-soft); }
+.globe-filters label { font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); display: block; margin-bottom: .18rem; }
+.globe-filters input, .globe-filters select { width: 100%; font-size: 12px; }
+.globe-list { max-height: 44vh; overflow-y: auto; }
+.globe-item { display: flex; gap: .55rem; align-items: center; width: 100%; text-align: left;
+  background: transparent; border: none; border-bottom: 1px solid var(--line-soft);
+  padding: .42rem .8rem; cursor: pointer; color: var(--ink-dim); font: inherit; }
+.globe-item:hover { background: var(--bg-float); color: var(--ink); }
+.globe-item.is-active { background: var(--bg-float); color: var(--ink);
+  box-shadow: inset 2px 0 0 var(--accent); }
+.globe-swatch { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
+.globe-item-main { display: flex; flex-direction: column; min-width: 0; }
+.globe-item-main strong { font-size: 12px; font-weight: 580; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
+.globe-item-main small { font-size: 10px; color: var(--ink-faint); font-family: var(--mono); }
+.globe-count { font-size: 10.5px; color: var(--ink-faint); padding: .45rem .8rem;
+  border-top: 1px solid var(--line-soft); font-family: var(--mono); }
+
+/* ------------------------------------------------------------------ selected-object panel */
+.twin-head { display: flex; flex-direction: column; gap: .3rem; padding-bottom: .6rem;
+  border-bottom: 1px solid var(--line-soft); margin-bottom: .7rem; }
+.twin-head h3 { margin: 0; font-size: 15px; font-weight: 640; }
+.twin-sub { margin: 0; font-size: 11px; color: var(--ink-faint); font-family: var(--mono); }
+.btn-small { font-size: 11px; padding: .25rem .55rem; align-self: flex-start; }
+.twin-group { margin-bottom: .85rem; }
+.twin-group h4 { margin: 0 0 .35rem; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--accent); font-weight: 650; }
+dl.kv { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: .1rem .6rem;
+  margin: 0; font-size: 12px; }
+dl.kv dt { color: var(--ink-faint); padding: .2rem 0; border-bottom: 1px solid var(--line-soft); }
+dl.kv dd { margin: 0; padding: .2rem 0; border-bottom: 1px solid var(--line-soft);
+  font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+dl.kv dd.is-unavailable { color: var(--ink-faint); font-style: italic; }
+.token-row { display: flex; gap: .3rem; flex-wrap: wrap; }
+
+/* ------------------------------------------------------------------ mission timeline */
+.timeline { display: flex; gap: 0; overflow-x: auto; padding: .3rem 0 .1rem; }
+.timeline-item { position: relative; flex: 0 0 auto; min-width: 190px; padding: 0 .9rem .2rem 1.1rem;
+  border-left: 1px solid var(--line-soft); }
+.timeline-item:first-child { border-left: none; padding-left: .3rem; }
+.timeline-dot { position: absolute; left: -4px; top: .28rem; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px -1px var(--accent); }
+.timeline-item:first-child .timeline-dot { left: -3px; }
+.timeline-dot.violet { background: var(--violet); box-shadow: 0 0 8px -1px var(--violet); }
+.timeline-dot.warn { background: var(--partial); box-shadow: 0 0 8px -1px var(--partial); }
+.timeline-dot.muted { background: var(--blocked); box-shadow: none; }
+.timeline-when { font-size: 10px; color: var(--ink-faint); font-family: var(--mono); }
+.timeline-what { font-size: 12px; color: var(--ink); margin-top: .1rem; }
+.timeline-note { font-size: 10.5px; color: var(--ink-faint); margin-top: .1rem; }
+
+/* ------------------------------------------------------------------ meters (distributions) */
+.meter-row { display: grid; grid-template-columns: minmax(70px, auto) 1fr minmax(52px, auto);
+  gap: .5rem; align-items: center; font-size: 11.5px; padding: .14rem 0; }
+.meter-label { color: var(--ink-faint); font-family: var(--mono); font-size: 10.5px; }
+.meter { height: 7px; background: var(--bg-sunken); border: 1px solid var(--line-soft);
+  border-radius: 4px; overflow: hidden; }
+.meter-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  border-radius: 4px; }
+.meter-fill.violet { background: linear-gradient(90deg, var(--violet-dim), var(--violet)); }
+.meter-fill.warn { background: linear-gradient(90deg, #8a6f1c, var(--partial)); }
+.meter-value { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono);
+  font-size: 10.5px; color: var(--ink-dim); }
+
+/* ------------------------------------------------------------------ section heads and notes */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem;
+  flex-wrap: wrap; margin: 1.5rem 0 .6rem; }
+.section-head h2 { font-size: 13px; margin: 0; font-weight: 620; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink-dim); }
+.section-head .note { font-size: 11px; color: var(--ink-faint); }
+.integrity-note { font-size: 11.5px; color: var(--ink-faint); border-left: 2px solid var(--violet);
+  padding: .35rem 0 .35rem .65rem; margin: .6rem 0; }
+.integrity-note strong { color: var(--ink-dim); }
+
+</style>
+</head>
+<body>
+<div id="nav-progress" aria-hidden="true"></div>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark">COSMOS-AI</div>
+      <div class="sub">Mission Intelligence Console</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">Start here</div>
+      <a href="/demo" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>Guided Demonstration</a>
+      <div class="nav-group">Mission picture</div>
+      <a href="/" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3zM13 21h8v-10h-8zM3 21h8v-5H3zM13 8h8V3h-8z"/></svg>Mission Overview</a>
+      <a href="/explorer" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>Earth &amp; Orbit Explorer</a>
+      <a href="/objects" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.5-4.5"/></svg>Satellite Digital Twin</a>
+      <a href="/twin-state" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>Twin State</a>
+      <div class="nav-group">Analysis</div>
+      <a href="/intelligence" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-6 4 3 5-8 4 5"/><path d="M3 21h18"/></svg>Lifetime &amp; Re-entry</a>
+      <a href="/telemetry" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3l2-5 3 10 3-7 2 4h5"/></svg>Health &amp; Telemetry Benchmarks</a>
+      <a href="/risk" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>Conjunction &amp; Collision</a>
+      <a href="/debris" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="8" r="2"/><circle cx="16" cy="6" r="1.5"/><circle cx="18" cy="15" r="2.5"/><circle cx="9" cy="17" r="1.5"/><circle cx="12" cy="11" r="1"/></svg>Debris Detection</a>
+      <a href="/decisions" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="19" cy="17" r="3"/></svg>Decision Intelligence</a>
+      <div class="nav-group">Operate</div>
+      <a href="/runs" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="7" cy="7" r="1"/><circle cx="7" cy="12" r="1"/><circle cx="7" cy="17" r="1"/></svg>Run Explorer</a>
+      <a href="/scenario" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v6M12 14v6M4 12h6M14 12h6"/><circle cx="12" cy="12" r="2"/></svg>Scenario Analysis</a>
+      <a href="/prospective" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg>Prospective Eval</a>
+      <div class="nav-group">Reference</div>
+      <a href="/evidence" class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13h7M9 17h5"/></svg>Evidence &amp; Provenance</a>
+      <a href="/docs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7v15H4zM13 5h7v15h-7z"/></svg>API documentation</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h1>Mission 1 / channel_12</h1>
+      <div class="meta">
+<span class="mode-badge historical">ANONYMISED MISSION 1</span>
+</div>
+    </div>
+    <div class="app-bar">
+      <div class="bar-left">
+        <span class="bar-sub">Archive-backed digital twin · snapshot <b>2026-10-27</b> · nothing live, nothing inferred at request time</span>
+      </div>
+      <div class="bar-right">
+        <span class="bar-live is-ready"><span class="lamp"></span>READY</span>
+        <span class="bar-stat"><b>31,396</b> objects</span><span class="bar-stat">twin <b>reemitted</b></span>
+        <span class="bar-stat">API <b>1.2</b></span>
+      </div>
+    </div>
+    
+<div class="scope-note">
+  ESA-ADB missions are anonymised; this channel belongs to no identified spacecraft and cannot be linked to a NORAD object.
+  The chart is a <strong>strided subsample</strong> of the real series (every
+  819<sup>th</sup> sample), not a smoothed or modelled curve.
+  Gaps in the line are missing samples, not interpolated values.
+</div>
+
+    
+
+<div class="panel">
+  <h2>channel_12 <span class="count">— subsystem subsystem_6, target channel</span></h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Total samples</div>
+      <div class="value">1,472,832</div>
+      <div class="foot">at 5min cadence</div>
+    </div>
+    <div class="metric">
+      <div class="label">Plotted points</div>
+      <div class="value">1,799</div>
+      <div class="foot">stride 819</div>
+    </div>
+    <div class="metric">
+      <div class="label">Missing samples</div>
+      <div class="value ">1,943</div>
+      <div class="foot">non-finite in the source</div>
+    </div>
+    <div class="metric">
+      <div class="label">Labelled intervals</div>
+      <div class="value">40</div>
+      <div class="foot">benchmark ground truth</div>
+    </div>
+    <div class="metric">
+      <div class="label">Value range</div>
+      <div class="value">0.130 – 0.997</div>
+      <div class="foot">normalised units</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Telemetry series</h2>
+  <svg class="chart" viewBox="0 0 940 280" role="img" aria-label="telemetry series with 40 annotated intervals"><rect x="361.7" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="382.1" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="820.7" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="304.4" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="302.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="369.6" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="369.6" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="369.7" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="369.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="369.9" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="370.0" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="370.0" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="596.0" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="213.9" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="541.9" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="551.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="580.2" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="580.7" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="602.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="626.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="642.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="106.4" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="143.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="148.5" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="229.4" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="143.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="104.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="123.6" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="134.4" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="204.2" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="408.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="412.8" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="417.0" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="508.7" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="640.1" y="14" width="2.3" height="232" fill="#d98236" opacity="0.28"/><rect x="701.1" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="758.6" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="69.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="902.0" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><rect x="75.3" y="14" width="1.5" height="232" fill="#d98236" opacity="0.28"/><line x1="56" y1="224.3" x2="926" y2="224.3" stroke="#243445"/><text x="50" y="227.3" fill="#7d8c9e" font-size="11" text-anchor="end">0.25</text><line x1="56" y1="153.3" x2="926" y2="153.3" stroke="#243445"/><text x="50" y="156.3" fill="#7d8c9e" font-size="11" text-anchor="end">0.50</text><line x1="56" y1="82.3" x2="926" y2="82.3" stroke="#243445"/><text x="50" y="85.3" fill="#7d8c9e" font-size="11" text-anchor="end">0.75</text><path d="M56.0,205.2 L56.5,205.2 L57.0,207.2 L57.5,207.5 L57.9,206.1 L58.4,204.3 L58.9,205.7 L59.4,207.0 L59.9,207.0 L60.4,205.0 L60.8,204.8 L61.3,207.0 L61.8,207.0 L62.3,205.7 L62.8,204.3 L63.3,205.7 L63.7,206.6 L64.2,206.6 L64.7,204.8 L65.2,205.0 L65.7,207.0 L66.2,207.0 L66.6,205.2 L67.1,204.1 L67.6,206.1 L68.1,206.8 L68.6,206.6 L69.1,204.8 L69.5,199.5 L70.0,207.0 L70.5,207.5 L71.0,205.5 L71.5,204.3 L72.0,206.6 L72.5,207.0 L72.9,206.6 L73.4,204.8 L73.9,206.1 L74.4,207.5 L74.9,207.9 L75.4,198.1 L75.8,205.2 L76.3,207.5 L76.8,208.3 L77.3,208.6 L77.8,206.6 L78.3,207.5 L78.7,209.2 L79.2,209.7 L79.7,208.3 L80.2,207.5 L80.7,209.4 L81.2,210.6 L81.6,210.6 L82.1,209.2 L82.6,209.2 L83.1,211.4 L83.6,211.9 L84.1,211.0 L84.5,209.7 L85.0,211.4 L85.5,212.8 L86.0,213.7 L86.5,211.4 L87.0,211.4 L87.5,213.2 L87.9,214.1 L88.4,213.7 L88.9,211.9 L89.4,213.2 L89.9,215.0 L90.4,215.9 L90.8,214.1 L91.3,213.7 L91.8,215.9 L92.3,216.5 L92.8,216.5 L93.3,214.5 L93.7,215.9 L94.2,217.6 L94.7,218.1 L95.2,216.3 L95.7,215.9 L96.2,218.1 L96.6,218.5 L97.1,218.1 L97.6,216.3 L98.1,218.1 L98.6,219.4 L99.1,219.9 L99.5,218.3 L100.0,218.1 L100.5,220.3 L101.0,220.7 L101.5,219.9 L102.0,218.1 L102.5,220.3 L102.9,221.2 L103.4,222.1 L103.9,219.9 L104.4,220.3 L104.9,222.5 L105.4,223.0 L105.8,222.1 L106.3,220.7 L106.8,222.5 L107.3,223.8 L107.8,224.7 L108.3,222.5 L108.7,222.7 L109.2,224.7 L109.7,225.4 L110.2,224.7 L110.7,223.4 L111.2,224.7 L111.6,226.3 L112.1,226.9 L112.6,224.7 L113.1,224.3 L113.6,226.5 L114.1,226.9 L114.5,226.9 L115.0,225.2 L115.5,226.1 L116.0,227.8 L116.5,228.3 L117.0,226.9 L117.5,226.1 L117.9,227.8 L118.4,229.2 L118.9,229.2 L119.4,227.4 L119.9,227.8 L120.4,230.0 L120.8,230.0 L121.3,229.2 L121.8,227.8 L122.3,229.6 L122.8,230.9 L123.3,231.4 L123.7,229.2 L124.2,229.6 L124.7,231.4 L125.2,231.8 L125.7,230.9 L126.2,229.6 L126.6,231.4 L127.1,232.7 L127.6,233.2 L128.1,231.4 L128.6,231.8 L129.1,234.0 L129.5,234.5 L130.0,233.4 L130.5,232.0 L131.0,234.5 L131.5,235.4 L132.0,235.4 L132.5,233.6 L132.9,234.5 L133.4,236.7 L133.9,237.1 L134.4,237.4 L134.9,235.4 L135.4,237.8 L135.8,237.1 L136.3,237.1 L136.8,235.4 L137.3,236.3 L137.8,238.0 L138.3,238.5 L138.7,236.7 L139.2,235.8 L139.7,237.6 L140.2,238.5 L140.7,238.5 L141.2,236.7 L141.6,237.1 L142.1,239.4 L142.6,239.8 L143.1,238.5 L143.6,236.7 L144.1,238.5 L144.5,239.4 L145.0,239.8 L145.5,237.6 L146.0,237.4 L146.5,238.9 L147.0,239.4 L147.5,238.9 L147.9,236.7 L148.4,238.0 L148.9,239.4 L149.4,239.8 L149.9,238.0 L150.4,237.1 L150.8,238.9 L151.3,239.8 L151.8,238.9 L152.3,237.1 L152.8,238.0 L153.3,239.6 L153.7,239.8 L154.2,238.0 L154.7,236.7 L155.2,238.5 L155.7,238.9 L156.2,238.9 L156.6,236.7 L157.1,237.1 L157.6,238.9 L158.1,238.9 L158.6,237.4 L159.1,235.8 L159.5,237.6 L160.0,238.5 L160.5,238.0 L161.0,235.4 L161.5,236.3 L162.0,237.6 L162.5,237.6 L162.9,235.4 L163.4,234.3 L163.9,235.8 L164.4,236.3 L164.9,235.6 L165.4,233.4 L165.8,234.0 L166.3,235.4 L166.8,235.8 L167.3,233.6 L167.8,232.7 L168.3,234.5 L168.7,234.5 L169.2,233.6 L169.7,231.4 L170.2,232.3 L170.7,233.6 L171.2,234.0 L171.6,231.8 L172.1,230.9 L172.6,232.3 L173.1,232.7 L173.6,232.7 L174.1,230.0 L174.5,230.9 L175.0,232.3 L175.5,232.7 L176.0,230.7 L176.5,229.2 L177.0,230.9 L177.5,231.4 L177.9,230.9 L178.4,228.7 L178.9,228.9 L179.4,230.5 L179.9,230.5 L180.4,229.2 L180.8,227.4 L181.3,228.7 L181.8,229.6 L182.3,230.0 L182.8,227.4 L183.3,226.9 L183.7,228.7 L184.2,228.9 L184.7,227.8 L185.2,225.6 L185.7,226.9 L186.2,228.3 L186.6,228.3 L187.1,226.1 L187.6,224.7 L188.1,226.5 L188.6,226.9 L189.1,226.5 L189.5,223.8 L190.0,224.7 L190.5,226.3 L191.0,226.1 L191.5,223.8 L192.0,222.7 L192.5,224.3 L192.9,224.7 L193.4,224.3 L193.9,221.6 L194.4,223.0 L194.9,223.8 L195.4,223.8 L195.8,221.4 L196.3,221.0 L196.8,222.5 L197.3,222.5 L197.8,221.4 L198.3,219.4 L198.7,220.7 L199.2,221.6 L199.7,221.6 L200.2,219.4 L200.7,219.0 L201.2,220.7 L201.6,220.7 L202.1,219.0 L202.6,217.2 L203.1,218.5 L203.6,219.4 L204.1,219.4 L204.5,216.8 L205.0,216.5 L205.5,218.1 L206.0,218.1 L206.5,216.8 L207.0,215.0 L207.5,215.9 L207.9,217.2 L208.4,217.2 L208.9,214.5 L209.4,213.7 L209.9,215.4 L210.4,215.4 L210.8,215.0 L211.3,212.8 L211.8,213.7 L212.3,215.0 L212.8,215.0 L213.3,212.5 L213.7,211.2 L214.2,212.5 L214.7,213.2 L215.2,212.8 L215.7,210.1 L216.2,210.6 L216.6,211.9 L217.1,211.9 L217.6,210.3 L218.1,208.3 L218.6,210.1 L219.1,210.6 L219.5,210.6 L220.0,208.3 L220.5,208.3 L221.0,209.9 L221.5,210.1 L222.0,208.3 L222.5,206.6 L222.9,208.6 L223.4,209.2 L223.9,209.2 L224.4,207.0 L224.9,207.0 L225.4,208.8 L225.8,208.8 L226.3,207.5 L226.8,206.1 L227.3,207.9 L227.8,208.3 L228.3,208.3 L228.7,206.1 L229.2,207.0 L229.7,208.3 L230.2,208.8 L230.7,206.8 L231.2,205.7 L231.6,207.5 L232.1,207.9 L232.6,207.5 L233.1,205.2 L233.6,206.6 L234.1,207.9 L234.5,208.3 L235.0,206.1 L235.5,205.2 L236.0,207.2 L236.5,207.9 L237.0,207.2 L237.5,205.2 L237.9,206.1 L238.4,207.5 L238.9,207.9 L239.4,206.1 L239.9,205.0 L240.4,207.0 L240.8,207.5 L241.3,207.5 L241.8,205.2 L242.3,205.7 L242.8,207.5 L243.3,207.9 L243.7,206.1 L244.2,204.8 L244.7,206.6 L245.2,207.5 L245.7,207.9 L246.2,205.7 L246.6,205.7 L247.1,207.5 L247.6,207.9 L248.1,207.0 L248.6,205.2 L249.1,206.6 L249.5,207.9 L250.0,208.3 L250.5,206.1 L251.0,205.7 L251.5,207.7 L252.0,208.1 L252.5,207.5 L252.9,205.7 L253.4,207.0 L253.9,208.3 L254.4,208.8 L254.9,206.8 L255.4,206.1 L255.8,208.1 L256.3,208.3 L256.8,207.5 L257.3,205.7 L257.8,207.0 L258.3,208.3 L258.7,208.3 L259.2,206.1 L259.7,206.1 L260.2,208.3 L260.7,208.3 L261.2,207.0 L261.6,205.7 L262.1,207.7 L262.6,208.3 L263.1,208.3 L263.6,206.1 L264.1,207.0 L264.5,208.8 L265.0,209.2 L265.5,209.4 L266.0,206.6 L266.5,208.8 L267.0,209.7 L267.5,209.7 L267.9,207.9 L268.4,208.3 L268.9,210.6 L269.4,210.6 L269.9,209.7 L270.4,208.3 L270.8,210.3 L271.3,211.4 L271.8,212.3 L272.3,210.6 L272.8,210.6 L273.3,212.5 L273.7,213.2 L274.2,212.3 L274.7,210.6 L275.2,212.3 L275.7,214.1 L276.2,214.8 L276.6,212.8 L277.1,212.3 L277.6,214.5 L278.1,215.4 L278.6,215.0 L279.1,213.2 L279.5,214.5 L280.0,216.3 L280.5,217.2 L281.0,215.4 L281.5,214.5 L282.0,216.8 L282.5,217.6 L282.9,217.6 L283.4,215.9 L283.9,216.8 L284.4,219.0 L284.9,219.4 L285.4,218.1 L285.8,216.8 L286.3,219.2 L286.8,220.3 L287.3,220.3 L287.8,218.5 L288.3,219.9 L288.7,221.6 L289.2,222.5 L289.7,220.7 L290.2,220.3 L290.7,222.5 L291.2,223.2 L291.6,223.0 L292.1,221.2 L292.6,223.0 L293.1,224.7 L293.6,225.6 L294.1,223.8 L294.5,223.4 L295.0,226.1 L295.5,226.5 L296.0,226.1 L296.5,224.3 L297.0,226.1 L297.5,227.4 L297.9,227.8 L298.4,226.1 L298.9,225.8 L299.4,227.8 L299.9,228.7 L300.4,228.3 L300.8,226.5 L301.3,227.8 L301.8,229.6 L302.3,230.0 L302.8,228.3 L303.3,227.4 L303.7,229.6 L304.2,230.5 L304.7,230.0 L305.2,228.3 L305.7,229.2 L306.2,230.9 L306.6,231.4 L307.1,230.0 L307.6,228.7 L308.1,230.9 L308.6,231.8 L309.1,233.4 L309.5,230.5 L310.0,230.5 L310.5,232.3 L311.0,232.9 L311.5,231.8 L312.0,230.3 L312.5,232.3 L312.9,233.6 L313.4,234.0 L313.9,232.3 L314.4,231.8 L314.9,234.0 L315.4,234.5 L315.8,234.0 L316.3,232.0 L316.8,233.6 L317.3,234.9 L317.8,235.8 L318.3,233.6 L318.7,233.2 L319.2,235.4 L319.7,236.0 L320.2,235.4 L320.7,233.6 L321.2,234.9 L321.6,236.7 L322.1,237.1 L322.6,234.9 L323.1,234.9 L323.6,237.1 L324.1,237.6 L324.5,236.7 L325.0,234.9 L325.5,236.7 L326.0,238.0 L326.5,238.2 L327.0,236.3 L327.5,236.3 L327.9,238.0 L328.4,238.9 L328.9,237.1 L329.4,235.8 L329.9,237.6 L330.4,238.5 L330.8,238.9 L331.3,236.7 L331.8,236.9 L332.3,238.9 L332.8,238.9 L333.3,238.0 L333.7,236.3 L334.2,238.0 L334.7,238.9 L335.2,239.8 L335.7,237.6 L336.2,237.1 L336.6,238.9 L337.1,239.4 L337.6,238.9 L338.1,236.7 L338.6,238.0 L339.1,239.4 L339.5,239.8 L340.0,238.0 L340.5,237.1 L341.0,238.9 L341.5,239.4 L342.0,239.4 L342.5,237.1 L342.9,238.0 L343.4,239.8 L343.9,240.0 L344.4,238.5 L344.9,236.9 L345.4,238.5 L345.8,239.4 L346.3,239.8 L346.8,237.1 L347.3,237.1 L347.8,238.9 L348.3,238.9 L348.7,237.8 L349.2,235.8 L349.7,237.1 L350.2,238.5 L350.7,238.5 L351.2,236.3 L351.6,235.8 L352.1,237.1 L352.6,237.6 L353.1,236.3 L353.6,234.0 L354.1,235.4 L354.5,236.3 L355.0,236.3 L355.5,233.6 L356.0,233.6 L356.5,234.9 L357.0,234.9 L357.5,233.6 L357.9,231.8 L358.4,233.2 L358.9,233.6 L359.4,233.6 L359.9,230.9 L360.4,231.4 L360.8,232.7 L361.3,233.2 L361.8,233.2 L362.3,230.5 L362.8,232.3 L363.3,231.8 L363.7,231.4 L364.2,228.9 L364.7,229.2 L365.2,230.9 L365.7,230.9 L366.2,229.2 L366.6,227.6 L367.1,229.4 L367.6,230.0 L368.1,229.8 L368.6,227.4 L369.1,227.4 L369.5,229.2 L370.0,229.2 L370.5,227.4 L371.0,225.6 L371.5,226.9 L372.0,227.8 L372.5,228.1 L372.9,225.6 L373.4,224.7 L373.9,226.5 L374.4,226.5 L374.9,226.1 L375.4,223.4 L375.8,224.3 L376.3,225.6 L376.8,226.1 L377.3,223.8 L377.8,222.3 L378.3,223.8 L378.7,224.3 L379.2,223.8 L379.7,221.6 L380.2,222.1 L380.7,223.4 L381.2,223.4 L381.6,221.6 L382.1,211.4 L382.6,222.1 L383.1,222.1 L383.6,222.1 L384.1,219.4 L384.5,219.9 L385.0,221.6 L385.5,221.6 L386.0,219.9 L386.5,218.5 L387.0,219.9 L387.5,220.7 L387.9,220.3 L388.4,217.6 L388.9,218.5 L389.4,220.3 L389.9,220.3 L390.4,219.9 L390.8,218.1 L391.3,219.0 L391.8,219.4 L392.3,218.5 L392.8,216.3 L393.3,217.2 L393.7,218.5 L394.2,219.0 L394.7,216.3 L395.2,215.9 L395.7,217.2 L396.2,217.6 L396.6,216.3 L397.1,214.5 L397.6,215.4 L398.1,216.3 L398.6,216.8 L399.1,214.1 L399.5,213.2 L400.0,215.0 L400.5,215.0 L401.0,214.5 L401.5,211.9 L402.0,212.8 L402.5,214.1 L402.9,214.1 L403.4,212.3 L403.9,210.6 L404.4,212.3 L404.9,212.8 L405.4,212.8 L405.8,210.1 L406.3,210.1 L406.8,211.9 L407.3,211.9 L407.8,210.1 L408.3,208.8 L408.7,210.1 L409.2,211.0 L409.7,211.0 L410.2,208.8 L410.7,208.3 L411.2,210.1 L411.6,210.6 L412.1,209.2 L412.6,207.9 L413.1,208.3 L413.6,209.2 L414.1,210.1 L414.5,207.5 L415.0,207.0 L415.5,208.8 L416.0,208.8 L416.5,207.9 L417.0,197.3 L417.5,207.0 L417.9,208.3 L418.4,208.3 L418.9,206.1 L419.4,206.1 L419.9,207.5 L420.4,207.9 L420.8,206.6 L421.3,204.8 L421.8,206.6 L422.3,207.0 L422.8,207.5 L423.3,204.8 L423.7,205.2 L424.2,207.0 L424.7,207.5 L425.2,205.2 L425.7,203.9 L426.2,205.7 L426.6,206.6 L427.1,206.1 L427.6,204.8 L428.1,204.8 L428.6,206.6 L429.1,207.0 L429.5,205.2 L430.0,204.3 L430.5,206.6 L431.0,206.6 L431.5,206.6 L432.0,204.8 L432.5,205.2 L432.9,207.0 L433.4,207.5 L433.9,206.1 L434.4,204.3 L434.9,206.1 L435.4,207.5 L435.8,207.9 L436.3,205.7 L436.8,205.7 L437.3,207.5 L437.8,208.3 L438.3,207.5 L438.7,205.7 L439.2,207.0 L439.7,208.8 L440.2,209.2 L440.7,207.0 L441.2,206.6 L441.6,208.3 L442.1,209.2 L442.6,208.8 L443.1,206.6 L443.6,207.9 L444.1,209.7 L444.5,210.1 L445.0,208.3 L445.5,207.0 L446.0,209.2 L446.5,209.7 L447.0,209.7 L447.5,207.5 L447.9,208.3 L448.4,210.1 L448.9,210.6 L449.4,207.9 L449.9,209.7 L450.4,210.6 L450.8,209.7 L451.3,207.9 L451.8,209.2 L452.3,210.6 L452.8,211.0 L453.3,208.8 L453.7,208.8 L454.2,210.6 L454.7,211.4 L455.2,210.1 L455.7,208.8 L456.2,210.6 L456.6,211.9 L457.1,212.8 L457.6,210.1 L458.1,210.6 L458.6,212.3 L459.1,213.2 L459.5,211.9 L460.0,210.6 L460.5,212.3 L461.0,213.7 L461.5,214.5 L462.0,212.3 L462.5,212.3 L462.9,214.5 L463.4,215.0 L463.9,214.5 L464.4,212.8 L464.9,214.1 L465.4,216.3 L465.8,216.8 L466.3,215.0 L466.8,214.1 L467.3,216.3 L467.8,217.2 L468.3,217.2 L468.7,215.0 L469.2,216.3 L469.7,218.1 L470.2,219.0 L470.7,217.2 L471.2,216.3 L471.6,218.1 L472.1,219.0 L472.6,219.4 L473.1,217.6 L473.6,218.5 L474.1,220.3 L474.5,221.2 L475.0,219.9 L475.5,218.5 L476.0,220.7 L476.5,221.6 L477.0,222.1 L477.5,220.3 L477.9,220.7 L478.4,223.0 L478.9,223.8 L479.4,222.5 L479.9,221.2 L480.4,223.4 L480.8,224.7 L481.3,225.2 L481.8,223.4 L482.3,224.3 L482.8,226.5 L483.3,227.4 L483.7,225.6 L484.2,224.7 L484.7,226.9 L485.2,228.3 L485.7,228.3 L486.2,226.5 L486.6,227.8 L487.1,229.6 L487.6,230.5 L488.1,229.2 L488.6,227.8 L489.1,230.0 L489.5,230.9 L490.0,230.9 L490.5,229.2 L491.0,230.5 L491.5,232.3 L492.0,232.7 L492.5,230.9 L492.9,230.0 L493.4,232.3 L493.9,233.2 L494.4,233.2 L494.9,230.9 L495.4,231.8 L495.8,234.0 L496.3,234.5 L496.8,232.7 L497.3,231.8 L497.8,233.6 L498.3,234.5 L498.7,234.9 L499.2,232.7 L499.7,233.2 L500.2,234.9 L500.7,235.4 L501.2,234.5 L501.6,233.2 L502.1,234.5 L502.6,236.3 L503.1,236.7 L503.6,234.5 L504.1,234.0 L504.5,236.3 L505.0,237.1 L505.5,236.7 L506.0,234.5 L506.5,235.8 L507.0,237.6 L507.5,238.0 L507.9,236.3 L508.4,235.4 L508.9,43.8 L509.4,238.5 L509.9,237.6 L510.4,235.4 L510.8,236.7 L511.3,238.0 L511.8,238.9 L512.3,237.1 L512.8,236.7 L513.3,238.9 L513.7,239.4 L514.2,238.9 L514.7,236.7 L515.2,238.0 L515.7,239.8 L516.2,240.2 L516.6,237.6 L517.1,237.1 L517.6,238.9 L518.1,239.4 L518.6,238.9 L519.1,236.7 L519.5,238.0 L520.0,239.4 L520.5,240.2 L521.0,238.0 L521.5,237.1 L522.0,238.9 L522.5,239.4 L522.9,238.5 L523.4,236.3 L523.9,238.0 L524.4,239.4 L524.9,239.8 L525.4,237.6 L525.8,237.1 L526.3,238.9 L526.8,239.8 L527.3,238.9 L527.8,236.7 L528.3,238.0 L528.7,239.4 L529.2,240.2 L529.7,238.0 L530.2,236.7 L530.7,238.9 L531.2,239.8 L531.6,239.4 L532.1,237.1 L532.6,237.6 L533.1,239.4 L533.6,239.8 L534.1,238.0 L534.5,236.7 L535.0,238.0 L535.5,238.9 L536.0,239.4 L536.5,237.1 L537.0,237.1 L537.5,238.9 L537.9,238.9 L538.4,238.0 L538.9,235.8 L539.4,237.1 L539.9,238.5 L540.4,238.9 L540.8,236.3 L541.3,235.8 L541.8,237.1 L542.3,238.0 L542.8,236.7 L543.3,234.5 L543.7,235.4 L544.2,236.7 L544.7,237.1 L545.2,234.5 L545.7,233.6 L546.2,235.4 L546.6,236.3 L547.1,234.9 L547.6,232.7 L548.1,233.6 L548.6,234.9 L549.1,234.9 L549.5,232.3 L550.0,231.8 L550.5,233.6 L551.0,233.6 L551.5,232.3 L552.0,230.0 L552.5,233.2 L552.9,232.3 L553.4,232.7 L553.9,230.0 L554.4,230.0 L554.9,231.8 L555.4,232.3 L555.8,230.5 L556.3,228.3 L556.8,229.6 L557.3,230.5 L557.8,230.0 L558.3,227.8 L558.7,227.4 L559.2,229.2 L559.7,229.2 L560.2,227.4 L560.7,225.6 L561.2,226.9 L561.6,227.8 L562.1,227.8 L562.6,225.6 L563.1,224.7 L563.6,226.1 L564.1,226.5 L564.5,225.6 L565.0,223.0 L565.5,223.8 L566.0,225.2 L566.5,225.6 L567.0,223.0 L567.5,221.6 L567.9,223.4 L568.4,223.8 L568.9,223.4 L569.4,220.7 L569.9,221.2 L570.4,222.5 L570.8,222.5 L571.3,220.7 L571.8,219.0 L572.3,220.3 L572.8,221.2 L573.3,221.2 L573.7,218.5 L574.2,218.5 L574.7,220.3 L575.2,220.3 L575.7,219.0 L576.2,217.2 L576.6,218.5 L577.1,219.4 L577.6,219.4 L578.1,217.6 L578.6,217.2 L579.1,219.0 L579.5,219.4 L580.0,217.6 L580.5,215.9 L581.0,217.6 L581.5,218.1 L582.0,218.1 L582.5,215.4 L582.9,216.3 L583.4,217.6 L583.9,218.5 L584.4,215.9 L584.9,215.0 L585.4,216.8 L585.8,218.1 L586.3,216.8 L586.8,214.1 L587.3,215.0 L587.8,216.8 L588.3,216.8 L588.7,214.5 L589.2,213.2 L589.7,215.0 L590.2,215.4 L590.7,215.0 L591.2,212.3 L591.6,213.2 L592.1,215.0 L592.6,215.0 L593.1,212.8 L593.6,211.4 L594.1,214.5 L594.5,213.2 L595.0,213.2 L595.5,210.6 L596.0,210.1 L596.5,212.8 L597.0,212.8 L597.5,211.0 L597.9,209.2 L598.4,211.0 L598.9,211.9 L599.4,212.3 L599.9,209.7 L600.4,209.2 L600.8,211.0 L601.3,211.9 L601.8,210.6 L602.3,208.3 L602.8,209.2 L603.3,210.6 L603.7,211.0 L604.2,208.8 L604.7,207.9 L605.2,209.7 L605.7,210.1 L606.2,209.7 L606.6,207.5 L607.1,208.3 L607.6,209.7 L608.1,210.1 L608.6,211.0 L609.1,206.6 L609.5,208.8 L610.0,209.2 L610.5,207.9 L611.0,205.7 L611.5,207.0 L612.0,208.3 L612.5,208.8 L612.9,206.1 L613.4,205.7 L613.9,207.9 L614.4,207.9 L614.9,206.6 L615.4,204.3 L615.8,206.1 L616.3,207.0 L616.8,207.0 L617.3,204.8 L617.8,205.2 L618.3,207.0 L618.7,207.5 L619.2,205.7 L619.7,204.3 L620.2,206.1 L620.7,207.0 L621.2,207.0 L621.6,204.8 L622.1,205.7 L622.6,207.5 L623.1,207.9 L623.6,206.6 L624.1,205.7 L624.5,207.0 L625.0,207.9 L625.5,208.3 L626.0,206.6 L626.5,206.6 L627.0,208.8 L627.5,209.2 L627.9,208.3 L628.4,206.6 L628.9,207.9 L629.4,209.7 L629.9,210.6 L630.4,208.3 L630.8,208.3 L631.3,209.7 L631.8,210.6 L632.3,210.1 L632.8,208.3 L633.3,209.2 L633.7,211.0 L634.2,211.9 L634.7,209.7 L635.2,208.8 L635.7,210.6 L636.2,211.9 L636.6,211.4 L637.1,209.7 L637.6,210.6 L638.1,212.3 L638.6,212.8 L639.1,211.0 L639.5,210.6 L640.0,211.9 L640.5,14.0 L641.0,16.8 L641.5,193.7 L642.0,199.5 L642.5,210.6 L642.9,210.6 L643.4,211.0 L643.9,211.0 L644.4,212.8 L644.9,212.8 L645.4,213.2 L645.8,211.0 L646.3,212.8 L646.8,214.5 L647.3,215.0 L647.8,213.2 L648.3,212.8 L648.7,215.0 L649.2,215.9 L649.7,215.0 L650.2,213.2 L650.7,215.0 L651.2,216.8 L651.6,217.2 L652.1,215.4 L652.6,216.1 L653.1,218.1 L653.6,219.0 L654.1,218.3 L654.5,216.3 L655.0,218.1 L655.5,220.3 L656.0,220.5 L656.5,218.7 L657.0,217.6 L657.5,220.3 L657.9,221.2 L658.4,220.7 L658.9,218.5 L659.4,219.6 L659.9,221.6 L660.4,222.7 L660.8,220.5 L661.3,219.4 L661.8,221.2 L662.3,222.5 L662.8,223.0 L663.3,220.7 L663.7,221.2 L664.2,223.4 L664.7,224.3 L665.2,223.0 L665.7,221.2 L666.2,223.2 L666.6,224.7 L667.1,225.6 L667.6,223.4 L668.1,223.4 L668.6,225.6 L669.1,226.5 L669.5,225.6 L670.0,224.3 L670.5,225.8 L671.0,227.4 L671.5,228.3 L672.0,226.5 L672.5,226.5 L672.9,228.7 L673.4,229.6 L673.9,228.7 L674.4,227.4 L674.9,229.2 L675.4,230.9 L675.8,231.6 L676.3,229.6 L676.8,230.0 L677.3,233.2 L677.8,233.2 L678.3,231.8 L678.7,230.5 L679.2,232.3 L679.7,233.6 L680.2,234.0 L680.7,231.8 L681.2,232.7 L681.6,234.5 L682.1,235.4 L682.6,233.6 L683.1,232.7 L683.6,234.5 L684.1,235.8 L684.5,236.0 L685.0,233.6 L685.5,234.3 L686.0,236.3 L686.5,237.1 L687.0,235.4 L687.5,234.0 L687.9,235.8 L688.4,237.1 L688.9,237.6 L689.4,235.4 L689.9,235.4 L690.4,237.6 L690.8,238.5 L691.3,237.4 L691.8,235.4 L692.3,237.1 L692.8,238.9 L693.3,239.8 L693.7,237.1 L694.2,236.7 L694.7,238.5 L695.2,239.6 L695.7,238.9 L696.2,237.1 L696.6,238.0 L697.1,240.2 L697.6,240.7 L698.1,238.9 L698.6,237.6 L699.1,239.4 L699.5,240.7 L700.0,240.7 L700.5,238.5 L701.0,238.9 L701.5,240.7 L702.0,241.6 L702.5,239.8 L702.9,238.0 L703.4,239.8 L703.9,240.7 L704.4,241.1 L704.9,238.5 L705.4,238.9 L705.8,240.7 L706.3,241.1 L706.8,238.9 L707.3,237.6 L707.8,239.6 L708.3,240.2 L708.7,239.8 L709.2,237.6 L709.7,238.0 L710.2,239.8 L710.7,240.2 L711.2,238.0 L711.6,237.1 L712.1,238.5 L712.6,238.9 L713.1,238.5 L713.6,236.3 L714.1,237.1 L714.5,238.9 L715.0,239.4 L715.5,236.9 L716.0,235.8 L716.5,237.6 L717.0,238.5 L717.5,238.0 L717.9,235.8 L718.4,236.7 L718.9,238.5 L719.4,238.9 L719.9,236.7 L720.4,235.6 L720.8,237.6 L721.3,238.2 L721.8,238.0 L722.3,235.8 L722.8,236.3 L723.3,238.0 L723.7,238.5 L724.2,236.9 L724.7,235.4 L725.2,236.7 L725.7,238.0 L726.2,238.0 L726.6,235.8 L727.1,235.4 L727.6,237.1 L728.1,237.6 L728.6,236.3 L729.1,234.0 L729.5,235.4 L730.0,236.9 L730.5,237.1 L731.0,234.9 L731.5,233.6 L732.0,235.4 L732.5,235.8 L732.9,235.4 L733.4,232.7 L733.9,233.6 L734.4,234.9 L734.9,235.4 L735.4,233.2 L735.8,231.8 L736.3,233.6 L736.8,234.0 L737.3,233.6 L737.8,230.9 L738.3,231.6 L738.7,233.4 L739.2,233.6 L739.7,231.4 L740.2,230.3 L740.7,231.8 L741.2,232.3 L741.6,231.8 L742.1,229.4 L742.6,230.0 L743.1,231.8 L743.6,231.8 L744.1,229.6 L744.5,228.7 L745.0,230.7 L745.5,230.9 L746.0,229.6 L746.5,227.4 L747.0,228.7 L747.5,230.0 L747.9,230.0 L748.4,227.4 L748.9,226.9 L749.4,228.5 L749.9,229.4 L750.4,227.4 L750.8,225.2 L751.3,226.5 L751.8,227.4 L752.3,227.8 L752.8,225.2 L753.3,224.3 L753.7,225.8 L754.2,226.3 L754.7,225.2 L755.2,222.7 L755.7,223.4 L756.2,224.7 L756.6,224.7 L757.1,222.5 L757.6,221.2 L758.1,222.5 L758.6,224.5 L759.1,222.5 L759.5,220.7 L760.0,220.3 L760.5,221.6 L761.0,221.9 L761.5,219.9 L762.0,218.1 L762.5,219.4 L762.9,220.3 L763.4,220.3 L763.9,217.6 L764.4,217.4 L764.9,219.0 L765.4,219.4 L765.8,218.3 L766.3,215.9 L766.8,217.2 L767.3,218.5 L767.8,218.5 L768.3,216.1 L768.7,215.4 L769.2,217.2 L769.7,217.6 L770.2,216.8 L770.7,214.5 L771.2,215.9 L771.6,216.8 L772.1,217.2 L772.6,215.0 L773.1,214.5 L773.6,216.3 L774.1,216.8 L774.5,215.0 L775.0,213.2 L775.5,215.0 L776.0,215.9 L776.5,215.6 L777.0,213.2 L777.5,213.2 L777.9,215.2 L778.4,215.4 L778.9,213.2 L779.4,211.9 L779.9,213.2 L780.4,214.1 L780.8,213.7 L781.3,211.4 L781.8,211.4 L782.3,213.2 L782.8,213.7 L783.3,211.4 L783.7,209.9 L784.2,211.9 L784.7,212.3 L785.2,211.9 L785.7,209.7 L786.2,210.1 L786.6,212.3 L787.1,211.9 L787.6,210.6 L788.1,208.6 L788.6,210.1 L789.1,211.2 L789.5,211.4 L790.0,209.2 L790.5,208.8 L791.0,210.6 L791.5,211.0 L792.0,210.1 L792.5,207.9 L792.9,209.2 L793.4,210.6 L793.9,211.2 L794.4,208.8 L794.9,207.9 L795.4,209.7 L795.8,210.6 L796.3,209.9 L796.8,208.1 L797.3,209.2 L797.8,210.1 L798.3,210.6 L798.7,208.3 L799.2,207.0 L799.7,208.8 L800.2,209.7 L800.7,209.2 L801.2,207.0 L801.6,207.5 L802.1,209.4 L802.6,209.4 L803.1,207.0 L803.6,206.1 L804.1,207.9 L804.5,208.3 L805.0,207.5 L805.5,205.2 L806.0,206.3 L806.5,207.9 L807.0,207.9 L807.5,205.7 L807.9,205.2 L808.4,207.0 L808.9,207.7 L809.4,206.6 L809.9,204.8 L810.4,206.1 L810.8,207.5 L811.3,207.9 L811.8,205.7 L812.3,205.7 L812.8,207.9 L813.3,208.3 L813.7,207.2 L814.2,205.5 L814.7,207.5 L815.2,208.8 L815.7,209.2 L816.2,207.0 L816.6,207.0 L817.1,209.2 L817.6,209.9 L818.1,209.0 L818.6,207.0 L819.1,208.8 L819.5,210.6 L820.0,211.2 L820.5,209.2 L821.0,208.6 L821.5,210.6 L822.0,211.4 L822.5,211.0 L822.9,209.2 L823.4,210.1 L823.9,211.9 L824.4,212.5 L824.9,210.8 L825.4,209.7 L825.8,211.4 L826.3,212.8 L826.8,212.8 L827.3,210.6 L827.8,211.4 L828.3,213.2 L828.7,214.1 L829.2,212.3 L829.7,211.4 L830.2,213.2 L830.7,214.1 L831.2,214.5 L831.6,212.3 L832.1,213.2 L832.6,215.0 L833.1,215.9 L833.6,214.5 L834.1,213.2 L834.5,215.4 L835.0,216.8 L835.5,217.0 L836.0,215.0 L836.5,215.9 L837.0,218.1 L837.5,219.0 L837.9,217.2 L838.4,216.8 L838.9,218.7 L839.4,219.9 L839.9,219.9 L840.4,217.6 L840.8,219.4 L841.3,221.2 L841.8,222.1 L842.3,220.3 L842.8,219.4 L843.3,221.6 L843.7,222.7 L844.2,222.5 L844.7,220.3 L845.2,221.6 L845.7,223.8 L846.2,224.3 L846.6,222.5 L847.1,221.9 L847.6,223.8 L848.1,224.7 L848.6,224.7 L849.1,222.5 L849.5,223.4 L850.0,225.8 L850.5,226.1 L851.0,224.7 L851.5,223.6 L852.0,225.2 L852.5,226.5 L852.9,226.9 L853.4,224.7 L853.9,225.2 L854.4,227.2 L854.9,228.1 L855.4,227.4 L855.8,225.2 L856.3,226.9 L856.8,228.3 L857.3,229.2 L857.8,226.9 L858.3,226.9 L858.7,229.2 L859.2,230.0 L859.7,229.6 L860.2,227.4 L860.7,229.2 L861.2,230.9 L861.6,231.8 L862.1,230.0 L862.6,229.2 L863.1,231.4 L863.6,232.7 L864.1,232.3 L864.5,230.9 L865.0,231.8 L865.5,233.8 L866.0,234.5 L866.5,232.7 L867.0,231.8 L867.5,234.5 L867.9,235.4 L868.4,234.5 L868.9,232.7 L869.4,234.5 L869.9,236.3 L870.4,236.7 L870.8,234.5 L871.3,234.5 L871.8,236.7 L872.3,237.1 L872.8,236.3 L873.3,234.9 L873.7,236.3 L874.2,237.6 L874.7,238.0 L875.2,235.8 L875.7,235.8 L876.2,238.0 L876.6,238.9 L877.1,237.6 L877.6,235.8 L878.1,237.1 L878.6,238.9 L879.1,239.8 L879.5,237.1 L880.0,237.1 L880.5,238.9 L881.0,239.8 L881.5,238.9 L882.0,237.1 L882.5,238.5 L882.9,240.2 L883.4,240.7 L883.9,239.4 L884.4,238.0 L884.9,239.8 L885.4,241.1 L885.8,240.7 L886.3,238.5 L886.8,239.8 L887.3,241.6 L887.8,242.5 L888.3,240.7 L888.7,238.9 L889.2,240.7 L889.7,242.5 L890.2,242.5 L890.7,240.2 L891.2,240.2 L891.6,242.0 L892.1,242.9 L892.6,241.1 L893.1,239.8 L893.6,241.1 L894.1,242.5 L894.5,242.9 L895.0,240.7 L895.5,240.2 L896.0,242.0 L896.5,242.9 L897.0,241.6 L897.5,239.4 L897.9,240.7 L898.4,241.6 L898.9,242.0 L899.4,239.8 L899.9,238.9 L900.4,240.7 L900.8,241.1 L901.3,239.8 L901.8,237.6 L902.3,246.0 L902.8,238.0 L903.3,239.4 L903.7,239.8 L904.2,239.4 L904.7,237.1 L905.2,237.1 L905.7,238.5 L906.2,238.9 L906.6,238.9 L907.1,236.7 L907.6,236.3 L908.1,238.0 L908.6,238.5 L909.1,238.0 L909.5,235.8 L910.0,236.3 L910.5,237.6 L911.0,238.0 L911.5,237.6 L912.0,235.4 L912.5,235.8 L912.9,237.6 L913.4,238.5 L913.9,237.1 L914.4,234.9 L914.9,235.4 L915.4,237.1 L915.8,237.6 L916.3,236.3 L916.8,234.0 L917.3,234.9 L917.8,236.7 L918.3,237.1 L918.7,235.4 L919.2,233.6 L919.7,234.5 L920.2,235.8 L920.7,236.3 L921.2,234.5 L921.6,232.3 L922.1,233.6 L922.6,234.9 L923.1,235.4 L923.6,233.2 L924.1,231.4 L924.5,232.3 L925.0,233.6 L925.5,234.0 L926.0,231.8" fill="none" stroke="#4ea8de" stroke-width="1.1"/><text x="56" y="268" fill="#7d8c9e" font-size="11">2000-01-01T00:00</text><text x="926" y="268" fill="#7d8c9e" font-size="11" text-anchor="end">2013-12-31T01:30</text><text x="6" y="24" fill="#7d8c9e" font-size="11">value (normalised)</text></svg>
+  <div class="legend">
+    <span class="key"><span class="swatch" style="background:#4ea8de"></span>telemetry value</span>
+    <span class="key"><span class="swatch" style="background:#d98236;opacity:.5"></span>
+      labelled anomaly / rare-event interval (ground truth)</span>
+  </div>
+  <p class="chart-caption">
+    Window 2000-01-01T00:00 to
+    2013-12-31T01:30 UTC.
+    labelled intervals are ground-truth annotations from the benchmark, not model detections; no per-sample anomaly score is stored in this artifact
+  </p>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Labelled intervals <span class="count">— 40</span></h2>
+    
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>ID</th><th>Start</th><th>End</th><th>Class</th><th>Category</th></tr></thead>
+        <tbody>
+        
+          <tr>
+            <td class="mono">id_1</td>
+            <td class="mono">2004-12-01T20:42:15</td>
+            <td class="mono">2004-12-08T22:55:45</td>
+            <td>class_6</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_10</td>
+            <td class="mono">2005-03-31T08:19:00</td>
+            <td class="mono">2005-04-01T05:35:57</td>
+            <td>class_9</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_11</td>
+            <td class="mono">2012-04-20T23:00:00</td>
+            <td class="mono">2012-04-21T10:27:00</td>
+            <td>class_11</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_12</td>
+            <td class="mono">2003-12-31T02:31:45</td>
+            <td class="mono">2004-01-01T10:24:15</td>
+            <td>class_11</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_13</td>
+            <td class="mono">2003-12-18T14:30:15</td>
+            <td class="mono">2003-12-19T13:13:45</td>
+            <td>class_11</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-16T21:45:00</td>
+            <td class="mono">2005-01-16T23:59:57</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-17T03:22:45</td>
+            <td class="mono">2005-01-17T03:37:45</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-17T16:39:15</td>
+            <td class="mono">2005-01-17T17:12:15</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-18T06:12:15</td>
+            <td class="mono">2005-01-18T06:49:45</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-18T19:39:15</td>
+            <td class="mono">2005-01-18T20:13:45</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-19T03:45:09</td>
+            <td class="mono">2005-01-19T06:00:15</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_17</td>
+            <td class="mono">2005-01-19T12:45:00</td>
+            <td class="mono">2005-01-19T15:00:15</td>
+            <td>class_4</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_18</td>
+            <td class="mono">2008-09-08T14:16:15</td>
+            <td class="mono">2008-09-08T16:38:45</td>
+            <td>class_9</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_25</td>
+            <td class="mono">2002-07-17T01:30:15</td>
+            <td class="mono">2002-07-18T08:25:45</td>
+            <td>class_19</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_27</td>
+            <td class="mono">2007-10-26T12:40:15</td>
+            <td class="mono">2007-10-26T16:22:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_28</td>
+            <td class="mono">2007-12-24T02:34:15</td>
+            <td class="mono">2007-12-24T05:16:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_29</td>
+            <td class="mono">2008-06-07T15:40:15</td>
+            <td class="mono">2008-06-07T16:34:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_31</td>
+            <td class="mono">2008-06-10T16:25:15</td>
+            <td class="mono">2008-06-10T19:34:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_32</td>
+            <td class="mono">2008-10-15T20:28:15</td>
+            <td class="mono">2008-10-15T23:31:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_33</td>
+            <td class="mono">2009-03-08T10:37:15</td>
+            <td class="mono">2009-03-08T13:46:15</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_34</td>
+            <td class="mono">2009-06-10T20:07:30</td>
+            <td class="mono">2009-06-10T23:37:30</td>
+            <td>class_8</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_35</td>
+            <td class="mono">2000-10-22T23:48:05</td>
+            <td class="mono">2000-10-23T00:19:05</td>
+            <td>class_14</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_52</td>
+            <td class="mono">2001-05-27T18:48:18</td>
+            <td class="mono">2001-05-28T14:30:18</td>
+            <td>class_5</td>
+            <td>Communication Gap</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_53</td>
+            <td class="mono">2001-06-27T08:13:45</td>
+            <td class="mono">2001-06-27T09:00:15</td>
+            <td>class_5</td>
+            <td>Communication Gap</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_54</td>
+            <td class="mono">2002-10-16T05:58:45</td>
+            <td class="mono">2002-10-16T11:54:15</td>
+            <td>class_5</td>
+            <td>Communication Gap</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_57</td>
+            <td class="mono">2001-05-30T22:24:18</td>
+            <td class="mono">2001-05-31T11:27:18</td>
+            <td>class_5</td>
+            <td>Communication Gap</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_59</td>
+            <td class="mono">2000-10-13T22:41:59</td>
+            <td class="mono">2000-10-13T23:55:48</td>
+            <td>class_14</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_77</td>
+            <td class="mono">2001-02-01T12:29:59</td>
+            <td class="mono">2001-02-01T13:45:18</td>
+            <td>class_14</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_78</td>
+            <td class="mono">2001-04-06T00:12:18</td>
+            <td class="mono">2001-04-08T07:30:18</td>
+            <td>class_6</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_83</td>
+            <td class="mono">2002-05-20T22:24:15</td>
+            <td class="mono">2002-05-21T16:24:15</td>
+            <td>class_3</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_101</td>
+            <td class="mono">2005-09-01T14:46:12</td>
+            <td class="mono">2005-09-02T18:28:12</td>
+            <td>class_20</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_102</td>
+            <td class="mono">2005-09-27T21:43:21</td>
+            <td class="mono">2005-09-28T11:43:21</td>
+            <td>class_20</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_103</td>
+            <td class="mono">2005-10-22T09:16:12</td>
+            <td class="mono">2005-10-22T20:46:12</td>
+            <td>class_20</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_116</td>
+            <td class="mono">2007-04-14T08:17:06</td>
+            <td class="mono">2007-04-17T08:59:45</td>
+            <td>class_14</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_134</td>
+            <td class="mono">2009-05-25T13:18:48</td>
+            <td class="mono">2009-06-07T22:19:30</td>
+            <td>class_14</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_145</td>
+            <td class="mono">2010-05-19T00:45:00</td>
+            <td class="mono">2010-05-21T07:07:30</td>
+            <td>class_22</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_155</td>
+            <td class="mono">2011-04-22T00:13:30</td>
+            <td class="mono">2011-04-24T06:03:00</td>
+            <td>class_14</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_167</td>
+            <td class="mono">2000-03-19T06:04:18</td>
+            <td class="mono">2000-03-21T00:07:48</td>
+            <td>class_20</td>
+            <td>Anomaly</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_180</td>
+            <td class="mono">2013-08-12T02:28:29</td>
+            <td class="mono">2013-08-13T21:37:29</td>
+            <td>class_2</td>
+            <td>Rare Event</td>
+          </tr>
+        
+          <tr>
+            <td class="mono">id_185</td>
+            <td class="mono">2000-04-23T15:18:18</td>
+            <td class="mono">2000-04-25T15:07:48</td>
+            <td>class_3</td>
+            <td>Anomaly</td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+  <div class="panel">
+    <h2>Channels in this mission <span class="count">— 76</span></h2>
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>Channel</th><th>Subsystem</th><th>Target</th><th>Labels</th></tr></thead>
+        <tbody>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_1">channel_1</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_2">channel_2</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_3">channel_3</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_4">channel_4</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_5">channel_5</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_6">channel_6</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_7">channel_7</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_8">channel_8</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_9">channel_9</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_10">channel_10</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_11">channel_11</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_12">channel_12</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">40</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_13">channel_13</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">41</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_14">channel_14</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">96</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_15">channel_15</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">52</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_16">channel_16</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">38</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_17">channel_17</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_18">channel_18</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_19">channel_19</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_20">channel_20</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_21">channel_21</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">96</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_22">channel_22</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">56</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_23">channel_23</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">52</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_24">channel_24</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">39</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_25">channel_25</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_26">channel_26</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">43</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_27">channel_27</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">43</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_28">channel_28</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_29">channel_29</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">95</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_30">channel_30</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">49</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_31">channel_31</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">55</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_32">channel_32</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">41</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_33">channel_33</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">40</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_34">channel_34</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_35">channel_35</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">41</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_36">channel_36</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">42</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_37">channel_37</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">43</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_38">channel_38</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">50</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_39">channel_39</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">55</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_40">channel_40</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">39</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_41">channel_41</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">212</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_42">channel_42</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">211</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_43">channel_43</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">211</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_44">channel_44</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">210</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_45">channel_45</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">208</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_46">channel_46</a></td>
+            <td>subsystem_5</td>
+            <td>yes</td>
+            <td class="num">203</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_47">channel_47</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">86</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_48">channel_48</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">87</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_49">channel_49</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">84</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_50">channel_50</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">81</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_51">channel_51</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">82</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_52">channel_52</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">83</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_53">channel_53</a></td>
+            <td>subsystem_3</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_54">channel_54</a></td>
+            <td>subsystem_3</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_55">channel_55</a></td>
+            <td>subsystem_3</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_56">channel_56</a></td>
+            <td>subsystem_3</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_57">channel_57</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">32</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_58">channel_58</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">32</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_59">channel_59</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">32</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_60">channel_60</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">31</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_61">channel_61</a></td>
+            <td>subsystem_1</td>
+            <td>yes</td>
+            <td class="num">5</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_62">channel_62</a></td>
+            <td>subsystem_1</td>
+            <td>yes</td>
+            <td class="num">5</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_63">channel_63</a></td>
+            <td>subsystem_1</td>
+            <td>yes</td>
+            <td class="num">5</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_64">channel_64</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">7</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_65">channel_65</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">8</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_66">channel_66</a></td>
+            <td>subsystem_6</td>
+            <td>yes</td>
+            <td class="num">16</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_67">channel_67</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_68">channel_68</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_69">channel_69</a></td>
+            <td>subsystem_1</td>
+            <td>—</td>
+            <td class="num">0</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_70">channel_70</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">27</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_71">channel_71</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">26</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_72">channel_72</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">28</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_73">channel_73</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">35</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_74">channel_74</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">34</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_75">channel_75</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">35</td>
+          </tr>
+        
+          <tr>
+            <td><a href="/telemetry/1/channel_76">channel_76</a></td>
+            <td>subsystem_3</td>
+            <td>yes</td>
+            <td class="num">33</td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>What this view does not establish</h2>
+  <ul>
+    <li>No per-sample anomaly score is shown: labelled intervals are ground-truth annotations from the benchmark, not model detections; no per-sample anomaly score is stored in this artifact</li>
+    <li>This channel cannot be attributed to a named spacecraft or a NORAD object.</li>
+    <li>Benchmark detection performance is reported per arm in
+      <a href="/telemetry">Satellite Intelligence</a>; it is not a health verdict for this channel.</li>
+    <li>No live telemetry feed is connected to this console.</li>
+  </ul>
+</div>
+
+  </main>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">light / dark</button>
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try { localStorage.setItem('cosmos-theme', next); } catch (e) {}
+}
+(function () {
+  try {
+    const saved = localStorage.getItem('cosmos-theme');
+    if (saved) { document.documentElement.dataset.theme = saved; }
+  } catch (e) {}
+})();
+// Navigation loading indicator: pages are rendered on the server, so a slow first load (for example the Twin State
+// page streaming the archive) would otherwise give no feedback. A thin bar appears after 250 ms of waiting.
+(function () {
+  const bar = document.getElementById('nav-progress');
+  if (!bar) { return; }
+  let timer = null;
+  document.addEventListener('click', function (event) {
+    const link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download') || event.defaultPrevented) { return; }
+    if (link.origin !== window.location.origin || link.getAttribute('href').startsWith('#')) { return; }
+    timer = setTimeout(function () { bar.classList.add('active'); }, 250);
+  });
+  document.addEventListener('submit', function () { timer = setTimeout(function () { bar.classList.add('active'); }, 250); });
+  window.addEventListener('pageshow', function () { if (timer) { clearTimeout(timer); } bar.classList.remove('active'); });
+})();
+</script>
+
+</body>
+</html>

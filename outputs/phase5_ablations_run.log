@@ -1,0 +1,14 @@
+A. fusion arms (pinball, lower is better):
+  2011 selected=kumo: physics_only 0.0527, equal_average 0.0527, stack_constant 0.0608, cosmos_gated 0.0583, cosmos_gated_tuneA 0.0616, kumo 0.0616
+       gated vs: physics_only +0.0056, tabicl -0.0013, kumo -0.0033*
+  2016 selected=tabm: physics_only 0.0892, equal_average 0.0691, stack_constant 0.0601, cosmos_gated 0.0604, cosmos_gated_tuneA 0.0695, tabm 0.0593
+       gated vs: physics_only -0.0289*, tabicl +0.0104*, kumo +0.0096*
+  2006 selected=mlp: physics_only 0.0568, equal_average 0.0742, stack_constant 0.0987, cosmos_gated 0.0885, cosmos_gated_tuneA 0.0786, mlp 0.1039
+       gated vs: 
+B. gate gains:
+  2011: xgboost +0.0000* (w=0.00), lightgbm +0.0105* (w=0.28), catboost +0.0000* (w=0.00), mlp +0.0073* (w=0.10), tabm +0.0043* (w=0.07), tabicl +0.0027* (w=0.11), kumo +0.0033* (w=0.12)
+  2016: xgboost -0.0014 (w=0.26), lightgbm -0.0023 (w=0.51), catboost -0.0003 (w=0.23), mlp -0.0014 (w=0.31), tabm -0.0016 (w=0.15), tabicl -0.0046 (w=0.51), kumo +0.0014 (w=0.36)
+C. feature groups:
+  2011: no_design +0.0008, no_family +0.0024, no_physics +0.0022*, no_space_weather +0.0009, plus_rcs_2026 -0.0038
+  2016: no_design +0.0071*, no_family +0.0056*, no_physics -0.0050*, no_space_weather +0.0038, plus_rcs_2026 +0.0071
+rows 196  written outputs/phase5_ablations/

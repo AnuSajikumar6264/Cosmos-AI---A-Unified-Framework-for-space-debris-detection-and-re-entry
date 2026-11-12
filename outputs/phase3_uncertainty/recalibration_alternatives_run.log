@@ -1,0 +1,31 @@
+R0 reproduction gate max|Δ|: 0.0
+
+cosmos_gated coverage by construction (nominal in 'level'):
+construction  R0_deployed_mondrian  R1_marginal  R2_class_only  R3_asymmetric  R4_recent_half_window  R5_recency_weighted
+origin level                                                                                                             
+2006   0.8                   0.797        0.935          0.928          0.864                  0.949                0.941
+       0.9                   0.858        0.964          0.958          0.917                  0.968                0.968
+2011   0.8                   0.923        0.909          0.910          0.907                  0.922                0.909
+       0.9                   0.959        0.949          0.949          0.951                  0.973                0.982
+2016   0.8                   0.717        0.735          0.722          0.798                  0.756                0.809
+       0.9                   0.874        0.920          0.912          0.889                  0.881                0.964
+
+cosmos_gated mean width (log10 days):
+construction  R0_deployed_mondrian  R1_marginal  R2_class_only  R3_asymmetric  R4_recent_half_window  R5_recency_weighted
+origin level                                                                                                             
+2006   0.8                   0.933        0.957          0.999          0.560                  1.104                1.019
+       0.9                   1.222        1.257          1.280          0.840                  1.346                1.343
+2011   0.8                   0.877        0.852          0.853          0.848                  0.878                0.852
+       0.9                   1.214        1.193          1.193          1.216                  1.272                1.346
+2016   0.8                   0.433        0.375          0.372          0.575                  0.515                0.437
+       0.9                   0.671        0.643          0.643          1.146                  0.723                0.880
+
+primary criterion (cosmos_gated, mean |deviation| over 6 cells):
+  R0_deployed_mondrian     MAD 0.0560  vs R0 +0.0000  CI [0. 0.]  width×1.000  cells@nominal 3/6  closer=False
+  R1_marginal              MAD 0.0734  vs R0 +0.0174  CI [-0.0275  0.0351]  width×0.986  cells@nominal 3/6  closer=False
+  R2_class_only            MAD 0.0723  vs R0 +0.0163  CI [-0.0304  0.0344]  width×0.998  cells@nominal 2/6  closer=False
+  R3_asymmetric            MAD 0.0419  vs R0 -0.0141  CI [-0.0436  0.0191]  width×0.969  cells@nominal 4/6  closer=False
+  R4_recent_half_window    MAD 0.0791  vs R0 +0.0231  CI [-0.0184  0.042 ]  width×1.092  cells@nominal 2/6  closer=False
+  R5_recency_weighted      MAD 0.0786  vs R0 +0.0226  CI [-0.0166  0.0387]  width×1.099  cells@nominal 1/6  closer=False
+
+written outputs/phase3_uncertainty/recalibration_alternatives/

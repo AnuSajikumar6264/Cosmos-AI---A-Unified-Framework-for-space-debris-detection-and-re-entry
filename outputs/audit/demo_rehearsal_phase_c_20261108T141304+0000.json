@@ -1,0 +1,262 @@
+{
+ "label": "phase_c",
+ "at": "2026-11-08T14:13:04+00:00",
+ "import_ms": 546.8,
+ "all_ok": true,
+ "total_ms": 9154.2,
+ "rss_mb_end": 1176.3,
+ "stages": [
+  {
+   "stage": 1,
+   "title": "Launch and readiness",
+   "ok": true,
+   "ms": 327.6,
+   "rss_mb": 146.6,
+   "calls": {
+    "health": {
+     "status": 200,
+     "kb": 0.1
+    },
+    "ready": {
+     "status": 200,
+     "kb": 0.9
+    }
+   }
+  },
+  {
+   "stage": 2,
+   "title": "System overview",
+   "ok": true,
+   "ms": 360.2,
+   "rss_mb": 192.5,
+   "calls": {
+    "overview page": {
+     "status": 200,
+     "kb": 22.3
+    },
+    "overview api": {
+     "status": 200,
+     "kb": 6.3
+    }
+   }
+  },
+  {
+   "stage": 3,
+   "title": "Satellite selection",
+   "ok": true,
+   "ms": 1673.5,
+   "rss_mb": 237.7,
+   "calls": {
+    "search api": {
+     "status": 200,
+     "kb": 0.2
+    },
+    "search page": {
+     "status": 200,
+     "kb": 4.9
+    },
+    "demo page": {
+     "status": 200,
+     "kb": 18.7
+    }
+   }
+  },
+  {
+   "stage": 4,
+   "title": "Orbital intelligence",
+   "ok": true,
+   "ms": 148.4,
+   "rss_mb": 244.9,
+   "calls": {
+    "object 37607": {
+     "status": 200,
+     "kb": 29.5
+    },
+    "object 23806": {
+     "status": 200,
+     "kb": 29.6
+    },
+    "object 12": {
+     "status": 200,
+     "kb": 29.5
+    }
+   }
+  },
+  {
+   "stage": 5,
+   "title": "Re-entry prediction",
+   "ok": true,
+   "ms": 50.7,
+   "rss_mb": 244.9,
+   "calls": {
+    "object 25544": {
+     "status": 200,
+     "kb": 22.6
+    },
+    "object api 25544": {
+     "status": 200,
+     "kb": 16.1
+    }
+   }
+  },
+  {
+   "stage": 6,
+   "title": "Telemetry and health semantics",
+   "ok": true,
+   "ms": 1282.5,
+   "rss_mb": 660.0,
+   "calls": {
+    "telemetry": {
+     "status": 200,
+     "kb": 17.7
+    },
+    "channel": {
+     "status": 200,
+     "kb": 45.2
+    }
+   }
+  },
+  {
+   "stage": 7,
+   "title": "Collision and conjunction",
+   "ok": true,
+   "ms": 38.4,
+   "rss_mb": 660.0,
+   "calls": {
+    "risk": {
+     "status": 200,
+     "kb": 13.8
+    },
+    "risk api": {
+     "status": 200,
+     "kb": 61.3
+    }
+   }
+  },
+  {
+   "stage": 8,
+   "title": "Debris and imagery",
+   "ok": true,
+   "ms": 432.2,
+   "rss_mb": 726.0,
+   "calls": {
+    "debris": {
+     "status": 200,
+     "kb": 20.1
+    },
+    "sequence": {
+     "status": 200,
+     "kb": 8.8
+    },
+    "frame png": {
+     "status": 200,
+     "kb": 128.7
+    }
+   }
+  },
+  {
+   "stage": 9,
+   "title": "Decision support",
+   "ok": true,
+   "ms": 67.5,
+   "rss_mb": 743.3,
+   "calls": {
+    "object 37607 api": {
+     "status": 200,
+     "kb": 17.1
+    },
+    "ranking": {
+     "status": 200,
+     "kb": 27.4
+    }
+   }
+  },
+  {
+   "stage": 10,
+   "title": "Digital twin and provenance",
+   "ok": true,
+   "ms": 1247.2,
+   "rss_mb": 733.1,
+   "calls": {
+    "twin-state": {
+     "status": 200,
+     "kb": 9.1
+    },
+    "twin-state archived": {
+     "status": 200,
+     "kb": 8.9
+    },
+    "object twin": {
+     "status": 200,
+     "kb": 5.8
+    }
+   }
+  },
+  {
+   "stage": 11,
+   "title": "Scenario analysis (fast preset, temporary root)",
+   "ok": true,
+   "ms": 3167.9,
+   "rss_mb": 1159.6,
+   "calls": {
+    "scenario": {
+     "status": 200,
+     "run_id": "run_20261108T141301202728Z",
+     "modules": {
+      "catalogue_state": "success",
+      "lifetime": "success",
+      "reentry": "success",
+      "collision": "success",
+      "health": "success",
+      "debris": "success",
+      "twin_state": "success",
+      "twin_equivalence": "success",
+      "decision_priority": "success"
+     }
+    }
+   }
+  },
+  {
+   "stage": 12,
+   "title": "Pipeline and research evidence",
+   "ok": true,
+   "ms": 269.4,
+   "rss_mb": 1176.2,
+   "calls": {
+    "runs": {
+     "status": 200,
+     "kb": 61.7
+    },
+    "run page": {
+     "status": 200,
+     "kb": 49.9
+    },
+    "manifest api": {
+     "status": 200,
+     "kb": 24.7
+    },
+    "compare": {
+     "status": 200,
+     "kb": 10.8
+    },
+    "report download": {
+     "status": 200,
+     "kb": 22.3
+    }
+   }
+  },
+  {
+   "stage": 13,
+   "title": "Final mission summary",
+   "ok": true,
+   "ms": 88.7,
+   "rss_mb": 1176.3,
+   "calls": {
+    "demo page": {
+     "status": 200,
+     "kb": 18.7
+    }
+   }
+  }
+ ]
+}

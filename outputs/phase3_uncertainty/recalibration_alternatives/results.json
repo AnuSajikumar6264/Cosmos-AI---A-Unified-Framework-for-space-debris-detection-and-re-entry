@@ -1,0 +1,224 @@
+{
+ "experiment": "G3' recalibration alternatives (Phase 3), EXPLORATORY post hoc",
+ "protocol": "docs/research/PHASE3_RECALIBRATION_PROTOCOL.md",
+ "generated_at": "2026-11-06T05:53:12+00:00",
+ "seed": 20261106,
+ "n_boot": 2000,
+ "half_life_years": 2.0,
+ "provenance": {
+  "2011": {
+   "dir": "outputs/benchmarks/reentry_lifetime/origin2011_uncontrolled",
+   "test_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+   "tuneB_sha256": "a60c856add75ce731d88abd725a3508901f476ff9a3ad683e5b064b4960aa551",
+   "n_tuneB_known5": 332,
+   "n_test_known5": 2667,
+   "n_test_families": 435,
+   "selected_learner": "kumo",
+   "tuneB_years_before_origin_median": 5.878165639972622,
+   "tuneB_years_before_origin_range": [
+    5.021218343600274,
+    6.978781656399726
+   ],
+   "r4_window_n": 167,
+   "r5_weight_range": [
+    0.030519458102861736,
+    0.08121874799716486
+   ]
+  },
+  "2016": {
+   "dir": "outputs/benchmarks/reentry_lifetime/origin2016_uncontrolled",
+   "test_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+   "tuneB_sha256": "16d40935e34c29f2dbe17bbe10b6722fb9e3e445e10caab34eeb16685ff7d45d",
+   "n_tuneB_known5": 1560,
+   "n_test_known5": 2978,
+   "n_test_families": 621,
+   "selected_learner": "tabm",
+   "tuneB_years_before_origin_median": 6.543463381245722,
+   "tuneB_years_before_origin_range": [
+    5.01574264202601,
+    6.962354551676934
+   ],
+   "r4_window_n": 783,
+   "r5_weight_range": [
+    0.03077116355292412,
+    0.08144141748912971
+   ]
+  },
+  "2006": {
+   "dir": "outputs/g5d_origin2006/lifetime",
+   "test_sha256": "2cb1cb31e2608184458952ccadda8cc30fa0fbb222d65439b85d7688fd5a04cf",
+   "tuneB_sha256": "d7dd363ba78466d0109d861fb266dfe505f8196684b1665328685675a5fc435c",
+   "n_tuneB_known5": 539,
+   "n_test_known5": 7277,
+   "n_test_families": 440,
+   "selected_learner": "mlp",
+   "tuneB_years_before_origin_median": 5.705681040383299,
+   "tuneB_years_before_origin_range": [
+    5.002053388090349,
+    6.9869952087611225
+   ],
+   "r4_window_n": 272,
+   "r5_weight_range": [
+    0.030394378531973527,
+    0.08200076569273705
+   ]
+  }
+ },
+ "reproduction_gate_R0_max_abs_delta": {
+  "2011/cosmos_gated/80": 0.0,
+  "2011/cosmos_gated/90": 0.0,
+  "2011/physics_only/80": 0.0,
+  "2011/physics_only/90": 0.0,
+  "2011/kumo/80": 0.0,
+  "2011/kumo/90": 0.0,
+  "2016/cosmos_gated/80": 0.0,
+  "2016/cosmos_gated/90": 0.0,
+  "2016/physics_only/80": 0.0,
+  "2016/physics_only/90": 0.0,
+  "2016/tabm/80": 0.0,
+  "2016/tabm/90": 0.0,
+  "2006/cosmos_gated/80": 0.0,
+  "2006/cosmos_gated/90": 0.0,
+  "2006/physics_only/80": 0.0,
+  "2006/physics_only/90": 0.0,
+  "2006/mlp/80": 0.0,
+  "2006/mlp/90": 0.0
+ },
+ "primary_criterion_cosmos_gated": {
+  "R0_deployed_mondrian": {
+   "mean_abs_deviation": 0.05603106723888692,
+   "minus_R0": 0.0,
+   "paired_ci95": [
+    0.0,
+    0.0
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 1.0,
+   "cells_within_ci_of_nominal": 3
+  },
+  "R1_marginal": {
+   "mean_abs_deviation": 0.0733897811018629,
+   "minus_R0": 0.017358713862975973,
+   "paired_ci95": [
+    -0.02750189962275729,
+    0.035113263371431204
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 0.9864781327879761,
+   "cells_within_ci_of_nominal": 3
+  },
+  "R2_class_only": {
+   "mean_abs_deviation": 0.07233286382504805,
+   "minus_R0": 0.016301796586161134,
+   "paired_ci95": [
+    -0.030431540864416667,
+    0.03444050688941106
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 0.9983840658447304,
+   "cells_within_ci_of_nominal": 2
+  },
+  "R3_asymmetric": {
+   "mean_abs_deviation": 0.041905845313789325,
+   "minus_R0": -0.014125221925097596,
+   "paired_ci95": [
+    -0.04362151139662573,
+    0.01905173404864274
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 0.9693906962255826,
+   "cells_within_ci_of_nominal": 4
+  },
+  "R4_recent_half_window": {
+   "mean_abs_deviation": 0.07911811571267192,
+   "minus_R0": 0.023087048473785003,
+   "paired_ci95": [
+    -0.018408934465198916,
+    0.04200073591936812
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 1.091622006989949,
+   "cells_within_ci_of_nominal": 2
+  },
+  "R5_recency_weighted": {
+   "mean_abs_deviation": 0.0785829335915451,
+   "minus_R0": 0.022551866352658177,
+   "paired_ci95": [
+    -0.016586263265465463,
+    0.03867349541257869
+   ],
+   "closer_to_nominal_than_R0": false,
+   "mean_width_ratio_vs_R0": 1.0985337287996968,
+   "cells_within_ci_of_nominal": 1
+  }
+ },
+ "bootstrap_note": "cluster bootstrap by launch family per origin; the difference CI resamples families independently per construction (rng advances), so it is a conservative, not a paired, interval",
+ "coverage_cosmos_gated": [
+  {
+   "origin": "2006",
+   "level": 0.8,
+   "R0_deployed_mondrian": 0.7969,
+   "R1_marginal": 0.9346,
+   "R2_class_only": 0.9276,
+   "R3_asymmetric": 0.8638,
+   "R4_recent_half_window": 0.949,
+   "R5_recency_weighted": 0.9406
+  },
+  {
+   "origin": "2006",
+   "level": 0.9,
+   "R0_deployed_mondrian": 0.8582,
+   "R1_marginal": 0.9636,
+   "R2_class_only": 0.9577,
+   "R3_asymmetric": 0.9167,
+   "R4_recent_half_window": 0.9684,
+   "R5_recency_weighted": 0.9684
+  },
+  {
+   "origin": "2011",
+   "level": 0.8,
+   "R0_deployed_mondrian": 0.9231,
+   "R1_marginal": 0.9085,
+   "R2_class_only": 0.91,
+   "R3_asymmetric": 0.907,
+   "R4_recent_half_window": 0.922,
+   "R5_recency_weighted": 0.9085
+  },
+  {
+   "origin": "2011",
+   "level": 0.9,
+   "R0_deployed_mondrian": 0.9591,
+   "R1_marginal": 0.9486,
+   "R2_class_only": 0.949,
+   "R3_asymmetric": 0.9513,
+   "R4_recent_half_window": 0.9726,
+   "R5_recency_weighted": 0.9816
+  },
+  {
+   "origin": "2016",
+   "level": 0.8,
+   "R0_deployed_mondrian": 0.7169,
+   "R1_marginal": 0.7354,
+   "R2_class_only": 0.7223,
+   "R3_asymmetric": 0.7982,
+   "R4_recent_half_window": 0.7559,
+   "R5_recency_weighted": 0.8086
+  },
+  {
+   "origin": "2016",
+   "level": 0.9,
+   "R0_deployed_mondrian": 0.8741,
+   "R1_marginal": 0.9204,
+   "R2_class_only": 0.912,
+   "R3_asymmetric": 0.8892,
+   "R4_recent_half_window": 0.8815,
+   "R5_recency_weighted": 0.9637
+  }
+ ],
+ "what_this_is_not": [
+  "not a prospective validation",
+  "no construction is adopted or deployed",
+  "R4/R5 use one fixed window/half-life; nothing was tuned",
+  "censored objects excluded (known5)"
+ ]
+}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ a }} vs {{ b }}{% endblock %}
+
+{% block scope %}
+{% if comparable %}
+<div class="scope-note">
+  Both runs use snapshot <strong>{{ left.as_of }}</strong>, so their module results describe
+  the same population. Outputs are still reported side by side, never merged.
+</div>
+{% else %}
+<div class="error-state" style="margin:.9rem 0 1.3rem">
+  <span class="status status-fail">NOT DIRECTLY COMPARABLE</span>
+  These runs use different snapshots (<strong>{{ left.as_of }}</strong> and
+  <strong>{{ right.as_of }}</strong>). Differences below may reflect the change of snapshot
+  rather than anything about the modules. Their artifacts are not combined.
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Run provenance</h2>
+  <table class="data">
+    <thead><tr><th>Property</th><th>{{ a }}</th><th>{{ b }}</th></tr></thead>
+    <tbody>
+      <tr><td>Started (UTC)</td>
+        <td class="mono">{{ (left.started_at or '—')[:19] }}</td>
+        <td class="mono">{{ (right.started_at or '—')[:19] }}</td></tr>
+      <tr><td>Snapshot as-of</td>
+        <td>{{ left.as_of or '—' }}</td><td>{{ right.as_of or '—' }}</td></tr>
+      <tr><td>Configuration SHA-256</td>
+        <td class="mono">{{ (left.config_sha256 or '—')[:16] }}…</td>
+        <td class="mono">{{ (right.config_sha256 or '—')[:16] }}…</td></tr>
+      <tr><td>Git commit</td>
+        <td class="mono">{{ (left.git.git_commit or '—')[:10] }}</td>
+        <td class="mono">{{ (right.git.git_commit or '—')[:10] }}</td></tr>
+      <tr><td>Completed successfully</td>
+        <td>{% if left.successful %}<span class="status status-pass">YES</span>
+          {% else %}<span class="status status-fail">NO</span>{% endif %}</td>
+        <td>{% if right.successful %}<span class="status status-pass">YES</span>
+          {% else %}<span class="status status-fail">NO</span>{% endif %}</td></tr>
+      <tr><td>Tables written</td>
+        <td class="num">{{ (left.tables_written or []) | length }}</td>
+        <td class="num">{{ (right.tables_written or []) | length }}</td></tr>
+    </tbody>
+  </table>
+  <p class="panel-note">A differing configuration digest means the two runs were not asked
+    the same question; module differences should be read with that in mind.</p>
+</div>
+
+{% if cmp.config_differences %}
+<div class="panel">
+  <h2>Configuration differences <span class="count">— {{ cmp.config_differences | length }} key(s)</span></h2>
+  <table class="data"><thead><tr><th>Key</th><th>{{ a }}</th><th>{{ b }}</th></tr></thead><tbody>
+    {% for k, pair in cmp.config_differences.items() %}<tr><td class="mono">{{ k }}</td><td class="mono">{{ pair[0] }}</td><td class="mono">{{ pair[1] }}</td></tr>{% endfor %}
+  </tbody></table>
+  <p class="panel-note">A key missing from one run means that run predates the option; its default behaviour applied.</p>
+</div>
+{% endif %}
+
+<div class="panel" data-test="value-comparison">
+  <h2>Value comparison <span class="count">— table by table, joined on the key column</span></h2>
+  {% if not cmp.comparable %}
+  <div class="unavailable-state" style="text-align:left"><span class="status status-unavailable">NOT COMPARED</span> {{ cmp.note }}</div>
+  {% elif not cmp.tables %}
+  <div class="unavailable-state" style="text-align:left"><span class="status status-unavailable">NO TABLES</span> neither run wrote a table.</div>
+  {% else %}
+  <table class="data">
+    <thead><tr><th>Table</th><th>Verdict</th><th>Rows a / b / common</th><th>Only in a / b</th><th>Rows equal / different</th><th>Differing columns</th></tr></thead>
+    <tbody>
+    {% for name, t in cmp.tables.items() %}
+      <tr>
+        <td class="mono">{{ name }}</td>
+        <td>{% if t.status == 'identical' %}<span class="status status-pass">IDENTICAL</span>
+            {% elif t.status == 'equal_values' %}<span class="status status-pass">EQUAL VALUES</span>
+            {% elif t.status == 'differences' %}<span class="status status-partial">DIFFERENCES</span>
+            {% else %}<span class="status status-unavailable">NOT COMPARED</span>{% endif %}
+            {% if t.reason %}<div class="panel-note">{{ t.reason }}</div>{% endif %}</td>
+        <td class="num">{% if t.rows_a is defined %}{{ t.rows_a }} / {{ t.rows_b }} / {{ t.rows_common }}{% else %}—{% endif %}</td>
+        <td class="num">{% if t.only_in_a is defined %}{{ t.only_in_a }} / {{ t.only_in_b }}{% else %}—{% endif %}</td>
+        <td class="num">{% if t.rows_equal is defined %}{{ t.rows_equal }} / {{ t.rows_different }}{% else %}—{% endif %}</td>
+        <td>{% if t.differing_columns %}{% for c, d in t.differing_columns.items() %}<div class="mono">{{ c }}: {{ d.different }}{% if d.max_abs_difference is not none %} (max |Δ| {{ d.max_abs_difference | fmt(6) }}){% endif %}</div>{% endfor %}{% elif t.status in ('equal_values', 'identical') %}none{% else %}—{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% for name, t in cmp.tables.items() if t.status == 'differences' %}
+    <h3 class="mono">{{ name }}</h3>
+    {% if t.rank_changes %}<p class="panel-note">Ranking: {{ t.rank_changes.objects_moved }} object(s) changed rank; largest move {{ t.rank_changes.max_abs_rank_change }} place(s).
+      {% for m in t.rank_changes.top_movers %}<span class="chip">{{ m.key }} {{ m.rank_a }}→{{ m.rank_b }}</span>{% endfor %}</p>{% endif %}
+    {% if t.only_in_a_examples %}<p class="panel-note">Only in {{ a }} (first {{ t.only_in_a_examples | length }} of {{ t.only_in_a }}): {{ t.only_in_a_examples | join(', ') }}</p>{% endif %}
+    {% if t.only_in_b_examples %}<p class="panel-note">Only in {{ b }} (first {{ t.only_in_b_examples | length }} of {{ t.only_in_b }}): {{ t.only_in_b_examples | join(', ') }}</p>{% endif %}
+    {% if t.examples %}<div class="scroll"><table class="data"><thead><tr><th>Key</th><th>Column</th><th>{{ a }}</th><th>{{ b }}</th></tr></thead><tbody>
+      {% for ex in t.examples %}{% for c, pair in ex.items() if c != 'key' %}<tr><td class="mono">{{ ex.key }}</td><td class="mono">{{ c }}</td><td class="num">{{ pair[0] }}</td><td class="num">{{ pair[1] }}</td></tr>{% endfor %}{% endfor %}
+    </tbody></table></div>{% endif %}
+  {% endfor %}
+  <p class="panel-note">Byte-identical tables are reported without parsing. Differences are reported as counts and examples; no
+    value is averaged, merged or carried from one run to the other. Same record as <code>/api/compare?a=…&amp;b=…</code>.</p>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>Module status</h2>
+  <table class="data">
+    <thead><tr><th>Module</th><th>{{ a }}</th><th>{{ b }}</th><th>Same</th></tr></thead>
+    <tbody>
+    {% for row in rows %}
+      <tr>
+        <td>{{ row.module }}</td>
+        <td><span class="status status-{{ row.left }}">{{ row.left }}</span></td>
+        <td><span class="status status-{{ row.right }}">{{ row.right }}</span></td>
+        <td>{% if row.left == row.right %}yes
+          {% else %}<span class="status status-partial">DIFFERS</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

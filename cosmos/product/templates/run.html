@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block topmeta %}
+<span class="mode-badge historical">HISTORICAL · never recomputed</span>
+{% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  Loaded from <code>outputs/pipeline/{{ run_id }}/</code>. Opening a run does not recompute,
+  modify or overwrite anything in it.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Run provenance</h2>
+  <div class="grid two">
+    <table class="kv">
+      <tr><th>Run ID</th><td class="mono">{{ run_id }}</td></tr>
+      <tr><th>Started (UTC)</th><td class="mono">{{ manifest.started_at or '—' }}</td></tr>
+      <tr><th>Duration</th><td>{{ manifest.duration_s | fmt(3) }} s</td></tr>
+      <tr><th>Snapshot as-of</th><td>{{ manifest.as_of or '—' }}</td></tr>
+      <tr><th>Completed successfully</th>
+        <td>{% if manifest.successful %}<span class="status status-pass">YES</span>
+          {% else %}<span class="status status-fail">NO</span>{% endif %}</td></tr>
+    </table>
+    <table class="kv">
+      <tr><th>Configuration SHA-256</th><td class="mono">{{ manifest.config_sha256 }}</td></tr>
+      <tr><th>Git commit</th><td class="mono">{{ (manifest.get('git') or {}).get('git_commit') or '—' }}</td></tr>
+      <tr><th>Tracked worktree</th>
+        <td>{% if (manifest.get('git') or {}).get('tracked_worktree_dirty') %}
+          <span class="status status-partial">MODIFIED</span>
+          outputs may not match the commit
+        {% else %}<span class="status status-pass">CLEAN</span>{% endif %}</td></tr>
+      <tr><th>Requested modules</th>
+        <td class="mono">{{ (manifest.requested or []) | join(', ') or 'all' }}</td></tr>
+      <tr><th>Snapshot consistency</th>
+        <td>{% if summary.snapshot_consistent %}<span class="status status-pass">SINGLE SNAPSHOT</span>
+          {% else %}<span class="status status-fail">MIXED</span>
+          {{ summary.as_of_dates | join(', ') }}{% endif %}</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Module outputs</h2>
+  <table class="data">
+    <thead><tr>
+      <th>Module</th><th>Status</th><th>Duration</th><th>As of</th>
+      <th>Input sources</th><th>Detail</th>
+    </tr></thead>
+    <tbody>
+    {% for name, record in modules.items() %}
+      {# A manifest may omit optional keys (a not_requested module has no duration), so
+         every lookup here tolerates absence rather than failing the page. #}
+      {% set provenance = record.get('provenance') or {} %}
+      <tr>
+        <td>{{ name }}</td>
+        <td><span class="status status-{{ record.get('status', 'unknown') }}">{{ record.get('status', 'unknown') }}</span></td>
+        <td class="num">{{ record.get('duration_s') | fmt(2) }}</td>
+        <td>{{ provenance.get('as_of') or '—' }}</td>
+        <td>{{ (provenance.get('input_sources') or []) | join('; ') or '—' }}</td>
+        <td>{{ record.get('error') or record.get('reason') or '—' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="panel-note">A failed module writes no output; its dependants are reported as
+    blocked rather than completed with substituted values.</p>
+</div>
+
+<div class="panel">
+  <h2>Decision ranking — top {{ ranking | length }} with the interval-versus-horizon cue</h2>
+  <p class="panel-note">Display only. The order, priority scores and probabilities are the run's own
+    <code>decision_ranking.csv</code>; the cue classifies each object's 5–95 % re-entry interval
+    (from the same run's <code>reentry_predictions.csv</code>) against the 30-day decision horizon.
+    An interval is a spread of predicted time, not a probability of survival and not a guarantee;
+    the ranking uses p(30 d) alone.</p>
+  {% if ranking %}
+  <table class="data" data-test="ranking-horizon">
+    <thead><tr><th>#</th><th>Object</th><th>Regime</th><th class="num">p(30 d)</th><th class="num">Priority</th>
+      <th>5–95 % interval (days)</th><th>Versus 30-day horizon</th></tr></thead>
+    <tbody>
+    {% for r in ranking %}
+      <tr>
+        <td class="num">{{ r.rank }}</td>
+        <td><a href="/objects/{{ r.object_id | replace('NORAD-', '') }}">{{ r.object_id }}</a> {{ r.name }}</td>
+        <td>{{ r.regime }}</td>
+        <td class="num">{{ r.p_reentry_30d | fmt(4) }}</td>
+        <td class="num">{{ r.priority_score | fmt(4) }}</td>
+        <td class="num">{% if r.days_q05 is not none %}{{ r.days_q05 | fmt(1) }} – {{ r.days_q95 | fmt(1) }}{% else %}—{% endif %}</td>
+        <td><span class="status status-{{ 'partial' if r.horizon_relation.relation == 'crosses' else ('blocked' if r.horizon_relation.relation in ('censored_at_cap','unavailable') else 'info') }}">{{ r.horizon_relation.label }}</span></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">This run wrote no decision ranking.</div>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>Evidence class and lineage per module</h2>
+  <p class="panel-note">Four version notions are kept apart: code (Git commit), configuration
+    (SHA-256 of the resolved run configuration), data artifacts (SHA-256 of every file read) and
+    model. <strong>No module of this run executed a fitted model</strong>: every value was read from an
+    archived artifact, so the model version is recorded as unavailable rather than borrowed from an
+    artifact hash or a registry card. The modules are independent evidence roots; the health module is a
+    table of benchmark-arm scores and is not a satellite health assessment.</p>
+  <table class="data">
+    <thead><tr><th>Module</th><th>Evidence class</th><th>Code</th><th>Configuration</th>
+      <th>Data artifacts</th><th>Model version</th></tr></thead>
+    <tbody>
+    {% for name, record in modules.items() %}
+      {% set lin = lineage.get(name) %}
+      <tr data-test="lineage-{{ name }}">
+        <td>{{ name }}</td>
+        <td>{{ evidence_class.get(name, 'not classified') }}</td>
+        {% if lin %}
+        <td class="mono">{{ lin.code_version.git_commit[:12] if lin.code_version.git_commit != 'unavailable' else 'unavailable' }}</td>
+        <td class="mono">{{ lin.configuration_version.config_sha256[:12] if lin.configuration_version.config_sha256 != 'unavailable' else 'unavailable' }}</td>
+        <td class="mono">{% for path, digest in lin.data_artifacts.items() %}{{ path }} {{ (digest | join(', ')) if digest is iterable and digest is not string else digest[:12] }}{% if not loop.last %}; {% endif %}{% endfor %}</td>
+        <td>{% if lin.model_version.status == 'recorded' %}<span class="status status-pass">RECORDED</span>
+          <span class="mono">{{ lin.model_version.digest[:12] }}</span>
+          {% else %}<span class="status status-unavailable">UNAVAILABLE</span> {{ lin.model_version.reason }}{% endif %}</td>
+        {% else %}
+        <td colspan="4"><span class="status status-unavailable">UNAVAILABLE</span> no provenance recorded ({{ record.get('status', 'unknown') }})</td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% set has_abstentions = modules.values() | selectattr('abstentions', 'defined') | list %}
+{% if has_abstentions %}
+<div class="panel">
+  <h2>Abstentions and reasons</h2>
+  {% for name, record in modules.items() %}
+    {% if record.get('abstentions') %}
+    <details class="evidence" open>
+      <summary>{{ name }} — {{ record.get('abstained_total') | fmt }} object(s) abstained</summary>
+      <div class="body">
+        <ul>
+        {% for reason, count in record.get('abstentions').items() %}
+          <li><strong>{{ count | fmt }}</strong> — {{ reason }}</li>
+        {% endfor %}
+        </ul>
+        {% if record.get('noncoherent_horizon_probabilities') %}
+        <p><strong>{{ record.get('noncoherent_horizon_probabilities') }}</strong> of these were
+          excluded for non-monotone per-horizon calibrated probabilities (limitation L17) and
+          are listed in <code>lifetime_noncoherent_horizons.csv</code>. The twin's final
+          reported forecast is unaffected.</p>
+        {% endif %}
+        <p>An abstention means no value was produced. Nothing is imputed in its place.</p>
+      </div>
+    </details>
+    {% endif %}
+    {% if record.get('health_escalation') %}
+    <div class="unavailable-state" style="text-align:left;margin-top:.5rem">
+      <span class="status status-{{ 'abstain' if record.get('health_escalation').status == 'abstain' else 'pass' }}">
+        {{ record.get('health_escalation').status | upper }}</span>
+      <strong>Coupling C4 ({{ name }}).</strong> {{ record.get('health_escalation').reason }}
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="panel">
+  <h2>Tables written by this run</h2>
+  {% if manifest.tables_written %}
+  <table class="data">
+    <thead><tr><th>Table</th><th>Preview</th></tr></thead>
+    <tbody>
+    {% for table in manifest.tables_written %}
+      <tr>
+        <td class="mono">{{ table }}</td>
+        <td><a href="/api/runs/{{ run_id }}/tables/{{ table }}?limit=50" target="_blank">first 50 rows (JSON)</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">This run wrote no tables.</div>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h2>What this run does not establish</h2>
+  {% if manifest.interpretation and manifest.interpretation.not_established %}
+  <ul>
+  {% for item in manifest.interpretation.not_established %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <details class="evidence">
+    <summary>Full run manifest (JSON)</summary>
+    <div class="body">
+      <p><a href="/api/runs/{{ run_id }}" target="_blank">Open raw manifest</a></p>
+      <pre class="json">{{ manifest | tojson(indent=2) }}</pre>
+    </div>
+  </details>
+</div>
+{% endblock %}

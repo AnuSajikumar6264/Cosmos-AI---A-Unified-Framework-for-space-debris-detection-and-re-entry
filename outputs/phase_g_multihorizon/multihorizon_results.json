@@ -1,0 +1,116 @@
+{
+  "phase": "G+ multi-horizon coherence",
+  "analysed_at": "2026-11-04T09:08:04.059717+00:00",
+  "git": {
+    "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+    "tracked_worktree_dirty": true,
+    "git_error": null
+  },
+  "artifact": "outputs/benchmarks/twin_prospective_t1/t1_objects.csv.gz",
+  "artifact_sha256": "a4573a00004e886901ed5e0dda70c477816cfe36b5ee17d2333fff13b1e4c081",
+  "n_boot": 4000,
+  "seed": 20261027,
+  "exploratory": true,
+  "exploratory_note": "T1 is not a blind window and the event counts are small (29 at 30 d, 64 at 72 d); this is exploratory evidence",
+  "n_objects": 13186,
+  "n_launches": 1814,
+  "coherence": {
+    "isotonic": {
+      "violations": 54,
+      "violation_fraction": 0.004095252540573335,
+      "max_drop": 0.1974358974358974
+    },
+    "coherent_raw": {
+      "violations": 0,
+      "violation_fraction": 0.0,
+      "max_drop": 0.0
+    }
+  },
+  "per_horizon": {
+    "30d": {
+      "isotonic": {
+        "n": 13186,
+        "events": 29,
+        "event_rate": 0.0021993022903079025,
+        "mean_p": 0.02310939573624954,
+        "expected_events": 304.7204921781864,
+        "expected_over_observed": 10.507603178558153,
+        "brier": 0.00870436735417998,
+        "ece": 0.020910093445941635,
+        "auc_roc": 0.9969715871713759,
+        "auc_pr": 0.4850649591023056
+      },
+      "coherent_raw": {
+        "n": 13186,
+        "events": 29,
+        "event_rate": 0.0021993022903079025,
+        "mean_p": 0.03253700399346159,
+        "expected_events": 429.03293465778455,
+        "expected_over_observed": 14.794239126130503,
+        "brier": 0.0026043234905304777,
+        "ece": 0.030337701703153693,
+        "auc_roc": 0.9980133821513655,
+        "auc_pr": 0.6191749769200189
+      }
+    },
+    "72d": {
+      "isotonic": {
+        "n": 13186,
+        "events": 64,
+        "event_rate": 0.004853632640679509,
+        "mean_p": 0.046227794573089225,
+        "expected_events": 609.5596992407545,
+        "expected_over_observed": 9.52437030063679,
+        "brier": 0.013439319939648585,
+        "ece": 0.041374161932409725,
+        "auc_roc": 0.9944153901844232,
+        "auc_pr": 0.5361302376573734
+      },
+      "coherent_raw": {
+        "n": 13186,
+        "events": 64,
+        "event_rate": 0.004853632640679509,
+        "mean_p": 0.04237741975057456,
+        "expected_events": 558.7886568310762,
+        "expected_over_observed": 8.731072762985566,
+        "brier": 0.0047497713107824465,
+        "ece": 0.037523787109895054,
+        "auc_roc": 0.9949274119798812,
+        "auc_pr": 0.615767365174832
+      }
+    }
+  },
+  "contrasts": [
+    {
+      "n": 13186,
+      "n_clusters": 1814,
+      "mean": -0.006100043863649504,
+      "ci95_lo": -0.010056426375830794,
+      "ci95_hi": -0.0031352009657457935,
+      "p_value": 0.0,
+      "bootstrap_draws": 4000,
+      "horizon": "30d",
+      "contrast": "coherent_raw minus isotonic (Brier)",
+      "verdict": "COHERENT READING BETTER"
+    },
+    {
+      "n": 13186,
+      "n_clusters": 1814,
+      "mean": -0.00868954862886614,
+      "ci95_lo": -0.01449196850491714,
+      "ci95_hi": -0.004459683120379195,
+      "p_value": 0.0,
+      "bootstrap_draws": 4000,
+      "horizon": "72d",
+      "contrast": "coherent_raw minus isotonic (Brier)",
+      "verdict": "COHERENT READING BETTER"
+    }
+  ],
+  "recommendation": "REPORT THE COHERENT READING",
+  "l17_note": "the L17 decision not to recalibrate stands; this analysis changes no published probability and only compares two readings the study already computes",
+  "not_established": [
+    "low event counts limit the power of the Brier comparison",
+    "T1 is non-blind, so this cannot confirm the recommendation",
+    "the 1-year horizon has no outcome in this window and is not evaluated"
+  ]
+}

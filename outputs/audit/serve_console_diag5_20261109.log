@@ -1,0 +1,27 @@
+INFO:     Started server process [2570787]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8070 (Press CTRL+C to quit)
+{"ts": "2026-11-09T05:21:45.261+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "7c17922cbe344b37", "method": "GET", "path": "/explorer", "status": 200, "duration_ms": 302.9}
+COSMOS-AI Mission Intelligence Console
+  repository : /data2/anupa/Final_Year_Project
+  console    : http://127.0.0.1:8070/
+  API docs   : http://127.0.0.1:8070/docs
+  modes      : historical (read) · scenario (new run) · prospective (blocked)
+INFO:     127.0.0.1:34650 - "GET /explorer HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.305+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "9e8462b028084121", "method": "GET", "path": "/static/console.css", "status": 200, "duration_ms": 13.7}
+INFO:     127.0.0.1:34650 - "GET /static/console.css HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.306+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "c671340a5eeb4768", "method": "GET", "path": "/static/js/cosmos-explorer.js", "status": 200, "duration_ms": 13.5}
+INFO:     127.0.0.1:34668 - "GET /static/js/cosmos-explorer.js HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.309+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "1710385acd2a4531", "method": "GET", "path": "/static/js/cosmos-globe.js", "status": 200, "duration_ms": 16.5}
+INFO:     127.0.0.1:34652 - "GET /static/js/cosmos-globe.js HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.454+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "cd9913ea12404a8d", "method": "GET", "path": "/static/earth-land-mask.png", "status": 200, "duration_ms": 5.5}
+INFO:     127.0.0.1:34650 - "GET /static/earth-land-mask.png HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.514+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "563b388e090e4788", "method": "GET", "path": "/api/globe/objects", "status": 200, "duration_ms": 68.9}
+INFO:     127.0.0.1:34652 - "GET /api/globe/objects?limit=120&include=37607%2C23806%2C25544%2C12 HTTP/1.1" 200 OK
+{"ts": "2026-11-09T05:21:45.885+00:00", "level": "INFO", "logger": "cosmos.product.request", "event": "request", "request_id": "500d099ac1184693", "method": "GET", "path": "/api/objects/37607", "status": 200, "duration_ms": 174.7}
+INFO:     127.0.0.1:34652 - "GET /api/objects/37607 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2570787]

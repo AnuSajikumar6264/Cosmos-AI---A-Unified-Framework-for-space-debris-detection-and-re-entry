@@ -1,0 +1,231 @@
+{
+ "analysed_at": "2026-11-06T05:15:03+00:00",
+ "git": {
+  "git_commit": "78ee33962007203bcfc829fc743a663b350373e1",
+  "tracked_worktree_dirty": true,
+  "git_error": null
+ },
+ "n_boot": 4000,
+ "seed": 20261027,
+ "inputs": {
+  "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+  "outputs/benchmarks/twin_prospective_t1/t1_objects.csv.gz": "a4573a00004e886901ed5e0dda70c477816cfe36b5ee17d2333fff13b1e4c081"
+ },
+ "frozen_artifacts_modified": false,
+ "refitting_performed": false,
+ "A_snapshot_2026-10-27": {
+  "n_uncontrolled_with_lifetime_reading": 13238,
+  "expected_counts": {
+   "30d": {
+    "physics_history": 21.59375,
+    "physics_prior": 76.34375,
+    "lifetime_isotonic": 229.10040206371824,
+    "lifetime_coherent_raw": 403.96646075220053
+   },
+   "90d": {
+    "physics_history": 68.125,
+    "physics_prior": 187.8125,
+    "lifetime_isotonic": 572.5663030409116,
+    "lifetime_coherent_raw": 556.4641164470748
+   },
+   "1yr": {
+    "physics_history": 236.4375,
+    "physics_prior": 554.0625,
+    "lifetime_isotonic": 1003.5233409962239,
+    "lifetime_coherent_raw": 914.5798991625826
+   }
+  },
+  "ratio_isotonic_to_history_30d": 10.609569994267703,
+  "ratio_coherent_to_history_30d": 18.707564029045464,
+  "largest_contributors_to_excess_30d": [
+   {
+    "stratum": "am_source",
+    "level": "class_prior_sbm",
+    "n": 11339,
+    "expected_physics_history": 15.1875,
+    "expected_lifetime_isotonic": 195.51915396216108,
+    "share_of_excess": 0.8690403520499542
+   },
+   {
+    "stratum": "type1",
+    "level": "D",
+    "n": 10654,
+    "expected_physics_history": 14.1875,
+    "expected_lifetime_isotonic": 171.40393717777195,
+    "share_of_excess": 0.7576452880628429
+   },
+   {
+    "stratum": "history_kind",
+    "level": "history",
+    "n": 12606,
+    "expected_physics_history": 14.75,
+    "expected_lifetime_isotonic": 155.82388695466398,
+    "share_of_excess": 0.679852359197357
+   },
+   {
+    "stratum": "history_days_bin",
+    "level": "1-5 yr",
+    "n": 1648,
+    "expected_physics_history": 1.875,
+    "expected_lifetime_isotonic": 69.80787843508148,
+    "share_of_excess": 0.3273768708591645
+   },
+   {
+    "stratum": "perigee_band",
+    "level": "400-500",
+    "n": 619,
+    "expected_physics_history": 2.0,
+    "expected_lifetime_isotonic": 66.4759558359865,
+    "share_of_excess": 0.31071753697895005
+   },
+   {
+    "stratum": "perigee_band",
+    "level": "500-600",
+    "n": 1277,
+    "expected_physics_history": 0.8125,
+    "expected_lifetime_isotonic": 52.631467921040574,
+    "share_of_excess": 0.24972196026336893
+   },
+   {
+    "stratum": "history_days_bin",
+    "level": ">20 yr",
+    "n": 4850,
+    "expected_physics_history": 5.1875,
+    "expected_lifetime_isotonic": 52.39128092782987,
+    "share_of_excess": 0.22748080824577704
+   },
+   {
+    "stratum": "history_kind",
+    "level": "survival_only",
+    "n": 410,
+    "expected_physics_history": 1.6875,
+    "expected_lifetime_isotonic": 48.13278073224763,
+    "share_of_excess": 0.22382550279875296
+   },
+   {
+    "stratum": "type1",
+    "level": "C",
+    "n": 1114,
+    "expected_physics_history": 2.875,
+    "expected_lifetime_isotonic": 34.2444672545872,
+    "share_of_excess": 0.15117330910892773
+   },
+   {
+    "stratum": "am_source",
+    "level": "design",
+    "n": 1868,
+    "expected_physics_history": 4.125,
+    "expected_lifetime_isotonic": 27.81280077491857,
+    "share_of_excess": 0.11415441644562242
+   }
+  ],
+  "isotonic_step_share_of_gap_30d": -0.8427009782548411
+ },
+ "B_t1_observed_vs_expected": {
+  "as_of": "2026-08-16",
+  "follow_up": "2026-10-27",
+  "n_uncontrolled": 13186,
+  "exploratory": true,
+  "why_exploratory": "T1 outcomes were analysed before (not blind); 29 and 64 events only",
+  "by_horizon": {
+   "30d": {
+    "physics_history": {
+     "expected": 43.75,
+     "observed": 29,
+     "ratio_expected_over_observed": 1.5086206896551724,
+     "ratio_ci95": [
+      1.241473327020202,
+      1.9754248903508775
+     ],
+     "brier": 0.0012655467920521767,
+     "n": 13186
+    },
+    "physics_prior": {
+     "expected": 118.0,
+     "observed": 29,
+     "ratio_expected_over_observed": 4.068965517241379,
+     "ratio_ci95": [
+      2.9677268288352274,
+      5.977689732142857
+     ],
+     "brier": 0.0032441486235401185,
+     "n": 13186
+    },
+    "lifetime_isotonic": {
+     "expected": 304.7204921781864,
+     "observed": 29,
+     "ratio_expected_over_observed": 10.507603178558153,
+     "ratio_ci95": [
+      6.625058845581523,
+      17.176970603311712
+     ],
+     "brier": 0.00870436735417998,
+     "n": 13186
+    },
+    "lifetime_coherent_raw": {
+     "expected": 429.03293465778455,
+     "observed": 29,
+     "ratio_expected_over_observed": 14.794239126130503,
+     "ratio_ci95": [
+      10.193920353479115,
+      23.578014601928825
+     ],
+     "brier": 0.0026043234905304777,
+     "n": 13186
+    }
+   },
+   "72d": {
+    "physics_history": {
+     "expected": 87.4375,
+     "observed": 64,
+     "ratio_expected_over_observed": 1.3662109375,
+     "ratio_ci95": [
+      1.198754188872739,
+      1.6341708803050399
+     ],
+     "brier": 0.0021655306764750493,
+     "n": 13186
+    },
+    "physics_prior": {
+     "expected": 232.9375,
+     "observed": 64,
+     "ratio_expected_over_observed": 3.6396484375,
+     "ratio_ci95": [
+      2.9163721745797364,
+      4.690493697478992
+     ],
+     "brier": 0.00624774855907781,
+     "n": 13186
+    },
+    "lifetime_isotonic": {
+     "expected": 609.5596992407545,
+     "observed": 64,
+     "ratio_expected_over_observed": 9.52437030063679,
+     "ratio_ci95": [
+      6.993214489450418,
+      13.123019279177257
+     ],
+     "brier": 0.013439319939648585,
+     "n": 13186
+    },
+    "lifetime_coherent_raw": {
+     "expected": 558.7886568310762,
+     "observed": 64,
+     "ratio_expected_over_observed": 8.731072762985566,
+     "ratio_ci95": [
+      6.50215881492976,
+      12.705721964305063
+     ],
+     "brier": 0.0047497713107824465,
+     "n": 13186
+    }
+   }
+  }
+ },
+ "C_assumptions": {
+  "physics_prior": "NRLMSIS 2.1 density table (globally averaged, as a function of altitude, F10.7, Ap); area-to-mass drawn from class priors fitted on the training split; F10.7 and Ap held at the trailing-81-day value at the as-of date, identical for every object; Monte-Carlo over 32 A/m draws",
+  "physics_history": "as physics_prior, but the area-to-mass distribution is the posterior conditioned on the object's own catalogue decay history (it has survived since its canonical orbit); the twin's pre-fixed choice for uncontrolled objects",
+  "lifetime_isotonic": "gated learned quantile model (tabm) fitted at canonical-orbit epochs on the forward-in-time cohort; horizon probabilities read off the quantile function, then re-mapped by an independent isotonic calibrator per horizon (L17: not a coherent CDF; 123 violations); does not condition on survival to the as-of date",
+  "lifetime_coherent_raw": "the same learned quantile function read directly, without the per-horizon isotonic step; coherent across horizons by construction"
+ }
+}

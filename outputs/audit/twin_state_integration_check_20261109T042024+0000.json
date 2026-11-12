@@ -1,0 +1,178 @@
+{
+ "schema_version": "api/1.2",
+ "as_of": "2026-10-27",
+ "policy": "prefer_reemitted",
+ "selection": {
+  "policy": "prefer_reemitted",
+  "selected": "reemitted",
+  "status": "primary",
+  "fallback_used": false,
+  "fallback_permitted": true,
+  "reason": "re-emitted twin_state/1.1 archive present and valid (preferred source)",
+  "candidates": {
+   "reemitted": {
+    "source": "reemitted",
+    "kind": "reemitted",
+    "description": "versioned re-emission of the archived forecast table with per-output provenance; no model executed",
+    "artifact": "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl",
+    "expected_schema": "twin_state/1.1",
+    "present": true,
+    "size_bytes": 78616187,
+    "recorded_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+    "computed_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+    "digest_state": "verified",
+    "schema_version": "twin_state/1.1",
+    "schema_supported": true,
+    "record_count": 31396,
+    "recorded_record_count": 31396,
+    "record_count_state": "matches",
+    "provenance_complete": true,
+    "artifact_provenance_complete": true,
+    "provenance_on_outputs": true,
+    "transformation_digest_sha256": "da9724148c7d056d4f093858fe8f1725dfee9d608c3549837ba9b2bbb67d603d",
+    "method": "cosmos.ai.twin.reemit.emit_records v1 (row-wise mapping of forecast_table.csv.gz; no model executed)",
+    "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+    "predictions_regenerated": false,
+    "model_executed": false,
+    "model_version": {
+     "status": "unavailable",
+     "digest": null,
+     "reason": "no fitted model is persisted; none is inferred"
+    },
+    "status": "valid",
+    "reasons": [],
+    "warnings": []
+   },
+   "archived": {
+    "source": "archived",
+    "kind": "original_archive",
+    "description": "historical archived twin state; no per-output provenance",
+    "artifact": "outputs/twin/as_of_2026-10-27/twins.jsonl",
+    "expected_schema": "twin_state/1.0",
+    "present": true,
+    "size_bytes": 40942522,
+    "recorded_sha256": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+    "computed_sha256": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+    "digest_state": "verified",
+    "schema_version": "twin_state/1.0",
+    "schema_supported": true,
+    "record_count": 31396,
+    "recorded_record_count": null,
+    "record_count_state": "unknown",
+    "provenance_complete": false,
+    "artifact_provenance_complete": true,
+    "provenance_on_outputs": false,
+    "transformation_digest_sha256": null,
+    "method": null,
+    "code_revision": null,
+    "predictions_regenerated": null,
+    "model_executed": null,
+    "model_version": {
+     "status": "unavailable",
+     "digest": null,
+     "reason": "no fitted model is persisted; none is inferred"
+    },
+    "status": "valid",
+    "reasons": [],
+    "warnings": [
+     "twin_state/1.0 records carry no per-output provenance; lineage is by value only"
+    ]
+   }
+  }
+ },
+ "selected_source": "reemitted",
+ "selection_status": "primary",
+ "provenance": {
+  "source": "reemitted",
+  "kind": "reemitted",
+  "artifact": "outputs/twin/as_of_2026-10-27_reemitted_v1/twins.jsonl",
+  "schema_version": "twin_state/1.1",
+  "expected_schema": "twin_state/1.1",
+  "recorded_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+  "computed_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+  "digest_state": "verified",
+  "transformation_digest_sha256": "da9724148c7d056d4f093858fe8f1725dfee9d608c3549837ba9b2bbb67d603d",
+  "method": "cosmos.ai.twin.reemit.emit_records v1 (row-wise mapping of forecast_table.csv.gz; no model executed)",
+  "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+  "record_count": 31396,
+  "recorded_record_count": 31396,
+  "record_count_state": "matches",
+  "predictions_regenerated": false,
+  "model_executed": false,
+  "artifact_provenance_complete": true,
+  "provenance_on_outputs": true,
+  "provenance_complete": true,
+  "warnings": [],
+  "original_or_reemitted": "reemitted"
+ },
+ "integrity": {
+  "records_total": 31396,
+  "records_valid": 31396,
+  "records_malformed_json": 0,
+  "records_schema_invalid": 0,
+  "records_with_value_problems": 0,
+  "duplicate_identities": 0,
+  "unique_identities": 31396,
+  "schema_versions": {
+   "twin_state/1.1": 31396
+  },
+  "examples": {
+   "malformed": [],
+   "schema_invalid": [],
+   "duplicates": [],
+   "value_problems": []
+  },
+  "status": "ok"
+ },
+ "equivalence": {
+  "twin_records": 31396,
+  "records_compared": 31396,
+  "records_equal": 31396,
+  "records_different": 0,
+  "records_not_comparable": 0,
+  "records_missing_in_chain": 0,
+  "records_missing_in_twin": 0,
+  "fields_compared": 452690,
+  "fields_equal": 452690,
+  "fields_different": 0,
+  "equivalent": true,
+  "different_fields": {},
+  "not_comparable_reasons": {
+   "reentry.abstained: twin marks operator-controlled objects as abstaining (C3) with base-rate values attached; the chain records a prediction with the regime as an assumption \u2014 representations differ, values are compared": 16386,
+   "reentry.time_quantiles: chain has no time quantiles for this object (bounds missing or non-positive)": 16386,
+   "lifetime: chain lifetime abstained: saved per-horizon calibrated probabilities are not monotone across horizons (independent isotonic calibration per horizon); no coherent CDF available \u2014 limitation L17, listed in lifetime_noncoherent_horizons.csv": 123
+  },
+  "examples": {
+   "different": [],
+   "not_comparable": [],
+   "missing_in_chain": [],
+   "missing_in_twin": []
+  },
+  "note": "value equivalence of twin records with the catalogue chain of one run; fields with differing semantics are listed as not comparable, not forced equal",
+  "run_id": "run_20261109T041153Z",
+  "chain_tables": [
+   "decision_ranking.csv",
+   "reentry_predictions.csv",
+   "lifetime_estimates.csv",
+   "lifetime_noncoherent_horizons.csv"
+  ],
+  "status": "computed"
+ },
+ "model_version": {
+  "status": "unavailable",
+  "digest": null,
+  "label": null,
+  "reason": "no fitted model is persisted; none is inferred",
+  "registry_card": null,
+  "registry_note": "no verified association between this output and a model registry card is recorded; none is inferred"
+ },
+ "note": "archived evidence only: the twin state is read from a saved archive; no live feed, no prediction regenerated, no model executed at request time",
+ "overall": {
+  "status": "primary_verified",
+  "tone": "ok",
+  "label": "RE-EMITTED \u00b7 twin_state/1.1 \u00b7 verified",
+  "reason": "preferred source, digest verified, provenance complete, records valid, equivalent to the catalogue chain"
+ },
+ "computed_in_s": 1.41,
+ "computed_at": "2026-11-09T04:20:24+00:00"
+}

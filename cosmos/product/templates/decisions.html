@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block topmeta %}{% if run_id %}run {{ run_id }}{% else %}no run{% endif %} · ordering only, never a risk estimate{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>An operational ordering, never a probability or a risk estimate</b> — full scope and limitations</summary>
+  <div class="scope-body">
+  <strong>What the ordering is and is not.</strong> The priority score is an operational queue computed by the
+  rule recorded in the run manifest, read here rather than reimplemented. It is not a probability, not a risk
+  estimate and not a collision warning. It uses the point 30-day probability and the catalogued mass, never the
+  uncertainty interval. Its usefulness has been measured on one archived, non-blind window only (below).
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+<div class="grid two">
+  <div class="panel accent">
+    <h2>Recorded rule <span class="count">read from the run manifest</span></h2>
+    {%- if rule %}
+    <table class="kv">
+      <tr><th>formula</th><td class="mono">{{ rule.formula }}</td></tr>
+      <tr><th>consequence threshold</th><td>{{ rule.consequence_mass_kg | fmt(0) }} kg</td></tr>
+      <tr><th>multiplier</th><td>× {{ rule.consequence_multiplier | fmt(1) }}</td></tr>
+      {%- if rule.inputs %}<tr><th>inputs</th><td><ul style="margin:0;padding-left:1.1rem">
+        {%- for item in rule.inputs %}<li>{{ item }}</li>{% endfor %}</ul></td></tr>{% endif %}
+      {%- if rule.semantics %}<tr><th>semantics</th><td>{{ rule.semantics }}</td></tr>{% endif %}
+      <tr><th>objects ranked</th><td>{{ ranking_rows | fmt(0) if ranking_rows else 'unavailable' }}
+        {%- if ranking_rows %}<span class="panel-note">(of the run's selection, not necessarily the whole catalogue)</span>{% endif %}</td></tr>
+      <tr><th>module status</th><td><span class="status status-{{ module_status or 'unavailable' }}">{{ module_status or 'unavailable' }}</span></td></tr>
+    </table>
+    {%- else %}
+    <div class="unavailable-state"><strong>No recorded rule is available.</strong>
+      It is read from a pipeline run's manifest; produce a run and reload.</div>
+    {%- endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Health escalation <span class="count">coupling C4</span></h2>
+    {%- if health_escalation %}
+    <p><span class="status status-{{ health_escalation.status }}">{{ health_escalation.status }}</span></p>
+    <p class="panel-note">{{ health_escalation.reason }}</p>
+    <div class="integrity-note">
+      <strong>Why this abstains rather than escalating.</strong> The telemetry benchmark is anonymised, so no
+      catalogued object has health evidence. A health-driven escalation would require an identity link that does
+      not exist, so the module reports an abstention instead of a number.
+    </div>
+    {%- else %}
+    <div class="unavailable-state">No escalation record in this run.</div>
+    {%- endif %}
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>Current queue</h2>
+  <span class="note">{% if run_id %}run <code>{{ run_id }}</code>{% endif %}</span>
+</div>
+<div class="panel">
+  {%- if queue_chart %}
+  <div class="chart-frame" style="margin-bottom:.8rem">{{ queue_chart | safe }}
+    <div class="chart-note">priority score, highest first; the multiplier is visible as the step between heavy and light objects</div></div>
+  {%- endif %}
+  {%- if ranking %}
+  <div class="scroll scroll-x">
+    <table class="data">
+      <thead><tr><th>rank</th><th>object</th><th class="num">p(30 d)</th><th class="num">mass (kg)</th>
+        <th>consequence</th><th class="num">priority</th><th>interval available</th></tr></thead>
+      <tbody>
+      {%- for row in ranking %}
+        <tr>
+          <td class="num">{{ row.rank }}</td>
+          <td><a href="/objects/{{ row.object_id | replace('NORAD-', '') }}">{{ row.name or row.object_id }}</a></td>
+          <td class="num">{{ row.p_reentry_30d | fmt(4) }}</td>
+          <td class="num {{ 'absent' if not row.mass_known }}">{{ row.mass_kg | fmt(0) if row.mass_known else 'unknown' }}</td>
+          <td>{% if row.high_consequence %}<span class="status status-partial">multiplier applied</span>
+              {%- elif row.mass_known %}<span class="status status-info">below threshold</span>
+              {%- else %}<span class="status status-unavailable">mass unknown</span>{% endif %}</td>
+          <td class="num">{{ row.priority_score | fmt(3) }}</td>
+          <td>{% if row.reentry_interval_available %}<span class="status status-pass">yes</span>
+              {%- else %}<span class="status status-abstain">no</span>{% endif %}</td>
+        </tr>
+      {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  {%- else %}
+  <div class="unavailable-state"><strong>No ranking available.</strong> Run the pipeline, or start a
+    <a href="/scenario">scenario</a>.</div>
+  {%- endif %}
+</div>
+
+<div class="section-head">
+  <h2>Measured usefulness of the ordering</h2>
+  <span class="note">exploratory, non-blind, one archived window</span>
+</div>
+{%- if t1 %}
+<div class="panel violet">
+  <div class="integrity-note">
+    <strong>Status of this evidence.</strong> Exploratory and <strong>non-blind</strong>: the T1 window
+    (forecast as of 2026-08-16, outcomes observed to 2026-10-27) was analysed before this evaluation was declared,
+    so it is not a prospective test and no operational effectiveness is claimed. Seed {{ t1.seed }},
+    {{ t1.bootstrap_B }} paired cluster-bootstrap resamples over launch families. Record:
+    <code>outputs/t1_ranking_utility/results.json</code>.
+  </div>
+  <table class="kv">
+    <tr><th>population</th><td>uncontrolled natural-decay objects with catalogue history
+      ({{ t1.populations.x7_uncontrolled_natural_decay_with_history.n | fmt(0) }} objects)</td></tr>
+    <tr><th>observed re-entries in 30 days</th><td>{{ t1.x7.events | fmt(0) }}</td></tr>
+    <tr><th>base rate</th><td>{{ t1.x7.base_rate | fmt(5) }}</td></tr>
+    <tr><th>rule evaluated</th><td class="mono">{{ t1.rule.formula }}</td></tr>
+  </table>
+
+  <h2 style="margin-top:1rem">Precision at k <span class="count">fraction of the top k that re-entered within 30 days</span></h2>
+  {%- if precision_chart %}
+  <div class="chart-frame" style="margin-bottom:.7rem">{{ precision_chart | safe }}
+    <div class="chart-note">precision at k = 25 by ordering, on the archived non-blind T1 window</div></div>
+  {%- endif %}
+  <table class="data">
+    <thead><tr><th>ordering</th><th class="num">k = 10</th><th class="num">k = 25</th><th class="num">k = 50</th>
+      <th class="num">k = 100</th><th class="num">hits at 25</th><th class="num">heavy objects at 25</th></tr></thead>
+    <tbody>
+    {%- for arm in t1.arms %}
+      <tr>
+        <td>{{ arm.arm | replace('_', ' ') }}{% if arm.arm == 'deployed_rule' %} <span class="status status-info">deployed</span>{% endif %}</td>
+        {%- for k in [10, 25, 50, 100] %}
+        <td class="num {{ 'absent' if arm.precision[k] is none }}">{{ arm.precision[k] | fmt(2) if arm.precision[k] is not none else '—' }}</td>
+        {%- endfor %}
+        <td class="num {{ 'absent' if arm.hits_at_25 is none }}">{{ arm.hits_at_25 if arm.hits_at_25 is not none else '—' }}</td>
+        <td class="num {{ 'absent' if arm.high_consequence_at_25 is none }}">{{ arm.high_consequence_at_25 if arm.high_consequence_at_25 is not none else '—' }}</td>
+      </tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+  <p class="panel-note">
+    The deployed rule places {{ t1.arms | selectattr('arm', 'equalto', 'deployed_rule') | map(attribute='hits_at_25') | first }}
+    of the {{ t1.x7.events }} re-entries in its top 25 against a base rate of {{ t1.x7.base_rate | fmt(5) }}, and a
+    physics-free perigee ordering places
+    {{ t1.arms | selectattr('arm', 'equalto', 'perigee_ascending') | map(attribute='hits_at_25') | first }}.
+    Ordering by the probability alone does slightly better at k = 25 than the deployed rule: the mass multiplier
+    promotes heavy objects with a lower probability by design, which costs a little precision and is reported rather
+    than hidden.
+  </p>
+
+  <details class="evidence">
+    <summary>Paired cluster-bootstrap differences (deployed rule minus comparator)</summary>
+    <div class="body">
+      <table class="data">
+        <thead><tr><th>comparison</th><th class="num">difference</th><th>95 % interval</th><th class="num">resamples</th></tr></thead>
+        <tbody>
+        {%- for name, rec in (t1.x7.paired_cluster_bootstrap or {}).items() %}
+          <tr><td>{{ name | replace('_', ' ') }}</td>
+            <td class="num">{{ rec.difference | fmt(3) }}</td>
+            <td class="mono">[{{ rec.ci95[0] | fmt(3) }}, {{ rec.ci95[1] | fmt(3) }}]</td>
+            <td class="num">{{ rec.B | fmt(0) }}</td></tr>
+        {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="integrity-note">
+    <strong>What this does not show.</strong> Not calibration, not operational value and not transfer to another
+    window. The event counts are small, the k values are arbitrary operator budgets, and a large share of the
+    re-entries in the all-object window were operator-controlled deorbits that lie outside the twin's forecast by
+    design. Full protocol and result:
+    <code>docs/research/T1_RANKING_UTILITY_PROTOCOL.md</code>, <code>T1_RANKING_UTILITY_RESULTS.md</code>.
+  </div>
+</div>
+{%- else %}
+<div class="panel">
+  <div class="unavailable-state"><strong>No ranking-utility record is present.</strong>
+    <code>outputs/t1_ranking_utility/results.json</code> is absent, so no effectiveness figure is shown and none
+    is invented. Produce it with <code>python scripts/t1_ranking_utility.py</code>.</div>
+</div>
+{%- endif %}
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Compare an alternative ordering</h2>
+    <p class="panel-note">A scenario run re-expresses the saved artifacts into a new run directory with a
+      different selection or twin-source policy; no model is retrained and no historical run is modified.</p>
+    <p><a class="btn" href="/scenario">open scenario analysis</a>
+       <a class="btn secondary" href="/runs">compare runs</a></p>
+  </div>
+  <div class="panel">
+    <h2>Standing limitations of this screen</h2>
+    <ul class="panel-note" style="padding-left:1.1rem">
+      <li>the ordering uses the point probability and the GCAT mass, not the interval;</li>
+      <li>mass is unknown for many fragments, and the multiplier is then never applied;</li>
+      <li>no health or conjunction evidence enters the ordering (C4 abstains);</li>
+      <li>the only effectiveness measurement is the non-blind window above;</li>
+      <li>a prospective, blind evaluation is blocked until a catalogue snapshot dated on or after 2026-11-26 exists.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

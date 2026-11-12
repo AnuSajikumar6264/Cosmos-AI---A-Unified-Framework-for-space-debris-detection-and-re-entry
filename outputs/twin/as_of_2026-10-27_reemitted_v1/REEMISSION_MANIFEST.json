@@ -1,0 +1,48 @@
+{
+ "artifact": "re-emitted twin state",
+ "schema_version": "twin_state/1.1",
+ "reemitted_from_archive": true,
+ "predictions_regenerated": false,
+ "model_executed": false,
+ "model_version": {
+  "status": "unavailable",
+  "digest": null,
+  "reason": "no fitted model is persisted; the values are the archived forecast's, re-emitted"
+ },
+ "generated_at": "2026-11-08T07:04:50+00:00",
+ "method": "cosmos.ai.twin.reemit.emit_records v1 (row-wise mapping of forecast_table.csv.gz; no model executed)",
+ "transformation_digest_sha256": "da9724148c7d056d4f093858fe8f1725dfee9d608c3549837ba9b2bbb67d603d",
+ "code_revision": "78ee33962007203bcfc829fc743a663b350373e1",
+ "source": {
+  "artifact": "outputs/twin/as_of_2026-10-27/forecast_table.csv.gz",
+  "sha256": "b15644aab581cd05f2046a36574c2d522f53d83f55aca618f233c01ad194af86",
+  "rows": 31396
+ },
+ "archived_state": {
+  "artifact": "outputs/twin/as_of_2026-10-27/twins.jsonl",
+  "sha256_before": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+  "sha256_after": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5",
+  "digest_file": "19a1fede1fd4871f380ff802f285d2ad03732f6cd3179790e67336c7d202a6b5"
+ },
+ "output": {
+  "directory": "outputs/twin/as_of_2026-10-27_reemitted_v1",
+  "twins_jsonl_sha256": "6bb4871f7dedfcf1fb2bef154d097aa382f11c852d0c226a20757638fcf09c84",
+  "records": 31396
+ },
+ "equivalence_with_archive": {
+  "records_compared": 31396,
+  "records_equal": 31396,
+  "records_differing": 0,
+  "extra_in_reemitted": 0,
+  "extra_in_archive": 0,
+  "first_difference": null,
+  "equivalent": true
+ },
+ "distinguishing_fields": [
+  "schema_version",
+  "source_record",
+  "reemitted_from_archive",
+  "reemission_method",
+  "outputs[].provenance (non-null)"
+ ]
+}

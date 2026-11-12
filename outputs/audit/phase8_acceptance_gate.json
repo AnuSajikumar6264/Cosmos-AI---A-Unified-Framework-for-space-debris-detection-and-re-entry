@@ -1,0 +1,291 @@
+{
+ "gate": "Phase 8 technical acceptance",
+ "evaluated_at": "2026-11-06T06:34:17+00:00",
+ "verdict": "PASS WITH LIMITATIONS",
+ "hard_failures": [],
+ "checks": [
+  {
+   "group": "integrity",
+   "check": "ESA-ADB pre-registration freeze",
+   "status": "PASS",
+   "detail": "28/28 frozen files hash-identical (freeze_id 681cc7ddec86)",
+   "measured": {
+    "bad": []
+   }
+  },
+  {
+   "group": "integrity",
+   "check": "original confirmatory freeze",
+   "status": "PASS",
+   "detail": "freeze 09a98f5e160e (CONFIRMATORY.json): 27/28 files identical; differing: ['research_design/preregistration/PREREG_TELEMETRY_V1.md'] (expected only the pre-registration document, whose section 9 was filled in afterwards \u2014 DEVIATIONS.md 2026-10-24 22:00)",
+   "measured": {
+    "differing": [
+     "research_design/preregistration/PREREG_TELEMETRY_V1.md"
+    ]
+   }
+  },
+  {
+   "group": "integrity",
+   "check": "G5d pre-registration",
+   "status": "PASS",
+   "detail": "research_design/G5D_PREREGISTRATION.md hash matches",
+   "measured": null
+  },
+  {
+   "group": "integrity",
+   "check": "figure release manifest",
+   "status": "PASS",
+   "detail": "107/107 files (figures, source data, scripts, documents, upstream artifacts) unchanged",
+   "measured": {
+    "bad": []
+   }
+  },
+  {
+   "group": "integrity",
+   "check": "OPS-SAT historical archive",
+   "status": "PASS",
+   "detail": "10/10 archived files unchanged",
+   "measured": {
+    "bad": []
+   }
+  },
+  {
+   "group": "integrity",
+   "check": "dated twin state and forecast",
+   "status": "PASS",
+   "detail": "twins.jsonl = recorded digest; forecast_table = run-manifest digest",
+   "measured": null
+  },
+  {
+   "group": "git",
+   "check": "HEAD unchanged, nothing committed",
+   "status": "PASS",
+   "detail": "HEAD 78ee33962007 (directive start 78ee33962007)",
+   "measured": null
+  },
+  {
+   "group": "git",
+   "check": "nothing staged",
+   "status": "PASS",
+   "detail": "0 staged paths",
+   "measured": []
+  },
+  {
+   "group": "git",
+   "check": "working tree",
+   "status": "INFO",
+   "detail": "17 modified tracked files, 1605 untracked paths \u2014 all uncommitted by instruction",
+   "measured": null
+  },
+  {
+   "group": "writing",
+   "check": "JINT manuscript untouched",
+   "status": "PASS",
+   "detail": "paper/jint/COSMOS_AI_JINT_MANUSCRIPT.md = release-manifest hash",
+   "measured": null
+  },
+  {
+   "group": "writing",
+   "check": "no manuscript/thesis file modified since the directive day",
+   "status": "PASS",
+   "detail": "0 files modified on/after 2026-11-06",
+   "measured": []
+  },
+  {
+   "group": "tests",
+   "check": "full suite",
+   "status": "PASS",
+   "detail": "341 passed, 3 skipped in 55.72s",
+   "measured": null
+  },
+  {
+   "group": "tracker",
+   "check": "Phase 0-7 rows with a non-terminal status",
+   "status": "PASS",
+   "detail": "0 of 93 rows still IN PROGRESS / NOT STARTED / VALIDATION PENDING",
+   "measured": []
+  },
+  {
+   "group": "tracker",
+   "check": "rows limited by data, approval or external dependency",
+   "status": "LIMIT",
+   "detail": "14 rows",
+   "measured": [
+    {
+     "phase": 2,
+     "row": "2.1 OPS-SAT reproduction (X1)",
+     "status": "PASS WITH LIMITATIONS / untouched 10/10 / 122/122 + 47/47 / Exact to 0.0000 on every metric / fcnn, transformer / Not reproducible at seed level: `cnn` / < 0.001 / not separable at 5 seeds"
+    },
+    {
+     "phase": 2,
+     "row": "2.2 Named-subsystem health monitoring (power / thermal / attitude / propulsion)",
+     "status": "PASS WITH LIMITATIONS \u2014 simulation only / NOT EVALUABLE on real data"
+    },
+    {
+     "phase": 2,
+     "row": "2.2 Anomaly evidence \u2192 health-state / priority updates",
+     "status": "PASS (correct behaviour = abstention) / NOT EVALUABLE"
+    },
+    {
+     "phase": 2,
+     "row": "2.4 Re-entry \u2014 corridor / impact validation",
+     "status": "NOT EVALUABLE \u2014 BLOCKED BY INPUT, not by truth"
+    },
+    {
+     "phase": 2,
+     "row": "2.5 Conjunction \u2014 propagation, screening, closest approach",
+     "status": "NOT EVALUABLE"
+    },
+    {
+     "phase": 2,
+     "row": "2.6 Vision \u2014 association to satellites",
+     "status": "NOT EVALUABLE"
+    },
+    {
+     "phase": 3,
+     "row": "Uncertainty under missing / corrupted inputs (X11)",
+     "status": "PASS WITH LIMITATIONS / BLOCKED"
+    },
+    {
+     "phase": 4,
+     "row": "Shared state `ObjectTwin`",
+     "status": "PASS WITH LIMITATIONS"
+    },
+    {
+     "phase": 4,
+     "row": "Cross-dataset fusion where joinable",
+     "status": "NOT EVALUABLE"
+    },
+    {
+     "phase": 5,
+     "row": "Ablations not evaluable or awaiting approval",
+     "status": "recorded"
+    },
+    {
+     "phase": 6,
+     "row": "Training-level reproducibility",
+     "status": "BLOCKED \u2014 EXTERNAL DEPENDENCY"
+    },
+    {
+     "phase": 6,
+     "row": "Cross-satellite generalisation",
+     "status": "NOT EVALUABLE"
+    },
+    {
+     "phase": 6,
+     "row": "Missing modalities / corrupted telemetry / noisy imagery",
+     "status": "PASS WITH LIMITATIONS / BLOCKED"
+    },
+    {
+     "phase": 6,
+     "row": "Prospective validation",
+     "status": "BLOCKED \u2014 EXTERNAL DEPENDENCY"
+    }
+   ]
+  },
+  {
+   "group": "approval",
+   "check": "X3",
+   "status": "LIMIT",
+   "detail": "ESA-ADB 3b Stage 1 \u2014 2x2 re-selection (F4 x F5), new output dir \u2014 cost minutes CPU \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "approval",
+   "check": "X4",
+   "status": "LIMIT",
+   "detail": "ESA-ADB 3b Stage 2 \u2014 12 AR(8) OOF fits \u2014 cost 3-4 h \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "approval",
+   "check": "X6",
+   "status": "LIMIT",
+   "detail": "lifetime am_design Stage 2 missingness ablation (design-time) \u2014 cost per protocol doc \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "approval",
+   "check": "X10",
+   "status": "LIMIT",
+   "detail": "OPS-SAT E6 branch ablation (decides K8) \u2014 cost hours of training, 5 seeds x branches \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "approval",
+   "check": "X13",
+   "status": "LIMIT",
+   "detail": "ESA-ADB input-perturbation robustness \u2014 re-exposes the pre-registered test half \u2014 cost minutes-hour CPU \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "approval",
+   "check": "twin-state",
+   "status": "LIMIT",
+   "detail": "regenerate twins.jsonl with the current engine into a NEW directory (provenance + forecast reproduction check) \u2014 cost ~1,250 s \u2014 NOT RUN, awaiting explicit approval",
+   "measured": null
+  },
+  {
+   "group": "audit",
+   "check": "latest Phase N system audit",
+   "status": "INFO",
+   "detail": "PARTIAL: 27 PASS, 1 FAIL (learner training-reproducibility)",
+   "measured": null
+  }
+ ],
+ "tests": {
+  "ran": true,
+  "summary": "341 passed, 3 skipped in 55.72s",
+  "passed": 341,
+  "failed": 0,
+  "skipped": 3,
+  "returncode": 0
+ },
+ "phase_n_audit": {
+  "file": "outputs/final_audit/final_system_audit.json",
+  "verdict": "PARTIAL",
+  "n": 28,
+  "fails": [
+   {
+    "check": "learner training-reproducibility",
+    "severity": "major",
+    "measured": "2/7 (mlp, xgboost)",
+    "expected": "7/7"
+   }
+  ]
+ },
+ "head": "78ee33962007203bcfc829fc743a663b350373e1",
+ "approval_items": [
+  {
+   "id": "X3",
+   "what": "ESA-ADB 3b Stage 1 \u2014 2x2 re-selection (F4 x F5), new output dir",
+   "cost": "minutes CPU"
+  },
+  {
+   "id": "X4",
+   "what": "ESA-ADB 3b Stage 2 \u2014 12 AR(8) OOF fits",
+   "cost": "3-4 h"
+  },
+  {
+   "id": "X6",
+   "what": "lifetime am_design Stage 2 missingness ablation (design-time)",
+   "cost": "per protocol doc"
+  },
+  {
+   "id": "X10",
+   "what": "OPS-SAT E6 branch ablation (decides K8)",
+   "cost": "hours of training, 5 seeds x branches"
+  },
+  {
+   "id": "X13",
+   "what": "ESA-ADB input-perturbation robustness \u2014 re-exposes the pre-registered test half",
+   "cost": "minutes-hour CPU"
+  },
+  {
+   "id": "twin-state",
+   "what": "regenerate twins.jsonl with the current engine into a NEW directory (provenance + forecast reproduction check)",
+   "cost": "~1,250 s"
+  }
+ ],
+ "writing_phase": "LOCKED until this gate reads PASS or PASS WITH LIMITATIONS and the user confirms"
+}

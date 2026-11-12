@@ -1,0 +1,17 @@
+/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pytest_asyncio/plugin.py:300: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+...............sss...................................................... [ 12%]
+........................................................................ [ 25%]
+........................................................................ [ 37%]
+........................................................................ [ 50%]
+........................................................................ [ 62%]
+........................................................................ [ 75%]
+........................................................................ [ 87%]
+.....................................................................    [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_ai.py:51: run_pipeline() unchanged against the baseline code: baseline snapshot missing
+SKIPPED [1] tests/test_ai.py:51: learned telemetry backend: train it: python -m cosmos.ai.telemetry.learned_monitor train
+SKIPPED [1] tests/test_ai.py:51: surrogate footprint: train it: python -m cosmos.ai.surrogate train
+570 passed, 3 skipped in 136.73s (0:02:16)

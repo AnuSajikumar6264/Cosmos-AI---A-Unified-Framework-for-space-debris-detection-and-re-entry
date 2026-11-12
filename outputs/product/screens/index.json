@@ -1,0 +1,168 @@
+{
+  "captured_at": "2026-11-09T04:20:43.261844+00:00",
+  "base_url_for_assets": "http://127.0.0.1:8070",
+  "screens": [
+    {
+      "route": "/",
+      "file": "01_mission_overview.html",
+      "description": "Mission Overview: snapshot statistics, findings, module status, abstentions, dataset inventory",
+      "status_code": 200,
+      "bytes": 31946,
+      "captured": true
+    },
+    {
+      "route": "/objects?q=ARIANE",
+      "file": "02_object_search.html",
+      "description": "Object search by name over the dated catalogue snapshot",
+      "status_code": 200,
+      "bytes": 26142,
+      "captured": true
+    },
+    {
+      "route": "/objects/37607",
+      "file": "03_object_assessment.html",
+      "description": "Orbital/lifetime/re-entry assessment for NORAD 37607 with coherence status and unsupported assessments",
+      "status_code": 200,
+      "bytes": 34655,
+      "captured": true
+    },
+    {
+      "route": "/telemetry",
+      "file": "04_satellite_intelligence.html",
+      "description": "Anonymised ESA-ADB missions and saved benchmark arm evidence",
+      "status_code": 200,
+      "bytes": 22102,
+      "captured": true
+    },
+    {
+      "route": "/telemetry/1/channel_12",
+      "file": "05_telemetry_channel.html",
+      "description": "Real telemetry series with ground-truth anomaly intervals shaded",
+      "status_code": 200,
+      "bytes": 61699,
+      "captured": true
+    },
+    {
+      "route": "/debris",
+      "file": "06_debris_sequences.html",
+      "description": "SpotGEO test sequences with saved detections",
+      "status_code": 200,
+      "bytes": 23896,
+      "captured": true
+    },
+    {
+      "route": "/debris/1",
+      "file": "07_debris_detections.html",
+      "description": "Real SpotGEO frame with detection overlay; confidence and timestamp unavailable",
+      "status_code": 200,
+      "bytes": 11342,
+      "captured": true
+    },
+    {
+      "route": "/risk",
+      "file": "08_risk_intelligence.html",
+      "description": "Physical collision probability distribution, priority kept separate, C4 abstention",
+      "status_code": 200,
+      "bytes": 17414,
+      "captured": true
+    },
+    {
+      "route": "/runs",
+      "file": "09_run_explorer.html",
+      "description": "Versioned pipeline runs and operating modes",
+      "status_code": 200,
+      "bytes": 67549,
+      "captured": true
+    },
+    {
+      "route": "/prospective",
+      "file": "10_prospective_blocked.html",
+      "description": "Prospective evaluation disabled with the fixed protocol and BLOCKED status",
+      "status_code": 200,
+      "bytes": 11292,
+      "captured": true
+    },
+    {
+      "route": "/scenario",
+      "file": "11_scenario_analysis.html",
+      "description": "Scenario execution form writing a new run directory",
+      "status_code": 200,
+      "bytes": 15694,
+      "captured": true
+    },
+    {
+      "route": "/explorer",
+      "file": "18_earth_orbit_explorer.html",
+      "description": "Earth & orbit explorer: interactive globe (WebGL), schematic orbit geometry with its basis stated on screen",
+      "status_code": 200,
+      "bytes": 15053,
+      "captured": true
+    },
+    {
+      "route": "/intelligence",
+      "file": "19_lifetime_reentry_intelligence.html",
+      "description": "Lifetime and re-entry intelligence: catalogue-wide counts, interval kinds, abstentions, subgroup coverage cue",
+      "status_code": 200,
+      "bytes": 34736,
+      "captured": true
+    },
+    {
+      "route": "/decisions",
+      "file": "20_decision_intelligence.html",
+      "description": "Decision intelligence: recorded ordering rule, current queue, exploratory non-blind ranking-utility evidence",
+      "status_code": 200,
+      "bytes": 24207,
+      "captured": true
+    },
+    {
+      "route": "/evidence",
+      "file": "21_evidence_provenance.html",
+      "description": "Evidence, provenance and validation: digests, module lineage, twin integrity, readiness",
+      "status_code": 200,
+      "bytes": 19066,
+      "captured": true
+    },
+    {
+      "route": "/twin-state",
+      "file": "22_twin_state.html",
+      "description": "Twin-state explorer: source policies, integrity and chain equivalence",
+      "status_code": 200,
+      "bytes": 11657,
+      "captured": true
+    },
+    {
+      "route": "/demo",
+      "file": "23_guided_demonstration.html",
+      "description": "Guided demonstration: capability map and thirteen stages with live values",
+      "status_code": 200,
+      "bytes": 21480,
+      "captured": true
+    },
+    {
+      "route": "/runs/run_20261109T041153Z",
+      "file": "12_run_detail.html",
+      "description": "Run manifest, module provenance, abstentions and tables",
+      "status_code": 200,
+      "bytes": 53454,
+      "captured": true
+    },
+    {
+      "route": "/compare?a=run_20261109T041153Z&b=run_20261109T033724816814Z",
+      "file": "13_run_compare.html",
+      "description": "Two runs compared side by side without mixing artifacts",
+      "status_code": 200,
+      "bytes": 20802,
+      "captured": true
+    },
+    {
+      "route": "/reports/object/37607",
+      "file": "14_assessment_report.html",
+      "description": "Exported assessment report with full provenance",
+      "status_code": 200,
+      "bytes": 22607,
+      "captured": true
+    }
+  ],
+  "note": "each file is the real server response for that route with CSS inlined; images and API links require the server to be running at base_url",
+  "not_a_screenshot": "no headless browser is installed in this environment, so no PNG was produced; these HTML captures are the rendered screens"
+}

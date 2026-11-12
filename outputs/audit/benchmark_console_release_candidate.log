@@ -1,0 +1,21 @@
+overview api                       200    457.6 ms       6.3 kB  RSS 191 MB
+overview api (warm)                200     26.8 ms       6.3 kB  RSS 191 MB
+overview page                      200    179.7 ms      22.3 kB  RSS 191 MB
+overview page (warm)               200     36.7 ms      22.3 kB  RSS 191 MB
+datasets api                       200     28.1 ms       1.5 kB  RSS 191 MB
+search                             200     18.8 ms       9.7 kB  RSS 191 MB
+object api 37607                   200    163.5 ms      17.1 kB  RSS 205 MB
+object api 37607 (warm)            200     34.6 ms      17.1 kB  RSS 205 MB
+object page 37607                  200     77.0 ms      29.5 kB  RSS 205 MB
+twin api 23806 (index build)       200     21.6 ms       6.1 kB  RSS 205 MB
+twin api 25544                     200     32.3 ms       5.1 kB  RSS 205 MB
+runs list api                      200     17.7 ms      46.9 kB  RSS 205 MB
+runs list api (warm)               200     17.4 ms      46.9 kB  RSS 205 MB
+run manifest api                   200      7.8 ms      24.7 kB  RSS 205 MB
+run manifest api (warm)            200      6.2 ms      24.7 kB  RSS 205 MB
+run page                           200     37.3 ms      49.9 kB  RSS 205 MB
+ranking 25                         200     26.1 ms      27.4 kB  RSS 205 MB
+report json 37607                  200     35.0 ms      25.1 kB  RSS 205 MB
+report html 37607                  200     38.2 ms      22.1 kB  RSS 205 MB
+{'list_runs_ms': 62.2, 'list_runs_ms_warm': 2.6, 'run_manifest_parse_ms': 0.1, 'run_manifest_parse_ms_warm': 0.0, 'repository_provenance_ms': 48.5, 'repository_provenance_ms_warm': 0.3, 'missions_ms': 9.4, 'twin_lookup_ms': 51.27, 'latest_manifest_bytes': 23191, 'rss_mb_peak': 225.0}
+written outputs/audit/console_benchmark_release_candidate_20261108T164637+0000.json

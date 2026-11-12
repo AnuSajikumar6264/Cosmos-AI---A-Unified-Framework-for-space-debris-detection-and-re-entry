@@ -1,0 +1,318 @@
+{
+ "origin": "2006",
+ "population": "uncontrolled",
+ "snapshot": "2026-10-27",
+ "dates": [
+  "1999-01-01",
+  "2001-01-01",
+  "2006-01-01",
+  "2011-01-01"
+ ],
+ "sizes": {
+  "train": 18960,
+  "tuneA": 211,
+  "tuneB": 544,
+  "test": 7281
+ },
+ "known5": {
+  "train": 18935,
+  "tuneA": 207,
+  "tuneB": 539,
+  "test": 7277
+ },
+ "events_5yr": {
+  "train": 12823,
+  "tuneA": 123,
+  "tuneB": 247,
+  "test": 2434
+ },
+ "physics_seconds": {
+  "train": 88.61643099784851,
+  "tuneA": 1.7992630004882812,
+  "tuneB": 3.531236410140991,
+  "test": 35.41276431083679
+ },
+ "prior_pool_sizes": {
+  "lc:all": 12284,
+  "lc:C": 3038,
+  "lc:D": 7183,
+  "lc:R": 2063,
+  "am:R": 3684
+ },
+ "am_source_train": {
+  "class_prior_sbm": 13064,
+  "design": 5896
+ },
+ "am_source_tuneB": {
+  "class_prior_sbm": 416,
+  "design": 128
+ },
+ "am_source_test": {
+  "class_prior_sbm": 6856,
+  "design": 425
+ },
+ "best_learner_on_tuneA": "mlp",
+ "selection_pool": [
+  "xgboost",
+  "mlp"
+ ],
+ "tuneA_pinball": {
+  "xgboost": 0.07574223533924779,
+  "mlp": 0.059290637154156355
+ },
+ "gates": {
+  "cosmos_gated": {
+   "theta": [
+    -1.7708236797367436,
+    0.01244218247306026,
+    0.0,
+    -0.19562354800924017,
+    0.006140391929134497,
+    -0.3430677121038587,
+    0.09126690383123694,
+    -0.014651607633938706,
+    0.1865139990205562,
+    0.0,
+    0.3855072261004579
+   ],
+   "fitted_on": "train_oof",
+   "tuneA_pinball": 0.060147293415640596,
+   "test_weight_mean": 0.24991947288301122,
+   "test_weight_by_am_source": {
+    "class_prior_sbm": 0.2502188351733497,
+    "design": 0.24509023085345724
+   }
+  },
+  "stack_constant": {
+   "theta": [
+    -2.4708925220085467
+   ],
+   "fitted_on": "train_oof",
+   "tuneA_pinball": 0.05941902144401989,
+   "test_weight_mean": 0.07792408154707854,
+   "test_weight_by_am_source": {
+    "class_prior_sbm": 0.07792408154707856,
+    "design": 0.07792408154707856
+   }
+  },
+  "cosmos_gated_tuneA": {
+   "theta": [
+    -1.8826198295908971,
+    -0.3482505702248837,
+    0.0,
+    0.27105621054197215,
+    -0.44186637539850626,
+    -0.14877303168301612,
+    -0.19238715936852344,
+    0.7794637692905263,
+    -0.14268870350096613,
+    0.0,
+    -0.09222660488024337
+   ],
+   "fitted_on": "tuneA",
+   "tuneA_pinball": 0.05703448276218185,
+   "test_weight_mean": 0.39384054492749604,
+   "test_weight_by_am_source": {
+    "class_prior_sbm": 0.4152464355784646,
+    "design": 0.048525753626224466
+   }
+  }
+ },
+ "fits": {
+  "xgboost": {
+   "params": {
+    "max_depth": 5,
+    "learning_rate": 0.03971371475899955,
+    "subsample": 0.9342101637417355,
+    "colsample_bytree": 0.5922532464658178,
+    "min_child_weight": 1.8863748117586634,
+    "reg_lambda": 0.2951591707640905
+   },
+   "fit_seconds_per_seed": 19.303844213485718,
+   "predict_ms_per_1000_objects": 5.885183017114054,
+   "n_features": 53,
+   "tuned": true
+  },
+  "mlp": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 11.84442629814148,
+   "predict_ms_per_1000_objects": 0.9025916377359523,
+   "n_features": 53,
+   "tuned": true
+  },
+  "mlp_no_physics": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 15.238875198364259,
+   "predict_ms_per_1000_objects": 0.8367408256808442,
+   "n_features": 48,
+   "tuned": false
+  },
+  "mlp_no_family": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 9.637794399261475,
+   "predict_ms_per_1000_objects": 0.8309121610633359,
+   "n_features": 45,
+   "tuned": false
+  },
+  "mlp_no_space_weather": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 13.246790456771851,
+   "predict_ms_per_1000_objects": 0.8688967169976598,
+   "n_features": 49,
+   "tuned": false
+  },
+  "mlp_no_design": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 11.085706424713134,
+   "predict_ms_per_1000_objects": 0.8678816124856218,
+   "n_features": 46,
+   "tuned": false
+  },
+  "mlp_plus_rcs_2026": {
+   "params": {
+    "width": 128,
+    "depth": 3,
+    "dropout": 0.18115255410189887,
+    "lr": 0.001161796748759689,
+    "weight_decay": 4.071400518714532e-06
+   },
+   "fit_seconds_per_seed": 11.606844091415406,
+   "predict_ms_per_1000_objects": 0.9340926229159692,
+   "n_features": 54,
+   "tuned": false
+  }
+ },
+ "paired_vs_cosmos_gated": {
+  "physics_only": {
+   "pinball_other_minus_gated": -0.031693580401030076,
+   "ci95": [
+    -0.05551104645282749,
+    0.010520246342375403
+   ]
+  },
+  "xgboost": {
+   "pinball_other_minus_gated": -0.005484149554625817,
+   "ci95": [
+    -0.021535622983873744,
+    0.019158963426471543
+   ]
+  },
+  "mlp": {
+   "pinball_other_minus_gated": 0.015399785906734832,
+   "ci95": [
+    0.0015888201130611409,
+    0.02364176426074908
+   ]
+  },
+  "mlp_no_physics": {
+   "pinball_other_minus_gated": 0.025192580023955767,
+   "ci95": [
+    -0.003036150480834463,
+    0.041590635407974585
+   ]
+  },
+  "mlp_no_family": {
+   "pinball_other_minus_gated": 0.0017937509593524085,
+   "ci95": [
+    -0.010955571850289916,
+    0.015645047000578578
+   ]
+  },
+  "mlp_no_space_weather": {
+   "pinball_other_minus_gated": -0.00012157919118569936,
+   "ci95": [
+    -0.02353445793504414,
+    0.006936913322501429
+   ]
+  },
+  "mlp_no_design": {
+   "pinball_other_minus_gated": 0.013154106760574163,
+   "ci95": [
+    -0.001168424738982954,
+    0.020470042111746245
+   ]
+  },
+  "mlp_plus_rcs_2026": {
+   "pinball_other_minus_gated": 0.03151965441888382,
+   "ci95": [
+    0.004483475676248895,
+    0.047364122582463995
+   ]
+  },
+  "stack_constant": {
+   "pinball_other_minus_gated": 0.010215072499211837,
+   "ci95": [
+    -0.0001747726245026221,
+    0.016547249425419238
+   ]
+  },
+  "cosmos_gated_tuneA": {
+   "pinball_other_minus_gated": -0.009962462739860052,
+   "ci95": [
+    -0.015687296577858036,
+    -0.002647862264863094
+   ]
+  },
+  "equal_average": {
+   "pinball_other_minus_gated": -0.014354109831608277,
+   "ci95": [
+    -0.020997739095213425,
+    -0.0011463766033068307
+   ]
+  }
+ },
+ "mae_log10_ci": {
+  "cosmos_gated": {
+   "mae_log10": 0.32701313182364544,
+   "ci95": [
+    0.2133114448807314,
+    0.4186099491864947
+   ]
+  },
+  "mlp": {
+   "mae_log10": 0.3994291590675708,
+   "ci95": [
+    0.24109589209523585,
+    0.5022164854582172
+   ]
+  },
+  "physics_only": {
+   "mae_log10": 0.15135406332506343,
+   "ci95": [
+    0.0858700176161023,
+    0.3567144547946407
+   ]
+  }
+ },
+ "seconds_total": 1236.0757431983948
+}

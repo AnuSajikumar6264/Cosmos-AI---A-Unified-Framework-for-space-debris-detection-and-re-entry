@@ -1,0 +1,678 @@
+{
+ "label": "visual_console",
+ "at": "2026-11-09T04:28:15+00:00",
+ "runs": 5,
+ "environment": {
+  "python": "3.12.16",
+  "platform": "Linux-6.17.0-1010-intel-x86_64-with-glibc2.41",
+  "cpu_count": 512,
+  "pandas": "3.1.0",
+  "numpy": "2.3.5"
+ },
+ "method": "fresh subprocess per run, uninstrumented; perf_counter per step; RSS from /proc/self/statm; peak RSS from getrusage; ONE separate tracemalloc-instrumented run gives allocation attribution only (its timings are not used)",
+ "steps": [
+  {
+   "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+   "ms_median": 509.0,
+   "ms_min": 503.9,
+   "ms_max": 514.8,
+   "rss_after_median_mb": 132.2,
+   "rss_delta_median_mb": 115.9
+  },
+  {
+   "step": "create_app",
+   "ms_median": 19.8,
+   "ms_min": 19.3,
+   "ms_max": 20.4,
+   "rss_after_median_mb": 133.2,
+   "rss_delta_median_mb": 1.0
+  },
+  {
+   "step": "repository_provenance (git subprocess + digest check)",
+   "ms_median": 54.9,
+   "ms_min": 53.7,
+   "ms_max": 57.4,
+   "rss_after_median_mb": 133.3,
+   "rss_delta_median_mb": 0.1
+  },
+  {
+   "step": "list_runs (fingerprint + parse every manifest)",
+   "ms_median": 51.4,
+   "ms_min": 49.4,
+   "ms_max": 55.1,
+   "rss_after_median_mb": 143.2,
+   "rss_delta_median_mb": 9.9
+  },
+  {
+   "step": "prospective_status (first assessment)",
+   "ms_median": 223.7,
+   "ms_min": 215.0,
+   "ms_max": 226.2,
+   "rss_after_median_mb": 170.7,
+   "rss_delta_median_mb": 27.5
+  },
+  {
+   "step": "catalogue (forecast_table.csv.gz load)",
+   "ms_median": 57.4,
+   "ms_min": 56.2,
+   "ms_max": 57.9,
+   "rss_after_median_mb": 179.3,
+   "rss_delta_median_mb": 8.7
+  },
+  {
+   "step": "run_manifest(latest) parse",
+   "ms_median": 2.6,
+   "ms_min": 2.6,
+   "ms_max": 2.7,
+   "rss_after_median_mb": 179.3,
+   "rss_delta_median_mb": 0.0
+  },
+  {
+   "step": "missions (telemetry metadata, header reads)",
+   "ms_median": 8.6,
+   "ms_min": 8.5,
+   "ms_max": 8.8,
+   "rss_after_median_mb": 181.7,
+   "rss_delta_median_mb": 2.4
+  },
+  {
+   "step": "twin_selection (P3-B: candidate digest + peek)",
+   "ms_median": 103.2,
+   "ms_min": 101.7,
+   "ms_max": 105.9,
+   "rss_after_median_mb": 182.4,
+   "rss_delta_median_mb": 0.7
+  },
+  {
+   "step": "GET / (overview page, remaining cold work)",
+   "ms_median": 91.8,
+   "ms_min": 85.5,
+   "ms_max": 96.0,
+   "rss_after_median_mb": 185.9,
+   "rss_delta_median_mb": 3.5
+  },
+  {
+   "step": "GET / (warm)",
+   "ms_median": 42.8,
+   "ms_min": 28.9,
+   "ms_max": 43.8,
+   "rss_after_median_mb": 187.6,
+   "rss_delta_median_mb": 0.7
+  },
+  {
+   "step": "GET /api/overview (warm)",
+   "ms_median": 13.9,
+   "ms_min": 12.2,
+   "ms_max": 24.9,
+   "rss_after_median_mb": 187.6,
+   "rss_delta_median_mb": 0.2
+  },
+  {
+   "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+   "ms_median": 1477.4,
+   "ms_min": 1449.1,
+   "ms_max": 1570.9,
+   "rss_after_median_mb": 223.5,
+   "rss_delta_median_mb": 35.9
+  },
+  {
+   "step": "GET /objects/37607 (first)",
+   "ms_median": 147.3,
+   "ms_min": 145.8,
+   "ms_max": 154.6,
+   "rss_after_median_mb": 248.0,
+   "rss_delta_median_mb": 21.7
+  },
+  {
+   "step": "GET /objects/37607 (warm)",
+   "ms_median": 32.3,
+   "ms_min": 24.6,
+   "ms_max": 41.4,
+   "rss_after_median_mb": 247.9,
+   "rss_delta_median_mb": 0.0
+  }
+ ],
+ "total_ms_median": 2848.7,
+ "rss_mb_end_median": 248.0,
+ "rss_mb_peak_median": 272.9,
+ "traced_run": {
+  "python_traced_mb_after_overview": 69.1,
+  "top_allocations_after_overview": [
+   {
+    "file": "<frozen importlib._bootstrap_external>",
+    "mb": 29.5
+   },
+   {
+    "file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pandas/core/dtypes/concat.py",
+    "mb": 9.1
+   },
+   {
+    "file": "<frozen importlib._bootstrap>",
+    "mb": 8.1
+   },
+   {
+    "file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/json/decoder.py",
+    "mb": 2.2
+   },
+   {
+    "file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/typing.py",
+    "mb": 1.5
+   },
+   {
+    "file": "<frozen abc>",
+    "mb": 1.1
+   },
+   {
+    "file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/dataclasses.py",
+    "mb": 1.0
+   },
+   {
+    "file": "/data2/anupa/envs/mmgen-xpu/lib/python3.12/site-packages/pyarrow/compute.py",
+    "mb": 0.5
+   }
+  ],
+  "note": "instrumented run: slower and larger than the uninstrumented runs by construction"
+ },
+ "raw_runs": [
+  {
+   "steps": [
+    {
+     "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+     "ms": 509.0,
+     "rss_mb_after": 132.1,
+     "rss_delta_mb": 115.8
+    },
+    {
+     "step": "create_app",
+     "ms": 19.7,
+     "rss_mb_after": 133.0,
+     "rss_delta_mb": 1.0
+    },
+    {
+     "step": "repository_provenance (git subprocess + digest check)",
+     "ms": 53.7,
+     "rss_mb_after": 133.1,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "list_runs (fingerprint + parse every manifest)",
+     "ms": 50.3,
+     "rss_mb_after": 143.0,
+     "rss_delta_mb": 9.9
+    },
+    {
+     "step": "prospective_status (first assessment)",
+     "ms": 215.0,
+     "rss_mb_after": 170.6,
+     "rss_delta_mb": 27.5
+    },
+    {
+     "step": "catalogue (forecast_table.csv.gz load)",
+     "ms": 56.3,
+     "rss_mb_after": 179.2,
+     "rss_delta_mb": 8.7
+    },
+    {
+     "step": "run_manifest(latest) parse",
+     "ms": 2.6,
+     "rss_mb_after": 179.2,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "missions (telemetry metadata, header reads)",
+     "ms": 8.5,
+     "rss_mb_after": 181.7,
+     "rss_delta_mb": 2.5
+    },
+    {
+     "step": "twin_selection (P3-B: candidate digest + peek)",
+     "ms": 101.7,
+     "rss_mb_after": 182.4,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET / (overview page, remaining cold work)",
+     "ms": 87.8,
+     "rss_mb_after": 185.9,
+     "rss_delta_mb": 3.5
+    },
+    {
+     "step": "GET / (warm)",
+     "ms": 43.8,
+     "rss_mb_after": 187.6,
+     "rss_delta_mb": 1.7
+    },
+    {
+     "step": "GET /api/overview (warm)",
+     "ms": 13.9,
+     "rss_mb_after": 187.6,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+     "ms": 1494.2,
+     "rss_mb_after": 223.5,
+     "rss_delta_mb": 35.9
+    },
+    {
+     "step": "GET /objects/37607 (first)",
+     "ms": 147.3,
+     "rss_mb_after": 245.6,
+     "rss_delta_mb": 22.1
+    },
+    {
+     "step": "GET /objects/37607 (warm)",
+     "ms": 32.3,
+     "rss_mb_after": 245.6,
+     "rss_delta_mb": 0.0
+    }
+   ],
+   "total_ms": 2854.2,
+   "rss_mb_end": 245.7,
+   "rss_mb_peak": 272.1,
+   "traced": false,
+   "python_traced_mb_after_overview": null,
+   "top_allocations_after_overview": null
+  },
+  {
+   "steps": [
+    {
+     "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+     "ms": 510.1,
+     "rss_mb_after": 132.3,
+     "rss_delta_mb": 115.9
+    },
+    {
+     "step": "create_app",
+     "ms": 20.4,
+     "rss_mb_after": 133.2,
+     "rss_delta_mb": 1.0
+    },
+    {
+     "step": "repository_provenance (git subprocess + digest check)",
+     "ms": 54.9,
+     "rss_mb_after": 133.4,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "list_runs (fingerprint + parse every manifest)",
+     "ms": 49.4,
+     "rss_mb_after": 143.2,
+     "rss_delta_mb": 9.9
+    },
+    {
+     "step": "prospective_status (first assessment)",
+     "ms": 225.5,
+     "rss_mb_after": 170.9,
+     "rss_delta_mb": 27.7
+    },
+    {
+     "step": "catalogue (forecast_table.csv.gz load)",
+     "ms": 57.9,
+     "rss_mb_after": 181.4,
+     "rss_delta_mb": 10.5
+    },
+    {
+     "step": "run_manifest(latest) parse",
+     "ms": 2.6,
+     "rss_mb_after": 181.4,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "missions (telemetry metadata, header reads)",
+     "ms": 8.8,
+     "rss_mb_after": 183.7,
+     "rss_delta_mb": 2.3
+    },
+    {
+     "step": "twin_selection (P3-B: candidate digest + peek)",
+     "ms": 105.9,
+     "rss_mb_after": 183.7,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "GET / (overview page, remaining cold work)",
+     "ms": 96.0,
+     "rss_mb_after": 187.3,
+     "rss_delta_mb": 3.5
+    },
+    {
+     "step": "GET / (warm)",
+     "ms": 43.3,
+     "rss_mb_after": 188.0,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET /api/overview (warm)",
+     "ms": 24.9,
+     "rss_mb_after": 188.1,
+     "rss_delta_mb": 0.2
+    },
+    {
+     "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+     "ms": 1570.9,
+     "rss_mb_after": 227.2,
+     "rss_delta_mb": 39.1
+    },
+    {
+     "step": "GET /objects/37607 (first)",
+     "ms": 154.6,
+     "rss_mb_after": 248.0,
+     "rss_delta_mb": 20.7
+    },
+    {
+     "step": "GET /objects/37607 (warm)",
+     "ms": 27.6,
+     "rss_mb_after": 247.9,
+     "rss_delta_mb": 0.0
+    }
+   ],
+   "total_ms": 2971.8,
+   "rss_mb_end": 248.0,
+   "rss_mb_peak": 266.4,
+   "traced": false,
+   "python_traced_mb_after_overview": null,
+   "top_allocations_after_overview": null
+  },
+  {
+   "steps": [
+    {
+     "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+     "ms": 514.8,
+     "rss_mb_after": 132.0,
+     "rss_delta_mb": 116.0
+    },
+    {
+     "step": "create_app",
+     "ms": 19.8,
+     "rss_mb_after": 133.0,
+     "rss_delta_mb": 1.0
+    },
+    {
+     "step": "repository_provenance (git subprocess + digest check)",
+     "ms": 57.4,
+     "rss_mb_after": 133.1,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "list_runs (fingerprint + parse every manifest)",
+     "ms": 52.3,
+     "rss_mb_after": 143.0,
+     "rss_delta_mb": 9.9
+    },
+    {
+     "step": "prospective_status (first assessment)",
+     "ms": 226.2,
+     "rss_mb_after": 170.5,
+     "rss_delta_mb": 27.4
+    },
+    {
+     "step": "catalogue (forecast_table.csv.gz load)",
+     "ms": 57.8,
+     "rss_mb_after": 179.2,
+     "rss_delta_mb": 8.7
+    },
+    {
+     "step": "run_manifest(latest) parse",
+     "ms": 2.6,
+     "rss_mb_after": 179.2,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "missions (telemetry metadata, header reads)",
+     "ms": 8.6,
+     "rss_mb_after": 181.5,
+     "rss_delta_mb": 2.4
+    },
+    {
+     "step": "twin_selection (P3-B: candidate digest + peek)",
+     "ms": 104.3,
+     "rss_mb_after": 182.2,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET / (overview page, remaining cold work)",
+     "ms": 91.8,
+     "rss_mb_after": 185.7,
+     "rss_delta_mb": 3.5
+    },
+    {
+     "step": "GET / (warm)",
+     "ms": 28.9,
+     "rss_mb_after": 186.4,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET /api/overview (warm)",
+     "ms": 12.2,
+     "rss_mb_after": 186.5,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+     "ms": 1477.4,
+     "rss_mb_after": 222.3,
+     "rss_delta_mb": 35.8
+    },
+    {
+     "step": "GET /objects/37607 (first)",
+     "ms": 147.5,
+     "rss_mb_after": 251.1,
+     "rss_delta_mb": 28.8
+    },
+    {
+     "step": "GET /objects/37607 (warm)",
+     "ms": 24.6,
+     "rss_mb_after": 251.1,
+     "rss_delta_mb": 0.0
+    }
+   ],
+   "total_ms": 2844.2,
+   "rss_mb_end": 251.1,
+   "rss_mb_peak": 272.9,
+   "traced": false,
+   "python_traced_mb_after_overview": null,
+   "top_allocations_after_overview": null
+  },
+  {
+   "steps": [
+    {
+     "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+     "ms": 509.0,
+     "rss_mb_after": 132.2,
+     "rss_delta_mb": 115.9
+    },
+    {
+     "step": "create_app",
+     "ms": 19.3,
+     "rss_mb_after": 133.2,
+     "rss_delta_mb": 1.0
+    },
+    {
+     "step": "repository_provenance (git subprocess + digest check)",
+     "ms": 54.8,
+     "rss_mb_after": 133.3,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "list_runs (fingerprint + parse every manifest)",
+     "ms": 55.1,
+     "rss_mb_after": 143.2,
+     "rss_delta_mb": 9.9
+    },
+    {
+     "step": "prospective_status (first assessment)",
+     "ms": 223.7,
+     "rss_mb_after": 170.8,
+     "rss_delta_mb": 27.6
+    },
+    {
+     "step": "catalogue (forecast_table.csv.gz load)",
+     "ms": 57.4,
+     "rss_mb_after": 180.8,
+     "rss_delta_mb": 10.0
+    },
+    {
+     "step": "run_manifest(latest) parse",
+     "ms": 2.7,
+     "rss_mb_after": 180.8,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "missions (telemetry metadata, header reads)",
+     "ms": 8.7,
+     "rss_mb_after": 183.3,
+     "rss_delta_mb": 2.5
+    },
+    {
+     "step": "twin_selection (P3-B: candidate digest + peek)",
+     "ms": 103.2,
+     "rss_mb_after": 183.4,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "GET / (overview page, remaining cold work)",
+     "ms": 85.5,
+     "rss_mb_after": 186.9,
+     "rss_delta_mb": 3.4
+    },
+    {
+     "step": "GET / (warm)",
+     "ms": 42.8,
+     "rss_mb_after": 188.3,
+     "rss_delta_mb": 1.4
+    },
+    {
+     "step": "GET /api/overview (warm)",
+     "ms": 13.7,
+     "rss_mb_after": 188.5,
+     "rss_delta_mb": 0.2
+    },
+    {
+     "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+     "ms": 1449.1,
+     "rss_mb_after": 226.4,
+     "rss_delta_mb": 37.9
+    },
+    {
+     "step": "GET /objects/37607 (first)",
+     "ms": 145.8,
+     "rss_mb_after": 248.1,
+     "rss_delta_mb": 21.7
+    },
+    {
+     "step": "GET /objects/37607 (warm)",
+     "ms": 41.4,
+     "rss_mb_after": 248.1,
+     "rss_delta_mb": 0.0
+    }
+   ],
+   "total_ms": 2829.6,
+   "rss_mb_end": 248.1,
+   "rss_mb_peak": 275.7,
+   "traced": false,
+   "python_traced_mb_after_overview": null,
+   "top_allocations_after_overview": null
+  },
+  {
+   "steps": [
+    {
+     "step": "import cosmos.product.api (pandas, numpy, fastapi, jinja)",
+     "ms": 503.9,
+     "rss_mb_after": 132.3,
+     "rss_delta_mb": 115.8
+    },
+    {
+     "step": "create_app",
+     "ms": 20.1,
+     "rss_mb_after": 133.2,
+     "rss_delta_mb": 1.0
+    },
+    {
+     "step": "repository_provenance (git subprocess + digest check)",
+     "ms": 56.0,
+     "rss_mb_after": 133.4,
+     "rss_delta_mb": 0.1
+    },
+    {
+     "step": "list_runs (fingerprint + parse every manifest)",
+     "ms": 51.4,
+     "rss_mb_after": 143.2,
+     "rss_delta_mb": 9.9
+    },
+    {
+     "step": "prospective_status (first assessment)",
+     "ms": 221.3,
+     "rss_mb_after": 170.7,
+     "rss_delta_mb": 27.4
+    },
+    {
+     "step": "catalogue (forecast_table.csv.gz load)",
+     "ms": 56.2,
+     "rss_mb_after": 179.3,
+     "rss_delta_mb": 8.7
+    },
+    {
+     "step": "run_manifest(latest) parse",
+     "ms": 2.6,
+     "rss_mb_after": 179.3,
+     "rss_delta_mb": 0.0
+    },
+    {
+     "step": "missions (telemetry metadata, header reads)",
+     "ms": 8.6,
+     "rss_mb_after": 181.7,
+     "rss_delta_mb": 2.4
+    },
+    {
+     "step": "twin_selection (P3-B: candidate digest + peek)",
+     "ms": 102.3,
+     "rss_mb_after": 182.4,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET / (overview page, remaining cold work)",
+     "ms": 94.1,
+     "rss_mb_after": 185.9,
+     "rss_delta_mb": 3.5
+    },
+    {
+     "step": "GET / (warm)",
+     "ms": 37.8,
+     "rss_mb_after": 186.6,
+     "rss_delta_mb": 0.7
+    },
+    {
+     "step": "GET /api/overview (warm)",
+     "ms": 14.1,
+     "rss_mb_after": 186.8,
+     "rss_delta_mb": 0.2
+    },
+    {
+     "step": "GET /api/twin-state (P3-B, first: stream archive + compare)",
+     "ms": 1476.1,
+     "rss_mb_after": 221.6,
+     "rss_delta_mb": 34.8
+    },
+    {
+     "step": "GET /objects/37607 (first)",
+     "ms": 146.2,
+     "rss_mb_after": 243.3,
+     "rss_delta_mb": 21.7
+    },
+    {
+     "step": "GET /objects/37607 (warm)",
+     "ms": 39.8,
+     "rss_mb_after": 243.3,
+     "rss_delta_mb": 0.0
+    }
+   ],
+   "total_ms": 2848.7,
+   "rss_mb_end": 243.3,
+   "rss_mb_peak": 279.8,
+   "traced": false,
+   "python_traced_mb_after_overview": null,
+   "top_allocations_after_overview": null
+  }
+ ]
+}

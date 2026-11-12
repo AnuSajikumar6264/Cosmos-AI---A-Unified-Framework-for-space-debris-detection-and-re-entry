@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+{% block topmeta %}
+  {% if overview.latest_run %}
+    <span class="mode-badge historical">HISTORICAL · {{ overview.latest_run.run_id }}</span>
+  {% else %}no run loaded{% endif %}
+{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>Archived snapshot {{ overview.catalogue.as_of if overview.catalogue else "2026-10-27" }}</b> — read-only evidence twin: no live tracking, no model run at request time. Scope and evidence boundary</summary>
+  <div class="scope-body">
+  <strong>Evidence boundary.</strong> Every figure below is read from a saved COSMOS-AI
+  artifact or a dated catalogue snapshot. This console does <strong>not</strong> track
+  satellites live, and a dated snapshot is never presented as real-time. Software tests
+  passing is not scientific validation.
+  <br><strong>What this system is today.</strong> COSMOS-AI is a <strong>read-only evidence twin</strong>:
+  no model runs at prediction time, every value is read from an archived evaluation or the dated
+  catalogue snapshot, and no live telemetry, tracking or conjunction-message feed is connected.
+  Telemetry, conjunction and imagery evidence are independent benchmark roots that cannot be attributed
+  to any catalogued object; they are not combined into a satellite health assessment.
+  <br><strong>Evidence classes.</strong> This console serves <strong>archived real-data evaluations</strong>
+  only (anonymised ESA-ADB telemetry, Kelvins conjunction events, SpotGEO frames, the CelesTrak/GCAT
+  snapshot). The project's <strong>synthetic demonstration data</strong> — simulator telemetry and rendered
+  imagery of the legacy chain — is not shown here and is never mixed with real-data evidence.
+<p><strong>How to read the globe.</strong> Orbit size, shape and tilt are archived values; orientation about the pole
+  and each marker's place on its ellipse are a labelled screen layout. No position at a time, no ground track, nothing
+  propagated, no object animated in time — only the camera moves. <a href="/explorer">Full view and geometry basis</a>.</p>
+  </div>
+</details>
+{% endblock %}
+
+{% block content %}
+
+{# --- visual mission picture (2026-11-09). Added above the existing panels; nothing below is changed. --- #}
+{%- set cat = overview.catalogue %}
+{%- set tws = (readiness.checks.twin_state_source if readiness.checks is mapping else None) or {} %}
+<div class="kpis compact">
+  <div class="kpi" title="Objects in the archived catalogue snapshot this console reads"><div class="k-label">Catalogue</div>
+    {%- if cat %}<div class="k-value">{{ cat.objects | fmt(0) }}<small>objects</small></div>
+    <div class="k-foot">snapshot {{ cat.as_of }}</div>
+    {%- else %}<div class="k-value absent">not available</div><div class="k-foot">no snapshot here</div>{% endif %}</div>
+  <div class="kpi warn" title="Sum of the reported 30-day re-entry probabilities. An expectation, not a count of warnings."><div class="k-label">Expected re-entries 30 d</div>
+    {%- if cat %}<div class="k-value">{{ cat.expected_reentries_30d | fmt(1) }}</div><div class="k-foot">sum of p(30 d)</div>
+    {%- else %}<div class="k-value absent">n/a</div><div class="k-foot">requires the snapshot</div>{% endif %}</div>
+  <div class="kpi" title="Objects whose reported 30-day probability exceeds one half"><div class="k-label">p(30 d) &gt; 0.5</div>
+    <div class="k-value">{{ cat.objects_p30d_above_half | fmt(0) if cat else '—' }}<small>objects</small></div>
+    <div class="k-foot">a probability, not an alert</div></div>
+  <div class="kpi violet" title="Which twin-state archive is in use and whether its digest verified"><div class="k-label">Twin state</div>
+    <div class="k-value" style="font-size:14px">{{ tws.get('selected') or 'unavailable' }}</div>
+    <div class="k-foot">{{ (tws.get('status') or '') | replace('_', ' ') }} · <a href="/twin-state">verify</a></div></div>
+  <div class="kpi neutral" title="Age of the snapshot. The console never calls it current."><div class="k-label">Snapshot age</div>
+    <div class="k-value">{% if overview.snapshot_age and overview.snapshot_age.get('age_days') is not none %}{{ overview.snapshot_age.get('age_days') | fmt(0) }}<small>days</small>{% else %}<small>n/a</small>{% endif %}</div>
+    <div class="k-foot">{{ 'STALE by design' if overview.snapshot_age and overview.snapshot_age.get('stale') else 'current' }}</div></div>
+  <div class="kpi neutral" title="Versioned pipeline runs recorded in this checkout"><div class="k-label">Pipeline runs</div>
+    <div class="k-value">{{ overview.runs_total | fmt(0) }}</div>
+    <div class="k-foot"><a href="/runs">run explorer</a></div></div>
+</div>
+
+{%- if cat %}
+<div class="dash">
+  <div class="dash-globe">
+    <div class="stage">
+      <canvas id="globe-canvas" aria-label="Globe with schematic orbits of the highest-probability objects"></canvas>
+      <div class="stage-hud">
+        <div class="hud-title">Mission picture</div>
+        <div class="hud-line">snapshot <b>{{ cat.as_of }}</b> · archived, not live</div>
+        <div class="hud-line" id="globe-status">reading archived geometry…</div>
+        <div class="hud-line">drag to rotate · wheel to zoom · click a marker</div>
+      </div>
+      <div class="stage-legend">
+        <span class="key"><span class="swatch" style="background:#4fc7f0"></span>payload</span>
+        <span class="key"><span class="swatch" style="background:#a67de8"></span>rocket body</span>
+        <span class="key"><span class="swatch" style="background:#8ca6c7"></span>component</span>
+        <span class="key"><span class="swatch" style="background:#e6ad54"></span>fragment</span>
+      </div>
+      <div class="stage-controls">
+        <button type="button" class="btn secondary" id="globe-zoom-in">zoom in</button>
+        <button type="button" class="btn secondary" id="globe-zoom-out">zoom out</button>
+        <button type="button" class="btn secondary" id="globe-spin" aria-pressed="true">pause camera orbit</button>
+        <button type="button" class="btn secondary" id="globe-reset">reset camera</button>
+        <a class="btn secondary" href="/explorer">full explorer</a>
+      </div>
+      <div id="globe-tooltip" aria-hidden="true"></div>
+      <div id="globe-selected-label" aria-hidden="true"></div>
+      <div class="stage-fallback" id="globe-fallback" hidden>
+        <p><strong>The globe cannot be drawn in this browser.</strong></p>
+        <p id="globe-fallback-reason">WebGL is unavailable.</p>
+        <p>The evidence tables below carry the same values without it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-right globe-side">
+    <h2>Selected object</h2>
+    <div class="side-body">
+      <div id="twin-record"><p class="panel-note">click a marker, or pick an object on the
+        <a href="/explorer">explorer</a>.</p></div>
+      <div class="twin-group"><h4>Drawn geometry</h4><dl class="kv" id="twin-geometry"></dl></div>
+    </div>
+  </div>
+
+  <div class="dash-strip">
+    <div class="dash-tile">
+      <h3>Re-entry probability spread <a href="/intelligence">detail</a></h3>
+      <div class="tile-body">{{ p30_chart | safe }}</div>
+    </div>
+    <div class="dash-tile">
+      <h3>Collision probability, held-out benchmark <a href="/risk">detail</a></h3>
+      <div class="tile-body">{% if collision_chart %}{{ collision_chart | safe }}
+        {%- else %}<div class="empty">conjunction predictions are not present in this checkout</div>{% endif %}</div>
+    </div>
+    <div class="dash-tile">
+      <h3>Mission activity <a href="/runs">runs</a></h3>
+      <div class="tile-body">
+        {%- if timeline %}
+        {%- for item in timeline[:5] %}
+        <div class="finding" style="padding:.3rem 0">
+          <span class="timeline-dot {{ item.tone }}" style="position:static;margin-top:.35rem"></span>
+          <div><div class="timeline-when">{{ item.when }}</div>
+            <div class="timeline-what" style="font-size:11.5px">{{ item.what }}</div></div>
+        </div>
+        {%- endfor %}
+        {%- else %}<div class="empty">no run history</div>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif %}
+
+<details class="more">
+  <summary>Full evidence tables — readiness, findings, module status, abstentions, datasets</summary>
+  <div class="more-body">
+{% set rd = readiness %}
+<div class="panel" data-test="system-readiness">
+  <h2>System readiness
+    {% if rd.ready %}<span class="status status-pass">READY</span>{% else %}<span class="status status-fail">NOT READY</span>{% endif %}
+    <span class="count">— the console's artifacts, not any spacecraft</span></h2>
+  <p class="panel-note">{{ rd.note }}. Same record as <a href="/api/ready"><code>/api/ready</code></a>
+    ({{ '200' if rd.ready else '503' }}).{% if rd.failing_checks %} <strong>Failing:</strong> {{ rd.failing_checks | join(', ') }}.{% endif %}</p>
+  <div class="grid two">
+    <table class="data">
+      <tbody>
+        <tr><th>Forecast table present</th><td>{{ 'yes' if rd.checks.forecast_table_present else 'NO' }}</td></tr>
+        <tr><th>Dated-forecast digest</th><td><span class="status status-{{ 'pass' if rd.checks.dated_forecast_digest_state == 'verified' else ('partial' if rd.checks.dated_forecast_digest_state == 'absent' else 'fail') }}">{{ rd.checks.dated_forecast_digest_state | upper }}</span></td></tr>
+        <tr><th>Complete pipeline run</th><td>{% if rd.latest_run %}<a href="/runs/{{ rd.latest_run }}">{{ rd.latest_run }}</a>{% else %}<span class="status status-unavailable">NONE</span>{% endif %}</td></tr>
+        <tr><th>Re-emitted twin state present</th><td>{{ 'yes' if rd.checks.twin_state_reemitted_present else 'NO' }}</td></tr>
+        <tr><th>Twin-state source</th><td>{% set tw = rd.checks.twin_state_source %}<span class="status status-{{ 'info' if tw.status == 'primary' else ('unavailable' if tw.status == 'unavailable' or (tw.status and tw.status.startswith('error')) else 'partial') }}">{{ (tw.status or 'unknown') | upper }}</span> {{ tw.selected or 'none' }} under policy <code>{{ tw.policy }}</code> · <a href="/twin-state">Twin State</a></td></tr>
+      </tbody>
+    </table>
+    <table class="data">
+      <tbody>
+        <tr><th>Checkout commit</th><td class="mono">{{ (rd.checks.git_commit or 'unavailable')[:12] }}</td></tr>
+        <tr><th>Snapshot date · age</th><td>{{ overview.snapshot_age.as_of }} · {{ overview.snapshot_age.age_days }} d on {{ overview.snapshot_age.evaluated_on_utc }}{% if overview.snapshot_age.stale %} <span class="status status-stale">STALE</span>{% endif %}</td></tr>
+        <tr><th>Schema versions</th><td class="mono">{% for k, v in rd.schema_versions.items() %}{{ k }} {{ v }}{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>
+        <tr><th>Prospective evaluation</th><td><span class="status status-{{ 'pass' if overview.prospective == 'READY' else 'blocked' }}">{{ overview.prospective }}</span> · <a href="/prospective">details</a></td></tr>
+        <tr><th>Live sources</th><td>none connected; every value is archived</td></tr>
+      </tbody>
+    </table>
+  </div>
+  {% if rd.warnings %}<ul class="panel-note">{% for w in rd.warnings %}<li>⚠ {{ w }}</li>{% endfor %}</ul>{% endif %}
+</div>
+
+{% if overview.catalogue %}
+<div class="panel">
+  <h2>Catalogue snapshot <span class="count">— as of {{ overview.catalogue.as_of }}</span></h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Objects in snapshot</div>
+      <div class="value">{{ overview.catalogue.objects | fmt }}</div>
+      <div class="foot">perigee &lt; 2000 km, in orbit</div>
+    </div>
+    <div class="metric">
+      <div class="label">Expected re-entries, 30 d</div>
+      <div class="value">{{ overview.catalogue.expected_reentries_30d | fmt(2) }}</div>
+      <div class="foot">sum of per-object probabilities</div>
+    </div>
+    <div class="metric">
+      <div class="label">Objects P(30 d) &gt; 0.5</div>
+      <div class="value">{{ overview.catalogue.objects_p30d_above_half | fmt }}</div>
+      <div class="foot">highest-probability decays</div>
+    </div>
+    <div class="metric">
+      <div class="label">With catalogued mass</div>
+      <div class="value">{{ overview.catalogue.with_mass | fmt }}</div>
+      <div class="foot">of {{ overview.catalogue.objects | fmt }} objects</div>
+    </div>
+    <div class="metric">
+      <div class="label">With lifetime estimate</div>
+      <div class="value">{{ overview.catalogue.with_lifetime_estimate | fmt }}</div>
+      <div class="foot">learned expert in-cohort</div>
+    </div>
+  </div>
+
+  <div class="grid two" style="margin-top:1rem">
+    <div>
+      <h3 style="font-size:12px;color:var(--ink-faint);margin:.2rem 0 .4rem">By re-entry regime</h3>
+      <table class="kv">
+        {% for name, count in overview.catalogue.by_regime.items() %}
+        <tr><th>{{ name.replace('_', ' ') }}</th><td>{{ count | fmt }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div>
+      <h3 style="font-size:12px;color:var(--ink-faint);margin:.2rem 0 .4rem">By object class</h3>
+      <table class="kv">
+        {% for name, count in overview.catalogue.by_class.items() %}
+        <tr><th>{{ name }}</th><td>{{ count | fmt }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="panel">
+  <h2>Catalogue snapshot</h2>
+  <div class="unavailable-state">
+    <strong>UNAVAILABLE</strong> — no catalogue snapshot is present in this workspace.
+  </div>
+</div>
+{% endif %}
+
+<div class="panel">
+  <h2>Assessment findings <span class="count">— from the latest run</span></h2>
+  {% if overview.findings %}
+    {% for finding in overview.findings %}
+    <div class="finding">
+      <span class="status status-{{ finding.level | lower }}">{{ finding.level }}</span>
+      <span>{{ finding.text }}</span>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty">No findings recorded for the latest run.</div>
+  {% endif %}
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Module status <span class="count">— latest run</span></h2>
+    {% if overview.module_status %}
+    <table class="data">
+      <thead><tr><th>Module</th><th>Status</th><th>Evidence class</th></tr></thead>
+      <tbody>
+      {% for name, status in overview.module_status.items() %}
+        <tr>
+          <td>{{ name }}</td>
+          <td><span class="status status-{{ status }}">{{ status }}</span></td>
+          <td>{{ (overview.module_evidence_class or {}).get(name, 'not classified') }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="panel-note">A failed module writes no output and its dependants are blocked,
+      never completed with substituted values.</p>
+    {% else %}
+    <div class="empty">No pipeline run is present.
+      <a href="/scenario">Start a scenario run</a>.</div>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Abstentions <span class="count">— latest run</span></h2>
+    {% if overview.abstentions %}
+      {% for module, reasons in overview.abstentions.items() %}
+      <details class="evidence" open>
+        <summary>{{ module }} — {{ reasons.values() | sum }} object(s)</summary>
+        <div class="body">
+          <ul>
+          {% for reason, count in reasons.items() %}
+            <li><strong>{{ count | fmt }}</strong> — {{ reason }}</li>
+          {% endfor %}
+          </ul>
+          <p>An abstention means no value was produced. Nothing is imputed in its place.</p>
+        </div>
+      </details>
+      {% endfor %}
+    {% else %}
+      <div class="empty">No abstentions recorded in the latest run.</div>
+    {% endif %}
+  </div>
+</div>
+
+{% if collision %}
+<div class="panel">
+  <h2>Conjunction evidence <span class="count">— {{ collision.events_returned | fmt }} of
+    {{ collision.events_total | fmt }} anonymised events</span></h2>
+  {{ collision_chart | safe }}
+  <div class="legend">
+    <span class="key"><span class="swatch" style="background:#4ea8de"></span>below high-risk threshold</span>
+    <span class="key"><span class="swatch" style="background:#d98236"></span>at or above 1e-6</span>
+  </div>
+  <p class="chart-caption">
+    Physical collision probability of each event's final CDM. Operational priority is a
+    separate decision-layer quantity and is not shown here.
+    Values at the reporting floor (1e{{ collision.reporting_floor_log10 | int }}) mean
+    "below the reported floor", not an exact probability.
+  </p>
+  <p class="panel-note">{{ collision.identity_note }}</p>
+</div>
+{% endif %}
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Recent pipeline runs <span class="count">— {{ overview.runs_total }} total</span></h2>
+    {% if overview.runs_recent %}
+    <table class="data">
+      <thead><tr><th>Run</th><th>As of</th><th>Result</th><th>Modules</th></tr></thead>
+      <tbody>
+      {% for run in overview.runs_recent %}
+        <tr>
+          <td><a href="/runs/{{ run.run_id }}">{{ run.run_id }}</a></td>
+          <td>{{ run.as_of or '—' }}</td>
+          <td>
+            {% if not run.complete %}<span class="status status-partial">INCOMPLETE</span>
+            {% elif run.successful %}<span class="status status-pass">PASS</span>
+            {% else %}<span class="status status-fail">FAIL</span>{% endif %}
+            {% if not run.snapshot_consistent %}
+              <span class="status status-fail">MIXED SNAPSHOTS</span>{% endif %}
+          </td>
+          <td class="chip-row">
+            {% for status, count in run.module_counts.items() %}
+              <span class="chip">{{ count }} {{ status }}</span>
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty">No pipeline runs yet.</div>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Provenance and modes</h2>
+    <table class="kv">
+      <tr><th>Git commit</th>
+        <td class="mono">{{ overview.repository.git_commit or '—' }}</td></tr>
+      <tr><th>Tracked worktree</th>
+        <td>{% if overview.repository.tracked_worktree_dirty %}
+          <span class="status status-partial">MODIFIED</span>
+          results may not match the commit
+        {% else %}<span class="status status-pass">CLEAN</span>{% endif %}</td></tr>
+      <tr><th>Dated forecast digest</th>
+        <td>{% if overview.repository.dated_forecast_digest_state == 'verified' %}
+          <span class="status status-pass">VERIFIED</span>
+        {% elif overview.repository.dated_forecast_digest_state == 'MISMATCH' %}
+          <span class="status status-fail">MISMATCH</span>
+        {% else %}<span class="status status-unavailable">
+          {{ overview.repository.dated_forecast_digest_state }}</span>{% endif %}</td></tr>
+      <tr><th>Prospective evaluation</th>
+        <td><span class="status status-{{ 'pass' if overview.prospective == 'READY' else 'blocked' }}">
+          {{ overview.prospective }}</span>
+          <a href="/prospective">protocol</a></td></tr>
+    </table>
+    <details class="evidence">
+      <summary>Operating modes</summary>
+      <div class="body"><ul>
+        {% for key, text in MODES.items() %}<li><strong>{{ key }}</strong> — {{ text }}</li>{% endfor %}
+      </ul></div>
+    </details>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Datasets available to this console</h2>
+  <table class="data">
+    <thead><tr><th>Dataset</th><th>State</th><th>Records</th><th>Identity key</th><th>Detail</th></tr></thead>
+    <tbody>
+    {% for dataset in datasets.datasets %}
+      <tr>
+        <td>{{ dataset.label }}</td>
+        <td>{% if dataset.available %}<span class="status status-pass">AVAILABLE</span>
+          {% else %}<span class="status status-unavailable">UNAVAILABLE</span>{% endif %}</td>
+        <td class="num">{{ dataset.records | fmt }}</td>
+        <td>{{ dataset.identity }}</td>
+        <td>{{ dataset.detail }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="panel-note">
+    Telemetry and conjunction datasets are anonymised, so they share no identifier with the
+    catalogue. Only the catalogue chain is identity-linked, by NORAD ID, within one snapshot.
+  </p>
+</div>
+{% endblock %}
+
+  </div>
+</details>
+{% block scripts %}
+<script type="application/json" id="globe-config">{{ config_json | safe }}</script>
+<script src="/static/js/cosmos-globe.js"></script>
+<script src="/static/js/cosmos-explorer.js"></script>
+{% endblock %}

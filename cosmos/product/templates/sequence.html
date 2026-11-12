@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ record.total_detections }} detection(s) across {{ record.frames | length }} frame(s){% endblock %}
+
+{% block scope %}
+<div class="scope-note">
+  Real SpotGEO frame with the pixel coordinates of the <strong>classical COSMOS front end</strong> overlaid
+  (official F1 0.084; the learned U-Net detectors scored about 0.75 but have no archived per-detection output).
+  Markers are plain rings of fixed size: this detector reports <strong>no confidence</strong>, so no visual
+  channel may imply one.
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="panel">
+  <h2>Sequence {{ record.sequence_id }}
+    <span class="count">— frame {{ selected.frame if selected else '—' }}</span></h2>
+  <div class="controls">
+    {% for frame in record.frames %}
+      <a class="btn {{ 'secondary' if not (selected and frame.frame == selected.frame) }}"
+         href="/debris/{{ record.sequence_id }}?frame={{ frame.frame }}">
+        frame {{ frame.frame }} ({{ frame.detections | length }})</a>
+    {% endfor %}
+  </div>
+
+  {% if selected %}
+    {% if selected.image_available %}
+      {{ overlay | safe }}
+      <p class="chart-caption">
+        {{ record.image_size_px[0] }}×{{ record.image_size_px[1] }} px grayscale frame,
+        <code>{{ selected.image_path }}</code>.
+        {{ selected.detections | length }} detection(s) marked. Hover a marker for its
+        pixel coordinates.
+      </p>
+    {% else %}
+      <div class="unavailable-state">
+        <strong>IMAGE UNAVAILABLE</strong> — the frame file is not present, so detections
+        cannot be shown in context. Their coordinates are still listed below.
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="empty">This sequence has no frames with saved detections.</div>
+  {% endif %}
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Detections in this frame</h2>
+    {% if selected and selected.detections %}
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>#</th><th>x (px)</th><th>y (px)</th><th>Confidence</th></tr></thead>
+        <tbody>
+        {% for detection in selected.detections %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td class="num">{{ detection.x_px | fmt(2) }}</td>
+            <td class="num">{{ detection.y_px | fmt(2) }}</td>
+            <td class="absent">not reported</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty">No detection was reported in this frame.</div>
+    {% endif %}
+  </div>
+
+  <div class="panel">
+    <h2>Detector and evidence status</h2>
+    <table class="kv">
+      <tr><th>Detector</th><td>{{ record.detector }}</td></tr>
+      <tr><th>Total detections</th><td>{{ record.total_detections }}</td></tr>
+      <tr><th>Confidence</th>
+        <td><span class="status status-unavailable">UNAVAILABLE</span></td></tr>
+      <tr><th>Absolute timestamp</th>
+        <td><span class="status status-unavailable">UNAVAILABLE</span></td></tr>
+      <tr><th>Astrometric calibration</th>
+        <td><span class="status status-unavailable">NOT APPLIED</span></td></tr>
+    </table>
+    <details class="evidence" open>
+      <summary>Why confidence and time are absent</summary>
+      <div class="body">
+        <p>{{ record.confidence_note }}</p>
+        <p>{{ record.timestamp_note }}</p>
+        <p><strong>Evidence:</strong> {{ record.evidence_status }}</p>
+        <p>Without astrometric calibration these pixel positions cannot be converted to sky
+          coordinates or matched to a catalogued object.</p>
+      </div>
+    </details>
+  </div>
+</div>
+{% endblock %}

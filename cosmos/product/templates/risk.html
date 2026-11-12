@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block topmeta %}{{ evidence.events_returned | fmt }} of {{ evidence.events_total | fmt }} events · model {{ evidence.model }}{% endblock %}
+
+{% block scope %}
+<details class="scope">
+  <summary><b>Anonymised held-out benchmark events, never an operational warning</b> — full scope and limitations</summary>
+  <div class="scope-body">
+  <strong>Physical collision probability only.</strong> {{ evidence.priority_note }}.
+  {{ evidence.identity_note }}. This is not a validated collision-avoidance capability.
+</div>
+</details>
+{% endblock %}
+
+{% block content %}
+
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Held-out events</div>
+    <div class="k-value">{{ evidence.events_total | fmt(0) }}</div>
+    <div class="k-foot">Kelvins CAC test split</div></div>
+  <div class="kpi"><div class="k-label">Served model</div>
+    <div class="k-value" style="font-size:14px">{{ evidence.model }}</div>
+    <div class="k-foot">{{ evidence.available_models | length }} archived arms</div></div>
+  <div class="kpi warn"><div class="k-label">Above the high-risk threshold</div>
+    <div class="k-value">{{ high_risk | length | fmt(0) }}<small>of {{ evidence.events_returned | fmt(0) }} shown</small></div>
+    <div class="k-foot">a benchmark label, not a warning</div></div>
+  <div class="kpi neutral"><div class="k-label">Identity link</div>
+    <div class="k-value absent">none</div>
+    <div class="k-foot">events are anonymised (L1)</div></div>
+  <div class="kpi neutral"><div class="k-label">Health escalation (C4)</div>
+    <div class="k-value absent">abstains</div>
+    <div class="k-foot">no identity-linked health evidence</div></div>
+</div>
+
+<details class="evidence" data-test="methodology">
+  <summary>Methodology, dataset provenance and limitations</summary>
+  <div class="body">
+    <p><strong>Dataset.</strong> ESA Kelvins Collision Avoidance Challenge: anonymised conjunction data message (CDM) time
+      series for 13,154 training events (8,293 kept after filtering) and a held-out split of 2,167 events, 150 of them above the
+      1e-6 high-risk threshold (<code>outputs/benchmarks/conjunction_kelvins_cac/summary.json</code>). Event ids are positional
+      indices; no NORAD identity exists in the data.</p>
+    <p><strong>Method.</strong> Quantile regression of log10 collision probability from the last CDM's features (learner
+      selected out-of-fold among tabm, tabicl and kumo; kumo best), with the <code>{{ evidence.model }}</code> reliability
+      gate. Metrics: pinball loss on the predicted quantiles and conditional coverage by risk stratum. Positioned against the
+      challenge's published baselines (X12).</p>
+    <p><strong>Finding.</strong> The gate's mean test weight is about 0.0002, so the gated fusion contributes almost nothing:
+      a negative result anchored to the public benchmark. Conditional coverage fails in the high-risk stratum, where it matters.</p>
+    <p><strong>Limitations.</strong> Benchmark predictions on archived events; not a validated collision-avoidance capability;
+      no event can be attributed to a catalogued object; health evidence never changes a physical probability (coupling C4 abstains).</p>
+  </div>
+</details>
+
+<div class="panel">
+  <h2>Distribution of physical collision probability</h2>
+  {{ chart | safe }}
+  <div class="legend">
+    <span class="key"><span class="swatch" style="background:#4ea8de"></span>below 1e-6</span>
+    <span class="key"><span class="swatch" style="background:#d98236"></span>at or above 1e-6 (high-risk screening threshold)</span>
+  </div>
+  <p class="chart-caption">
+    Median of the predicted quantiles of log10 collision probability for each event's final
+    conjunction data message. Probabilities are clipped at a reporting floor of
+    1e{{ evidence.reporting_floor_log10 | int }}; a value at the floor means
+    "below the reported floor", not an exact probability.
+  </p>
+</div>
+
+<div class="metrics">
+  <div class="metric">
+    <div class="label">Events in split</div>
+    <div class="value">{{ evidence.events_total | fmt }}</div>
+    <div class="foot">held-out CAC events</div>
+  </div>
+  <div class="metric">
+    <div class="label">Above high-risk threshold</div>
+    <div class="value">{{ high_risk | length }}</div>
+    <div class="foot">of {{ evidence.events_returned | fmt }} shown</div>
+  </div>
+  <div class="metric">
+    <div class="label">Operational priority</div>
+    <div class="value absent">not derived</div>
+    <div class="foot">decision-layer quantity</div>
+  </div>
+  <div class="metric">
+    <div class="label">Coupling C4 escalation</div>
+    <div class="value absent">abstained</div>
+    <div class="foot">no identity linkage</div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Highest-probability events</h2>
+  {% set shown = high_risk if high_risk else evidence.events[:25] %}
+  {% if not high_risk %}
+  <p class="panel-note">No event in this selection exceeds the 1e-6 screening threshold.
+    The highest-probability events are listed instead.</p>
+  {% endif %}
+  <div class="scroll">
+    <table class="data">
+      <thead><tr>
+        <th>Event</th><th>P(collision)</th><th>5 % bound</th><th>95 % bound</th>
+        <th>At floor</th><th>Operational priority</th>
+      </tr></thead>
+      <tbody>
+      {% for event in shown %}
+        <tr>
+          <td class="mono">{{ event.event_id }}</td>
+          <td class="num">{{ event.collision_probability | fmt(3) }}</td>
+          <td class="num">{{ event.interval_lower | fmt(3) }}</td>
+          <td class="num">{{ event.interval_upper | fmt(3) }}</td>
+          <td>{% if event.at_reporting_floor %}
+            <span class="status status-blocked">FLOOR</span>{% else %}—{% endif %}</td>
+          <td class="absent">not derived</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="panel-note">
+    Intervals are the 5 % and 95 % quantiles of the predicted log10 probability
+    (nominal {{ evidence.quantile_level if evidence.quantile_level is defined else '90' }}% level).
+    The <code>operational priority</code> column is deliberately empty: priority is never
+    computed from, or fused into, a physical probability.
+  </p>
+</div>
+
+<div class="grid two">
+  <div class="panel">
+    <h2>Abstention — coupling C4</h2>
+    <div class="unavailable-state" style="text-align:left">
+      <span class="status status-abstain">ABSTAIN</span>
+      <strong>No health-driven escalation.</strong> {{ evidence.escalation_reason }}
+    </div>
+    <p class="panel-note">A health anomaly may justify changing operational priority. It must
+      never change the physical probability of a collision, and this console does not let it.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Evidence status</h2>
+    <table class="kv">
+      <tr><th>Model</th><td>{{ evidence.model }}</td></tr>
+      <tr><th>Available models</th><td class="mono">{{ evidence.available_models | join(', ') }}</td></tr>
+      <tr><th>Identity linkable</th>
+        <td><span class="status status-unavailable">NO</span></td></tr>
+      <tr><th>Quantile levels</th><td class="mono">{{ evidence.quantile_levels | join(', ') }}</td></tr>
+      <tr><th>Reporting floor</th><td>1e{{ evidence.reporting_floor_log10 | int }}</td></tr>
+    </table>
+    <details class="evidence">
+      <summary>Validation status</summary>
+      <div class="body">
+        <p>{{ evidence.evidence_status }}</p>
+        <p>Benchmark performance on a held-out split is not independent operational
+          validation, and no avoidance manoeuvre decision is validated by this evidence.</p>
+      </div>
+    </details>
+  </div>
+</div>
+{% endblock %}
