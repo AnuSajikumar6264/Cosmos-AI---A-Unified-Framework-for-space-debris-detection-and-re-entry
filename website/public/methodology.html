@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology — COSMOS-AI</title>
+<meta name="description" content="Architecture, data pipeline, King-Hele drag physics with NRLMSIS 2.1, the learned quantile models, reliability-gated fusion and conformal calibration.">
+<meta name="author" content="Anupa Sajikumar">
+<meta property="og:title" content="Methodology — COSMOS-AI">
+<meta property="og:description" content="Architecture, data pipeline, King-Hele drag physics with NRLMSIS 2.1, the learned quantile models, reliability-gated fusion and conformal calibration.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="page">
+<div class="nav-outer"><div class="wrap"><nav class="nav">
+  <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-links"><a href="index.html">Home</a><a href="problem.html">Problem</a><a href="objectives.html">Objectives</a><a href="methodology.html" aria-current="page">Methodology</a><a href="demonstration.html">Demonstration</a><a href="progress.html">Progress</a><a href="documentation.html">Documentation</a><a href="videos.html">Videos</a><a href="team.html">Team</a>
+    <a class="nav-cta" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav></div></div>
+<main id="main">
+<section class="hero" style="padding-bottom:1.5rem"><div class="wrap">
+  <span class="eyebrow"><span class="dot"></span>Methodology</span>
+  <h1 style="max-width:26ch">Physics, learning,<br>and an honest referee</h1>
+  <p class="lede">Two layers share one codebase. The benchmark layer fits and scores predictors at
+  historical origins. The runtime layer applies the validated configuration once, at a dated
+  catalogue snapshot, and archives the result; the console only reads that archive.</p>
+</div></section>
+<section style="padding-top:1rem"><div class="wrap">
+  <figure>
+    <img src="assets/img/fig/architecture.png" alt="COSMOS-AI system architecture: data sources, feature pipelines, physics and learned experts, fusion, calibration and the runtime twin">
+    <figcaption>System architecture and data flow. Source: <code>paper/figures/architecture/</code>,
+    generated from the implementation.</figcaption>
+  </figure>
+
+  <div class="sec-head mt3"><span class="kicker">Step 1 · Data pipeline</span>
+    <h2>From catalogue rows to an ordered cohort</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>What happens</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Ingest</td><td>GCAT 1.8.8 catalogue, CelesTrak SATCAT and SW-All space weather, all dated local snapshots</td><td class="num">69,999 rows</td></tr>
+        <tr><td>Filter</td><td>Drop non-Earth or untyped objects, uncertain status codes, orbits without a day-precise epoch, perigee &ge; 2000 km, imprecise or impossible end dates</td><td class="num">− 5,483</td></tr>
+        <tr><td>Cohort</td><td>One row per object with a LEO-crossing canonical orbit and a known or censored outcome</td><td class="num">64,516</td></tr>
+        <tr><td>Outcomes</td><td>32,970 natural decays, 29,562 still in orbit, 1,984 controlled or other endings</td><td class="num">—</td></tr>
+        <tr><td>Features</td><td>Orbit, age, design, trailing space weather, causal launch- and breakup-family statistics, physics summaries, class</td><td class="num">53 columns</td></tr>
+        <tr><td>Split</td><td>Train &rarr; tune-A / tune-B (by family hash) &rarr; test, strictly ordered in time; development outcomes censored at the origin</td><td class="num">4 folds × 3 origins</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted mt2">The object's own radar cross-section is excluded by design: its
+  availability depends on how long the object survived.</p>
+
+  <div class="sec-head mt3"><span class="kicker">Step 2 · Physics</span>
+    <h2>Orbit-averaged drag, with the unknowns sampled</h2></div>
+  <div class="cards cards-2">
+    <div class="card"><h3>King-Hele decay integration</h3>
+      <p class="small">Per-revolution change of semi-major axis and eccentricity for an exponential
+      atmosphere about perigee, to third order in eccentricity; above e = 0.05 the exact orbit
+      averages are evaluated by quadrature on 257 nodes. Integration stops at a 120 km perigee or a
+      five-year cap.</p></div>
+    <div class="card"><h3>NRLMSIS 2.1 densities</h3>
+      <p class="small">Density and scale height interpolated from a table of 185 altitudes × 13 F10.7
+      × 7 Ap values, averaged over latitude, local time and season. Solar and geomagnetic indices are
+      held at their trailing 81-day means at the forecast epoch — the honest assumption, since the
+      future is unknown.</p></div>
+    <div class="card"><h3>Area-to-mass as a distribution</h3>
+      <p class="small">32 Monte Carlo draws per object from one of three sources, recorded per object:
+      design dimensions where the catalogue has them, a class prior for intact objects without them,
+      or the NASA standard breakup model for fragments. This provenance later turns out to predict
+      where the intervals fail.</p></div>
+    <div class="card"><h3>History-conditioned posterior</h3>
+      <p class="small">In the runtime twin only, an object still in orbit has survived since its
+      canonical epoch, which selects low drag. Prior draws are propagated with the realised space
+      weather and reweighted by survival and by agreement with the current orbit.</p></div>
+  </div>
+
+  <div class="sec-head mt3"><span class="kicker">Step 3 · Learning</span>
+    <h2>The models actually used</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Model</th><th>Family</th><th>Role in the framework</th></tr></thead>
+      <tbody>
+        <tr><td>XGBoost</td><td>Gradient-boosted trees</td><td>Lifetime quantile regression; one model per quantile</td></tr>
+        <tr><td>LightGBM</td><td>Gradient-boosted trees</td><td>Lifetime quantile regression</td></tr>
+        <tr><td>CatBoost</td><td>Gradient-boosted trees</td><td>Lifetime quantile regression; multi-quantile objective</td></tr>
+        <tr><td>MLP</td><td>Neural network</td><td>Lifetime quantiles via a non-crossing head</td></tr>
+        <tr><td>TabM</td><td>Parameter-efficient deep ensemble</td><td>Lifetime quantiles, 32 ensemble members</td></tr>
+        <tr><td>TabICLv2</td><td>Pretrained in-context tabular model</td><td>Lifetime quantiles, no hyperparameter search</td></tr>
+        <tr><td>Kumo-Tabular</td><td>Pretrained tabular model (vendor software)</td><td>Lifetime quantiles, 16,000-row context</td></tr>
+        <tr><td>XGBoost-AFT</td><td>Accelerated failure time</td><td>Survival-style comparison arm</td></tr>
+        <tr><td>U-Net / classical frontend</td><td>Convolutional segmentation</td><td>Optical debris streak detection (SpotGEO)</td></tr>
+        <tr><td>Isotonic regression</td><td>Calibration</td><td>Per-horizon re-entry probability calibration</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted mt2">Each learner gets the same budget: 12 random configurations scored on
+  tune-A, then a five-seed ensemble. The two pretrained in-context models get no search.</p>
+
+  <div class="sec-head mt3"><span class="kicker">Step 4 · Fusion and calibration</span>
+    <h2>Combining the two, then admitting the result</h2></div>
+  <div class="cards cards-2">
+    <div class="card"><h3>Reliability-gated fusion</h3>
+      <p class="small">The fused quantiles are a convex combination of the physics and learned
+      quantiles, with an object-dependent weight from a logistic gate over ten reliability
+      descriptors — area-to-mass provenance, physics spread, eccentricity, perigee band, object
+      class, probability of reaching the cap. Fitted on out-of-fold training predictions.</p>
+      <div class="meta">Mean weight on physics: 0.11</div></div>
+    <div class="card"><h3>Mondrian conformal intervals</h3>
+      <p class="small">Split conformalised quantile regression, calibrated on tune-B within groups of
+      object class × perigee band, with a hierarchical fallback when a group is too small. The
+      coverage guarantee needs exchangeability, which a forward-in-time split does not provide — so
+      coverage is reported as a measurement, never as a guarantee.</p></div>
+  </div>
+  <figure class="mt2">
+    <img src="assets/img/fig/calibration.png" alt="Interval coverage by area-to-mass provenance and by calendar year, showing the design-derived subgroup far below nominal">
+    <figcaption>Where the intervals fail: coverage by area-to-mass provenance (left) and by calendar
+    year at origin 2016 (right). Generated from the archived subgroup coverage tables.</figcaption>
+  </figure>
+
+  <div class="sec-head mt3"><span class="kicker">Step 5 · Runtime</span>
+    <h2>Nine modules, one archived run</h2></div>
+  <p>The twin engine builds one record per object in orbit at the snapshot with perigee below
+  2000 km. Three regimes are distinguished and treated differently rather than averaged:
+  <strong>13,787</strong> natural-decay objects receive the physics forecast with a history-conditioned
+  area-to-mass posterior; <strong>16,386</strong> operator-controlled payloads get no drag forecast at
+  all, because a station-keeping satellite does not decay on a drag schedule; <strong>1,223</strong>
+  objects without a status form a separate unknown regime. Health, collision and debris are
+  independent roots, so a missing telemetry artefact cannot block the catalogue chain.</p>
+  <div class="callout">
+    <p><strong>Abstention is a first-class output.</strong> Where the saved per-horizon probabilities are
+    not monotone across horizons — 123 objects, a known defect of calibrating each horizon
+    independently — the adapter abstains and logs them instead of quietly taking a running maximum
+    over a published number. The priority ordering is the 30-day re-entry probability times two for
+    objects of 500 kg or more; it is an ordering with no probabilistic reading, and it never modifies
+    a physical probability.</p>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+      <p class="small mt2" style="max-width:38ch">A unified framework for space-debris detection and
+      atmospheric re-entry prediction, built on catalogue-scale, forward-in-time evaluation.</p>
+      <p class="small muted mb0">Archived snapshot 2026-10-27 · no live tracking</p>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul><li><a href="index.html">Home</a></li><li><a href="problem.html">Problem</a></li><li><a href="objectives.html">Objectives</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="demonstration.html">Demonstration</a></li><li><a href="progress.html">Progress</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="videos.html">Videos</a></li><li><a href="team.html">Team</a></li></ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">Source code (GitHub)</a></li>
+        <li><a href="https://planet4589.org/space/gcat" target="_blank" rel="noopener">GCAT catalogue</a></li>
+        <li><a href="https://celestrak.org" target="_blank" rel="noopener">CelesTrak</a></li>
+        <li><a href="https://www.amrita.edu" target="_blank" rel="noopener">Amrita Vishwa Vidyapeetham</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Anupa Sajikumar · M.Tech Artificial Intelligence, Amrita Vishwa
+  Vidyapeetham, Coimbatore · Supervisor: Dr. Shanmuga Priya S. Research results, figures and
+  source are the author's own work. The console serves an archived snapshot: nothing on this site is
+  a live satellite feed, and no figure here is a forecast of a real present-day re-entry.</p>
+</div></footer>
+</div>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

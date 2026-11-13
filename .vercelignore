@@ -1,0 +1,25 @@
+# Keep the hosted console's deployment payload small. Only cosmos/product (and the modules it
+# imports), api/ and api/archive/ are needed: the console runs no model and reads one archived
+# forecast table. Everything below is excluded from the Vercel upload.
+.venv
+.git
+.pytest_cache
+__pycache__
+*.pyc
+
+# datasets, results and documentation: not read by the hosted console
+data
+docs
+tests
+notebooks
+research_design
+scripts
+configs
+website
+paper
+thesis
+outputs
+*.pptx
+
+# the console's own artifacts travel in api/archive/ instead (plain blobs, not LFS pointers)
+!api/archive

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home — COSMOS-AI</title>
+<meta name="description" content="COSMOS-AI: a unified framework for space-debris detection and atmospheric re-entry prediction, with forward-in-time, censoring-aware evaluation over 64,516 catalogued objects.">
+<meta name="author" content="Anupa Sajikumar">
+<meta property="og:title" content="Home — COSMOS-AI">
+<meta property="og:description" content="COSMOS-AI: a unified framework for space-debris detection and atmospheric re-entry prediction, with forward-in-time, censoring-aware evaluation over 64,516 catalogued objects.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="page">
+<div class="nav-outer"><div class="wrap"><nav class="nav">
+  <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-links"><a href="index.html" aria-current="page">Home</a><a href="problem.html">Problem</a><a href="objectives.html">Objectives</a><a href="methodology.html">Methodology</a><a href="demonstration.html">Demonstration</a><a href="progress.html">Progress</a><a href="documentation.html">Documentation</a><a href="videos.html">Videos</a><a href="team.html">Team</a>
+    <a class="nav-cta" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav></div></div>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>M.Tech research project · Amrita Vishwa Vidyapeetham</span>
+      <h1>Knowing When<br>Orbits End</h1>
+      <p class="lede">COSMOS-AI is a unified framework for space-debris detection and atmospheric
+      re-entry prediction. It pairs orbit-averaged drag physics with modern tabular learning, and
+      evaluates both the way an operator actually has to: forward in time, with survivors counted
+      and nothing chosen on the test set.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="demonstration.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>Open the demonstration</a>
+        <a class="btn btn-ghost" href="methodology.html">Read the methodology</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/img/shots/01_mission_overview.png" width="1440" height="900"
+           alt="COSMOS-AI mission overview console showing a WebGL globe, catalogue counters and a selected rocket body">
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="n">64,516</span><span class="l">catalogued objects in the evaluation cohort</span></div>
+    <div class="stat"><span class="n">31,396</span><span class="l">objects in the dated digital twin</span></div>
+    <div class="stat"><span class="n">3</span><span class="l">forward-in-time forecast origins, one sealed</span></div>
+    <div class="stat"><span class="n">7</span><span class="l">learned predictors benchmarked against physics</span></div>
+    <div class="stat"><span class="n">570</span><span class="l">automated tests passing</span></div>
+  </div>
+</div></section>
+<hr class="divider">
+<section><div class="wrap">
+  <div class="sec-head">
+    <span class="kicker">What it does</span>
+    <h2>Four capabilities, one evidence chain</h2>
+    <p>Each capability is validated on its own public benchmark and carries its own limits. Nothing is
+    fused across modules unless a dataset actually links the objects.</p>
+  </div>
+  <div class="cards">
+    <div class="card card-tall"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Orbital lifetime &amp; re-entry</h3>
+      <p>Quantile forecasts of how long an uncontrolled object stays in orbit, from a King-Hele drag
+      expert with NRLMSIS 2.1 densities, seven learned predictors, and a reliability-gated fusion of
+      the two. Intervals are conformalised.</p>
+      <div class="meta">64,516-object cohort · 3 origins</div></div>
+    <div class="card card-tall"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13l7-7 4 4-7 7-4-4z"/><path d="M11 6l3-3 4 4-3 3M9 15l-3 3M15 9l3-3"/><path d="M13 19a6 6 0 006-6"/></svg><h3>Debris detection</h3>
+      <p>Optical detection of faint geostationary debris streaks on the SpotGEO benchmark, reported
+      against both a classical baseline and the published challenge winner.</p>
+      <div class="meta">F1 0.765 vs 0.948 winner</div></div>
+    <div class="card card-tall"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Satellite health</h3>
+      <p>Telemetry anomaly detection on ESA-ADB and OPS-SAT-AD, run as pre-registered hypotheses so
+      that refuted ones stay reported.</p>
+      <div class="meta">OPS-SAT 0.949 · 2 of 3 hypotheses refuted</div></div>
+    <div class="card card-tall"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3l9-16z"/><path d="M12 10v4M12 17h.01"/></svg><h3>Conjunction &amp; decision support</h3>
+      <p>Collision-risk scoring on the Kelvins challenge data, and an auditable priority ordering that
+      is kept strictly separate from physical probability.</p>
+      <div class="meta">Trivial baseline beats the learned arm</div></div>
+  </div>
+</div></section>
+
+<hr class="divider">
+<section><div class="wrap">
+  <div class="sec-head">
+    <span class="kicker">Headline findings</span>
+    <h2>Three measurements, reported as they came out</h2>
+  </div>
+  <div class="cards cards-2">
+    <div class="card"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18M6 17V9M11 17V5M16 17v-6M21 17v-9"/></svg><h3>Catalogue features carry real signal</h3>
+      <p>Every predictor beats a feature-free oracle that uses the test set's own marginal quantiles —
+      by at least 9 % and by up to 66 % in pinball loss, at all three origins.</p>
+      <div class="meta">leaderboard_with_intervals.csv</div></div>
+    <div class="card"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>Model selection does not transfer</h3>
+      <p>Tuning-fold and test rankings are uncorrelated (Spearman 0.000). Picking the learner with the
+      best tuning loss cost <strong>+18.7 % excess test loss</strong> at origin 2016.</p>
+      <div class="meta">95 % CI on excess loss [+0.0040, +0.0169]</div></div>
+    <div class="card"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3l9-16z"/><path d="M12 10v4M12 17h.01"/></svg><h3>The intervals fail in one specific place</h3>
+      <p>Nominal 80 % intervals cover 92.3 % at origin 2011 but only 71.7 % at 2016 — and just
+      <strong>56.3 %</strong> for objects whose area-to-mass ratio comes from design data.</p>
+      <div class="meta">am_design_stage1/subgroup_coverage.csv</div></div>
+  </div>
+  <div class="callout warn">
+    <h3>A negative result we do not hide</h3>
+    <p>The reliability-gated fusion that this project deploys is <strong>not consistently better than
+    the strongest individual learned model</strong>. It ranks third of twelve arms at origin 2011 and
+    seventh at 2016, where two pretrained tabular models beat it with paired bootstrap intervals that
+    exclude zero. It is retained because the alternatives failed criteria fixed in advance, and its
+    limits are exposed in the console rather than smoothed over.</p>
+  </div>
+</div></section>
+
+<hr class="divider">
+<section><div class="wrap">
+  <div class="sec-head"><span class="kicker">Explore</span><h2>Where to go next</h2></div>
+  <div class="cards">
+    <a class="card" href="demonstration.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><h3>Live demonstration →</h3>
+      <p>The mission intelligence console: 19 screens over an archived twin of 31,396 objects.</p></a>
+    <a class="card" href="methodology.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><h3>Methodology →</h3>
+      <p>Architecture, data pipeline, the drag physics and every model actually used.</p></a>
+    <a class="card" href="documentation.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><h3>Documentation →</h3>
+      <p>Reports, dataflow and metrics, diagrams and the reproducibility record.</p></a>
+    <a class="card" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg><h3>Source code →</h3>
+      <p>The full framework, datasets via Git LFS, and the archived result files.</p></a>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+      <p class="small mt2" style="max-width:38ch">A unified framework for space-debris detection and
+      atmospheric re-entry prediction, built on catalogue-scale, forward-in-time evaluation.</p>
+      <p class="small muted mb0">Archived snapshot 2026-10-27 · no live tracking</p>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul><li><a href="index.html">Home</a></li><li><a href="problem.html">Problem</a></li><li><a href="objectives.html">Objectives</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="demonstration.html">Demonstration</a></li><li><a href="progress.html">Progress</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="videos.html">Videos</a></li><li><a href="team.html">Team</a></li></ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">Source code (GitHub)</a></li>
+        <li><a href="https://planet4589.org/space/gcat" target="_blank" rel="noopener">GCAT catalogue</a></li>
+        <li><a href="https://celestrak.org" target="_blank" rel="noopener">CelesTrak</a></li>
+        <li><a href="https://www.amrita.edu" target="_blank" rel="noopener">Amrita Vishwa Vidyapeetham</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Anupa Sajikumar · M.Tech Artificial Intelligence, Amrita Vishwa
+  Vidyapeetham, Coimbatore · Supervisor: Dr. Shanmuga Priya S. Research results, figures and
+  source are the author's own work. The console serves an archived snapshot: nothing on this site is
+  a live satellite feed, and no figure here is a forecast of a real present-day re-entry.</p>
+</div></footer>
+</div>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

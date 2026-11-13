@@ -1,0 +1,12 @@
+# Runtime dependencies of the hosted console only. Vercel's Python builder reads the
+# requirements.txt beside the entrypoint, so the repository's full requirements.txt (torch,
+# xgboost, scipy and the rest) is NOT installed: the console runs no model.
+# Measured installed size of this set: ~137 MB against Vercel's 250 MB function limit.
+fastapi>=0.115
+uvicorn>=0.30
+jinja2>=3.1
+pydantic>=2.5
+python-multipart>=0.0.9
+pandas>=2.0
+numpy>=1.26
+pillow>=10.0

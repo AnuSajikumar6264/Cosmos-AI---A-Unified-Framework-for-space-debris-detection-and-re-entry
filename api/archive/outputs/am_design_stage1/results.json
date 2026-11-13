@@ -1,0 +1,804 @@
+{
+ "experiment": "X6 Stage 1 \u2014 am_design missingness, archives only (no fitting)",
+ "protocol": "docs/publication/AM_DESIGN_MISSINGNESS_ABLATION_PROTOCOL.md \u00a74, \u00a77 Stage 1",
+ "n_boot": 4000,
+ "seed": 20261027,
+ "generated_at": "2026-11-08T05:44:29+00:00",
+ "origins": {
+  "2011": {
+   "selected_learner": "kumo",
+   "am_source_counts": {
+    "train": {
+     "class_prior_sbm": 14437,
+     "design": 6374
+    },
+    "tuneB": {
+     "class_prior_sbm": 259,
+     "design": 73
+    },
+    "test": {
+     "class_prior_sbm": 2263,
+     "design": 417
+    }
+   },
+   "design_share": {
+    "train": 0.3063,
+    "tuneB": 0.2199,
+    "test": 0.1556
+   },
+   "coverage": {
+    "cosmos_gated@80": {
+     "design": {
+      "n": 404,
+      "coverage": 0.7920792079207921,
+      "ci95": [
+       0.7474741032776747,
+       0.8328986606590574
+      ],
+      "mean_width_log10": 0.5059819952573896
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9465311533362792,
+      "ci95": [
+       0.9096620616255761,
+       0.9687098522986595
+      ],
+      "mean_width_log10": 0.9430189827238702
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.9231346081739783,
+      "ci95": [
+       0.8834812161552347,
+       0.9474540843470576
+      ],
+      "mean_width_log10": 0.8768161544762294
+     }
+    },
+    "cosmos_gated@90": {
+     "design": {
+      "n": 404,
+      "coverage": 0.8886138613861386,
+      "ci95": [
+       0.8551376036189121,
+       0.9193954659949622
+      ],
+      "mean_width_log10": 0.7600823090632598
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9717189571365444,
+      "ci95": [
+       0.9479156611969112,
+       0.9846165644171779
+      ],
+      "mean_width_log10": 1.2949648412334458
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.9591301087364079,
+      "ci95": [
+       0.9353623471246422,
+       0.9744209382727862
+      ],
+      "mean_width_log10": 1.2139402656816065
+     }
+    },
+    "physics_only@80": {
+     "design": {
+      "n": 404,
+      "coverage": 0.8910891089108911,
+      "ci95": [
+       0.85863807049893,
+       0.9212776757749217
+      ],
+      "mean_width_log10": 0.5781673060580389
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9531595227574017,
+      "ci95": [
+       0.9188303144224196,
+       0.9726263707975915
+      ],
+      "mean_width_log10": 0.6668379308971246
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.9437570303712036,
+      "ci95": [
+       0.9123994157848324,
+       0.9632081699926
+      ],
+      "mean_width_log10": 0.6534060102240872
+     }
+    },
+    "physics_only@90": {
+     "design": {
+      "n": 404,
+      "coverage": 0.9504950495049505,
+      "ci95": [
+       0.926764744017189,
+       0.9714285714285714
+      ],
+      "mean_width_log10": 1.125428539483204
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9779054352629253,
+      "ci95": [
+       0.9565498954607585,
+       0.990291586734313
+      ],
+      "mean_width_log10": 1.0110986180696329
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.973753280839895,
+      "ci95": [
+       0.9545206749527749,
+       0.9857202353972174
+      ],
+      "mean_width_log10": 1.0284174363115086
+     }
+    },
+    "kumo@80": {
+     "design": {
+      "n": 404,
+      "coverage": 0.7920792079207921,
+      "ci95": [
+       0.7493914256217058,
+       0.8344992477971201
+      ],
+      "mean_width_log10": 0.5138562962314445
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9580203269995581,
+      "ci95": [
+       0.9248824539275454,
+       0.9766660192160354
+      ],
+      "mean_width_log10": 1.0457556321081223
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.932883389576303,
+      "ci95": [
+       0.8959574474480518,
+       0.9547406401098368
+      ],
+      "mean_width_log10": 0.9651829543075306
+     }
+    },
+    "kumo@90": {
+     "design": {
+      "n": 404,
+      "coverage": 0.8861386138613861,
+      "ci95": [
+       0.8535326670964968,
+       0.916256157635468
+      ],
+      "mean_width_log10": 0.7803022412699094
+     },
+     "class_prior_sbm": {
+      "n": 2263,
+      "coverage": 0.9796730004418913,
+      "ci95": [
+       0.960166292095681,
+       0.9904808366819118
+      ],
+      "mean_width_log10": 1.4427551384414155
+     },
+     "all": {
+      "n": 2667,
+      "coverage": 0.9655043119610048,
+      "ci95": [
+       0.9430273025677207,
+       0.9788564664240234
+      ],
+      "mean_width_log10": 1.3424060681537182
+     }
+    }
+   },
+   "coverage_difference_design_minus_sbm": {
+    "cosmos_gated@80": {
+     "diff": -0.15445194541548712,
+     "ci95": [
+      -0.20535694045211592,
+      -0.0984318202679025
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "cosmos_gated@90": {
+     "diff": -0.08310509575040581,
+     "ci95": [
+      -0.11907886835570668,
+      -0.04406470557251816
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "physics_only@80": {
+     "diff": -0.062070413846510575,
+     "ci95": [
+      -0.09995153828157718,
+      -0.016873978347465488
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "physics_only@90": {
+     "diff": -0.02741038575797483,
+     "ci95": [
+      -0.05327060946270952,
+      0.0018719359050179004
+     ],
+     "A3_rule_ci_excludes_zero": false
+    },
+    "kumo@80": {
+     "diff": -0.16594111907876596,
+     "ci95": [
+      -0.21478138020910478,
+      -0.11320551149337814
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "kumo@90": {
+     "diff": -0.09353438658050517,
+     "ci95": [
+      -0.12737729408794318,
+      -0.057022389319757436
+     ],
+     "A3_rule_ci_excludes_zero": true
+    }
+   },
+   "odds_ratios": {
+    "train": {
+     "window": "train",
+     "t0_range": [
+      "1957-10-04",
+      "2003-12-29"
+     ],
+     "n": 20793,
+     "share_design_missing": 0.694320203914779,
+     "uncontrolled_all": {
+      "odds_ratio": 2.215803706249062,
+      "ci95": [
+       1.634226549183903,
+       3.004348489552394
+      ],
+      "n": 20793,
+      "clusters": 3890,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 3.5941985958631397,
+      "ci95": [
+       2.7662588165309976,
+       4.669940306852631
+      ],
+      "n": 5915,
+      "clusters": 2039,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     }
+    },
+    "tuneA": {
+     "window": "tuneA",
+     "t0_range": [
+      "2004-01-16",
+      "2005-12-25"
+     ],
+     "n": 248,
+     "share_design_missing": 0.6451612903225806,
+     "uncontrolled_all": {
+      "odds_ratio": 2.256571529681296,
+      "ci95": [
+       0.10623755124149517,
+       47.931404753418896
+      ],
+      "n": 248,
+      "clusters": 93,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 20380.467609712232,
+      "ci95": [
+       0.11878388966570037,
+       3496799617.8564973
+      ],
+      "n": 70,
+      "clusters": 30,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": true
+     }
+    },
+    "tuneB": {
+     "window": "tuneB",
+     "t0_range": [
+      "2004-01-09",
+      "2005-12-24"
+     ],
+     "n": 332,
+     "share_design_missing": 0.7801204819277109,
+     "uncontrolled_all": {
+      "odds_ratio": 21.52048779159203,
+      "ci95": [
+       0.5205142978997297,
+       889.7572970748205
+      ],
+      "n": 332,
+      "clusters": 79,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": true
+     },
+     "components_only": {
+      "odds_ratio": 1.9959101018622653e+31,
+      "ci95": [
+       1.4652642311912448e+29,
+       2.718729530084254e+33
+      ],
+      "n": 60,
+      "clusters": 26,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": true
+     }
+    },
+    "test": {
+     "window": "test",
+     "t0_range": [
+      "2011-01-01",
+      "2015-12-30"
+     ],
+     "n": 2669,
+     "share_design_missing": 0.8478831022855002,
+     "uncontrolled_all": {
+      "odds_ratio": 1.2455832951077213,
+      "ci95": [
+       0.3337240060911739,
+       4.64898454031965
+      ],
+      "n": 2669,
+      "clusters": 435,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 1.2649022536135117,
+      "ci95": [
+       0.3745542049005197,
+       4.271685353583173
+      ],
+      "n": 332,
+      "clusters": 170,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     }
+    }
+   },
+   "A4_train_vs_test_uncontrolled": {
+    "train_or": 2.215803706249062,
+    "train_ci": [
+     1.634226549183903,
+     3.004348489552394
+    ],
+    "test_or": 1.2455832951077213,
+    "test_ci": [
+     0.3337240060911739,
+     4.64898454031965
+    ],
+    "cis_non_overlapping": false
+   },
+   "inputs": {
+    "test_predictions_sha256": "9c55799bdc03124eeb744ecd14cda10f14f06fd51631e047ebfc472a03adc961",
+    "summary_sha256": "a78bc7ffd6d5b63ce6a449d2533458be36e7deaf0c70a486a2cf51c50f27de5b"
+   }
+  },
+  "2016": {
+   "selected_learner": "tabm",
+   "am_source_counts": {
+    "train": {
+     "class_prior_sbm": 18566,
+     "design": 6805
+    },
+    "tuneB": {
+     "class_prior_sbm": 1468,
+     "design": 92
+    },
+    "test": {
+     "class_prior_sbm": 2323,
+     "design": 670
+    }
+   },
+   "design_share": {
+    "train": 0.2682,
+    "tuneB": 0.059,
+    "test": 0.2239
+   },
+   "coverage": {
+    "cosmos_gated@80": {
+     "design": {
+      "n": 656,
+      "coverage": 0.5625,
+      "ci95": [
+       0.5119511033941975,
+       0.6140664594364599
+      ],
+      "mean_width_log10": 0.39795006423818374
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.7605512489233419,
+      "ci95": [
+       0.6461338219444618,
+       0.857348014308437
+      ],
+      "mean_width_log10": 0.4427609086683379
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.7169241101410343,
+      "ci95": [
+       0.626923811451675,
+       0.7962027623092452
+      ],
+      "mean_width_log10": 0.4328898831659264
+     }
+    },
+    "cosmos_gated@90": {
+     "design": {
+      "n": 656,
+      "coverage": 0.8567073170731707,
+      "ci95": [
+       0.8226509542810442,
+       0.8897174111004352
+      ],
+      "mean_width_log10": 0.6500754256084745
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.8789836347975882,
+      "ci95": [
+       0.7816673964298279,
+       0.9413674587480614
+      ],
+      "mean_width_log10": 0.6765211174410727
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.8740765614506381,
+      "ci95": [
+       0.8024718324907144,
+       0.9239581727419737
+      ],
+      "mean_width_log10": 0.6706956057412123
+     }
+    },
+    "physics_only@80": {
+     "design": {
+      "n": 656,
+      "coverage": 0.5899390243902439,
+      "ci95": [
+       0.5370877653503766,
+       0.6435503072196621
+      ],
+      "mean_width_log10": 0.3390888755162001
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.7799310938845823,
+      "ci95": [
+       0.6609999193071171,
+       0.8800970041026495
+      ],
+      "mean_width_log10": 0.3587374240516659
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.738079247817327,
+      "ci95": [
+       0.642263429172645,
+       0.820435989387421
+      ],
+      "mean_width_log10": 0.35440920113720464
+     }
+    },
+    "physics_only@90": {
+     "design": {
+      "n": 656,
+      "coverage": 0.7149390243902439,
+      "ci95": [
+       0.658119011598588,
+       0.7707334876268471
+      ],
+      "mean_width_log10": 0.6924250401397464
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.9220499569336779,
+      "ci95": [
+       0.876064936000452,
+       0.9583532886232121
+      ],
+      "mean_width_log10": 0.6644502658449661
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.8764271323035594,
+      "ci95": [
+       0.8328258322301085,
+       0.9113274706867671
+      ],
+      "mean_width_log10": 0.6706126069925067
+     }
+    },
+    "tabm@80": {
+     "design": {
+      "n": 656,
+      "coverage": 0.5853658536585366,
+      "ci95": [
+       0.5343696622670808,
+       0.6349459959993492
+      ],
+      "mean_width_log10": 0.40058953353223825
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.7678725236864772,
+      "ci95": [
+       0.6575424960017735,
+       0.8585399602326685
+      ],
+      "mean_width_log10": 0.45564956710957033
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.7276695768972464,
+      "ci95": [
+       0.6355509461426492,
+       0.8044870422635894
+      ],
+      "mean_width_log10": 0.44352082902134676
+     }
+    },
+    "tabm@90": {
+     "design": {
+      "n": 656,
+      "coverage": 0.8536585365853658,
+      "ci95": [
+       0.8199983922829581,
+       0.8860579140902921
+      ],
+      "mean_width_log10": 0.6455159527531362
+     },
+     "class_prior_sbm": {
+      "n": 2322,
+      "coverage": 0.8832902670111973,
+      "ci95": [
+       0.7888592868732508,
+       0.9413016184175214
+      ],
+      "mean_width_log10": 0.6861332804784996
+     },
+     "all": {
+      "n": 2978,
+      "coverage": 0.876762928139691,
+      "ci95": [
+       0.807706000135809,
+       0.9244685639108157
+      ],
+      "mean_width_log10": 0.6771860115101186
+     }
+    }
+   },
+   "coverage_difference_design_minus_sbm": {
+    "cosmos_gated@80": {
+     "diff": -0.19805124892334192,
+     "ci95": [
+      -0.30624927543706926,
+      -0.07245756250139139
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "cosmos_gated@90": {
+     "diff": -0.022276317724417516,
+     "ci95": [
+      -0.09369231221175674,
+      0.08072757532276503
+     ],
+     "A3_rule_ci_excludes_zero": false
+    },
+    "physics_only@80": {
+     "diff": -0.18999206949433833,
+     "ci95": [
+      -0.3012563851792813,
+      -0.06052825962548468
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "physics_only@90": {
+     "diff": -0.20711093254343393,
+     "ci95": [
+      -0.2719404496419459,
+      -0.132196551692776
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "tabm@80": {
+     "diff": -0.18250667002794063,
+     "ci95": [
+      -0.28609706523350026,
+      -0.055885797769202473
+     ],
+     "A3_rule_ci_excludes_zero": true
+    },
+    "tabm@90": {
+     "diff": -0.02963173042583145,
+     "ci95": [
+      -0.09851447312763568,
+      0.07100612163097093
+     ],
+     "A3_rule_ci_excludes_zero": false
+    }
+   },
+   "odds_ratios": {
+    "train": {
+     "window": "train",
+     "t0_range": [
+      "1957-10-04",
+      "2008-12-26"
+     ],
+     "n": 25350,
+     "share_design_missing": 0.7323865877712031,
+     "uncontrolled_all": {
+      "odds_ratio": 2.1917581232851777,
+      "ci95": [
+       1.624461085375331,
+       2.957167588829404
+      ],
+      "n": 25350,
+      "clusters": 4166,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 3.43679642806538,
+      "ci95": [
+       2.6383079382689587,
+       4.476948849160018
+      ],
+      "n": 6226,
+      "clusters": 2165,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     }
+    },
+    "tuneA": {
+     "window": "tuneA",
+     "t0_range": [
+      "2009-01-02",
+      "2010-12-29"
+     ],
+     "n": 1740,
+     "share_design_missing": 0.964367816091954,
+     "uncontrolled_all": {
+      "odds_ratio": 165.03814546732957,
+      "ci95": [
+       23.39784805683624,
+       1164.1066047241607
+      ],
+      "n": 1740,
+      "clusters": 103,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": null,
+      "note": "LinAlgError('Singular matrix')"
+     }
+    },
+    "tuneB": {
+     "window": "tuneB",
+     "t0_range": [
+      "2009-01-14",
+      "2010-12-26"
+     ],
+     "n": 1560,
+     "share_design_missing": 0.941025641025641,
+     "uncontrolled_all": {
+      "odds_ratio": 2.611200223385665,
+      "ci95": [
+       0.2611161436384585,
+       26.112390109628986
+      ],
+      "n": 1560,
+      "clusters": 119,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 2.82447585622437e-11,
+      "ci95": [
+       1.1412860543818546e-12,
+       6.990065139028853e-10
+      ],
+      "n": 82,
+      "clusters": 39,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": true
+     }
+    },
+    "test": {
+     "window": "test",
+     "t0_range": [
+      "2016-01-02",
+      "2021-10-15"
+     ],
+     "n": 2979,
+     "share_design_missing": 0.7794561933534743,
+     "uncontrolled_all": {
+      "odds_ratio": 7.120308706197591,
+      "ci95": [
+       2.1083015593153274,
+       24.047222204786337
+      ],
+      "n": 2979,
+      "clusters": 621,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     },
+     "components_only": {
+      "odds_ratio": 16.940245326343224,
+      "ci95": [
+       2.3370984407655375,
+       122.78982635523614
+      ],
+      "n": 452,
+      "clusters": 197,
+      "se": "cluster-robust (launch family), numpy re-implementation of statsmodels Logit cov_type=cluster",
+      "degenerate": false
+     }
+    }
+   },
+   "A4_train_vs_test_uncontrolled": {
+    "train_or": 2.1917581232851777,
+    "train_ci": [
+     1.624461085375331,
+     2.957167588829404
+    ],
+    "test_or": 7.120308706197591,
+    "test_ci": [
+     2.1083015593153274,
+     24.047222204786337
+    ],
+    "cis_non_overlapping": false
+   },
+   "inputs": {
+    "test_predictions_sha256": "a2fa43b5dbfbe4ec96eff774fb215a9785c85d24773fbc5d0dbd24406fda6224",
+    "summary_sha256": "8e411780f76f03d544682cea55005b3897193d7c39f5885a0e9633543b6b895d"
+   }
+  }
+ },
+ "odds_ratio_estimator": "scripts.cluster_logit.adjusted_or (numpy re-implementation; validated against leak_check.json before use)",
+ "estimator_validation_vs_archived_leak_check": {
+  "2016": {
+   "design_missing": {
+    "max_rel_diff": 2.346944550645545e-13
+   },
+   "rcs_missing": {
+    "max_rel_diff": 0.005042865227283907
+   }
+  },
+  "2011": {
+   "design_missing": {
+    "max_rel_diff": 2.8718769954708766e-14
+   },
+   "rcs_missing": {
+    "max_rel_diff": 0.002347173008165612
+   }
+  }
+ },
+ "stage2_not_run": "per authorisation; as specified it is BLOCKED (kumo/tabm backends absent)"
+}

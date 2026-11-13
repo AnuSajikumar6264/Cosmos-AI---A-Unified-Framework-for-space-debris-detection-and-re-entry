@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Progress — COSMOS-AI</title>
+<meta name="description" content="Completed, in-progress and planned work across the COSMOS-AI project, with the repository evidence for each and the full benchmark record.">
+<meta name="author" content="Anupa Sajikumar">
+<meta property="og:title" content="Project Progress — COSMOS-AI">
+<meta property="og:description" content="Completed, in-progress and planned work across the COSMOS-AI project, with the repository evidence for each and the full benchmark record.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="page">
+<div class="nav-outer"><div class="wrap"><nav class="nav">
+  <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-links"><a href="index.html">Home</a><a href="problem.html">Problem</a><a href="objectives.html">Objectives</a><a href="methodology.html">Methodology</a><a href="demonstration.html">Demonstration</a><a href="progress.html" aria-current="page">Progress</a><a href="documentation.html">Documentation</a><a href="videos.html">Videos</a><a href="team.html">Team</a>
+    <a class="nav-cta" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav></div></div>
+<main id="main">
+<section class="hero" style="padding-bottom:1.5rem"><div class="wrap">
+  <span class="eyebrow"><span class="dot"></span>Project progress</span>
+  <h1 style="max-width:24ch">What is done,<br>and what is not</h1>
+  <p class="lede">Status against repository evidence. Work is marked complete only where an archived
+  artifact settles it, in progress where it is partially done, and planned where nothing has been run.
+  A blocked item says what blocks it.</p>
+</div></section>
+<section style="padding-top:1rem"><div class="wrap">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Workstream</th><th>Status</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lifetime benchmark</strong><br><span class="small muted">Cohort, three origins, 12 arms, intervals</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>outputs/benchmarks/reentry_lifetime/</code>, <code>outputs/g5d_origin2006/</code>, <code>outputs/lifetime_reference_predictors/</code></td></tr>
+        <tr><td><strong>Physics expert</strong><br><span class="small muted">King-Hele, NRLMSIS 2.1, Monte Carlo A/m</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>cosmos/ai/lifetime/physics.py</code></td></tr>
+        <tr><td><strong>Selection-transfer study</strong><br><span class="small muted">Regret, rank inversion, sealed origin</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>outputs/e3_e5/</code>, <code>docs/research/SELECTION_TRANSFER_ANALYSIS.md</code></td></tr>
+        <tr><td><strong>Uncertainty &amp; calibration audit</strong><br><span class="small muted">Mondrian CQR, subgroup coverage</span></td>
+            <td><span class="pill pill-done">Complete</span><br><span class="small muted">descriptive</span></td>
+            <td class="small"><code>outputs/am_design_stage1/</code>, <code>outputs/phase3_uncertainty/</code></td></tr>
+        <tr><td><strong>Feature-group ablations</strong><br><span class="small muted">Same-learner, BH-adjusted</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>outputs/e12_same_learner/e12_ablation_table.csv</code></td></tr>
+        <tr><td><strong>Telemetry health benchmarks</strong><br><span class="small muted">ESA-ADB, OPS-SAT-AD, pre-registered</span></td>
+            <td><span class="pill pill-done">Complete</span><br><span class="small muted">2 of 3 refuted</span></td>
+            <td class="small"><code>outputs/benchmarks/telemetry_esa_adb/</code>, <code>telemetry_opssat*/</code></td></tr>
+        <tr><td><strong>Optical debris detection</strong><br><span class="small muted">SpotGEO</span></td>
+            <td><span class="pill pill-done">Complete</span><br><span class="small muted">below the winner</span></td>
+            <td class="small"><code>outputs/benchmarks/vision_spotgeo/</code></td></tr>
+        <tr><td><strong>Conjunction risk</strong><br><span class="small muted">Kelvins collision avoidance</span></td>
+            <td><span class="pill pill-done">Complete</span><br><span class="small muted">trivial baseline wins</span></td>
+            <td class="small"><code>outputs/benchmarks/conjunction_kelvins_cac/</code></td></tr>
+        <tr><td><strong>Digital twin and console</strong><br><span class="small muted">31,396 objects, 19 screens</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>outputs/twin/as_of_2026-10-27/</code>, <code>cosmos/product/</code></td></tr>
+        <tr><td><strong>Test and acceptance suite</strong><br><span class="small muted">570 passed, 3 skipped, 27 interactions</span></td>
+            <td><span class="pill pill-done">Complete</span></td>
+            <td class="small"><code>tests/</code>, <code>outputs/product/screenshots/report.json</code></td></tr>
+        <tr><td><strong>M.Tech thesis</strong><br><span class="small muted">257 pages, Amrita format</span></td>
+            <td><span class="pill pill-done">Complete</span><br><span class="small muted">supervisor review pending</span></td>
+            <td class="small">built from <code>docs/thesis/final/</code> (not published here)</td></tr>
+        <tr><td><strong>Journal manuscript</strong><br><span class="small muted">Springer format, JINT target</span></td>
+            <td><span class="pill pill-prog">Draft</span><br><span class="small muted">not submitted</span></td>
+            <td class="small">prepared locally; not in this repository</td></tr>
+        <tr><td><strong>Public code release</strong><br><span class="small muted">Framework, datasets via LFS, results</span></td>
+            <td><span class="pill pill-done">Published</span></td>
+            <td class="small"><a href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">GitHub repository</a></td></tr>
+        <tr><td><strong>Blind prospective validation</strong><br><span class="small muted">Released forecast vs reality</span></td>
+            <td><span class="pill pill-plan">Blocked</span></td>
+            <td class="small">needs a catalogue snapshot dated 2026-11-26 or later</td></tr>
+        <tr><td><strong>Calibration stratified by A/m source</strong><br><span class="small muted">The remedy the audit suggests</span></td>
+            <td><span class="pill pill-plan">Not run</span></td>
+            <td class="small">needs refits of archived learners whose backends are unavailable</td></tr>
+        <tr><td><strong>Element-set comparison</strong><br><span class="small muted">Against published methods</span></td>
+            <td><span class="pill pill-plan">Not possible</span></td>
+            <td class="small">requires two-line element or ephemeris data this cohort does not have</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head mt3"><span class="kicker">Benchmark record</span>
+    <h2>Measured results, including the ones that went the wrong way</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Benchmark</th><th>Metric</th><th>Result</th><th>Reference point</th></tr></thead>
+      <tbody>
+        <tr><td>Lifetime, origin 2011</td><td>Pinball loss</td><td class="num">0.0527</td><td class="small">best arm (physics expert); feature-free oracle 0.1332</td></tr>
+        <tr><td>Lifetime, origin 2016</td><td>Pinball loss</td><td class="num">0.0499</td><td class="small">best arm (TabICLv2); feature-free oracle 0.1469</td></tr>
+        <tr><td>Lifetime, origin 2006 (sealed)</td><td>Pinball loss</td><td class="num">0.0568</td><td class="small">best arm (physics expert); oracle 0.1322</td></tr>
+        <tr><td>Selection regret, 2016</td><td>Excess test loss</td><td class="num">+18.7 %</td><td class="small">95 % CI [+0.0040, +0.0169]; Spearman(tune, test) = 0.000</td></tr>
+        <tr><td>Interval coverage, 2016</td><td>Nominal 80 %</td><td class="num">71.7 %</td><td class="small">56.3 % in the design-derived A/m subgroup</td></tr>
+        <tr><td>ESA-ADB telemetry (H6)</td><td>Event-wise F1 gain</td><td class="num">+0.353</td><td class="small">0.074 &rarr; 0.428; CI [+0.206, +0.488]; Holm p = 0.0015</td></tr>
+        <tr><td>ESA-ADB telemetry (H4, H5)</td><td>Pre-registered hypotheses</td><td class="num">Refuted</td><td class="small">−0.222 and −0.338; reported, not dropped</td></tr>
+        <tr><td>OPS-SAT-AD</td><td>Accuracy</td><td class="num">0.949 ± 0.009</td><td class="small">the one model with persisted weights</td></tr>
+        <tr><td>SpotGEO debris detection</td><td>F1</td><td class="num">0.765 ± 0.034</td><td class="small">classical frontend 0.084; published challenge winner 0.948</td></tr>
+        <tr><td>Kelvins collision avoidance</td><td>F2</td><td class="num">0.739</td><td class="small">a trivial baseline; the learned arm scored 0.168</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted mt2">Two of these are deliberately unflattering. The optical detector is well
+  behind the published winner, and on the conjunction benchmark a trivial rule beats the learned
+  model. Both are reported because an evaluation framework that only publishes its wins is not an
+  evaluation framework.</p>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+      <p class="small mt2" style="max-width:38ch">A unified framework for space-debris detection and
+      atmospheric re-entry prediction, built on catalogue-scale, forward-in-time evaluation.</p>
+      <p class="small muted mb0">Archived snapshot 2026-10-27 · no live tracking</p>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul><li><a href="index.html">Home</a></li><li><a href="problem.html">Problem</a></li><li><a href="objectives.html">Objectives</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="demonstration.html">Demonstration</a></li><li><a href="progress.html">Progress</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="videos.html">Videos</a></li><li><a href="team.html">Team</a></li></ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">Source code (GitHub)</a></li>
+        <li><a href="https://planet4589.org/space/gcat" target="_blank" rel="noopener">GCAT catalogue</a></li>
+        <li><a href="https://celestrak.org" target="_blank" rel="noopener">CelesTrak</a></li>
+        <li><a href="https://www.amrita.edu" target="_blank" rel="noopener">Amrita Vishwa Vidyapeetham</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Anupa Sajikumar · M.Tech Artificial Intelligence, Amrita Vishwa
+  Vidyapeetham, Coimbatore · Supervisor: Dr. Shanmuga Priya S. Research results, figures and
+  source are the author's own work. The console serves an archived snapshot: nothing on this site is
+  a live satellite feed, and no figure here is a forecast of a real present-day re-entry.</p>
+</div></footer>
+</div>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

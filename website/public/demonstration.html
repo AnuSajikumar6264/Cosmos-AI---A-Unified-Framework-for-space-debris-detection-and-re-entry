@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demonstration — COSMOS-AI</title>
+<meta name="description" content="The COSMOS-AI mission intelligence console: 19 screens over an archived digital twin of 31,396 catalogued objects.">
+<meta name="author" content="Anupa Sajikumar">
+<meta property="og:title" content="Demonstration — COSMOS-AI">
+<meta property="og:description" content="The COSMOS-AI mission intelligence console: 19 screens over an archived digital twin of 31,396 catalogued objects.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="page">
+<div class="nav-outer"><div class="wrap"><nav class="nav">
+  <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  <div class="nav-links"><a href="index.html">Home</a><a href="problem.html">Problem</a><a href="objectives.html">Objectives</a><a href="methodology.html">Methodology</a><a href="demonstration.html" aria-current="page">Demonstration</a><a href="progress.html">Progress</a><a href="documentation.html">Documentation</a><a href="videos.html">Videos</a><a href="team.html">Team</a>
+    <a class="nav-cta" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav></div></div>
+<main id="main">
+<section class="hero" style="padding-bottom:1.5rem"><div class="wrap">
+  <span class="eyebrow"><span class="dot"></span>Demonstration</span>
+  <h1 style="max-width:26ch">The mission<br>intelligence console</h1>
+  <p class="lede">Nineteen screens over an archived digital twin of 31,396 objects. Server-rendered
+  pages, charts drawn as inline SVG from the real arrays, and a WebGL globe. No model runs when you
+  open a page: every number is read from a hashed file produced by a dated pipeline run.</p>
+</div></section>
+<section style="padding-top:1rem"><div class="wrap">
+  <div class="callout warn">
+    <h3>The hosted console is not published yet</h3>
+    <p>This page embeds the live console once it is deployed and <code>COSMOS_DEMO_URL</code> is set at
+    build time. Until then, the captures below are unedited screenshots of the running console, taken
+    on 2026-11-09 at 1440×900, and the console can be run locally in two commands.</p>
+  </div>
+  <div class="btn-row"><a class="btn btn-primary" href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>Run it locally</a></div>
+  <div class="stats">
+    <div class="stat"><span class="n">19</span><span class="l">screens</span></div>
+    <div class="stat"><span class="n">24</span><span class="l">JSON endpoints</span></div>
+    <div class="stat"><span class="n">31,396</span><span class="l">objects in the twin</span></div>
+    <div class="stat"><span class="n">2026-10-27</span><span class="l">catalogue snapshot</span></div>
+    <div class="stat"><span class="n">0</span><span class="l">models run at request time</span></div>
+  </div>
+
+  <div class="sec-head mt3"><span class="kicker">What you are looking at</span>
+    <h2>Read it the way it is built</h2></div>
+  <div class="cards cards-2">
+    <div class="card"><h3>Archived, not live</h3><p class="small">Every screen states the snapshot date
+      and its age. There is no telemetry feed, no tracking, and no request-time inference. The console
+      is an evidence browser over a dated forecast, which is why it can be audited.</p></div>
+    <div class="card"><h3>Geometry is schematic</h3><p class="small">Orbit size, shape and inclination are
+      the object's real archived values. Orientation and the marker's place on the ellipse are a screen
+      layout: the catalogue publishes no ascending node, argument of perigee or epoch anomaly, so no
+      position in time and no ground track can honestly be drawn.</p></div>
+    <div class="card"><h3>Intervals can be degenerate</h3><p class="small">Of 15,010 re-entry intervals,
+      13,765 have zero width and 14,028 medians sit at the five-year cap — consistent with all 32
+      draws agreeing the object outlives the horizon. The console shows that rather than implying a
+      precision it does not have.</p></div>
+    <div class="card"><h3>Variants are shown disagreeing</h3><p class="small">The two forecast variants
+      differ by a factor of 10.6 in the expected number of re-entries within 30 days. Both are
+      displayed, because silently picking one would be the more misleading choice.</p></div>
+  </div>
+
+  <div class="sec-head mt3"><span class="kicker">Screens</span><h2>Captured from the running console</h2>
+    <p>Unedited captures, 2026-11-09, 1440×900, taken by the project's own browser driver together
+    with 27 scripted interaction checks.</p></div>
+  <figure>
+      <img class="shot" src="assets/img/shots/01_mission_overview.png" width="1440" height="900" loading="lazy"
+           alt="Mission overview screen of the COSMOS-AI console">
+      <figcaption><strong>Mission overview.</strong> Population summary, schematic WebGL globe, the selected object's lifetime interval and its cross-horizon coherence status. The banner states the snapshot date and that nothing is live.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/03_twin_37607.png" width="1440" height="900" loading="lazy"
+           alt="Object digital twin screen of the COSMOS-AI console">
+      <figcaption><strong>Object digital twin.</strong> One object (NORAD 37607, an Ariane 5 rocket body): archived orbit elements, re-entry and lifetime probability by horizon, and both interval types side by side.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/07_orbital_intelligence.png" width="1440" height="900" loading="lazy"
+           alt="Lifetime and re-entry analysis screen of the COSMOS-AI console">
+      <figcaption><strong>Lifetime &amp; re-entry analysis.</strong> The benchmark behind the forecast: arms, losses, intervals and the origins they were measured at.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/10_conjunction_analysis.png" width="1440" height="900" loading="lazy"
+           alt="Conjunction and collision screen of the COSMOS-AI console">
+      <figcaption><strong>Conjunction &amp; collision.</strong> Collision-risk screening on the held-out Kelvins benchmark, with the trivial baseline shown alongside the learned arm.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/11_debris_monitoring.png" width="1440" height="900" loading="lazy"
+           alt="Debris detection screen of the COSMOS-AI console">
+      <figcaption><strong>Debris detection.</strong> Optical detection of geostationary debris streaks, with the classical frontend and the published winner as reference points.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/13_decision_intelligence.png" width="1440" height="900" loading="lazy"
+           alt="Decision intelligence screen of the COSMOS-AI console">
+      <figcaption><strong>Decision intelligence.</strong> The priority rule read from the run manifest, the ranked queue, and the health-escalation module in an explicit abstain state because no dataset links telemetry to catalogued objects.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/14_evidence_validation.png" width="1440" height="900" loading="lazy"
+           alt="Evidence and provenance screen of the COSMOS-AI console">
+      <figcaption><strong>Evidence &amp; provenance.</strong> Snapshot digest recomputed on read, readiness checks, schema versions and the twin-state equivalence result: 31,396 of 31,396 records valid.</figcaption></figure><figure>
+      <img class="shot" src="assets/img/shots/16_guided_demo.png" width="1440" height="900" loading="lazy"
+           alt="Guided demonstration screen of the COSMOS-AI console">
+      <figcaption><strong>Guided demonstration.</strong> A scripted walkthrough of the console for a first-time visitor.</figcaption></figure>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="7.5" stroke="#4da3ff" stroke-width="1.6"/><ellipse cx="16" cy="16" rx="14.5" ry="5.5" stroke="#22d3ee" stroke-width="1.3" transform="rotate(-28 16 16)" opacity=".85"/><circle cx="27.2" cy="10.6" r="2.1" fill="#f0b429"/></svg><span>COSMOS-AI<small>Space Debris &amp; Re-entry</small></span></a>
+      <p class="small mt2" style="max-width:38ch">A unified framework for space-debris detection and
+      atmospheric re-entry prediction, built on catalogue-scale, forward-in-time evaluation.</p>
+      <p class="small muted mb0">Archived snapshot 2026-10-27 · no live tracking</p>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul><li><a href="index.html">Home</a></li><li><a href="problem.html">Problem</a></li><li><a href="objectives.html">Objectives</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="demonstration.html">Demonstration</a></li><li><a href="progress.html">Progress</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="videos.html">Videos</a></li><li><a href="team.html">Team</a></li></ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/AnuSajikumar6264/Cosmos-AI---A-Unified-Framework-for-space-debris-detection-and-re-entry" target="_blank" rel="noopener">Source code (GitHub)</a></li>
+        <li><a href="https://planet4589.org/space/gcat" target="_blank" rel="noopener">GCAT catalogue</a></li>
+        <li><a href="https://celestrak.org" target="_blank" rel="noopener">CelesTrak</a></li>
+        <li><a href="https://www.amrita.edu" target="_blank" rel="noopener">Amrita Vishwa Vidyapeetham</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot-note">© 2026 Anupa Sajikumar · M.Tech Artificial Intelligence, Amrita Vishwa
+  Vidyapeetham, Coimbatore · Supervisor: Dr. Shanmuga Priya S. Research results, figures and
+  source are the author's own work. The console serves an archived snapshot: nothing on this site is
+  a live satellite feed, and no figure here is a forecast of a real present-day re-entry.</p>
+</div></footer>
+</div>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
